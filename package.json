@@ -18,5 +18,11 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "@mikro-orm/core": "^5.7.7",
+    "@mikro-orm/nestjs": "^5.1.8",
+    "@mikro-orm/postgresql": "^5.7.7",
+    "@nestjs/swagger": "^6.3.0"
+  }
 }
