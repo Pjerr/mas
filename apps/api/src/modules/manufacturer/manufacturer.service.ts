@@ -1,26 +1,38 @@
 import { Injectable } from '@nestjs/common';
 import { CreateManufacturerDto } from './dto/create-manufacturer.dto';
 import { UpdateManufacturerDto } from './dto/update-manufacturer.dto';
+import { EntityManager } from '@mikro-orm/postgresql';
+import { Manufacturer } from '@/core/entities';
 
 @Injectable()
 export class ManufacturerService {
-  create(createManufacturerDto: CreateManufacturerDto) {
-    return 'This action adds a new manufacturer';
+  constructor(private readonly em: EntityManager) {}
+
+  async create(createManufacturerDto: CreateManufacturerDto) {
+    const manufacturer = this.em.create(Manufacturer, {
+      ...createManufacturerDto,
+    });
+    await this.em.persistAndFlush(manufacturer);
+    return manufacturer;
   }
 
   findAll() {
-    return `This action returns all manufacturer`;
+    return this.em.find(Manufacturer, {});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} manufacturer`;
+  findOne(id: string) {
+    return this.em.findOneOrFail(Manufacturer, id);
   }
 
-  update(id: number, updateManufacturerDto: UpdateManufacturerDto) {
-    return `This action updates a #${id} manufacturer`;
+  async update(id: string, updateManufacturerDto: UpdateManufacturerDto) {
+    const manufacturer = await this.findOne(id);
+    manufacturer.assign(updateManufacturerDto);
+    await this.em.persistAndFlush(manufacturer);
+    return manufacturer;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} manufacturer`;
+  async remove(id: string) {
+    const manufacturer = this.em.getReference(Manufacturer, id);
+    await this.em.removeAndFlush(manufacturer);
   }
 }

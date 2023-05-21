@@ -1,26 +1,39 @@
 import { Injectable } from '@nestjs/common';
 import { CreateAttributeDto } from './dto/create-attribute.dto';
 import { UpdateAttributeDto } from './dto/update-attribute.dto';
+import { EntityManager } from '@mikro-orm/postgresql';
+import { Attribute } from '@/core/entities';
 
 @Injectable()
 export class AttributeService {
-  create(createAttributeDto: CreateAttributeDto) {
-    return 'This action adds a new attribute';
+  constructor(private readonly em: EntityManager) {}
+
+  async create(createAttributeDto: CreateAttributeDto) {
+    const attribute = this.em.create(Attribute, {
+      ...createAttributeDto,
+      group: createAttributeDto.groupId,
+    });
+    await this.em.persistAndFlush(attribute);
+    return attribute;
   }
 
   findAll() {
-    return `This action returns all attribute`;
+    return this.em.find(Attribute, {});
   }
 
   findOne(id: string) {
-    return `This action returns a #${id} attribute`;
+    return this.em.findOneOrFail(Attribute, id);
   }
 
-  update(id: string, updateAttributeDto: UpdateAttributeDto) {
-    return `This action updates a #${id} attribute`;
+  async update(id: string, updateAttributeDto: UpdateAttributeDto) {
+    const attribute = await this.findOne(id);
+    attribute.assign(attribute);
+    await this.em.persistAndFlush(attribute);
+    return attribute;
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} attribute`;
+  async remove(id: string) {
+    const attribute = this.em.getReference(Attribute, id);
+    await this.em.remove(attribute).flush();
   }
 }

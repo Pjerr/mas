@@ -21,7 +21,7 @@ export class CategoryService {
       { persist: true },
     );
 
-    this.em.flush();
+    await this.em.persistAndFlush(category);
 
     return category;
   }
@@ -34,16 +34,15 @@ export class CategoryService {
     return this.em.findOne(Category, id);
   }
 
-  update(id: string, updateCategoryDto: UpdateCategoryDto) {
-    return this.em.nativeUpdate(Category, id, {
-      ...updateCategoryDto,
-      parentId: updateCategoryDto.parentId,
-      children: updateCategoryDto.childrenIds,
-    });
+  async update(id: string, updateCategoryDto: UpdateCategoryDto) {
+    const category = await this.findOne(id);
+    category.assign(updateCategoryDto);
+    await this.em.persistAndFlush(category);
+    return category;
   }
 
-  remove(id: string) {
-    const category = this.em.findOneOrFail(Category, id);
-    return this.em.removeAndFlush(category);
+  async remove(id: string) {
+    const category = this.em.getReference(Category, id);
+    await this.em.removeAndFlush(category);
   }
 }

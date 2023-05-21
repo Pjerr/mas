@@ -1,26 +1,36 @@
 import { Injectable } from '@nestjs/common';
 import { CreateOptionDto } from './dto/create-option.dto';
 import { UpdateOptionDto } from './dto/update-option.dto';
+import { EntityManager } from '@mikro-orm/postgresql';
+import AttributeOption from '@/core/entities/attribute-option';
 
 @Injectable()
 export class OptionService {
-  create(createOptionDto: CreateOptionDto) {
-    return 'This action adds a new option';
+  constructor(private readonly em: EntityManager) {}
+
+  async create(createOptionDto: CreateOptionDto) {
+    const option = this.em.create(AttributeOption, { ...createOptionDto });
+    await this.em.persistAndFlush(option);
+    return option;
   }
 
   findAll() {
-    return `This action returns all option`;
+    return this.em.find(AttributeOption, {});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} option`;
+  findOne(id: string) {
+    return this.em.findOneOrFail(AttributeOption, id);
   }
 
-  update(id: number, updateOptionDto: UpdateOptionDto) {
-    return `This action updates a #${id} option`;
+  async update(id: string, updateOptionDto: UpdateOptionDto) {
+    const option = await this.findOne(id);
+    option.assign(updateOptionDto);
+    await this.em.persistAndFlush(option);
+    return option;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} option`;
+  async remove(id: string) {
+    const option = this.em.getReference(AttributeOption, id);
+    await this.em.removeAndFlush(option);
   }
 }
