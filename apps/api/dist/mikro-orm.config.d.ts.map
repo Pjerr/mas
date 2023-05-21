@@ -1,1 +1,1 @@
-{"version":3,"file":"mikro-orm.config.d.ts","sourceRoot":"","sources":["../src/mikro-orm.config.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAoB,MAAM,uBAAuB,CAAC;AAUlE,QAAA,MAAM,MAAM,EAAE,OAcb,CAAC;AAEF,eAAe,MAAM,CAAC"}
+{"version":3,"file":"mikro-orm.config.d.ts","sourceRoot":"","sources":["../src/mikro-orm.config.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAoB,MAAM,uBAAuB,CAAC;AAYlE,QAAA,MAAM,MAAM,EAAE,OAcb,CAAC;AAEF,eAAe,MAAM,CAAC"}
