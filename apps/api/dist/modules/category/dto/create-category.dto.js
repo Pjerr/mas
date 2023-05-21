@@ -10,10 +10,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateCategoryDto = void 0;
+const openapi = require("@nestjs/swagger");
 const swagger_1 = require("@nestjs/swagger");
 class CreateCategoryDto {
     constructor() {
         this.childrenIds = [];
+    }
+    static _OPENAPI_METADATA_FACTORY() {
+        return { name: { required: true, type: () => String }, parentId: { required: true, type: () => String }, childrenIds: { required: false, type: () => [String], default: [] } };
     }
 }
 __decorate([

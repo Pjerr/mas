@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Car = void 0;
+const openapi = require("@nestjs/swagger");
 const core_1 = require("@mikro-orm/core");
 const postgresql_1 = require("@mikro-orm/postgresql");
 const shared_1 = require("shared");
@@ -23,6 +24,9 @@ let Car = class Car extends core_1.BaseEntity {
         this.status = shared_1.CarStatus.InStock;
         this.attributes = new core_1.Collection(this);
         this.createdAt = new Date();
+    }
+    static _OPENAPI_METADATA_FACTORY() {
+        return { id: { required: true, type: () => String }, name: { required: true, type: () => String }, status: { required: true, default: shared_1.CarStatus.InStock, enum: require("../../../../../packages/shared/dist/types/enums").CarStatus }, searchIndex: { required: true, type: () => String }, properties: { required: true, type: () => Object }, manufacturerId: { required: true, type: () => String }, categoryId: { required: true, type: () => String }, attributes: { required: true, type: () => Object, default: new core_1.Collection(this) }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date } };
     }
 };
 __decorate([

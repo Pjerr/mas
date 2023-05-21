@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Group = void 0;
+const openapi = require("@nestjs/swagger");
 const core_1 = require("@mikro-orm/core");
 const postgresql_1 = require("@mikro-orm/postgresql");
 const swagger_1 = require("@nestjs/swagger");
@@ -19,6 +20,9 @@ let Group = class Group extends core_1.BaseEntity {
         super(...arguments);
         this.attributes = new core_1.Collection(this);
         this.createdAt = new Date();
+    }
+    static _OPENAPI_METADATA_FACTORY() {
+        return { id: { required: true, type: () => String }, name: { required: true, type: () => String }, searchableName: { required: true, type: () => String }, attributes: { required: true, type: () => Object, default: new core_1.Collection(this) }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date } };
     }
 };
 __decorate([

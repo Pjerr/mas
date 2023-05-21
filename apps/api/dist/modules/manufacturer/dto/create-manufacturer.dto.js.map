@@ -1,1 +1,1 @@
-{"version":3,"file":"create-manufacturer.dto.js","sourceRoot":"","sources":["../../../../src/modules/manufacturer/dto/create-manufacturer.dto.ts"],"names":[],"mappings":";;;AAAA,MAAa,qBAAqB;CAAG;AAArC,sDAAqC"}
+{"version":3,"file":"create-manufacturer.dto.js","sourceRoot":"","sources":["../../../../src/modules/manufacturer/dto/create-manufacturer.dto.ts"],"names":[],"mappings":";;;;AAAA,MAAa,qBAAqB;;;;CAAG;AAArC,sDAAqC"}

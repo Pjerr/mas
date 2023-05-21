@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Attribute = void 0;
+const openapi = require("@nestjs/swagger");
 const core_1 = require("@mikro-orm/core");
 const postgresql_1 = require("@mikro-orm/postgresql");
 const uuid4_1 = require("uuid4");
@@ -31,6 +32,9 @@ let Attribute = class Attribute extends core_1.BaseEntity {
         this.options = new core_1.Collection(this);
         this.cars = new core_1.Collection(this);
         this.createdAt = new Date();
+    }
+    static _OPENAPI_METADATA_FACTORY() {
+        return { id: { required: true, type: () => String, default: uuid4_1.uuid4 }, propertyKey: { required: true, type: () => String }, displayName: { required: true, type: () => String }, searchIndex: { required: true, type: () => String }, editorType: { required: true, type: () => Object, default: shared_1.EditorType.Text, enum: require("../../../../../packages/shared/dist/types/enums").EditorType }, editorValidation: { required: true, type: () => Object, default: shared_1.EditorValidation.None, enum: require("../../../../../packages/shared/dist/types/enums").EditorValidation }, group: { required: true, type: () => require("./group.entity").Group }, options: { required: true, type: () => Object, default: new core_1.Collection(this) }, cars: { required: true, type: () => Object, default: new core_1.Collection(this) }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date }, additionalMetadata: { required: false, type: () => require("../types/additional-metadata").default } };
     }
 };
 __decorate([

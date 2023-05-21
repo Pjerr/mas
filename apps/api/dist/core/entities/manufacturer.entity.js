@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Manufacturer = void 0;
+const openapi = require("@nestjs/swagger");
 const core_1 = require("@mikro-orm/core");
 const car_entity_1 = require("./car.entity");
 let Manufacturer = class Manufacturer extends core_1.BaseEntity {
@@ -17,6 +18,9 @@ let Manufacturer = class Manufacturer extends core_1.BaseEntity {
         super(...arguments);
         this.cars = new core_1.Collection(this);
         this.createdAt = new Date();
+    }
+    static _OPENAPI_METADATA_FACTORY() {
+        return { id: { required: true, type: () => String }, name: { required: true, type: () => String }, address: { required: true, type: () => String }, cars: { required: true, type: () => Object, default: new core_1.Collection(this) }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date } };
     }
 };
 __decorate([
