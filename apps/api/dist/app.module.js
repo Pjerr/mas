@@ -11,6 +11,10 @@ const common_1 = require("@nestjs/common");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const nestjs_1 = require("@mikro-orm/nestjs");
+const attribute_module_1 = require("./modules/attribute/attribute.module");
+const car_module_1 = require("./modules/car/car.module");
+const category_module_1 = require("./modules/category/category.module");
+const group_module_1 = require("./modules/group/group.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -22,6 +26,10 @@ AppModule = __decorate([
                 dbName: 'postgres',
                 type: 'postgresql',
             }),
+            attribute_module_1.AttributeModule,
+            car_module_1.CarModule,
+            category_module_1.CategoryModule,
+            group_module_1.GroupModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

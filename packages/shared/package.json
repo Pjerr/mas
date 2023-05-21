@@ -1,0 +1,28 @@
+{
+    "name": "shared",
+    "version": "0.0.0",
+    "main": "./dist/index.js",
+    "source": "./src/index.ts",
+    "types": "./dist/index.d.ts",
+    "files": [
+        "dist/**"
+    ],
+    "private": true,
+    "license": "MIT",
+    "jest": {
+        "preset": "jest-presets/jest/node"
+    },
+    "scripts": {
+        "build": "tsc",
+        "clean": "rm -rf dist",
+        "dev": "tsc -w",
+        "lint": "TIMING=1 eslint \"src/**/*.ts*\"",
+        "test": "jest"
+    },
+    "devDependencies": {
+        "typescript": "^4.5.3",
+        "tsconfig": "*",
+        "eslint": "^7.32.0",
+        "eslint-config-custom": "*"
+    }
+}

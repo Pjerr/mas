@@ -1,28 +1,36 @@
 {
-  "private": true,
-  "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev",
-    "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
-  },
-  "devDependencies": {
-    "@turbo/gen": "^1.9.7",
-    "eslint": "^7.32.0",
-    "eslint-config-custom": "*",
-    "prettier": "^2.5.1",
-    "turbo": "^1.9.7"
-  },
-  "name": "mas",
-  "packageManager": "npm@9.6.6",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
-  "dependencies": {
-    "@mikro-orm/core": "^5.7.7",
-    "@mikro-orm/nestjs": "^5.1.8",
-    "@mikro-orm/postgresql": "^5.7.7",
-    "@nestjs/swagger": "^6.3.0"
-  }
+    "private": true,
+    "scripts": {
+        "build": "turbo run build",
+        "dev": "turbo run dev",
+        "lint": "turbo run lint",
+        "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    },
+    "devDependencies": {
+        "@turbo/gen": "^1.9.7",
+        "eslint": "^7.32.0",
+        "eslint-config-custom": "*",
+        "prettier": "^2.5.1",
+        "turbo": "^1.9.7"
+    },
+    "name": "mas",
+    "packageManager": "npm@9.6.6",
+    "workspaces": [
+        "apps/*",
+        "packages/*"
+    ],
+    "dependencies": {
+        "@mikro-orm/core": "^5.7.7",
+        "@mikro-orm/nestjs": "^5.1.8",
+        "@mikro-orm/postgresql": "^5.7.7",
+        "@nestjs/swagger": "^6.3.0"
+    },
+    "mikro-orm": {
+        "useTsNode": true,
+        "tsConfigPath": "./apps/api/tsconfig.json",
+        "configPaths": [
+            "./apps/api/src/mikro-orm.config.ts",
+            "./apps/api/dist/mikro-orm.config.js"
+        ]
+    }
 }
