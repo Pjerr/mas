@@ -8,7 +8,7 @@ export declare class CategoryService {
     create(createCategoryDto: CreateCategoryDto): Promise<Category>;
     findAll(): Promise<import("@mikro-orm/core").Loaded<Category, never>[]>;
     findOne(id: string): Promise<import("@mikro-orm/core").Loaded<Category, never>>;
-    update(id: string, updateCategoryDto: UpdateCategoryDto): Promise<number>;
+    update(id: string, updateCategoryDto: UpdateCategoryDto): Promise<import("@mikro-orm/core").Loaded<Category, never>>;
     remove(id: string): Promise<void>;
 }
 //# sourceMappingURL=category.service.d.ts.map

@@ -18,6 +18,7 @@ const common_1 = require("@nestjs/common");
 const option_service_1 = require("./option.service");
 const create_option_dto_1 = require("./dto/create-option.dto");
 const update_option_dto_1 = require("./dto/update-option.dto");
+const swagger_1 = require("@nestjs/swagger");
 let OptionController = class OptionController {
     constructor(optionService) {
         this.optionService = optionService;
@@ -29,18 +30,18 @@ let OptionController = class OptionController {
         return this.optionService.findAll();
     }
     findOne(id) {
-        return this.optionService.findOne(+id);
+        return this.optionService.findOne(id);
     }
     update(id, updateOptionDto) {
-        return this.optionService.update(+id, updateOptionDto);
+        return this.optionService.update(id, updateOptionDto);
     }
     remove(id) {
-        return this.optionService.remove(+id);
+        return this.optionService.remove(id);
     }
 };
 __decorate([
     (0, common_1.Post)(),
-    openapi.ApiResponse({ status: 201, type: String }),
+    openapi.ApiResponse({ status: 201, type: require("../../core/entities/attribute-option").default }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_option_dto_1.CreateOptionDto]),
@@ -48,14 +49,14 @@ __decorate([
 ], OptionController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
-    openapi.ApiResponse({ status: 200, type: String }),
+    openapi.ApiResponse({ status: 200, type: [Object] }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], OptionController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
-    openapi.ApiResponse({ status: 200, type: String }),
+    openapi.ApiResponse({ status: 200, type: Object }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -63,7 +64,7 @@ __decorate([
 ], OptionController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Patch)(':id'),
-    openapi.ApiResponse({ status: 200, type: String }),
+    openapi.ApiResponse({ status: 200, type: Object }),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -72,13 +73,14 @@ __decorate([
 ], OptionController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
-    openapi.ApiResponse({ status: 200, type: String }),
+    openapi.ApiResponse({ status: 200 }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], OptionController.prototype, "remove", null);
 OptionController = __decorate([
+    (0, swagger_1.ApiTags)('Attribute option'),
     (0, common_1.Controller)('option'),
     __metadata("design:paramtypes", [option_service_1.OptionService])
 ], OptionController);

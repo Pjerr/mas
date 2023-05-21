@@ -1,1 +1,1 @@
-{"version":3,"file":"create-car.dto.d.ts","sourceRoot":"","sources":["../../../../src/modules/car/dto/create-car.dto.ts"],"names":[],"mappings":"AAAA,qBAAa,YAAY;CAAG"}
+{"version":3,"file":"create-car.dto.d.ts","sourceRoot":"","sources":["../../../../src/modules/car/dto/create-car.dto.ts"],"names":[],"mappings":"AAEA,OAAO,EAAE,SAAS,EAAE,MAAM,QAAQ,CAAC;AAEnC,qBAAa,YAAY;IAEvB,IAAI,EAAE,MAAM,CAAC;IAIb,MAAM,CAAC,EAAE,SAAS,CAAqB;IAGvC,UAAU,EAAE,MAAM,CAAC;IAGnB,YAAY,EAAE,MAAM,CAAC;CACtB"}

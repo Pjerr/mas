@@ -19,7 +19,7 @@ let CategoryService = class CategoryService {
     }
     async create(createCategoryDto) {
         const category = this.em.create(entities_1.Category, Object.assign(Object.assign({}, createCategoryDto), { parentId: createCategoryDto.parentId, children: createCategoryDto.childrenIds }), { persist: true });
-        this.em.flush();
+        await this.em.persistAndFlush(category);
         return category;
     }
     findAll() {
@@ -28,12 +28,15 @@ let CategoryService = class CategoryService {
     findOne(id) {
         return this.em.findOne(entities_1.Category, id);
     }
-    update(id, updateCategoryDto) {
-        return this.em.nativeUpdate(entities_1.Category, id, Object.assign(Object.assign({}, updateCategoryDto), { parentId: updateCategoryDto.parentId, children: updateCategoryDto.childrenIds }));
+    async update(id, updateCategoryDto) {
+        const category = await this.findOne(id);
+        category.assign(updateCategoryDto);
+        await this.em.persistAndFlush(category);
+        return category;
     }
-    remove(id) {
-        const category = this.em.findOneOrFail(entities_1.Category, id);
-        return this.em.removeAndFlush(category);
+    async remove(id) {
+        const category = this.em.getReference(entities_1.Category, id);
+        await this.em.removeAndFlush(category);
     }
 };
 CategoryService = __decorate([

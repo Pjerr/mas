@@ -18,6 +18,7 @@ const common_1 = require("@nestjs/common");
 const manufacturer_service_1 = require("./manufacturer.service");
 const create_manufacturer_dto_1 = require("./dto/create-manufacturer.dto");
 const update_manufacturer_dto_1 = require("./dto/update-manufacturer.dto");
+const swagger_1 = require("@nestjs/swagger");
 let ManufacturerController = class ManufacturerController {
     constructor(manufacturerService) {
         this.manufacturerService = manufacturerService;
@@ -29,18 +30,18 @@ let ManufacturerController = class ManufacturerController {
         return this.manufacturerService.findAll();
     }
     findOne(id) {
-        return this.manufacturerService.findOne(+id);
+        return this.manufacturerService.findOne(id);
     }
     update(id, updateManufacturerDto) {
-        return this.manufacturerService.update(+id, updateManufacturerDto);
+        return this.manufacturerService.update(id, updateManufacturerDto);
     }
     remove(id) {
-        return this.manufacturerService.remove(+id);
+        return this.manufacturerService.remove(id);
     }
 };
 __decorate([
     (0, common_1.Post)(),
-    openapi.ApiResponse({ status: 201, type: String }),
+    openapi.ApiResponse({ status: 201, type: require("../../core/entities/manufacturer.entity").Manufacturer }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_manufacturer_dto_1.CreateManufacturerDto]),
@@ -48,14 +49,14 @@ __decorate([
 ], ManufacturerController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
-    openapi.ApiResponse({ status: 200, type: String }),
+    openapi.ApiResponse({ status: 200, type: [Object] }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], ManufacturerController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
-    openapi.ApiResponse({ status: 200, type: String }),
+    openapi.ApiResponse({ status: 200, type: Object }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -63,7 +64,7 @@ __decorate([
 ], ManufacturerController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Patch)(':id'),
-    openapi.ApiResponse({ status: 200, type: String }),
+    openapi.ApiResponse({ status: 200, type: Object }),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -72,13 +73,14 @@ __decorate([
 ], ManufacturerController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
-    openapi.ApiResponse({ status: 200, type: String }),
+    openapi.ApiResponse({ status: 200 }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], ManufacturerController.prototype, "remove", null);
 ManufacturerController = __decorate([
+    (0, swagger_1.ApiTags)('Manufacturer'),
     (0, common_1.Controller)('manufacturer'),
     __metadata("design:paramtypes", [manufacturer_service_1.ManufacturerService])
 ], ManufacturerController);

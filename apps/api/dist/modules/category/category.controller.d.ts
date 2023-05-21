@@ -7,7 +7,7 @@ export declare class CategoryController {
     create(createCategoryDto: CreateCategoryDto): Promise<import("../../core/entities").Category>;
     findAll(): Promise<import("@mikro-orm/core").Loaded<import("../../core/entities").Category, never>[]>;
     findOne(id: string): Promise<import("@mikro-orm/core").Loaded<import("../../core/entities").Category, never>>;
-    update(id: string, updateCategoryDto: UpdateCategoryDto): Promise<number>;
+    update(id: string, updateCategoryDto: UpdateCategoryDto): Promise<import("@mikro-orm/core").Loaded<import("../../core/entities").Category, never>>;
     remove(id: string): Promise<void>;
 }
 //# sourceMappingURL=category.controller.d.ts.map

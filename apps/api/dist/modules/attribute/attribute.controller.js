@@ -18,6 +18,7 @@ const common_1 = require("@nestjs/common");
 const attribute_service_1 = require("./attribute.service");
 const create_attribute_dto_1 = require("./dto/create-attribute.dto");
 const update_attribute_dto_1 = require("./dto/update-attribute.dto");
+const swagger_1 = require("@nestjs/swagger");
 let AttributeController = class AttributeController {
     constructor(attributeService) {
         this.attributeService = attributeService;
@@ -40,7 +41,7 @@ let AttributeController = class AttributeController {
 };
 __decorate([
     (0, common_1.Post)(),
-    openapi.ApiResponse({ status: 201, type: String }),
+    openapi.ApiResponse({ status: 201, type: require("../../core/entities/attribute.entity").Attribute }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_attribute_dto_1.CreateAttributeDto]),
@@ -48,14 +49,14 @@ __decorate([
 ], AttributeController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
-    openapi.ApiResponse({ status: 200, type: String }),
+    openapi.ApiResponse({ status: 200, type: [Object] }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], AttributeController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
-    openapi.ApiResponse({ status: 200, type: String }),
+    openapi.ApiResponse({ status: 200, type: Object }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -63,7 +64,7 @@ __decorate([
 ], AttributeController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Patch)(':id'),
-    openapi.ApiResponse({ status: 200, type: String }),
+    openapi.ApiResponse({ status: 200, type: Object }),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -72,13 +73,14 @@ __decorate([
 ], AttributeController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
-    openapi.ApiResponse({ status: 200, type: String }),
+    openapi.ApiResponse({ status: 200 }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], AttributeController.prototype, "remove", null);
 AttributeController = __decorate([
+    (0, swagger_1.ApiTags)('Attribute'),
     (0, common_1.Controller)('attribute'),
     __metadata("design:paramtypes", [attribute_service_1.AttributeService])
 ], AttributeController);

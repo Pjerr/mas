@@ -18,6 +18,7 @@ const common_1 = require("@nestjs/common");
 const group_service_1 = require("./group.service");
 const create_group_dto_1 = require("./dto/create-group.dto");
 const update_group_dto_1 = require("./dto/update-group.dto");
+const swagger_1 = require("@nestjs/swagger");
 let GroupController = class GroupController {
     constructor(groupService) {
         this.groupService = groupService;
@@ -29,18 +30,18 @@ let GroupController = class GroupController {
         return this.groupService.findAll();
     }
     findOne(id) {
-        return this.groupService.findOne(+id);
+        return this.groupService.findOne(id);
     }
     update(id, updateGroupDto) {
-        return this.groupService.update(+id, updateGroupDto);
+        return this.groupService.update(id, updateGroupDto);
     }
     remove(id) {
-        return this.groupService.remove(+id);
+        return this.groupService.remove(id);
     }
 };
 __decorate([
     (0, common_1.Post)(),
-    openapi.ApiResponse({ status: 201, type: String }),
+    openapi.ApiResponse({ status: 201, type: require("../../core/entities/group.entity").Group }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_group_dto_1.CreateGroupDto]),
@@ -48,14 +49,14 @@ __decorate([
 ], GroupController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
-    openapi.ApiResponse({ status: 200, type: String }),
+    openapi.ApiResponse({ status: 200, type: [Object] }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], GroupController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
-    openapi.ApiResponse({ status: 200, type: String }),
+    openapi.ApiResponse({ status: 200, type: Object }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -63,7 +64,7 @@ __decorate([
 ], GroupController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Patch)(':id'),
-    openapi.ApiResponse({ status: 200, type: String }),
+    openapi.ApiResponse({ status: 200, type: Object }),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -72,13 +73,14 @@ __decorate([
 ], GroupController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
-    openapi.ApiResponse({ status: 200, type: String }),
+    openapi.ApiResponse({ status: 200 }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], GroupController.prototype, "remove", null);
 GroupController = __decorate([
+    (0, swagger_1.ApiTags)('Group'),
     (0, common_1.Controller)('group'),
     __metadata("design:paramtypes", [group_service_1.GroupService])
 ], GroupController);
