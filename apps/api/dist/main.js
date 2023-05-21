@@ -9,7 +9,7 @@ async function bootstrap() {
     const app = await core_2.NestFactory.create(app_module_1.AppModule);
     app.useGlobalPipes(new common_1.ValidationPipe());
     const config = new swagger_1.DocumentBuilder()
-        .setTitle('PIMS Api')
+        .setTitle('MAS Api')
         .setVersion('1.0')
         .build();
     const options = {

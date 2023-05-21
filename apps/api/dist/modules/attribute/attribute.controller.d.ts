@@ -10,3 +10,4 @@ export declare class AttributeController {
     update(id: string, updateAttributeDto: UpdateAttributeDto): string;
     remove(id: string): string;
 }
+//# sourceMappingURL=attribute.controller.d.ts.map

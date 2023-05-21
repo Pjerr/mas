@@ -10,3 +10,4 @@ export declare class CarController {
     update(id: string, updateCarDto: UpdateCarDto): string;
     remove(id: string): string;
 }
+//# sourceMappingURL=car.controller.d.ts.map

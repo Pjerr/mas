@@ -10,12 +10,15 @@ exports.CategoryModule = void 0;
 const common_1 = require("@nestjs/common");
 const category_service_1 = require("./category.service");
 const category_controller_1 = require("./category.controller");
+const nestjs_1 = require("@mikro-orm/nestjs");
+const entities_1 = require("../../core/entities");
 let CategoryModule = class CategoryModule {
 };
 CategoryModule = __decorate([
     (0, common_1.Module)({
+        imports: [nestjs_1.MikroOrmModule.forFeature([entities_1.Category])],
         controllers: [category_controller_1.CategoryController],
-        providers: [category_service_1.CategoryService]
+        providers: [category_service_1.CategoryService],
     })
 ], CategoryModule);
 exports.CategoryModule = CategoryModule;

@@ -10,3 +10,4 @@ export declare class GroupController {
     update(id: string, updateGroupDto: UpdateGroupDto): string;
     remove(id: string): string;
 }
+//# sourceMappingURL=group.controller.d.ts.map

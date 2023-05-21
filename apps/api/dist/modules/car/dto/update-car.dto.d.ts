@@ -3,3 +3,4 @@ declare const UpdateCarDto_base: import("@nestjs/mapped-types").MappedType<Parti
 export declare class UpdateCarDto extends UpdateCarDto_base {
 }
 export {};
+//# sourceMappingURL=update-car.dto.d.ts.map

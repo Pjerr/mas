@@ -3,3 +3,4 @@ declare const UpdateCategoryDto_base: import("@nestjs/mapped-types").MappedType<
 export declare class UpdateCategoryDto extends UpdateCategoryDto_base {
 }
 export {};
+//# sourceMappingURL=update-category.dto.d.ts.map

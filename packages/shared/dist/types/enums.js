@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.ConditionalOperator = exports.CarStatus = exports.EditorValidation = exports.EditorType = void 0;
 var EditorType;
 (function (EditorType) {

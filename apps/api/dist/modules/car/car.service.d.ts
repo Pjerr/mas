@@ -7,3 +7,4 @@ export declare class CarService {
     update(id: number, updateCarDto: UpdateCarDto): string;
     remove(id: number): string;
 }
+//# sourceMappingURL=car.service.d.ts.map

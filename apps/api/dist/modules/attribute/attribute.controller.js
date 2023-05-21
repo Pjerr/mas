@@ -28,13 +28,13 @@ let AttributeController = class AttributeController {
         return this.attributeService.findAll();
     }
     findOne(id) {
-        return this.attributeService.findOne(+id);
+        return this.attributeService.findOne(id);
     }
     update(id, updateAttributeDto) {
-        return this.attributeService.update(+id, updateAttributeDto);
+        return this.attributeService.update(id, updateAttributeDto);
     }
     remove(id) {
-        return this.attributeService.remove(+id);
+        return this.attributeService.remove(id);
     }
 };
 __decorate([

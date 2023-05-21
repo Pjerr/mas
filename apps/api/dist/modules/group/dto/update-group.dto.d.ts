@@ -3,3 +3,4 @@ declare const UpdateGroupDto_base: import("@nestjs/mapped-types").MappedType<Par
 export declare class UpdateGroupDto extends UpdateGroupDto_base {
 }
 export {};
+//# sourceMappingURL=update-group.dto.d.ts.map

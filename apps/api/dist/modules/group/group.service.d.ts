@@ -7,3 +7,4 @@ export declare class GroupService {
     update(id: number, updateGroupDto: UpdateGroupDto): string;
     remove(id: number): string;
 }
+//# sourceMappingURL=group.service.d.ts.map
