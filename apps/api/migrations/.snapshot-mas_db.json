@@ -1,0 +1,747 @@
+{
+  "namespaces": [
+    "public"
+  ],
+  "name": "public",
+  "tables": [
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "search_index": {
+          "name": "search_index",
+          "type": "tsvector",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "unknown"
+        },
+        "parent_id_id": {
+          "name": "parent_id_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 6,
+          "mappedType": "datetime"
+        }
+      },
+      "name": "category",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "category_search_index_index",
+          "columnNames": [
+            "search_index"
+          ],
+          "composite": false,
+          "primary": false,
+          "unique": false,
+          "type": "fulltext"
+        },
+        {
+          "keyName": "category_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "category_parent_id_id_foreign": {
+          "constraintName": "category_parent_id_id_foreign",
+          "columnNames": [
+            "parent_id_id"
+          ],
+          "localTableName": "public.category",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.category",
+          "deleteRule": "set null",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "searchable_name": {
+          "name": "searchable_name",
+          "type": "tsvector",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "unknown"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 6,
+          "mappedType": "datetime"
+        }
+      },
+      "name": "group",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "group_searchable_name_index",
+          "columnNames": [
+            "searchable_name"
+          ],
+          "composite": false,
+          "primary": false,
+          "unique": false,
+          "type": "fulltext"
+        },
+        {
+          "keyName": "group_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "property_key": {
+          "name": "property_key",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "display_name": {
+          "name": "display_name",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "search_index": {
+          "name": "search_index",
+          "type": "tsvector",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "unknown"
+        },
+        "editor_type": {
+          "name": "editor_type",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "'text-input'",
+          "enumItems": [
+            "checkbox",
+            "text-input",
+            "number-input",
+            "select",
+            "datetime",
+            "multiple-select",
+            "image",
+            "options"
+          ],
+          "mappedType": "enum"
+        },
+        "editor_validation": {
+          "name": "editor_validation",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "'none'",
+          "enumItems": [
+            "none",
+            "decimal-number",
+            "integer-number",
+            "email",
+            "url",
+            "letters",
+            "a-z_0-9",
+            "array",
+            "select"
+          ],
+          "mappedType": "enum"
+        },
+        "group_id": {
+          "name": "group_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "additional_metadata": {
+          "name": "additional_metadata",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        }
+      },
+      "name": "attribute",
+      "schema": "public",
+      "indexes": [
+        {
+          "columnNames": [
+            "property_key"
+          ],
+          "composite": false,
+          "keyName": "attribute_property_key_unique",
+          "primary": false,
+          "unique": true
+        },
+        {
+          "keyName": "attribute_search_index_index",
+          "columnNames": [
+            "search_index"
+          ],
+          "composite": false,
+          "primary": false,
+          "unique": false,
+          "type": "fulltext"
+        },
+        {
+          "keyName": "attribute_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "attribute_group_id_foreign": {
+          "constraintName": "attribute_group_id_foreign",
+          "columnNames": [
+            "group_id"
+          ],
+          "localTableName": "public.attribute",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.group",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "value": {
+          "name": "value",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "additional_price": {
+          "name": "additional_price",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "integer"
+        },
+        "sku": {
+          "name": "sku",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "display_name": {
+          "name": "display_name",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "attribute_id_id": {
+          "name": "attribute_id_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 6,
+          "mappedType": "datetime"
+        }
+      },
+      "name": "attribute_option",
+      "schema": "public",
+      "indexes": [
+        {
+          "columnNames": [
+            "sku"
+          ],
+          "composite": false,
+          "keyName": "attribute_option_sku_unique",
+          "primary": false,
+          "unique": true
+        },
+        {
+          "columnNames": [
+            "display_name"
+          ],
+          "composite": false,
+          "keyName": "attribute_option_display_name_unique",
+          "primary": false,
+          "unique": true
+        },
+        {
+          "keyName": "attribute_option_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "attribute_option_attribute_id_id_foreign": {
+          "constraintName": "attribute_option_attribute_id_id_foreign",
+          "columnNames": [
+            "attribute_id_id"
+          ],
+          "localTableName": "public.attribute_option",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.attribute",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "address": {
+          "name": "address",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 6,
+          "mappedType": "datetime"
+        }
+      },
+      "name": "manufacturer",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "manufacturer_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {}
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "'in-stock'",
+          "enumItems": [
+            "in-stock",
+            "out-of-stock"
+          ],
+          "mappedType": "enum"
+        },
+        "search_index": {
+          "name": "search_index",
+          "type": "tsvector",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "unknown"
+        },
+        "properties": {
+          "name": "properties",
+          "type": "jsonb",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "json"
+        },
+        "manufacturer_id_id": {
+          "name": "manufacturer_id_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "category_id_id": {
+          "name": "category_id_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "uuid"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 6,
+          "mappedType": "datetime"
+        }
+      },
+      "name": "car",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "car_search_index_index",
+          "columnNames": [
+            "search_index"
+          ],
+          "composite": false,
+          "primary": false,
+          "unique": false,
+          "type": "fulltext"
+        },
+        {
+          "keyName": "car_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "car_manufacturer_id_id_foreign": {
+          "constraintName": "car_manufacturer_id_id_foreign",
+          "columnNames": [
+            "manufacturer_id_id"
+          ],
+          "localTableName": "public.car",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.manufacturer",
+          "updateRule": "cascade"
+        },
+        "car_category_id_id_foreign": {
+          "constraintName": "car_category_id_id_foreign",
+          "columnNames": [
+            "category_id_id"
+          ],
+          "localTableName": "public.car",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.category",
+          "deleteRule": "set null",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "car_id": {
+          "name": "car_id",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "attribute_id": {
+          "name": "attribute_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        }
+      },
+      "name": "car_attributes",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "car_attributes_pkey",
+          "columnNames": [
+            "car_id",
+            "attribute_id"
+          ],
+          "composite": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "car_attributes_car_id_foreign": {
+          "constraintName": "car_attributes_car_id_foreign",
+          "columnNames": [
+            "car_id"
+          ],
+          "localTableName": "public.car_attributes",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.car",
+          "deleteRule": "cascade",
+          "updateRule": "cascade"
+        },
+        "car_attributes_attribute_id_foreign": {
+          "constraintName": "car_attributes_attribute_id_foreign",
+          "columnNames": [
+            "attribute_id"
+          ],
+          "localTableName": "public.car_attributes",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.attribute",
+          "deleteRule": "cascade",
+          "updateRule": "cascade"
+        }
+      }
+    }
+  ]
+}
