@@ -1,0 +1,41 @@
+.edit__container {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border-color);
+    border-radius: var(--size-1);
+}
+
+.edit__tabs {
+    display: flex;
+    align-items: center;
+    background-color: var(--layer-2-color);
+    position: relative;
+    overflow: auto;
+}
+
+.add-tab__button,
+.add-prop__button {
+    margin: var(--size-1) var(--size-3);
+}
+
+.add-tab__button:hover,
+.add-prop__button:hover {
+    color: var(--color-secondary--hover);
+}
+
+.edit__chips {
+    display: flex;
+    gap: var(--size-2);
+    background-color: var(--header-color);
+    padding: var(--size-4) var(--size-2);
+}
+
+.edit__editors {
+    height: var(--size-160);
+}
+
+.spinner__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

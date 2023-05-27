@@ -1,0 +1,45 @@
+.sidebar-container {
+    display: flex;
+}
+
+.nav-container {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--layer-2-color);
+    z-index: 1;
+}
+
+.tabs-tab {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-collapse: collapse;
+    padding: var(--size-6) var(--size-2);
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    width: var(--size-8);
+    height: max-content;
+}
+
+.tabs-tab:hover:not(.tab--active) {
+    background-color: var(--color-secondary);
+}
+
+.tab--active {
+    background-color: var(--header-color);
+}
+
+.expandable-container {
+    border-right: 1px solid var(--border-color);
+    background-color: var(--layer-1-color);
+    position: relative;
+    min-width: var(--size-64);
+    display: flex;
+}
+
+.content-container {
+    background-color: var(--layer-1-color);
+    padding: var(--size-2) var(--size-6);
+    overflow: auto;
+    flex: 1;
+}

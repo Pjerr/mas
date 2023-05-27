@@ -1,0 +1,12 @@
+.tooltip__trigger {
+    display: flex;
+    height: var(--size-full);
+}
+
+.tooltip-arrow {
+    position: absolute;
+    width: var(--size-2);
+    height: var(--size-2);
+    background: inherit;
+    transform: rotate(45deg);
+}

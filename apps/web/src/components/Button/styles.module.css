@@ -1,0 +1,81 @@
+.button {
+    display: flex;
+    gap: var(--size-1);
+    align-items: center;
+    border-radius: var(--size-1);
+    padding: var(--size-2);
+}
+
+.button-primary {
+    background-color: var(--color-primary);
+}
+
+.button-secondary {
+    background-color: var(--color-secondary);
+}
+
+.button-outline {
+    border: 1px solid var(--border-color);
+}
+
+.button-full-outline {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    border: 1px solid var(--border-color);
+    width: 100%;
+}
+
+.button-danger {
+    background-color: var(--color-danger);
+}
+
+.button-info {
+    background-color: var(--color-warning);
+}
+
+.button-borderless {
+    border: none;
+}
+
+.button--disabled {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.button__icon-left {
+    flex-direction: row;
+}
+
+.button__icon-right {
+    flex-direction: row-reverse;
+}
+
+.button-primary:hover {
+    background-color: var(--color-primary--hover);
+}
+
+.button-secondary:hover {
+    background-color: var(--color-secondary--hover);
+}
+
+.button-outline:hover {
+    background-color: var(--color-secondary);
+}
+
+.button-danger:hover {
+    background-color: var(--color-danger--hover);
+}
+
+.button-info:hover {
+    background-color: var(--color-warning--hover);
+}
+
+.tooltip {
+    box-sizing: border-box;
+    width: max-content;
+    background-color: var(--layer-2-color);
+    color: var(--text-primary);
+    padding: var(--size-1) var(--size-2);
+    border-radius: var(--size-2);
+}

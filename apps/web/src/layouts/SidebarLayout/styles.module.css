@@ -1,0 +1,13 @@
+.sidebar-layout {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    padding: var(--size-6);
+    overflow: auto;
+    flex: 1;
+}

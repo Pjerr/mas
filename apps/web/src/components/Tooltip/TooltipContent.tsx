@@ -1,0 +1,50 @@
+import { useTooltipContext } from '@/hooks/useTooltip';
+import {
+    FloatingPortal,
+    useMergeRefs,
+    useTransitionStyles,
+} from '@floating-ui/react';
+import styles from './styles.module.css';
+import React from 'react';
+
+export const TooltipContent = React.forwardRef<
+    HTMLDivElement,
+    React.HTMLProps<HTMLDivElement>
+>((props, propRef) => {
+    const context = useTooltipContext();
+    const ref = useMergeRefs([context.refs.setFloating, propRef]);
+
+    const { styles: transitionStyles } = useTransitionStyles(context.context);
+
+    return (
+        <FloatingPortal>
+            {context.open && (
+                <React.Fragment>
+                    <div
+                        ref={ref}
+                        style={{
+                            position: context.strategy,
+                            top: context.y ?? 0,
+                            left: context.x ?? 0,
+                            visibility:
+                                context.x === null ? 'hidden' : 'visible',
+                            ...props.style,
+                            ...transitionStyles,
+                        }}
+                        {...context.getFloatingProps(props)}
+                    >
+                        {props.children}
+                        <div
+                            ref={context.arrowRef}
+                            className={styles['tooltip-arrow']}
+                            style={{
+                                left: context.middlewareData.arrow?.x ?? '',
+                                top: context.middlewareData.arrow?.y ?? '',
+                            }}
+                        ></div>
+                    </div>
+                </React.Fragment>
+            )}
+        </FloatingPortal>
+    );
+});
