@@ -1,0 +1,14 @@
+.editor__label {
+    text-transform: capitalize;
+    padding-bottom: var(--size-2);
+}
+
+.editor__container {
+    display: flex;
+    max-width: var(--size-64);
+    flex-direction: column;
+}
+
+.error-message {
+    color: var(--color-danger);
+}

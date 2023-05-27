@@ -11,6 +11,7 @@ var EditorType;
     EditorType["MultipleSelect"] = "multiple-select";
     EditorType["Image"] = "image";
     EditorType["Options"] = "options";
+    EditorType["Button"] = "button";
 })(EditorType = exports.EditorType || (exports.EditorType = {}));
 var EditorValidation;
 (function (EditorValidation) {

@@ -6,7 +6,8 @@ export declare enum EditorType {
     Datetime = "datetime",
     MultipleSelect = "multiple-select",
     Image = "image",
-    Options = "options"
+    Options = "options",
+    Button = "button"
 }
 export declare enum EditorValidation {
     None = "none",

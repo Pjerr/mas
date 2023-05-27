@@ -1,0 +1,21 @@
+.inplace-form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.inplace-buttons {
+    display: flex;
+}
+
+.inplace-container {
+    -webkit-line-clamp: 1;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    flex: 1;
+}
+
+.inplace-button:hover {
+    color: var(--color-secondary--hover);
+}

@@ -3,7 +3,7 @@ import { useMergeRefs } from '@floating-ui/react';
 import styles from './styles.module.css';
 import React from 'react';
 
-export const TooltipTrigger = React.forwardRef<
+const TooltipTrigger = React.forwardRef<
     HTMLDivElement,
     React.HTMLProps<HTMLDivElement>
 >(({ children, ...props }, propRef) => {
@@ -22,3 +22,5 @@ export const TooltipTrigger = React.forwardRef<
         </div>
     );
 });
+
+export default TooltipTrigger;

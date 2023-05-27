@@ -1,0 +1,13 @@
+.number-input__container {
+    display: flex;
+}
+
+.number-input__buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+.number-input__button {
+    font-size: var(--font-xxs);
+    padding: 0 var(--size-2);
+}

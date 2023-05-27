@@ -5,7 +5,8 @@
         "dev": "turbo run dev",
         "lint": "turbo run lint",
         "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-        "openapi": "npx @rtk-query/codegen-openapi ./apps/web/openapi-config.ts"
+        "openapi": "npx @rtk-query/codegen-openapi ./apps/web/openapi-config.ts",
+        "test": "turbo run test"
     },
     "devDependencies": {
         "@turbo/gen": "^1.9.7",

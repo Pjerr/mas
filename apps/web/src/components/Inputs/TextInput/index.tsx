@@ -1,0 +1,38 @@
+import classNames from 'classnames';
+import React, { useState } from 'react';
+import styles from './styles.module.css';
+interface InputProps {
+    icon?: React.ReactNode;
+    variant?: 'underline' | 'border' | 'background';
+    label?: string;
+    iconPosition?: 'left' | 'right';
+}
+
+const TextInput = React.forwardRef<
+    HTMLInputElement,
+    InputProps & React.InputHTMLAttributes<HTMLInputElement>
+>(({ icon, iconPosition, variant, label, ...props }, ref) => {
+    return (
+        <>
+            {label && <label>{label}:</label>}
+            <div
+                className={classNames(
+                    styles['input-field'],
+                    styles[`input-field-${iconPosition}`],
+                    {
+                        [styles[`input-field-${variant}`]]: variant,
+                    }
+                )}
+            >
+                <input
+                    ref={ref}
+                    {...props}
+                    className={classNames(styles[`input`], props.className)}
+                />
+                <div className={classNames(styles['icon'])}>{icon}</div>
+            </div>
+        </>
+    );
+});
+
+export default TextInput;

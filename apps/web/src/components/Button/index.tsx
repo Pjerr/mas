@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import React, { ButtonHTMLAttributes } from 'react';
 import { Tooltip } from '../Tooltip';
-import { TooltipContent } from '../Tooltip/TooltipContent';
-import { TooltipTrigger } from '../Tooltip/TooltipTrigger';
+import TooltipContent from '../Tooltip/TooltipContent';
+import TooltipTrigger from '../Tooltip/TooltipTrigger';
 import styles from './styles.module.css';
 
 interface ButtonProps {
@@ -20,7 +20,7 @@ interface ButtonProps {
     iconPlacement?: 'left' | 'right';
 }
 
-export const Button = React.forwardRef<
+const Button = React.forwardRef<
     HTMLButtonElement,
     ButtonProps & ButtonHTMLAttributes<HTMLButtonElement>
 >(
@@ -67,3 +67,5 @@ export const Button = React.forwardRef<
         );
     }
 );
+
+export default Button;

@@ -7,7 +7,7 @@ import {
 import styles from './styles.module.css';
 import React from 'react';
 
-export const TooltipContent = React.forwardRef<
+const TooltipContent = React.forwardRef<
     HTMLDivElement,
     React.HTMLProps<HTMLDivElement>
 >((props, propRef) => {
@@ -48,3 +48,5 @@ export const TooltipContent = React.forwardRef<
         </FloatingPortal>
     );
 });
+
+export default TooltipContent;
