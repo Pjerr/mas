@@ -1,7 +1,14 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
+import tableReducer from './table/index';
+import attributeEditorReducer from './editors/attribute/index';
+import carEditorReducer from './editors/car/index';
 
-const rootReducer = combineReducers({});
+const rootReducer = combineReducers({
+    table: tableReducer,
+    attributeEditor: attributeEditorReducer,
+    carEditor: carEditorReducer,
+});
 
 export const store = configureStore({
     reducer: rootReducer,
