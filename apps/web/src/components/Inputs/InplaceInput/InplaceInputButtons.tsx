@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { FaRegCheckCircle, FaTimes } from 'react-icons/fa';
-import { Button } from '../../Button';
+import Button from '../../Button';
 import styles from './styles.module.css';
 
 export function InplaceInputButtons({

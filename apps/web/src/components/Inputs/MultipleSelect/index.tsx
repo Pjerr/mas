@@ -35,4 +35,6 @@ const MultipleSelect = React.forwardRef<
     );
 });
 
+MultipleSelect.displayName = 'MultipleSelect';
+
 export default MultipleSelect;

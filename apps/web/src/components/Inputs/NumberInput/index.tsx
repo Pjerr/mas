@@ -63,4 +63,6 @@ const NumberInput = React.forwardRef<
     );
 });
 
+NumberInput.displayName = 'NumberInput';
+
 export default NumberInput;

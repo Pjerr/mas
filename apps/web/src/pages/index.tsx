@@ -6,7 +6,6 @@ import { RootState, useAppDispatch } from '@/store';
 import { useRouter } from 'next/router';
 import qs from 'qs';
 import { SidebarLayout } from '@/layouts/SidebarLayout';
-import { Button } from '@/components/Button';
 
 const Cars: NextPageWithLayout = () => {
     const router = useRouter();

@@ -49,4 +49,6 @@ const TooltipContent = React.forwardRef<
     );
 });
 
+TooltipContent.displayName = 'TooltipContent';
+
 export default TooltipContent;

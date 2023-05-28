@@ -65,4 +65,6 @@ const InplaceInput = React.forwardRef<
     );
 });
 
+InplaceInput.displayName = 'InplaceInput';
+
 export default InplaceInput;

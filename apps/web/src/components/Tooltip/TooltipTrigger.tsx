@@ -23,4 +23,6 @@ const TooltipTrigger = React.forwardRef<
     );
 });
 
+TooltipTrigger.displayName = 'TooltipTrigger';
+
 export default TooltipTrigger;

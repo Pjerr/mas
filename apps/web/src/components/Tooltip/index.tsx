@@ -1,6 +1,6 @@
 import { TooltipContext, TooltipOptions, useTooltip } from '@/hooks/useTooltip';
 
-export function Tooltip({
+export default function Tooltip({
     children,
     ...options
 }: { children: React.ReactNode } & TooltipOptions) {

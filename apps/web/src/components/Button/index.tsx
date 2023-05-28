@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React, { ButtonHTMLAttributes } from 'react';
-import { Tooltip } from '../Tooltip';
+import Tooltip from '../Tooltip';
 import TooltipContent from '../Tooltip/TooltipContent';
 import TooltipTrigger from '../Tooltip/TooltipTrigger';
 import styles from './styles.module.css';
@@ -67,5 +67,7 @@ const Button = React.forwardRef<
         );
     }
 );
+
+Button.displayName = 'Button';
 
 export default Button;
