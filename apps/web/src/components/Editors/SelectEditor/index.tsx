@@ -4,7 +4,7 @@ import { useFormContext } from 'react-hook-form';
 
 import styles from '../styles.module.css';
 import { ErrorMessage } from '@hookform/error-message';
-import { OptionProps, Select } from '@/components/Inputs/Select';
+import Select, { OptionProps } from '@/components/Inputs/Select';
 
 export default function SelectEditor({
     field,

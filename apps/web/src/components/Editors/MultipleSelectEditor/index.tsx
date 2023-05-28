@@ -3,8 +3,7 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import styles from '../styles.module.css';
 import { ErrorMessage } from '@hookform/error-message';
-import {
-    MultipleSelect,
+import MultipleSelect, {
     OptionProps,
 } from '@/components/Inputs/MultipleSelect';
 

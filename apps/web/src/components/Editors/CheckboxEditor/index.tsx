@@ -3,7 +3,7 @@ import { EditorProps } from '@/types/editors';
 import { useFormContext } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import styles from '../styles.module.css';
-import { Checkbox } from '@/components/Inputs/Checkbox';
+import Checkbox from '@/components/Inputs/Checkbox';
 
 export default function CheckboxEditor({
     field,
