@@ -3,7 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum } from 'class-validator';
 import { EditorType, EditorValidation } from 'shared';
 
-export class CreateAttributeDto {
+export class CreateAttribute {
   @ApiProperty()
   propertyKey?: string;
 
@@ -11,15 +11,15 @@ export class CreateAttributeDto {
   displayName: string;
 
   @ApiProperty()
+  groupId: string;
+
+  @ApiProperty()
   @IsEnum(EditorType)
-  editorType: EditorType = EditorType.Text;
+  editorType = EditorType.Text;
 
   @ApiProperty()
   @IsEnum(EditorValidation)
-  editorValidation: EditorValidation = EditorValidation.None;
-
-  @ApiProperty()
-  groupId: string;
+  editorValidation = EditorValidation.None;
 
   @ApiProperty()
   additionalMetadata?: AdditionalMetadata = { selectOptions: [] };
