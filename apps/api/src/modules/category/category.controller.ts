@@ -6,42 +6,75 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { CategoryService } from './category.service';
-import { CreateCategoryDto } from './dto/create-category.dto';
-import { UpdateCategoryDto } from './dto/update-category.dto';
+import { CreateCategory } from './dto/requests/create-category.request';
+import { UpdateCategory } from './dto/requests/update-category.request';
 import { ApiTags } from '@nestjs/swagger';
+import {
+  CategoriesResponse,
+  CategoryRelationTypes,
+  CategoryResponse,
+  QueryCategory,
+  UpdateRelation,
+} from './dto';
+import { FilterQuery } from '@/core/types';
+import { QueryPipe } from '@/core/pipes/query.pipe';
+import { Category } from '@/core/entities';
+import { filterEntity } from '@/core/utils/parse-query';
 
-@ApiTags('Category')
-@Controller('category')
+@ApiTags('Categories')
+@Controller('categories')
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
   @Post()
-  create(@Body() createCategoryDto: CreateCategoryDto) {
-    return this.categoryService.create(createCategoryDto);
+  async create(@Body() payload: CreateCategory): Promise<CategoryResponse> {
+    const response = await this.categoryService.create(payload);
+    return { data: response };
   }
 
   @Get()
-  findAll() {
-    return this.categoryService.findAll();
+  @FilterQuery('query', QueryCategory)
+  async findMany(
+    @Query('query', QueryPipe<CategoryRelationTypes, Category>)
+    query: QueryCategory,
+  ): Promise<CategoriesResponse> {
+    const filter = filterEntity<CategoryRelationTypes, Category>(
+      query,
+      Category,
+    );
+    const response = await this.categoryService.find(filter);
+    return { data: response };
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.categoryService.findOne(id);
+  async findOne(@Param('id') id: string): Promise<CategoryResponse> {
+    const response = await this.categoryService.findOne(id);
+    return { data: response };
   }
 
   @Patch(':id')
-  update(
+  async update(
     @Param('id') id: string,
-    @Body() updateCategoryDto: UpdateCategoryDto,
-  ) {
-    return this.categoryService.update(id, updateCategoryDto);
+    @Body() payload: UpdateCategory,
+  ): Promise<CategoryResponse> {
+    const response = await this.categoryService.update(id, payload);
+    return { data: response };
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.categoryService.remove(id);
+  }
+
+  @Patch(':id/relathionships/category')
+  async updateRelation(
+    @Param('id') id: string,
+    @Body() payload: UpdateRelation,
+  ): Promise<CategoryResponse> {
+    const response = await this.categoryService.updateRelation(id, payload);
+    return { data: response };
   }
 }

@@ -1,13 +1,14 @@
-import { AttributeService } from './attribute.service';
-import { CreateAttributeDto } from './dto/create-attribute.dto';
-import { UpdateAttributeDto } from './dto/update-attribute.dto';
+import { AttributeService } from '@/modules/attribute/attribute.service';
+import { CreateAttribute, QueryAttribtue, UpdateAttribute } from '@/modules/attribute/dto';
+import { AttributeResponse, AttributesResponse, PartialAttributesResponse } from '@/modules/attribute/dto/attribute.response';
 export declare class AttributeController {
     private readonly attributeService;
     constructor(attributeService: AttributeService);
-    create(createAttributeDto: CreateAttributeDto): Promise<import("../../core/entities").Attribute>;
-    findAll(): Promise<import("@mikro-orm/core").Loaded<import("../../core/entities").Attribute, never>[]>;
-    findOne(id: string): Promise<import("@mikro-orm/core").Loaded<import("../../core/entities").Attribute, never>>;
-    update(id: string, updateAttributeDto: UpdateAttributeDto): Promise<import("@mikro-orm/core").Loaded<import("../../core/entities").Attribute, never>>;
-    remove(id: string): Promise<void>;
+    create(payload: CreateAttribute): Promise<AttributeResponse>;
+    find(query: QueryAttribtue): Promise<AttributesResponse>;
+    findOne(id: string): Promise<AttributeResponse>;
+    findByCar(carId: string): Promise<PartialAttributesResponse>;
+    update(id: string, payload: UpdateAttribute): Promise<AttributeResponse>;
+    removeMany(ids: string[]): Promise<void>;
 }
 //# sourceMappingURL=attribute.controller.d.ts.map

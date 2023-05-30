@@ -14,74 +14,96 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AttributeController = void 0;
 const openapi = require("@nestjs/swagger");
-const common_1 = require("@nestjs/common");
+const entities_1 = require("../../core/entities");
+const query_pipe_1 = require("../../core/pipes/query.pipe");
+const types_1 = require("../../core/types");
+const parse_query_1 = require("../../core/utils/parse-query");
 const attribute_service_1 = require("./attribute.service");
-const create_attribute_dto_1 = require("./dto/create-attribute.dto");
-const update_attribute_dto_1 = require("./dto/update-attribute.dto");
+const dto_1 = require("./dto");
+const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 let AttributeController = class AttributeController {
     constructor(attributeService) {
         this.attributeService = attributeService;
     }
-    create(createAttributeDto) {
-        return this.attributeService.create(createAttributeDto);
+    async create(payload) {
+        const response = await this.attributeService.create(payload);
+        return { data: response };
     }
-    findAll() {
-        return this.attributeService.findAll();
+    async find(query) {
+        const filter = (0, parse_query_1.filterEntity)(query, entities_1.Attribute);
+        const response = await this.attributeService.find(filter);
+        return { data: response };
     }
-    findOne(id) {
-        return this.attributeService.findOne(id);
+    async findOne(id) {
+        const response = await this.attributeService.findOne(id);
+        return { data: response };
     }
-    update(id, updateAttributeDto) {
-        return this.attributeService.update(id, updateAttributeDto);
+    async findByCar(carId) {
+        const response = await this.attributeService.findBy(carId);
+        return { data: response };
     }
-    remove(id) {
-        return this.attributeService.remove(id);
+    async update(id, payload) {
+        const response = await this.attributeService.update(id, payload);
+        return { data: response };
+    }
+    removeMany(ids) {
+        return this.attributeService.removeMany(ids);
     }
 };
 __decorate([
     (0, common_1.Post)(),
-    openapi.ApiResponse({ status: 201, type: require("../../core/entities/attribute.entity").Attribute }),
+    openapi.ApiResponse({ status: 201, type: require("./dto/attribute.response").AttributeResponse }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_attribute_dto_1.CreateAttributeDto]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [dto_1.CreateAttribute]),
+    __metadata("design:returntype", Promise)
 ], AttributeController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
-    openapi.ApiResponse({ status: 200, type: [Object] }),
+    (0, types_1.FilterQuery)('query', dto_1.QueryAttribtue),
+    openapi.ApiResponse({ status: 200, type: require("./dto/attribute.response").AttributesResponse }),
+    __param(0, (0, common_1.Query)('query', (query_pipe_1.QueryPipe))),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], AttributeController.prototype, "findAll", null);
+    __metadata("design:paramtypes", [dto_1.QueryAttribtue]),
+    __metadata("design:returntype", Promise)
+], AttributeController.prototype, "find", null);
 __decorate([
     (0, common_1.Get)(':id'),
-    openapi.ApiResponse({ status: 200, type: Object }),
+    openapi.ApiResponse({ status: 200, type: require("./dto/attribute.response").AttributeResponse }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], AttributeController.prototype, "findOne", null);
 __decorate([
+    (0, common_1.Get)(':id/car'),
+    openapi.ApiResponse({ status: 200, type: require("./dto/attribute.response").PartialAttributesResponse }),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], AttributeController.prototype, "findByCar", null);
+__decorate([
     (0, common_1.Patch)(':id'),
-    openapi.ApiResponse({ status: 200, type: Object }),
+    openapi.ApiResponse({ status: 200, type: require("./dto/attribute.response").AttributeResponse }),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_attribute_dto_1.UpdateAttributeDto]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [String, dto_1.UpdateAttribute]),
+    __metadata("design:returntype", Promise)
 ], AttributeController.prototype, "update", null);
 __decorate([
-    (0, common_1.Delete)(':id'),
+    (0, common_1.Delete)(),
     openapi.ApiResponse({ status: 200 }),
-    __param(0, (0, common_1.Param)('id')),
+    __param(0, (0, common_1.Query)('ids')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Array]),
     __metadata("design:returntype", void 0)
-], AttributeController.prototype, "remove", null);
+], AttributeController.prototype, "removeMany", null);
 AttributeController = __decorate([
-    (0, swagger_1.ApiTags)('Attribute'),
-    (0, common_1.Controller)('attribute'),
+    (0, swagger_1.ApiTags)('Attributes'),
+    (0, common_1.Controller)('attributes'),
     __metadata("design:paramtypes", [attribute_service_1.AttributeService])
 ], AttributeController);
 exports.AttributeController = AttributeController;

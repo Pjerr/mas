@@ -1,4 +1,10 @@
-import { Attribute, Car, Category, Group, Manufacturer } from '@/core/entities';
+import {
+  Attribute,
+  Part,
+  Category,
+  Group,
+  Manufacturer,
+} from '@/core/entities';
 import AttributeOption from '@/core/entities/attribute-option';
 import {
   IDatabaseDriver,
@@ -24,7 +30,7 @@ export class MikroOrmService implements MikroOrmOptionsFactory {
     | Promise<MikroOrmModuleOptions<IDatabaseDriver<Connection>>> {
     return {
       entities: [
-        Car,
+        Part,
         Attribute,
         AttributeOption,
         Manufacturer,

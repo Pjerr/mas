@@ -10,12 +10,15 @@ exports.GroupModule = void 0;
 const common_1 = require("@nestjs/common");
 const group_service_1 = require("./group.service");
 const group_controller_1 = require("./group.controller");
+const nestjs_1 = require("@mikro-orm/nestjs");
+const entities_1 = require("../../core/entities");
 let GroupModule = class GroupModule {
 };
 GroupModule = __decorate([
     (0, common_1.Module)({
+        imports: [nestjs_1.MikroOrmModule.forFeature([entities_1.Group])],
         controllers: [group_controller_1.GroupController],
-        providers: [group_service_1.GroupService]
+        providers: [group_service_1.GroupService],
     })
 ], GroupModule);
 exports.GroupModule = GroupModule;

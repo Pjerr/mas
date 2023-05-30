@@ -6,11 +6,23 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { OptionService } from './option.service';
-import { CreateOptionDto } from './dto/create-option.dto';
-import { UpdateOptionDto } from './dto/update-option.dto';
+import { CreateOption } from './dto/requests/create-option.request';
+import { UpdateOption } from './dto/requests/update-option.request';
 import { ApiTags } from '@nestjs/swagger';
+import {
+  OptionRelationTypes,
+  OptionResponse,
+  OptionsResponse,
+  QueryOption,
+  UpdateAttributeRelation,
+} from './dto';
+import { FilterQuery } from '@/core/types';
+import { QueryPipe } from '@/core/pipes/query.pipe';
+import AttributeOption from '@/core/entities/attribute-option';
+import { filterEntity } from '@/core/utils/parse-query';
 
 @ApiTags('Attribute option')
 @Controller('option')
@@ -18,27 +30,59 @@ export class OptionController {
   constructor(private readonly optionService: OptionService) {}
 
   @Post()
-  create(@Body() createOptionDto: CreateOptionDto) {
-    return this.optionService.create(createOptionDto);
+  async create(@Body() payload: CreateOption): Promise<OptionResponse> {
+    const response = await this.optionService.create(payload);
+    return { data: response };
   }
 
   @Get()
-  findAll() {
-    return this.optionService.findAll();
+  @FilterQuery('query', QueryOption)
+  async find(
+    @Query('query', QueryPipe<OptionRelationTypes, AttributeOption>)
+    query: QueryOption,
+  ): Promise<OptionsResponse> {
+    const filter = filterEntity<OptionRelationTypes, AttributeOption>(
+      query,
+      AttributeOption,
+    );
+    const response = await this.optionService.find(filter);
+    return { data: response };
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.optionService.findOne(id);
+  async findOne(@Param('id') id: string): Promise<OptionResponse> {
+    const response = await this.optionService.findOne(id);
+    return { data: response };
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateOptionDto: UpdateOptionDto) {
-    return this.optionService.update(id, updateOptionDto);
+  async update(
+    @Param('id') id: string,
+    @Body() payload: UpdateOption,
+  ): Promise<OptionResponse> {
+    const response = await this.optionService.update(id, payload);
+    return { data: response };
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.optionService.remove(id);
+  }
+
+  @Patch(':id/relationships/attribute')
+  async updateRelation(
+    @Param('id') id: string,
+    @Body() payload: UpdateAttributeRelation,
+  ): Promise<OptionResponse> {
+    const response = await this.optionService.updateAttributeRelation(
+      id,
+      payload.attributeId,
+    );
+    return { data: response };
+  }
+
+  @Delete()
+  removeMany(@Query('ids') ids: string[]) {
+    return this.optionService.removeMany(ids);
   }
 }

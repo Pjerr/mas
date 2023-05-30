@@ -16,60 +16,76 @@ exports.CategoryController = void 0;
 const openapi = require("@nestjs/swagger");
 const common_1 = require("@nestjs/common");
 const category_service_1 = require("./category.service");
-const create_category_dto_1 = require("./dto/create-category.dto");
-const update_category_dto_1 = require("./dto/update-category.dto");
+const create_category_request_1 = require("./dto/requests/create-category.request");
+const update_category_request_1 = require("./dto/requests/update-category.request");
 const swagger_1 = require("@nestjs/swagger");
+const dto_1 = require("./dto");
+const types_1 = require("../../core/types");
+const query_pipe_1 = require("../../core/pipes/query.pipe");
+const entities_1 = require("../../core/entities");
+const parse_query_1 = require("../../core/utils/parse-query");
 let CategoryController = class CategoryController {
     constructor(categoryService) {
         this.categoryService = categoryService;
     }
-    create(createCategoryDto) {
-        return this.categoryService.create(createCategoryDto);
+    async create(payload) {
+        const response = await this.categoryService.create(payload);
+        return { data: response };
     }
-    findAll() {
-        return this.categoryService.findAll();
+    async findMany(query) {
+        const filter = (0, parse_query_1.filterEntity)(query, entities_1.Category);
+        const response = await this.categoryService.find(filter);
+        return { data: response };
     }
-    findOne(id) {
-        return this.categoryService.findOne(id);
+    async findOne(id) {
+        const response = await this.categoryService.findOne(id);
+        return { data: response };
     }
-    update(id, updateCategoryDto) {
-        return this.categoryService.update(id, updateCategoryDto);
+    async update(id, payload) {
+        const response = await this.categoryService.update(id, payload);
+        return { data: response };
     }
     remove(id) {
         return this.categoryService.remove(id);
     }
+    async updateRelation(id, payload) {
+        const response = await this.categoryService.updateRelation(id, payload);
+        return { data: response };
+    }
 };
 __decorate([
     (0, common_1.Post)(),
-    openapi.ApiResponse({ status: 201, type: require("../../core/entities/category.entity").Category }),
+    openapi.ApiResponse({ status: 201, type: require("./dto/category.response").CategoryResponse }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_category_dto_1.CreateCategoryDto]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [create_category_request_1.CreateCategory]),
+    __metadata("design:returntype", Promise)
 ], CategoryController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
-    openapi.ApiResponse({ status: 200, type: [Object] }),
+    (0, types_1.FilterQuery)('query', dto_1.QueryCategory),
+    openapi.ApiResponse({ status: 200, type: require("./dto/category.response").CategoriesResponse }),
+    __param(0, (0, common_1.Query)('query', (query_pipe_1.QueryPipe))),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], CategoryController.prototype, "findAll", null);
+    __metadata("design:paramtypes", [dto_1.QueryCategory]),
+    __metadata("design:returntype", Promise)
+], CategoryController.prototype, "findMany", null);
 __decorate([
     (0, common_1.Get)(':id'),
-    openapi.ApiResponse({ status: 200, type: Object }),
+    openapi.ApiResponse({ status: 200, type: require("./dto/category.response").CategoryResponse }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], CategoryController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Patch)(':id'),
-    openapi.ApiResponse({ status: 200, type: Object }),
+    openapi.ApiResponse({ status: 200, type: require("./dto/category.response").CategoryResponse }),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_category_dto_1.UpdateCategoryDto]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [String, update_category_request_1.UpdateCategory]),
+    __metadata("design:returntype", Promise)
 ], CategoryController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
@@ -79,9 +95,18 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], CategoryController.prototype, "remove", null);
+__decorate([
+    (0, common_1.Patch)(':id/relathionships/category'),
+    openapi.ApiResponse({ status: 200, type: require("./dto/category.response").CategoryResponse }),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, dto_1.UpdateRelation]),
+    __metadata("design:returntype", Promise)
+], CategoryController.prototype, "updateRelation", null);
 CategoryController = __decorate([
-    (0, swagger_1.ApiTags)('Category'),
-    (0, common_1.Controller)('category'),
+    (0, swagger_1.ApiTags)('Categories'),
+    (0, common_1.Controller)('categories'),
     __metadata("design:paramtypes", [category_service_1.CategoryService])
 ], CategoryController);
 exports.CategoryController = CategoryController;

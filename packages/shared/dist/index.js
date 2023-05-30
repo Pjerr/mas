@@ -15,3 +15,4 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 exports.__esModule = true;
 __exportStar(require("./types/enums"), exports);
+__exportStar(require("./types/property.dto"), exports);

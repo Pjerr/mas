@@ -1,10 +1,10 @@
 import { BaseEntity, Collection } from '@mikro-orm/core';
-import { Car } from './car.entity';
+import { Part } from './part.entity';
 export declare class Manufacturer extends BaseEntity<Manufacturer, 'id'> {
     id: string;
     name: string;
     address: string;
-    cars: Collection<Car, object>;
+    cars: Collection<Part, object>;
     createdAt: Date;
     updatedAt: Date;
 }

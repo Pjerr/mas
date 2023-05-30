@@ -24,7 +24,7 @@ let MikroOrmService = class MikroOrmService {
     }
     createMikroOrmOptions(contextName) {
         return Object.assign({ entities: [
-                entities_1.Car,
+                entities_1.Part,
                 entities_1.Attribute,
                 attribute_option_1.default,
                 entities_1.Manufacturer,

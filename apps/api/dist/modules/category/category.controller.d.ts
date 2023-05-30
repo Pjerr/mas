@@ -1,13 +1,15 @@
 import { CategoryService } from './category.service';
-import { CreateCategoryDto } from './dto/create-category.dto';
-import { UpdateCategoryDto } from './dto/update-category.dto';
+import { CreateCategory } from './dto/requests/create-category.request';
+import { UpdateCategory } from './dto/requests/update-category.request';
+import { CategoriesResponse, CategoryResponse, QueryCategory, UpdateRelation } from './dto';
 export declare class CategoryController {
     private readonly categoryService;
     constructor(categoryService: CategoryService);
-    create(createCategoryDto: CreateCategoryDto): Promise<import("../../core/entities").Category>;
-    findAll(): Promise<import("@mikro-orm/core").Loaded<import("../../core/entities").Category, never>[]>;
-    findOne(id: string): Promise<import("@mikro-orm/core").Loaded<import("../../core/entities").Category, never>>;
-    update(id: string, updateCategoryDto: UpdateCategoryDto): Promise<import("@mikro-orm/core").Loaded<import("../../core/entities").Category, never>>;
+    create(payload: CreateCategory): Promise<CategoryResponse>;
+    findMany(query: QueryCategory): Promise<CategoriesResponse>;
+    findOne(id: string): Promise<CategoryResponse>;
+    update(id: string, payload: UpdateCategory): Promise<CategoryResponse>;
     remove(id: string): Promise<void>;
+    updateRelation(id: string, payload: UpdateRelation): Promise<CategoryResponse>;
 }
 //# sourceMappingURL=category.controller.d.ts.map

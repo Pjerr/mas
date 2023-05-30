@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-exports.ConditionalOperator = exports.CarStatus = exports.EditorValidation = exports.EditorType = void 0;
+exports.ConditionalOperator = exports.PartStatus = exports.EditorValidation = exports.EditorType = void 0;
 var EditorType;
 (function (EditorType) {
     EditorType["Checkbox"] = "checkbox";
@@ -25,11 +25,11 @@ var EditorValidation;
     EditorValidation["Array"] = "array";
     EditorValidation["Select"] = "select";
 })(EditorValidation = exports.EditorValidation || (exports.EditorValidation = {}));
-var CarStatus;
-(function (CarStatus) {
-    CarStatus["InStock"] = "in-stock";
-    CarStatus["OutOfStock"] = "out-of-stock";
-})(CarStatus = exports.CarStatus || (exports.CarStatus = {}));
+var PartStatus;
+(function (PartStatus) {
+    PartStatus["InStock"] = "in-stock";
+    PartStatus["OutOfStock"] = "out-of-stock";
+})(PartStatus = exports.PartStatus || (exports.PartStatus = {}));
 var ConditionalOperator;
 (function (ConditionalOperator) {
     ConditionalOperator["Equals"] = "$eq";

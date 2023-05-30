@@ -21,7 +21,7 @@ const shared_1 = require("shared");
 const group_entity_1 = require("./group.entity");
 const attribute_option_1 = __importDefault(require("./attribute-option"));
 const swagger_1 = require("@nestjs/swagger");
-const car_entity_1 = require("./car.entity");
+const part_entity_1 = require("./part.entity");
 const additional_metadata_1 = __importDefault(require("../types/additional-metadata"));
 let Attribute = class Attribute extends core_1.BaseEntity {
     constructor() {
@@ -83,9 +83,9 @@ __decorate([
     __metadata("design:type", Object)
 ], Attribute.prototype, "options", void 0);
 __decorate([
-    (0, core_1.ManyToMany)(() => car_entity_1.Car, (car) => car.attributes),
+    (0, core_1.ManyToMany)(() => part_entity_1.Part, (part) => part.attributes),
     (0, swagger_1.ApiResponseProperty)({
-        type: [car_entity_1.Car],
+        type: [part_entity_1.Part],
     }),
     __metadata("design:type", Object)
 ], Attribute.prototype, "cars", void 0);

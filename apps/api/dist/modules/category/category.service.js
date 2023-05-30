@@ -8,40 +8,68 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CategoryService = void 0;
 const common_1 = require("@nestjs/common");
+const nestjs_1 = require("@mikro-orm/nestjs");
 const entities_1 = require("../../core/entities");
+const core_1 = require("@mikro-orm/core");
 const postgresql_1 = require("@mikro-orm/postgresql");
 let CategoryService = class CategoryService {
-    constructor(em) {
+    constructor(em, categoryRepository) {
         this.em = em;
+        this.categoryRepository = categoryRepository;
     }
-    async create(createCategoryDto) {
-        const category = this.em.create(entities_1.Category, Object.assign(Object.assign({}, createCategoryDto), { parentId: createCategoryDto.parentId, children: createCategoryDto.childrenIds }), { persist: true });
+    async create(payload) {
+        const category = this.categoryRepository.create(Object.assign(Object.assign({}, payload), { parentId: payload.parentId, children: payload.childrenIds }));
         await this.em.persistAndFlush(category);
         return category;
     }
-    findAll() {
-        return this.em.find(entities_1.Category, {});
+    async find(filters) {
+        const categories = await this.categoryRepository.find(filters.query, filters.options);
+        if (!categories)
+            throw new common_1.NotFoundException('Categories not found');
+        categories.forEach((category) => category.children.populated(false));
+        return categories;
     }
-    findOne(id) {
-        return this.em.findOne(entities_1.Category, id);
+    async findOne(id) {
+        const category = await this.categoryRepository.findOneOrFail(id);
+        return category;
     }
-    async update(id, updateCategoryDto) {
+    async update(id, payload) {
         const category = await this.findOne(id);
-        category.assign(updateCategoryDto);
+        category.assign(payload);
         await this.em.persistAndFlush(category);
         return category;
     }
     async remove(id) {
-        const category = this.em.getReference(entities_1.Category, id);
+        const category = await this.categoryRepository.findOneOrFail(id, {
+            populate: ['children'],
+        });
         await this.em.removeAndFlush(category);
+    }
+    async updateRelation(id, payload) {
+        const child = await this.categoryRepository.findOneOrFail(id);
+        if (!payload.childrenIds.length || !payload.parentId) {
+            throw new common_1.BadRequestException('ChildrenIds or ParentId missing from payload');
+        }
+        if (payload.parentId && id === payload.parentId) {
+            throw new common_1.BadRequestException('Parend and children id are equal');
+        }
+        const parentId = this.categoryRepository.getReference(payload.parentId).id;
+        child.parentId = parentId;
+        await this.em.persistAndFlush(child);
+        return child;
     }
 };
 CategoryService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [postgresql_1.EntityManager])
+    __param(1, (0, nestjs_1.InjectRepository)(entities_1.Category)),
+    __metadata("design:paramtypes", [postgresql_1.EntityManager,
+        core_1.EntityRepository])
 ], CategoryService);
 exports.CategoryService = CategoryService;
 //# sourceMappingURL=category.service.js.map

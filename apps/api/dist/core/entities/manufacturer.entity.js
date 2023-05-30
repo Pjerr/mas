@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Manufacturer = void 0;
 const openapi = require("@nestjs/swagger");
 const core_1 = require("@mikro-orm/core");
-const car_entity_1 = require("./car.entity");
+const part_entity_1 = require("./part.entity");
 let Manufacturer = class Manufacturer extends core_1.BaseEntity {
     constructor() {
         super(...arguments);
@@ -36,7 +36,7 @@ __decorate([
     __metadata("design:type", String)
 ], Manufacturer.prototype, "address", void 0);
 __decorate([
-    (0, core_1.OneToMany)(() => car_entity_1.Car, (car) => car.manufacturerId, {
+    (0, core_1.OneToMany)(() => part_entity_1.Part, (part) => part.manufacturerId, {
         nullable: true,
         orphanRemoval: true,
         cascade: [core_1.Cascade.PERSIST],

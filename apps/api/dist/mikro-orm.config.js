@@ -15,7 +15,7 @@ if (dotenvConfig.error) {
     throw dotenvConfig.error;
 }
 const config = {
-    entities: [entities_1.Attribute, attribute_option_1.default, entities_1.Car, entities_1.Manufacturer, entities_1.Group, entities_1.Category],
+    entities: [entities_1.Attribute, attribute_option_1.default, entities_1.Part, entities_1.Manufacturer, entities_1.Group, entities_1.Category],
     dbName: process.env.DB_NAME,
     host: process.env.DB_HOST,
     name: process.env.DB_USER,

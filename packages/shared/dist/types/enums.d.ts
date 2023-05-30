@@ -20,7 +20,7 @@ export declare enum EditorValidation {
     Array = "array",
     Select = "select"
 }
-export declare enum CarStatus {
+export declare enum PartStatus {
     InStock = "in-stock",
     OutOfStock = "out-of-stock"
 }

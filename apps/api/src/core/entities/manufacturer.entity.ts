@@ -7,7 +7,7 @@ import {
   PrimaryKey,
   Property,
 } from '@mikro-orm/core';
-import { Car } from './car.entity';
+import { Part } from './part.entity';
 @Entity()
 export class Manufacturer extends BaseEntity<Manufacturer, 'id'> {
   @PrimaryKey({ type: 'uuid' })
@@ -19,12 +19,12 @@ export class Manufacturer extends BaseEntity<Manufacturer, 'id'> {
   @Property()
   address: string;
 
-  @OneToMany(() => Car, (car) => car.manufacturerId, {
+  @OneToMany(() => Part, (part) => part.manufacturerId, {
     nullable: true,
     orphanRemoval: true,
     cascade: [Cascade.PERSIST],
   })
-  cars = new Collection<Car>(this);
+  cars = new Collection<Part>(this);
 
   @Property()
   createdAt: Date = new Date();

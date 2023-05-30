@@ -18,7 +18,7 @@ import { EditorType, EditorValidation } from 'shared';
 import { Group } from './group.entity';
 import AttributeOption from './attribute-option';
 import { ApiResponseProperty } from '@nestjs/swagger';
-import { Car } from './car.entity';
+import { Part } from './part.entity';
 import AdditionalMetadata from '../types/additional-metadata';
 @Entity()
 export class Attribute extends BaseEntity<Attribute, 'id'> {
@@ -59,11 +59,11 @@ export class Attribute extends BaseEntity<Attribute, 'id'> {
   })
   options = new Collection<AttributeOption>(this);
 
-  @ManyToMany(() => Car, (car) => car.attributes)
+  @ManyToMany(() => Part, (part) => part.attributes)
   @ApiResponseProperty({
-    type: [Car],
+    type: [Part],
   })
-  cars = new Collection<Car>(this);
+  cars = new Collection<Part>(this);
 
   @Property()
   createdAt: Date = new Date();

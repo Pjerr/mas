@@ -1,0 +1,2 @@
+export declare function FilterQuery(fieldName: string, query: Function): <TFunction extends Function, Y>(target: object | TFunction, propertyKey?: string | symbol, descriptor?: TypedPropertyDescriptor<Y>) => void;
+//# sourceMappingURL=filter-query.decorator.d.ts.map

@@ -22,7 +22,7 @@ export enum EditorValidation {
     Select = 'select',
 }
 
-export enum CarStatus {
+export enum PartStatus {
     InStock = 'in-stock',
     OutOfStock = 'out-of-stock',
 }

@@ -3,16 +3,17 @@ import { QueryPipe } from '@/core/pipes/query.pipe';
 import { FilterQuery } from '@/core/types';
 import { filterEntity } from '@/core/utils/parse-query';
 import { AttributeService } from '@/modules/attribute/attribute.service';
-import { CreateAttribute, UpdateAttribute } from '@/modules/attribute/dto';
+import {
+  AttributeRelationTypes,
+  CreateAttribute,
+  QueryAttribtue,
+  UpdateAttribute,
+} from '@/modules/attribute/dto';
 import {
   AttributeResponse,
   AttributesResponse,
   PartialAttributesResponse,
 } from '@/modules/attribute/dto/attribute.response';
-import {
-  AttributeRelationTypes,
-  QueryAttribtue,
-} from '@/modules/attribute/dto/requests';
 import {
   Controller,
   Get,

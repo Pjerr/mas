@@ -6,11 +6,22 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { GroupService } from './group.service';
-import { CreateGroupDto } from './dto/create-group.dto';
-import { UpdateGroupDto } from './dto/update-group.dto';
+import { CreateGroup } from './dto/requests/create-group.request';
+import { UpdateGroup } from './dto/requests/update-group.request';
 import { ApiTags } from '@nestjs/swagger';
+import {
+  GroupRelationTypes,
+  GroupResponse,
+  GroupsResponse,
+  QueryGroup,
+} from './dto';
+import { FilterQuery } from '@/core/types';
+import { QueryPipe } from '@/core/pipes/query.pipe';
+import { Group } from '@/core/entities';
+import { filterEntity } from '@/core/utils/parse-query';
 
 @ApiTags('Group')
 @Controller('group')
@@ -18,23 +29,34 @@ export class GroupController {
   constructor(private readonly groupService: GroupService) {}
 
   @Post()
-  create(@Body() createGroupDto: CreateGroupDto) {
-    return this.groupService.create(createGroupDto);
+  async create(@Body() payload: CreateGroup): Promise<GroupResponse> {
+    const response = await this.groupService.create(payload);
+    return { data: response };
   }
 
   @Get()
-  findAll() {
-    return this.groupService.findAll();
+  @FilterQuery('query', QueryGroup)
+  async findAll(
+    @Query('query', QueryPipe<GroupRelationTypes, Group>) query: QueryGroup,
+  ): Promise<GroupsResponse> {
+    const filter = filterEntity<GroupRelationTypes, Group>(query, Group);
+    const response = await this.groupService.find(filter);
+    return { data: response };
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.groupService.findOne(id);
+  async findOne(@Param('id') id: string): Promise<GroupResponse> {
+    const response = await this.groupService.findOne(id);
+    return { data: response };
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateGroupDto: UpdateGroupDto) {
-    return this.groupService.update(id, updateGroupDto);
+  async update(
+    @Param('id') id: string,
+    @Body() payload: UpdateGroup,
+  ): Promise<GroupResponse> {
+    const response = await this.groupService.update(id, payload);
+    return { data: response };
   }
 
   @Delete(':id')

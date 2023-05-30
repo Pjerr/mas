@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { EntityManager, EntityRepository } from '@mikro-orm/postgresql';
-import { Attribute, Car, Group } from '@/core/entities';
+import { Attribute, Part, Group } from '@/core/entities';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { CreateAttribute, UpdateAttribute } from './dto';
 import { generateProperyKey } from '@/core/utils/property-key';
@@ -14,8 +14,8 @@ export class AttributeService {
     private readonly attributeRepository: EntityRepository<Attribute>,
     @InjectRepository(Group)
     private readonly groupRepository: EntityRepository<Group>,
-    @InjectRepository(Car)
-    private readonly carRepository: EntityRepository<Car>,
+    @InjectRepository(Part)
+    private readonly carRepository: EntityRepository<Part>,
   ) {}
 
   async create(payload: CreateAttribute) {

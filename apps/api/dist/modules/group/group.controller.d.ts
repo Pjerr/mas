@@ -1,13 +1,14 @@
 import { GroupService } from './group.service';
-import { CreateGroupDto } from './dto/create-group.dto';
-import { UpdateGroupDto } from './dto/update-group.dto';
+import { CreateGroup } from './dto/requests/create-group.request';
+import { UpdateGroup } from './dto/requests/update-group.request';
+import { GroupResponse, GroupsResponse, QueryGroup } from './dto';
 export declare class GroupController {
     private readonly groupService;
     constructor(groupService: GroupService);
-    create(createGroupDto: CreateGroupDto): Promise<import("../../core/entities").Group>;
-    findAll(): Promise<import("@mikro-orm/core").Loaded<import("../../core/entities").Group, never>[]>;
-    findOne(id: string): Promise<import("@mikro-orm/core").Loaded<import("../../core/entities").Group, never>>;
-    update(id: string, updateGroupDto: UpdateGroupDto): Promise<import("@mikro-orm/core").Loaded<import("../../core/entities").Group, never>>;
+    create(payload: CreateGroup): Promise<GroupResponse>;
+    findAll(query: QueryGroup): Promise<GroupsResponse>;
+    findOne(id: string): Promise<GroupResponse>;
+    update(id: string, payload: UpdateGroup): Promise<GroupResponse>;
     remove(id: string): Promise<void>;
 }
 //# sourceMappingURL=group.controller.d.ts.map

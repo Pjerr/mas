@@ -2,7 +2,7 @@ import { BaseEntity, Collection } from '@mikro-orm/core';
 import { EditorType, EditorValidation } from 'shared';
 import { Group } from './group.entity';
 import AttributeOption from './attribute-option';
-import { Car } from './car.entity';
+import { Part } from './part.entity';
 import AdditionalMetadata from '../types/additional-metadata';
 export declare class Attribute extends BaseEntity<Attribute, 'id'> {
     id: string;
@@ -13,7 +13,7 @@ export declare class Attribute extends BaseEntity<Attribute, 'id'> {
     editorValidation: EditorValidation;
     group: Group;
     options: Collection<AttributeOption, object>;
-    cars: Collection<Car, object>;
+    cars: Collection<Part, object>;
     createdAt: Date;
     updatedAt: Date;
     additionalMetadata?: AdditionalMetadata;
