@@ -56,11 +56,11 @@ export class AttributeController {
     return { data: response };
   }
 
-  @Get(':id/car')
-  async findByCar(
-    @Param('id') carId: string,
+  @Get(':id/part')
+  async findByPart(
+    @Param('id') partId: string,
   ): Promise<PartialAttributesResponse> {
-    const response = await this.attributeService.findBy(carId);
+    const response = await this.attributeService.findBy(partId);
     return { data: response };
   }
 

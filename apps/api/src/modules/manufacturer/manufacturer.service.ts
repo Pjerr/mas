@@ -1,32 +1,45 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateManufacturer } from './dto/requests/create-manufacturer.request';
 import { UpdateManufacturer } from './dto/requests/update-manufacturer.request';
-import { EntityManager } from '@mikro-orm/postgresql';
+import { EntityManager, EntityRepository } from '@mikro-orm/postgresql';
 import { Manufacturer } from '@/core/entities';
+import { InjectRepository } from '@mikro-orm/nestjs';
+import { FilterEntity } from '@/core/types';
 
 @Injectable()
 export class ManufacturerService {
-  constructor(private readonly em: EntityManager) {}
+  constructor(
+    private readonly em: EntityManager,
+    @InjectRepository(Manufacturer)
+    private readonly manufacturerRepository: EntityRepository<Manufacturer>,
+  ) {}
 
-  async create(createManufacturerDto: CreateManufacturer) {
+  async create(payload: CreateManufacturer) {
     const manufacturer = this.em.create(Manufacturer, {
-      ...createManufacturerDto,
+      ...payload,
     });
     await this.em.persistAndFlush(manufacturer);
     return manufacturer;
   }
 
-  findAll() {
-    return this.em.find(Manufacturer, {});
+  async find(filters: FilterEntity<Manufacturer>) {
+    const manufacturers = await this.manufacturerRepository.find(
+      filters.query,
+      filters.options,
+    );
+
+    if (!manufacturers) throw new NotFoundException('Manufacturers not found');
+
+    return manufacturers;
   }
 
   findOne(id: string) {
-    return this.em.findOneOrFail(Manufacturer, id);
+    return this.manufacturerRepository.findOneOrFail(id);
   }
 
-  async update(id: string, updateManufacturerDto: UpdateManufacturer) {
+  async update(id: string, payload: UpdateManufacturer) {
     const manufacturer = await this.findOne(id);
-    manufacturer.assign(updateManufacturerDto);
+    manufacturer.assign(payload);
     await this.em.persistAndFlush(manufacturer);
     return manufacturer;
   }

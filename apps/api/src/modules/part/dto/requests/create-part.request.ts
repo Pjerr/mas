@@ -11,6 +11,9 @@ export class CreatePart {
   name: string;
 
   @ApiProperty()
+  manufacturerId: string;
+
+  @ApiProperty()
   categoryId: string;
 
   @ApiProperty()
