@@ -8,8 +8,8 @@ import {
   Delete,
 } from '@nestjs/common';
 import { ManufacturerService } from './manufacturer.service';
-import { CreateManufacturerDto } from './dto/create-manufacturer.dto';
-import { UpdateManufacturerDto } from './dto/update-manufacturer.dto';
+import { CreateManufacturer } from './dto/requests/create-manufacturer.request';
+import { UpdateManufacturer } from './dto/requests/update-manufacturer.request';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Manufacturer')
@@ -18,7 +18,7 @@ export class ManufacturerController {
   constructor(private readonly manufacturerService: ManufacturerService) {}
 
   @Post()
-  create(@Body() createManufacturerDto: CreateManufacturerDto) {
+  create(@Body() createManufacturerDto: CreateManufacturer) {
     return this.manufacturerService.create(createManufacturerDto);
   }
 
@@ -35,7 +35,7 @@ export class ManufacturerController {
   @Patch(':id')
   update(
     @Param('id') id: string,
-    @Body() updateManufacturerDto: UpdateManufacturerDto,
+    @Body() updateManufacturerDto: UpdateManufacturer,
   ) {
     return this.manufacturerService.update(id, updateManufacturerDto);
   }

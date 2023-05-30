@@ -24,7 +24,7 @@ export class Manufacturer extends BaseEntity<Manufacturer, 'id'> {
     orphanRemoval: true,
     cascade: [Cascade.PERSIST],
   })
-  cars = new Collection<Part>(this);
+  parts = new Collection<Part>(this);
 
   @Property()
   createdAt: Date = new Date();

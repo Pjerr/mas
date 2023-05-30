@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CreateManufacturerDto } from './dto/create-manufacturer.dto';
-import { UpdateManufacturerDto } from './dto/update-manufacturer.dto';
+import { CreateManufacturer } from './dto/requests/create-manufacturer.request';
+import { UpdateManufacturer } from './dto/requests/update-manufacturer.request';
 import { EntityManager } from '@mikro-orm/postgresql';
 import { Manufacturer } from '@/core/entities';
 
@@ -8,7 +8,7 @@ import { Manufacturer } from '@/core/entities';
 export class ManufacturerService {
   constructor(private readonly em: EntityManager) {}
 
-  async create(createManufacturerDto: CreateManufacturerDto) {
+  async create(createManufacturerDto: CreateManufacturer) {
     const manufacturer = this.em.create(Manufacturer, {
       ...createManufacturerDto,
     });
@@ -24,7 +24,7 @@ export class ManufacturerService {
     return this.em.findOneOrFail(Manufacturer, id);
   }
 
-  async update(id: string, updateManufacturerDto: UpdateManufacturerDto) {
+  async update(id: string, updateManufacturerDto: UpdateManufacturer) {
     const manufacturer = await this.findOne(id);
     manufacturer.assign(updateManufacturerDto);
     await this.em.persistAndFlush(manufacturer);
