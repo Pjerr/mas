@@ -8,7 +8,7 @@ import { EditorMode } from '../editors/attribute/types';
 
 export enum EntityType {
     Attribute = 'Attribute',
-    Car = 'Car',
+    Part = 'Part',
     Option = 'Option',
 }
 

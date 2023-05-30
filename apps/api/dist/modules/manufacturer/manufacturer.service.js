@@ -8,29 +8,37 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ManufacturerService = void 0;
 const common_1 = require("@nestjs/common");
 const postgresql_1 = require("@mikro-orm/postgresql");
 const entities_1 = require("../../core/entities");
+const nestjs_1 = require("@mikro-orm/nestjs");
 let ManufacturerService = class ManufacturerService {
-    constructor(em) {
+    constructor(em, manufacturerRepository) {
         this.em = em;
+        this.manufacturerRepository = manufacturerRepository;
     }
-    async create(createManufacturerDto) {
-        const manufacturer = this.em.create(entities_1.Manufacturer, Object.assign({}, createManufacturerDto));
+    async create(payload) {
+        const manufacturer = this.em.create(entities_1.Manufacturer, Object.assign({}, payload));
         await this.em.persistAndFlush(manufacturer);
         return manufacturer;
     }
-    findAll() {
-        return this.em.find(entities_1.Manufacturer, {});
+    async find(filters) {
+        const manufacturers = await this.manufacturerRepository.find(filters.query, filters.options);
+        if (!manufacturers)
+            throw new common_1.NotFoundException('Manufacturers not found');
+        return manufacturers;
     }
     findOne(id) {
-        return this.em.findOneOrFail(entities_1.Manufacturer, id);
+        return this.manufacturerRepository.findOneOrFail(id);
     }
-    async update(id, updateManufacturerDto) {
+    async update(id, payload) {
         const manufacturer = await this.findOne(id);
-        manufacturer.assign(updateManufacturerDto);
+        manufacturer.assign(payload);
         await this.em.persistAndFlush(manufacturer);
         return manufacturer;
     }
@@ -41,7 +49,9 @@ let ManufacturerService = class ManufacturerService {
 };
 ManufacturerService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [postgresql_1.EntityManager])
+    __param(1, (0, nestjs_1.InjectRepository)(entities_1.Manufacturer)),
+    __metadata("design:paramtypes", [postgresql_1.EntityManager,
+        postgresql_1.EntityRepository])
 ], ManufacturerService);
 exports.ManufacturerService = ManufacturerService;
 //# sourceMappingURL=manufacturer.service.js.map

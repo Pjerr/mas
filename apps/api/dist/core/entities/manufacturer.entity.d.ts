@@ -4,7 +4,7 @@ export declare class Manufacturer extends BaseEntity<Manufacturer, 'id'> {
     id: string;
     name: string;
     address: string;
-    cars: Collection<Part, object>;
+    parts: Collection<Part, object>;
     createdAt: Date;
     updatedAt: Date;
 }

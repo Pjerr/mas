@@ -7,7 +7,7 @@ export declare class AttributeController {
     create(payload: CreateAttribute): Promise<AttributeResponse>;
     find(query: QueryAttribtue): Promise<AttributesResponse>;
     findOne(id: string): Promise<AttributeResponse>;
-    findByCar(carId: string): Promise<PartialAttributesResponse>;
+    findByPart(partId: string): Promise<PartialAttributesResponse>;
     update(id: string, payload: UpdateAttribute): Promise<AttributeResponse>;
     removeMany(ids: string[]): Promise<void>;
 }

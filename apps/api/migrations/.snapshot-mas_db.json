@@ -233,7 +233,8 @@
             "datetime",
             "multiple-select",
             "image",
-            "options"
+            "options",
+            "button"
           ],
           "mappedType": "enum"
         },
@@ -605,6 +606,16 @@
           "nullable": true,
           "mappedType": "uuid"
         },
+        "base_price": {
+          "name": "base_price",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "0",
+          "mappedType": "integer"
+        },
         "created_at": {
           "name": "created_at",
           "type": "timestamptz(0)",
@@ -626,11 +637,11 @@
           "mappedType": "datetime"
         }
       },
-      "name": "car",
+      "name": "part",
       "schema": "public",
       "indexes": [
         {
-          "keyName": "car_search_index_index",
+          "keyName": "part_search_index_index",
           "columnNames": [
             "search_index"
           ],
@@ -640,7 +651,7 @@
           "type": "fulltext"
         },
         {
-          "keyName": "car_pkey",
+          "keyName": "part_pkey",
           "columnNames": [
             "id"
           ],
@@ -651,24 +662,25 @@
       ],
       "checks": [],
       "foreignKeys": {
-        "car_manufacturer_id_id_foreign": {
-          "constraintName": "car_manufacturer_id_id_foreign",
+        "part_manufacturer_id_id_foreign": {
+          "constraintName": "part_manufacturer_id_id_foreign",
           "columnNames": [
             "manufacturer_id_id"
           ],
-          "localTableName": "public.car",
+          "localTableName": "public.part",
           "referencedColumnNames": [
             "id"
           ],
           "referencedTableName": "public.manufacturer",
+          "deleteRule": "cascade",
           "updateRule": "cascade"
         },
-        "car_category_id_id_foreign": {
-          "constraintName": "car_category_id_id_foreign",
+        "part_category_id_id_foreign": {
+          "constraintName": "part_category_id_id_foreign",
           "columnNames": [
             "category_id_id"
           ],
-          "localTableName": "public.car",
+          "localTableName": "public.part",
           "referencedColumnNames": [
             "id"
           ],
@@ -680,8 +692,8 @@
     },
     {
       "columns": {
-        "car_id": {
-          "name": "car_id",
+        "part_id": {
+          "name": "part_id",
           "type": "varchar(255)",
           "unsigned": false,
           "autoincrement": false,
@@ -699,13 +711,13 @@
           "mappedType": "uuid"
         }
       },
-      "name": "car_attributes",
+      "name": "part_attributes",
       "schema": "public",
       "indexes": [
         {
-          "keyName": "car_attributes_pkey",
+          "keyName": "part_attributes_pkey",
           "columnNames": [
-            "car_id",
+            "part_id",
             "attribute_id"
           ],
           "composite": true,
@@ -715,25 +727,25 @@
       ],
       "checks": [],
       "foreignKeys": {
-        "car_attributes_car_id_foreign": {
-          "constraintName": "car_attributes_car_id_foreign",
+        "part_attributes_part_id_foreign": {
+          "constraintName": "part_attributes_part_id_foreign",
           "columnNames": [
-            "car_id"
+            "part_id"
           ],
-          "localTableName": "public.car_attributes",
+          "localTableName": "public.part_attributes",
           "referencedColumnNames": [
             "id"
           ],
-          "referencedTableName": "public.car",
+          "referencedTableName": "public.part",
           "deleteRule": "cascade",
           "updateRule": "cascade"
         },
-        "car_attributes_attribute_id_foreign": {
-          "constraintName": "car_attributes_attribute_id_foreign",
+        "part_attributes_attribute_id_foreign": {
+          "constraintName": "part_attributes_attribute_id_foreign",
           "columnNames": [
             "attribute_id"
           ],
-          "localTableName": "public.car_attributes",
+          "localTableName": "public.part_attributes",
           "referencedColumnNames": [
             "id"
           ],

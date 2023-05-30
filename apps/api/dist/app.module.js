@@ -15,7 +15,6 @@ const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const nestjs_1 = require("@mikro-orm/nestjs");
 const attribute_module_1 = require("./modules/attribute/attribute.module");
-const car_module_1 = require("./modules/car/car.module");
 const category_module_1 = require("./modules/category/category.module");
 const group_module_1 = require("./modules/group/group.module");
 const config_1 = require("@nestjs/config");
@@ -23,6 +22,7 @@ const configuration_1 = __importDefault(require("./config/configuration"));
 const mikro_orm_service_1 = require("./config/mikro-orm.service");
 const option_module_1 = require("./modules/option/option.module");
 const manufacturer_module_1 = require("./modules/manufacturer/manufacturer.module");
+const part_module_1 = require("./modules/part/part.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -37,7 +37,7 @@ AppModule = __decorate([
                 useClass: mikro_orm_service_1.MikroOrmService,
             }),
             attribute_module_1.AttributeModule,
-            car_module_1.CarModule,
+            part_module_1.PartModule,
             category_module_1.CategoryModule,
             group_module_1.GroupModule,
             option_module_1.OptionModule,

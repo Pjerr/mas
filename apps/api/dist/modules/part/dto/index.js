@@ -16,4 +16,10 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./part.response"), exports);
 __exportStar(require("./requests/filter-part.request"), exports);
+__exportStar(require("./requests/create-part.request"), exports);
+__exportStar(require("./requests/update-part.request"), exports);
+__exportStar(require("./requests/update-attribute-relation.request"), exports);
+__exportStar(require("./requests/update-category-relation.request"), exports);
+__exportStar(require("./requests/multiple-create-part.request"), exports);
+__exportStar(require("./requests//multiple-update-part.request"), exports);
 //# sourceMappingURL=index.js.map

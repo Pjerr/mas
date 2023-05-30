@@ -16,11 +16,11 @@ const part_entity_1 = require("./part.entity");
 let Manufacturer = class Manufacturer extends core_1.BaseEntity {
     constructor() {
         super(...arguments);
-        this.cars = new core_1.Collection(this);
+        this.parts = new core_1.Collection(this);
         this.createdAt = new Date();
     }
     static _OPENAPI_METADATA_FACTORY() {
-        return { id: { required: true, type: () => String }, name: { required: true, type: () => String }, address: { required: true, type: () => String }, cars: { required: true, type: () => Object, default: new core_1.Collection(this) }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date } };
+        return { id: { required: true, type: () => String }, name: { required: true, type: () => String }, address: { required: true, type: () => String }, parts: { required: true, type: () => Object, default: new core_1.Collection(this) }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date } };
     }
 };
 __decorate([
@@ -42,7 +42,7 @@ __decorate([
         cascade: [core_1.Cascade.PERSIST],
     }),
     __metadata("design:type", Object)
-], Manufacturer.prototype, "cars", void 0);
+], Manufacturer.prototype, "parts", void 0);
 __decorate([
     (0, core_1.Property)(),
     __metadata("design:type", Date)

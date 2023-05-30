@@ -3,8 +3,10 @@ import { useDispatch } from 'react-redux';
 import tableReducer from './table/index';
 import attributeEditorReducer from './editors/attribute/index';
 import carEditorReducer from './editors/car/index';
+import { api } from './api';
 
 const rootReducer = combineReducers({
+    [api.reducerPath]: api.reducer,
     table: tableReducer,
     attributeEditor: attributeEditorReducer,
     carEditor: carEditorReducer,
@@ -12,6 +14,8 @@ const rootReducer = combineReducers({
 
 export const store = configureStore({
     reducer: rootReducer,
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware().concat(api.middleware),
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

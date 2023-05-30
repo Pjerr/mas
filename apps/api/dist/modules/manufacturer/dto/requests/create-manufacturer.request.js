@@ -9,10 +9,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateManufacturerDto = void 0;
+exports.CreateManufacturer = void 0;
 const openapi = require("@nestjs/swagger");
 const swagger_1 = require("@nestjs/swagger");
-class CreateManufacturerDto {
+class CreateManufacturer {
     static _OPENAPI_METADATA_FACTORY() {
         return { name: { required: true, type: () => String }, address: { required: true, type: () => String } };
     }
@@ -20,10 +20,10 @@ class CreateManufacturerDto {
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], CreateManufacturerDto.prototype, "name", void 0);
+], CreateManufacturer.prototype, "name", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
-], CreateManufacturerDto.prototype, "address", void 0);
-exports.CreateManufacturerDto = CreateManufacturerDto;
-//# sourceMappingURL=create-manufacturer.dto.js.map
+], CreateManufacturer.prototype, "address", void 0);
+exports.CreateManufacturer = CreateManufacturer;
+//# sourceMappingURL=create-manufacturer.request.js.map

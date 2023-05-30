@@ -1,13 +1,14 @@
 import { ManufacturerService } from './manufacturer.service';
-import { CreateManufacturerDto } from './dto/create-manufacturer.dto';
-import { UpdateManufacturerDto } from './dto/update-manufacturer.dto';
+import { CreateManufacturer } from './dto/requests/create-manufacturer.request';
+import { UpdateManufacturer } from './dto/requests/update-manufacturer.request';
+import { ManufacturerResponse, ManufacturersResponse, QueryManufacturer } from './dto';
 export declare class ManufacturerController {
     private readonly manufacturerService;
     constructor(manufacturerService: ManufacturerService);
-    create(createManufacturerDto: CreateManufacturerDto): Promise<import("../../core/entities").Manufacturer>;
-    findAll(): Promise<import("@mikro-orm/core").Loaded<import("../../core/entities").Manufacturer, never>[]>;
-    findOne(id: string): Promise<import("@mikro-orm/core").Loaded<import("../../core/entities").Manufacturer, never>>;
-    update(id: string, updateManufacturerDto: UpdateManufacturerDto): Promise<import("@mikro-orm/core").Loaded<import("../../core/entities").Manufacturer, never>>;
+    create(createManufacturerDto: CreateManufacturer): Promise<ManufacturerResponse>;
+    find(query: QueryManufacturer): Promise<ManufacturersResponse>;
+    findOne(id: string): Promise<ManufacturerResponse>;
+    update(id: string, payload: UpdateManufacturer): Promise<ManufacturerResponse>;
     remove(id: string): Promise<void>;
 }
 //# sourceMappingURL=manufacturer.controller.d.ts.map
