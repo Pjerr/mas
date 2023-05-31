@@ -1,20 +1,20 @@
-import { EntityManager, EntityRepository } from '@mikro-orm/postgresql';
-import { Attribute, Part, Group } from '@/core/entities';
-import { CreateAttribute, UpdateAttribute } from './dto';
+import { Attribute, Group, Part } from '@/core/entities';
 import { FilterEntity } from '@/core/types';
+import { CreateAttribute, UpdateAttribute } from '@/modules/attribute/dto';
+import { EntityManager, EntityRepository } from '@mikro-orm/postgresql';
 export declare class AttributeService {
     private readonly em;
     private readonly attributeRepository;
     private readonly groupRepository;
-    private readonly carRepository;
-    constructor(em: EntityManager, attributeRepository: EntityRepository<Attribute>, groupRepository: EntityRepository<Group>, carRepository: EntityRepository<Part>);
+    private readonly productRepository;
+    constructor(em: EntityManager, attributeRepository: EntityRepository<Attribute>, groupRepository: EntityRepository<Group>, productRepository: EntityRepository<Part>);
     create(payload: CreateAttribute): Promise<Attribute>;
-    find(filters: FilterEntity<Attribute>): Promise<import("@mikro-orm/core").Loaded<Attribute, any>[]>;
     findOne(id: string): Promise<import("@mikro-orm/core").Loaded<Attribute, never>>;
+    find(filters: FilterEntity<Attribute>): Promise<import("@mikro-orm/core").Loaded<Attribute, any>[]>;
     update(id: string, payload: UpdateAttribute): Promise<import("@mikro-orm/core").Loaded<Attribute, "options" | "group">>;
     remove(id: string): Promise<void>;
     removeMany(ids: string[]): Promise<void>;
     updateGroup(id: string, groupId: string): Promise<import("@mikro-orm/core").Loaded<Attribute, never>>;
-    findBy(productId: string): Promise<Attribute[]>;
+    findBy(partId: string): Promise<Attribute[]>;
 }
 //# sourceMappingURL=attribute.service.d.ts.map

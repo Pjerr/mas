@@ -6,7 +6,7 @@ import { AttributeService } from '@/modules/attribute/attribute.service';
 import {
   AttributeRelationTypes,
   CreateAttribute,
-  QueryAttribtue,
+  QueryAttribute,
   UpdateAttribute,
 } from '@/modules/attribute/dto';
 import {
@@ -38,10 +38,10 @@ export class AttributeController {
   }
 
   @Get()
-  @FilterQuery('query', QueryAttribtue)
+  @FilterQuery('query', QueryAttribute)
   async find(
     @Query('query', QueryPipe<AttributeRelationTypes, Attribute>)
-    query: QueryAttribtue,
+    query: QueryAttribute,
   ): Promise<AttributesResponse> {
     const filter = filterEntity<AttributeRelationTypes, Attribute>(
       query,
@@ -56,11 +56,11 @@ export class AttributeController {
     return { data: response };
   }
 
-  @Get(':id/part')
-  async findByPart(
-    @Param('id') partId: string,
+  @Get(':id/product')
+  async findByProduct(
+    @Param('id') productId: string,
   ): Promise<PartialAttributesResponse> {
-    const response = await this.attributeService.findBy(partId);
+    const response = await this.attributeService.findBy(productId);
     return { data: response };
   }
 

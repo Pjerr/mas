@@ -1,10 +1,10 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { EntityManager, EntityRepository } from '@mikro-orm/postgresql';
-import { Attribute, Part, Group } from '@/core/entities';
-import { InjectRepository } from '@mikro-orm/nestjs';
-import { CreateAttribute, UpdateAttribute } from './dto';
-import { generateProperyKey } from '@/core/utils/property-key';
+import { Attribute, Group, Part } from '@/core/entities';
 import { FilterEntity } from '@/core/types';
+import { generatePropertyKey } from '@/core/utils/property-key';
+import { CreateAttribute, UpdateAttribute } from '@/modules/attribute/dto';
+import { InjectRepository } from '@mikro-orm/nestjs';
+import { EntityManager, EntityRepository } from '@mikro-orm/postgresql';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
 @Injectable()
 export class AttributeService {
@@ -15,36 +15,42 @@ export class AttributeService {
     @InjectRepository(Group)
     private readonly groupRepository: EntityRepository<Group>,
     @InjectRepository(Part)
-    private readonly carRepository: EntityRepository<Part>,
+    private readonly productRepository: EntityRepository<Part>,
   ) {}
 
   async create(payload: CreateAttribute) {
-    const propertyKey = generateProperyKey(payload.displayName);
+    const propertyKey = generatePropertyKey(payload.displayName);
     const attribute = this.attributeRepository.create({
       ...payload,
       propertyKey,
       group: payload.groupId,
     });
+
     await this.em.persistAndFlush(attribute);
+
+    return attribute;
+  }
+
+  async findOne(id: string) {
+    const attribute = await this.attributeRepository.findOne(id);
+    if (!attribute) throw new NotFoundException('Attribute does not exist');
     return attribute;
   }
 
   async find(filters: FilterEntity<Attribute>) {
     const options = ['group'];
-    if (filters.options.populate) options.push(...filters.options.populate);
+    if (filters.options.populate) {
+      options.push(...filters.options.populate);
+    }
 
     const attributes = await this.attributeRepository.find(filters.query, {
       ...filters.options,
       populate: options,
     });
 
-    if (!attributes) throw new NotFoundException('Attributes not found');
+    if (!attributes) throw new NotFoundException('Attributes do not exist');
 
     return attributes;
-  }
-
-  async findOne(id: string) {
-    return await this.attributeRepository.findOneOrFail(id);
   }
 
   async update(id: string, payload: UpdateAttribute) {
@@ -64,15 +70,15 @@ export class AttributeService {
       populate: ['options'],
     });
 
-    const cars = await this.carRepository.find({
+    const products = await this.productRepository.find({
       attributes: { id: { $eq: id } },
     });
 
-    cars.map((car) => {
-      const properties = car.properties;
+    products.map((product) => {
+      const properties = product.properties;
       delete properties[attribute.displayName];
-      car.assign(properties);
-      this.em.persist(car);
+      product.assign(properties);
+      this.em.persist(product);
     });
     await this.em.removeAndFlush(attribute);
   }
@@ -99,12 +105,12 @@ export class AttributeService {
     return attribute;
   }
 
-  async findBy(productId: string) {
+  async findBy(partId: string) {
     const attributeQb = this.attributeRepository.createQueryBuilder();
 
     const response = await attributeQb
       .select(['displayName', 'id', 'propertyKey'])
-      .where({ products: { id: { $eq: productId } } })
+      .where({ products: { id: { $eq: partId } } })
       .execute('all');
 
     return response;

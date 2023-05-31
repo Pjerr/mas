@@ -68,12 +68,12 @@ const injectedRtkApi = api
                 }),
                 invalidatesTags: ['Attributes'],
             }),
-            findByPartAttribute: build.query<
-                FindByPartAttributeApiResponse,
-                FindByPartAttributeApiArg
+            findByProductAttribute: build.query<
+                FindByProductAttributeApiResponse,
+                FindByProductAttributeApiArg
             >({
                 query: (queryArg) => ({
-                    url: `/attributes/${queryArg.id}/part`,
+                    url: `/attributes/${queryArg.id}/product`,
                 }),
                 providesTags: ['Attributes'],
             }),
@@ -422,7 +422,7 @@ export type CreateAttributeApiArg = {
 };
 export type FindAttributeApiResponse = /** status 200  */ AttributesResponse;
 export type FindAttributeApiArg = {
-    query?: QueryAttribtue;
+    query?: QueryAttribute;
 };
 export type RemoveManyAttributeApiResponse = unknown;
 export type RemoveManyAttributeApiArg = {
@@ -437,9 +437,9 @@ export type UpdateAttributeApiArg = {
     id: string;
     updateAttribute: UpdateAttribute;
 };
-export type FindByPartAttributeApiResponse =
+export type FindByProductAttributeApiResponse =
     /** status 200  */ PartialAttributesResponse;
-export type FindByPartAttributeApiArg = {
+export type FindByProductAttributeApiArg = {
     id: string;
 };
 export type MultipleCreatePartApiResponse = /** status 201  */ PartsResponse;
@@ -613,7 +613,7 @@ export type Group = {
     attributes: Attribute[];
     id: string;
     name: string;
-    searchableName: string;
+    searchIndex: string;
     createdAt: string;
     updatedAt: string;
 };
@@ -705,7 +705,7 @@ export type Sort = {
     field?: string;
     order?: 'ASC' | 'DESC';
 };
-export type QueryAttribtue = {
+export type QueryAttribute = {
     include?: string[];
     filters?: Filter[];
     sort?: Sort;
@@ -736,13 +736,13 @@ export type UpdateAttribute = {
         | 'select';
     additionalMetadata?: AdditionalMetadata;
 };
-export type AttributeByCar = {
+export type AttributeByPart = {
     id: string;
     propertyKey: string;
     displayName: string;
 };
 export type PartialAttributesResponse = {
-    data: AttributeByCar[];
+    data: AttributeByPart[];
     links?: string[];
 };
 export type PartsResponse = {
@@ -885,7 +885,7 @@ export const {
     useRemoveManyAttributeMutation,
     useFindOneAttributeQuery,
     useUpdateAttributeMutation,
-    useFindByPartAttributeQuery,
+    useFindByProductAttributeQuery,
     useMultipleCreatePartMutation,
     useFindPartQuery,
     useMultipleUpdatePartMutation,

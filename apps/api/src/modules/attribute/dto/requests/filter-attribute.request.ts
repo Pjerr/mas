@@ -3,7 +3,7 @@ import { QueryEntity } from '@/core/types';
 
 export type AttributeRelationTypes = 'options';
 
-export class QueryAttribtue extends QueryEntity<
+export class QueryAttribute extends QueryEntity<
   AttributeRelationTypes,
   Attribute
 > {

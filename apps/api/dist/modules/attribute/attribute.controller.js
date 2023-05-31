@@ -39,8 +39,8 @@ let AttributeController = class AttributeController {
         const response = await this.attributeService.findOne(id);
         return { data: response };
     }
-    async findByPart(partId) {
-        const response = await this.attributeService.findBy(partId);
+    async findByProduct(productId) {
+        const response = await this.attributeService.findBy(productId);
         return { data: response };
     }
     async update(id, payload) {
@@ -61,11 +61,11 @@ __decorate([
 ], AttributeController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
-    (0, types_1.FilterQuery)('query', dto_1.QueryAttribtue),
+    (0, types_1.FilterQuery)('query', dto_1.QueryAttribute),
     openapi.ApiResponse({ status: 200, type: require("./dto/attribute.response").AttributesResponse }),
     __param(0, (0, common_1.Query)('query', (query_pipe_1.QueryPipe))),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [dto_1.QueryAttribtue]),
+    __metadata("design:paramtypes", [dto_1.QueryAttribute]),
     __metadata("design:returntype", Promise)
 ], AttributeController.prototype, "find", null);
 __decorate([
@@ -77,13 +77,13 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AttributeController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Get)(':id/part'),
+    (0, common_1.Get)(':id/product'),
     openapi.ApiResponse({ status: 200, type: require("./dto/attribute.response").PartialAttributesResponse }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
-], AttributeController.prototype, "findByPart", null);
+], AttributeController.prototype, "findByProduct", null);
 __decorate([
     (0, common_1.Patch)(':id'),
     openapi.ApiResponse({ status: 200, type: require("./dto/attribute.response").AttributeResponse }),

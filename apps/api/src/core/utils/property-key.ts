@@ -1,6 +1,6 @@
 import slugify from 'slugify';
 
-export const generateProperyKey = (displayName: string) => {
+export const generatePropertyKey = (displayName: string) => {
   return slugify(displayName, {
     lower: true,
     trim: true,

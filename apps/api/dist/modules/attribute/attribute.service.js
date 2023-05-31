@@ -13,35 +13,39 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AttributeService = void 0;
-const common_1 = require("@nestjs/common");
-const postgresql_1 = require("@mikro-orm/postgresql");
 const entities_1 = require("../../core/entities");
-const nestjs_1 = require("@mikro-orm/nestjs");
 const property_key_1 = require("../../core/utils/property-key");
+const nestjs_1 = require("@mikro-orm/nestjs");
+const postgresql_1 = require("@mikro-orm/postgresql");
+const common_1 = require("@nestjs/common");
 let AttributeService = class AttributeService {
-    constructor(em, attributeRepository, groupRepository, carRepository) {
+    constructor(em, attributeRepository, groupRepository, productRepository) {
         this.em = em;
         this.attributeRepository = attributeRepository;
         this.groupRepository = groupRepository;
-        this.carRepository = carRepository;
+        this.productRepository = productRepository;
     }
     async create(payload) {
-        const propertyKey = (0, property_key_1.generateProperyKey)(payload.displayName);
+        const propertyKey = (0, property_key_1.generatePropertyKey)(payload.displayName);
         const attribute = this.attributeRepository.create(Object.assign(Object.assign({}, payload), { propertyKey, group: payload.groupId }));
         await this.em.persistAndFlush(attribute);
         return attribute;
     }
+    async findOne(id) {
+        const attribute = await this.attributeRepository.findOne(id);
+        if (!attribute)
+            throw new common_1.NotFoundException('Attribute does not exist');
+        return attribute;
+    }
     async find(filters) {
         const options = ['group'];
-        if (filters.options.populate)
+        if (filters.options.populate) {
             options.push(...filters.options.populate);
+        }
         const attributes = await this.attributeRepository.find(filters.query, Object.assign(Object.assign({}, filters.options), { populate: options }));
         if (!attributes)
-            throw new common_1.NotFoundException('Attributes not found');
+            throw new common_1.NotFoundException('Attributes do not exist');
         return attributes;
-    }
-    async findOne(id) {
-        return await this.attributeRepository.findOneOrFail(id);
     }
     async update(id, payload) {
         const attribute = await this.attributeRepository.findOne(id, {
@@ -55,14 +59,14 @@ let AttributeService = class AttributeService {
         const attribute = await this.attributeRepository.findOne(id, {
             populate: ['options'],
         });
-        const cars = await this.carRepository.find({
+        const products = await this.productRepository.find({
             attributes: { id: { $eq: id } },
         });
-        cars.map((car) => {
-            const properties = car.properties;
+        products.map((product) => {
+            const properties = product.properties;
             delete properties[attribute.displayName];
-            car.assign(properties);
-            this.em.persist(car);
+            product.assign(properties);
+            this.em.persist(product);
         });
         await this.em.removeAndFlush(attribute);
     }
@@ -81,11 +85,11 @@ let AttributeService = class AttributeService {
         await this.em.persistAndFlush(attribute);
         return attribute;
     }
-    async findBy(productId) {
+    async findBy(partId) {
         const attributeQb = this.attributeRepository.createQueryBuilder();
         const response = await attributeQb
             .select(['displayName', 'id', 'propertyKey'])
-            .where({ products: { id: { $eq: productId } } })
+            .where({ products: { id: { $eq: partId } } })
             .execute('all');
         return response;
     }
