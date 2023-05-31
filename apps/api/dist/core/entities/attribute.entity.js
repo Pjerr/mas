@@ -30,11 +30,11 @@ let Attribute = class Attribute extends core_1.BaseEntity {
         this.editorType = shared_1.EditorType.Text;
         this.editorValidation = shared_1.EditorValidation.None;
         this.options = new core_1.Collection(this);
-        this.cars = new core_1.Collection(this);
+        this.parts = new core_1.Collection(this);
         this.createdAt = new Date();
     }
     static _OPENAPI_METADATA_FACTORY() {
-        return { id: { required: true, type: () => String, default: (0, uuid4_1.default)() }, propertyKey: { required: true, type: () => String }, displayName: { required: true, type: () => String }, searchIndex: { required: true, type: () => String }, editorType: { required: true, type: () => Object, default: shared_1.EditorType.Text, enum: require("../../../../../packages/shared/dist/types/enums").EditorType }, editorValidation: { required: true, type: () => Object, default: shared_1.EditorValidation.None, enum: require("../../../../../packages/shared/dist/types/enums").EditorValidation }, group: { required: true, type: () => require("./group.entity").Group }, options: { required: true, type: () => Object, default: new core_1.Collection(this) }, cars: { required: true, type: () => Object, default: new core_1.Collection(this) }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date }, additionalMetadata: { required: false, type: () => require("../types/additional-metadata").default } };
+        return { id: { required: true, type: () => String, default: (0, uuid4_1.default)() }, propertyKey: { required: true, type: () => String }, displayName: { required: true, type: () => String }, searchIndex: { required: true, type: () => String }, editorType: { required: true, type: () => Object, default: shared_1.EditorType.Text, enum: require("../../../../../packages/shared/dist/types/enums").EditorType }, editorValidation: { required: true, type: () => Object, default: shared_1.EditorValidation.None, enum: require("../../../../../packages/shared/dist/types/enums").EditorValidation }, group: { required: true, type: () => require("./group.entity").Group }, options: { required: true, type: () => Object, default: new core_1.Collection(this) }, parts: { required: true, type: () => Object, default: new core_1.Collection(this) }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date }, additionalMetadata: { required: false, type: () => require("../types/additional-metadata").default } };
     }
 };
 __decorate([
@@ -88,7 +88,7 @@ __decorate([
         type: [part_entity_1.Part],
     }),
     __metadata("design:type", Object)
-], Attribute.prototype, "cars", void 0);
+], Attribute.prototype, "parts", void 0);
 __decorate([
     (0, core_1.Property)(),
     __metadata("design:type", Date)

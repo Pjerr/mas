@@ -6,7 +6,7 @@ export declare class GroupController {
     private readonly groupService;
     constructor(groupService: GroupService);
     create(payload: CreateGroup): Promise<GroupResponse>;
-    findAll(query: QueryGroup): Promise<GroupsResponse>;
+    find(query: QueryGroup): Promise<GroupsResponse>;
     findOne(id: string): Promise<GroupResponse>;
     update(id: string, payload: UpdateGroup): Promise<GroupResponse>;
     remove(id: string): Promise<void>;

@@ -32,7 +32,7 @@ let GroupController = class GroupController {
         const response = await this.groupService.create(payload);
         return { data: response };
     }
-    async findAll(query) {
+    async find(query) {
         const filter = (0, parse_query_1.filterEntity)(query, entities_1.Group);
         const response = await this.groupService.find(filter);
         return { data: response };
@@ -65,7 +65,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [dto_1.QueryGroup]),
     __metadata("design:returntype", Promise)
-], GroupController.prototype, "findAll", null);
+], GroupController.prototype, "find", null);
 __decorate([
     (0, common_1.Get)(':id'),
     openapi.ApiResponse({ status: 200, type: require("./dto/group.response").GroupResponse }),

@@ -32,7 +32,7 @@ let CategoryController = class CategoryController {
         const response = await this.categoryService.create(payload);
         return { data: response };
     }
-    async findMany(query) {
+    async find(query) {
         const filter = (0, parse_query_1.filterEntity)(query, entities_1.Category);
         const response = await this.categoryService.find(filter);
         return { data: response };
@@ -69,7 +69,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [dto_1.QueryCategory]),
     __metadata("design:returntype", Promise)
-], CategoryController.prototype, "findMany", null);
+], CategoryController.prototype, "find", null);
 __decorate([
     (0, common_1.Get)(':id'),
     openapi.ApiResponse({ status: 200, type: require("./dto/category.response").CategoryResponse }),

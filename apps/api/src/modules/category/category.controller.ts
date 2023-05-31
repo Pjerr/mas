@@ -37,7 +37,7 @@ export class CategoryController {
 
   @Get()
   @FilterQuery('query', QueryCategory)
-  async findMany(
+  async find(
     @Query('query', QueryPipe<CategoryRelationTypes, Category>)
     query: QueryCategory,
   ): Promise<CategoriesResponse> {

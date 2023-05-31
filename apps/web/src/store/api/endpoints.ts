@@ -198,9 +198,9 @@ const injectedRtkApi = api
                 }),
                 invalidatesTags: ['Categories'],
             }),
-            findManyCategory: build.query<
-                FindManyCategoryApiResponse,
-                FindManyCategoryApiArg
+            findCategory: build.query<
+                FindCategoryApiResponse,
+                FindCategoryApiArg
             >({
                 query: (queryArg) => ({
                     url: `/categories`,
@@ -258,10 +258,7 @@ const injectedRtkApi = api
                 }),
                 invalidatesTags: ['Group'],
             }),
-            findAllGroup: build.query<
-                FindAllGroupApiResponse,
-                FindAllGroupApiArg
-            >({
+            findGroup: build.query<FindGroupApiResponse, FindGroupApiArg>({
                 query: (queryArg) => ({
                     url: `/group`,
                     params: { query: queryArg.query },
@@ -499,8 +496,8 @@ export type CreateCategoryApiResponse = /** status 201  */ CategoryResponse;
 export type CreateCategoryApiArg = {
     createCategory: CreateCategory;
 };
-export type FindManyCategoryApiResponse = /** status 200  */ CategoriesResponse;
-export type FindManyCategoryApiArg = {
+export type FindCategoryApiResponse = /** status 200  */ CategoriesResponse;
+export type FindCategoryApiArg = {
     query?: QueryCategory;
 };
 export type FindOneCategoryApiResponse = /** status 200  */ CategoryResponse;
@@ -526,8 +523,8 @@ export type CreateGroupApiResponse = /** status 201  */ GroupResponse;
 export type CreateGroupApiArg = {
     createGroup: CreateGroup;
 };
-export type FindAllGroupApiResponse = /** status 200  */ GroupsResponse;
-export type FindAllGroupApiArg = {
+export type FindGroupApiResponse = /** status 200  */ GroupsResponse;
+export type FindGroupApiArg = {
     query?: QueryGroup;
 };
 export type FindOneGroupApiResponse = /** status 200  */ GroupResponse;
@@ -623,7 +620,7 @@ export type Group = {
 export type AdditionalMetadata = {};
 export type Attribute = {
     options: AttributeOption[];
-    cars: Part[];
+    parts: Part[];
     id: string;
     propertyKey: string;
     displayName: string;
@@ -901,13 +898,13 @@ export const {
     useRemoveAttributePartMutation,
     useRemoveAttributesPartMutation,
     useCreateCategoryMutation,
-    useFindManyCategoryQuery,
+    useFindCategoryQuery,
     useFindOneCategoryQuery,
     useUpdateCategoryMutation,
     useRemoveCategoryMutation,
     useUpdateRelationCategoryMutation,
     useCreateGroupMutation,
-    useFindAllGroupQuery,
+    useFindGroupQuery,
     useFindOneGroupQuery,
     useUpdateGroupMutation,
     useRemoveGroupMutation,

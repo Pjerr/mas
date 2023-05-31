@@ -1,0 +1,36 @@
+.attribute__content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.attribute-table {
+    overflow: auto;
+    height: var(--size-100);
+}
+
+.placeholder {
+    text-align: center;
+    padding-top: var(--size-2);
+}
+
+.group-list-item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.group-listbox__container {
+    padding: var(--size-4) 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-2);
+}
+
+.add-group__container,
+.group-search__container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}

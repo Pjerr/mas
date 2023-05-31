@@ -36,7 +36,7 @@ export class GroupController {
 
   @Get()
   @FilterQuery('query', QueryGroup)
-  async findAll(
+  async find(
     @Query('query', QueryPipe<GroupRelationTypes, Group>) query: QueryGroup,
   ): Promise<GroupsResponse> {
     const filter = filterEntity<GroupRelationTypes, Group>(query, Group);

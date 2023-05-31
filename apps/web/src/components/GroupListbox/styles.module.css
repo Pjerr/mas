@@ -1,0 +1,24 @@
+.group-list-item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    text-indent: var(--size-2);
+    height: var(--size-8);
+    width: 100%;
+}
+
+.group-listbox__container {
+    padding: var(--size-2) 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-1);
+    width: var(--size-72);
+    flex: 1;
+}
+
+.add-group__container,
+.button__container,
+.group-search__container {
+    display: flex;
+    justify-content: center;
+}

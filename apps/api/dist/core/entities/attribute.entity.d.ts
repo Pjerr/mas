@@ -13,7 +13,7 @@ export declare class Attribute extends BaseEntity<Attribute, 'id'> {
     editorValidation: EditorValidation;
     group: Group;
     options: Collection<AttributeOption, object>;
-    cars: Collection<Part, object>;
+    parts: Collection<Part, object>;
     createdAt: Date;
     updatedAt: Date;
     additionalMetadata?: AdditionalMetadata;

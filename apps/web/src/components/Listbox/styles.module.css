@@ -1,0 +1,23 @@
+.listbox__container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-2);
+    padding: var(--size-2);
+}
+
+.list-item {
+    flex: 1;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    padding: var(--size-2);
+    border-radius: var(--rounded-sm);
+}
+
+.list-item:hover:not(.list-item--active) {
+    background-color: var(--color-secondary--hover);
+}
+
+.list-item--active {
+    background-color: var(--color-primary);
+}

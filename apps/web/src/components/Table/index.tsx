@@ -37,7 +37,7 @@ interface TableProps {
     placeholder: string;
 }
 
-function DataGrid({
+function Table({
     view,
     refetch,
     instanceId = uuid4(),
@@ -152,4 +152,4 @@ function DataGrid({
     );
 }
 
-export { DataGrid };
+export default Table;

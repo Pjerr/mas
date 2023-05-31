@@ -6,7 +6,7 @@ export declare class CategoryController {
     private readonly categoryService;
     constructor(categoryService: CategoryService);
     create(payload: CreateCategory): Promise<CategoryResponse>;
-    findMany(query: QueryCategory): Promise<CategoriesResponse>;
+    find(query: QueryCategory): Promise<CategoriesResponse>;
     findOne(id: string): Promise<CategoryResponse>;
     update(id: string, payload: UpdateCategory): Promise<CategoryResponse>;
     remove(id: string): Promise<void>;
