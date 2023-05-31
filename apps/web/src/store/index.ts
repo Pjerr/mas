@@ -2,14 +2,14 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import tableReducer from './table/index';
 import attributeEditorReducer from './editors/attribute/index';
-import carEditorReducer from './editors/car/index';
+import partEditorReducer from './editors/part/index';
 import { api } from './api';
 
 const rootReducer = combineReducers({
     [api.reducerPath]: api.reducer,
     table: tableReducer,
     attributeEditor: attributeEditorReducer,
-    carEditor: carEditorReducer,
+    partEditor: partEditorReducer,
 });
 
 export const store = configureStore({
