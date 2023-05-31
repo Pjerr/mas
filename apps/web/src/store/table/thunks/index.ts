@@ -1,4 +1,4 @@
 import removeManyThunk from './removeMany';
-import loadDataThunk from './loadData';
+import loadTableDataThunk from './loadData';
 
-export { loadDataThunk, removeManyThunk };
+export { loadTableDataThunk as loadDataThunk, removeManyThunk };

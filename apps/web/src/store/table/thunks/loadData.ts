@@ -37,7 +37,7 @@ const createFilterArg = (
 
 export const orderMap = (isDesc: boolean) => (isDesc ? 'DESC' : 'ASC');
 
-const loadDataThunk = createAsyncThunk<
+const loadTableDataThunk = createAsyncThunk<
     void,
     LoadDataProps,
     { dispatch: AppDispatch; state: RootState }
@@ -93,4 +93,4 @@ const loadDataThunk = createAsyncThunk<
     );
 });
 
-export default loadDataThunk;
+export default loadTableDataThunk;

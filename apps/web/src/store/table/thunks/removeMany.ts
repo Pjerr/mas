@@ -5,9 +5,9 @@ import { MasApi as Api } from '@/store/api/endpoints';
 import { removeManyNotation } from '@/store/api/types';
 import { removeMany } from '..';
 interface RemoveManyProps {
-    instanceId: string;
     ids: string[];
     type: EntityType;
+    instanceId: string;
 }
 
 const removeManyThunk = createAsyncThunk<
