@@ -4,7 +4,7 @@ import {
     RowSelectionState,
     SortingState,
 } from '@tanstack/react-table';
-import { EditorMode } from '../editors/attribute/types';
+import { EditorMode } from '../editors/enums';
 
 export enum EntityType {
     Attribute = 'Attribute',
@@ -70,3 +70,9 @@ export interface RowSeletctionAction {
     instanceId: string;
     rowSelection: RowSelectionState;
 }
+
+export const includeArgMap: Record<EntityType, string[]> = {
+    [EntityType.Attribute]: ['options'],
+    [EntityType.Part]: [],
+    [EntityType.Option]: [],
+};
