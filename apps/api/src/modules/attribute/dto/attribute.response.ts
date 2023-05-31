@@ -6,20 +6,19 @@ export class AttributeResponse implements EntityResponse<Attribute> {
   links?: string[];
 }
 
-class AttributeByCar {
+export class AttributesResponse implements EntityResponse<Attribute[]> {
+  data: Attribute[];
+  links?: string[];
+}
+class AttributeByPart {
   id: string;
   propertyKey: string;
   displayName: string;
 }
 
 export class PartialAttributesResponse
-  implements EntityResponse<AttributeByCar[]>
+  implements EntityResponse<AttributeByPart[]>
 {
-  data: AttributeByCar[];
-  links?: string[];
-}
-
-export class AttributesResponse implements EntityResponse<Attribute[]> {
-  data: Attribute[];
+  data: AttributeByPart[];
   links?: string[];
 }

@@ -1,6 +1,6 @@
+import { Sort } from '@/core/types/sort.request';
 import { ConditionalOperator } from 'shared';
-import { Sort } from './sort.request';
-export declare class EntityRelations<RelationTypes> {
+export interface EntityRelations<RelationTypes> {
     include?: RelationTypes[];
 }
 export declare class Filter {

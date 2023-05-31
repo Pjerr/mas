@@ -43,8 +43,8 @@ export class AttributeService {
     return attributes;
   }
 
-  findOne(id: string) {
-    return this.attributeRepository.findOneOrFail(id);
+  async findOne(id: string) {
+    return await this.attributeRepository.findOneOrFail(id);
   }
 
   async update(id: string, payload: UpdateAttribute) {

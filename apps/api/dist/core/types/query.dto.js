@@ -9,16 +9,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EntityFilters = exports.QueryEntity = exports.Filter = exports.EntityRelations = void 0;
+exports.EntityFilters = exports.QueryEntity = exports.Filter = void 0;
 const openapi = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 const shared_1 = require("shared");
-class EntityRelations {
-    static _OPENAPI_METADATA_FACTORY() {
-        return { include: { required: false } };
-    }
-}
-exports.EntityRelations = EntityRelations;
 class Filter {
     static _OPENAPI_METADATA_FACTORY() {
         return { field: { required: true, type: () => String }, value: { required: true, type: () => Object }, operator: { required: true, enum: require("../../../../../packages/shared/dist/types/enums").ConditionalOperator } };

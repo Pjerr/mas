@@ -61,7 +61,7 @@ export default function Toolbar({
 
     return (
         <div className={styles['toolbar']}>
-            <div className={styles['action-buttons']}>
+            <div className={styles['action-icons']}>
                 <Button
                     icon={<CgAdd className={styles['toolbar-icon']} />}
                     variant={'borderless'}

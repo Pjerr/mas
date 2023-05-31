@@ -27,7 +27,7 @@ let Group = class Group extends core_1.BaseEntity {
         this.createdAt = new Date();
     }
     static _OPENAPI_METADATA_FACTORY() {
-        return { id: { required: true, type: () => String, default: (0, uuid4_1.default)() }, name: { required: true, type: () => String }, searchableName: { required: true, type: () => String }, attributes: { required: true, type: () => Object, default: new core_1.Collection(this) }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date } };
+        return { id: { required: true, type: () => String, default: (0, uuid4_1.default)() }, name: { required: true, type: () => String }, searchIndex: { required: true, type: () => String }, attributes: { required: true, type: () => Object, default: new core_1.Collection(this) }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date } };
     }
 };
 __decorate([
@@ -47,7 +47,7 @@ __decorate([
         nullable: true,
     }),
     __metadata("design:type", String)
-], Group.prototype, "searchableName", void 0);
+], Group.prototype, "searchIndex", void 0);
 __decorate([
     (0, swagger_1.ApiResponseProperty)({ type: [attribute_entity_1.Attribute] }),
     (0, core_1.OneToMany)(() => attribute_entity_1.Attribute, (attribute) => attribute.group, {

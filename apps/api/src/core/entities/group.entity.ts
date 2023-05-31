@@ -28,7 +28,7 @@ export class Group extends BaseEntity<Group, 'id'> {
     onUpdate: (group: Group) => group.name,
     nullable: true,
   })
-  searchableName: string;
+  searchIndex: string;
 
   @ApiResponseProperty({ type: [Attribute] })
   @OneToMany(() => Attribute, (attribute) => attribute.group, {

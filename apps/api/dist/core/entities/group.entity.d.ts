@@ -3,7 +3,7 @@ import { Attribute } from './attribute.entity';
 export declare class Group extends BaseEntity<Group, 'id'> {
     id: string;
     name: string;
-    searchableName: string;
+    searchIndex: string;
     attributes: Collection<Attribute, object>;
     createdAt: Date;
     updatedAt: Date;

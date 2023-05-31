@@ -4,17 +4,17 @@ export declare class AttributeResponse implements EntityResponse<Attribute> {
     data: Attribute;
     links?: string[];
 }
-declare class AttributeByCar {
+export declare class AttributesResponse implements EntityResponse<Attribute[]> {
+    data: Attribute[];
+    links?: string[];
+}
+declare class AttributeByPart {
     id: string;
     propertyKey: string;
     displayName: string;
 }
-export declare class PartialAttributesResponse implements EntityResponse<AttributeByCar[]> {
-    data: AttributeByCar[];
-    links?: string[];
-}
-export declare class AttributesResponse implements EntityResponse<Attribute[]> {
-    data: Attribute[];
+export declare class PartialAttributesResponse implements EntityResponse<AttributeByPart[]> {
+    data: AttributeByPart[];
     links?: string[];
 }
 export {};

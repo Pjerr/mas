@@ -16,12 +16,6 @@ export const createAttributeValidationSchema = () => {
         editorValidation: Joi.required().messages({
             'any.required': 'is required',
         }),
-        role: Joi.array().min(1).required().messages({
-            'array.min': 'must have at least one item',
-        }),
-        valueType: Joi.required().messages({
-            'any.required': 'is required',
-        }),
         options,
     });
 };

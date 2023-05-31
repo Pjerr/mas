@@ -1,0 +1,17 @@
+.table__table-header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--size-4);
+}
+
+.table-header__sort-container {
+    display: flex;
+    gap: var(--size-2);
+    align-items: center;
+}
+
+.resizer.isResizing {
+    background: var(--color-primary);
+    opacity: 1;
+}

@@ -40,8 +40,8 @@ let AttributeService = class AttributeService {
             throw new common_1.NotFoundException('Attributes not found');
         return attributes;
     }
-    findOne(id) {
-        return this.attributeRepository.findOneOrFail(id);
+    async findOne(id) {
+        return await this.attributeRepository.findOneOrFail(id);
     }
     async update(id, payload) {
         const attribute = await this.attributeRepository.findOne(id, {

@@ -1,10 +1,10 @@
 import { RootState } from '..';
 
 export const selectTableData = (state: RootState, instanceId: string) =>
-    state.table[instanceId].data;
+    state.table[instanceId]?.data;
 
 export const selectIsLoading = (state: RootState, instanceId: string) =>
-    state.table[instanceId].isLoading;
+    state.table[instanceId]?.isLoading;
 
 export const selectTableState = (state: RootState, instanceId: string) =>
     state.table[instanceId];

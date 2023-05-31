@@ -123,8 +123,8 @@
           "nullable": false,
           "mappedType": "string"
         },
-        "searchable_name": {
-          "name": "searchable_name",
+        "search_index": {
+          "name": "search_index",
           "type": "tsvector",
           "unsigned": false,
           "autoincrement": false,
@@ -157,9 +157,9 @@
       "schema": "public",
       "indexes": [
         {
-          "keyName": "group_searchable_name_index",
+          "keyName": "group_search_index_index",
           "columnNames": [
-            "searchable_name"
+            "search_index"
           ],
           "composite": false,
           "primary": false,

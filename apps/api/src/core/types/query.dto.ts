@@ -1,8 +1,8 @@
+import { Sort } from '@/core/types/sort.request';
 import { IsEnum } from 'class-validator';
 import { ConditionalOperator } from 'shared';
-import { Sort } from './sort.request';
 
-export class EntityRelations<RelationTypes> {
+export interface EntityRelations<RelationTypes> {
   include?: RelationTypes[];
 }
 
@@ -20,7 +20,6 @@ export class QueryEntity<RelationTypes, T>
   include?: RelationTypes[];
   sort?: Sort;
 }
-
 export class EntityFilters {
   ids?: string[];
 }

@@ -19,7 +19,11 @@ export default function FormButtons({}: {}) {
     return (
         <div className={classNames(styles['form__buttons'])}>
             <ConfirmModal
-                control={<Button variant={'secondary'} icon={<FaTimes />} />}
+                control={
+                    <Button variant={'secondary'} icon={<FaTimes />}>
+                        Cancel
+                    </Button>
+                }
                 modalTitle={'Discard form'}
                 onConfirm={handleClose}
                 text="Are you sure you want to discard this form?"
