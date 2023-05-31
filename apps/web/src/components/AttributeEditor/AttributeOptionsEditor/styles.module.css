@@ -1,0 +1,23 @@
+.options-editor__container {
+    display: flex;
+    flex-direction: column;
+}
+.options-editor__title {
+    font-size: var(--font-xl);
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: var(--size-4);
+}
+.options__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-4);
+}
+.option {
+    display: flex;
+    gap: var(--size-4);
+}
+
+.options__add-button {
+    display: flex;
+    align-self: center;
+}

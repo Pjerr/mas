@@ -63,7 +63,7 @@ export class Attribute extends BaseEntity<Attribute, 'id'> {
   @ApiResponseProperty({
     type: [Part],
   })
-  cars = new Collection<Part>(this);
+  parts = new Collection<Part>(this);
 
   @Property()
   createdAt: Date = new Date();

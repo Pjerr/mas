@@ -1,0 +1,31 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-4);
+}
+
+.form__inputs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-4);
+}
+
+.form__buttons {
+    display: flex;
+    gap: var(--size-2);
+    justify-content: flex-end;
+}
+
+.form__title {
+    padding-bottom: var(--size-4);
+    font-size: var(--title-size);
+    font-weight: var(--title-weight);
+    color: var(--text-primary);
+}
+
+.form__subtitle {
+    padding-bottom: var(--size-8);
+    font-size: var(--subtitle-size);
+    font-weight: var(--subtitle-weight);
+    color: var(--text-secondary);
+}
