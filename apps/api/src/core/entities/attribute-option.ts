@@ -16,9 +16,6 @@ export default class AttributeOption extends BaseEntity<AttributeOption, 'id'> {
   @Property()
   value: string;
 
-  @Property({ nullable: true })
-  additionalPrice: number;
-
   @Property()
   @Unique()
   sku: string;

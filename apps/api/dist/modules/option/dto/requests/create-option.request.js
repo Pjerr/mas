@@ -14,7 +14,7 @@ const openapi = require("@nestjs/swagger");
 const swagger_1 = require("@nestjs/swagger");
 class CreateOption {
     static _OPENAPI_METADATA_FACTORY() {
-        return { value: { required: true, type: () => String }, displayName: { required: true, type: () => String }, attributeId: { required: true, type: () => String }, additionalPrice: { required: true, type: () => Number }, sku: { required: true, type: () => String } };
+        return { value: { required: true, type: () => String }, displayName: { required: true, type: () => String }, attributeId: { required: true, type: () => String }, sku: { required: true, type: () => String } };
     }
 }
 __decorate([
@@ -29,10 +29,6 @@ __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
 ], CreateOption.prototype, "attributeId", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", Number)
-], CreateOption.prototype, "additionalPrice", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)

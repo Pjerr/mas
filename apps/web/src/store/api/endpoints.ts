@@ -843,7 +843,6 @@ export type CreateOption = {
     value: string;
     displayName: string;
     attributeId: string;
-    additionalPrice: number;
     sku: string;
 };
 export type OptionsResponse = {

@@ -8,7 +8,5 @@ export class CreateOption {
   @ApiProperty()
   attributeId: string;
   @ApiProperty()
-  additionalPrice: number;
-  @ApiProperty()
   sku: string;
 }

@@ -28,10 +28,6 @@ __decorate([
     __metadata("design:type", String)
 ], AttributeOption.prototype, "value", void 0);
 __decorate([
-    (0, core_1.Property)({ nullable: true }),
-    __metadata("design:type", Number)
-], AttributeOption.prototype, "additionalPrice", void 0);
-__decorate([
     (0, core_1.Property)(),
     (0, core_1.Unique)(),
     __metadata("design:type", String)
