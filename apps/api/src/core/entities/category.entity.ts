@@ -11,11 +11,12 @@ import {
 } from '@mikro-orm/core';
 import { FullTextType } from '@mikro-orm/postgresql';
 import { ApiHideProperty, ApiProperty } from '@nestjs/swagger';
+import uuid4 from 'uuid4';
 
 @Entity()
 export class Category extends BaseEntity<Category, 'id'> {
   @PrimaryKey({ type: 'uuid' })
-  id: string;
+  id: string = uuid4();
 
   @Property()
   name: string;

@@ -8,6 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Part = void 0;
 const openapi = require("@nestjs/swagger");
@@ -18,16 +21,18 @@ const category_entity_1 = require("./category.entity");
 const attribute_entity_1 = require("./attribute.entity");
 const swagger_1 = require("@nestjs/swagger");
 const shared_1 = require("shared");
+const uuid4_1 = __importDefault(require("uuid4"));
 let Part = class Part extends core_1.BaseEntity {
     constructor() {
         super(...arguments);
+        this.id = (0, uuid4_1.default)();
         this.status = shared_1.PartStatus.InStock;
         this.attributes = new core_1.Collection(this);
         this.basePrice = 0;
         this.createdAt = new Date();
     }
     static _OPENAPI_METADATA_FACTORY() {
-        return { id: { required: true, type: () => String }, name: { required: true, type: () => String }, status: { required: true, default: shared_1.PartStatus.InStock, enum: require("../../../../../packages/shared/dist/types/enums").PartStatus }, searchIndex: { required: true, type: () => String }, properties: { required: true, type: () => Object }, manufacturerId: { required: true, type: () => String }, categoryId: { required: true, type: () => String }, attributes: { required: true, type: () => Object, default: new core_1.Collection(this) }, basePrice: { required: true, type: () => Number, default: 0 }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date } };
+        return { id: { required: true, type: () => String, default: (0, uuid4_1.default)() }, name: { required: true, type: () => String }, status: { required: true, default: shared_1.PartStatus.InStock, enum: require("../../../../../packages/shared/dist/types/enums").PartStatus }, searchIndex: { required: true, type: () => String }, properties: { required: true, type: () => Object }, manufacturerId: { required: true, type: () => String }, categoryId: { required: true, type: () => String }, attributes: { required: true, type: () => Object, default: new core_1.Collection(this) }, basePrice: { required: true, type: () => Number, default: 0 }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date } };
     }
 };
 __decorate([

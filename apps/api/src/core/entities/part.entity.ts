@@ -15,11 +15,12 @@ import { Category } from './category.entity';
 import { Attribute } from './attribute.entity';
 import { ApiResponseProperty } from '@nestjs/swagger';
 import { PartStatus } from 'shared';
+import uuid4 from 'uuid4';
 
 @Entity()
 export class Part extends BaseEntity<Part, 'id'> {
   @PrimaryKey()
-  id: string;
+  id: string = uuid4();
 
   @Property()
   name: string;

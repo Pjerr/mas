@@ -8,14 +8,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@mikro-orm/core");
-const uuid4_1 = require("uuid4");
+const uuid4_1 = __importDefault(require("uuid4"));
 const attribute_entity_1 = require("./attribute.entity");
 let AttributeOption = class AttributeOption extends core_1.BaseEntity {
     constructor() {
         super(...arguments);
-        this.id = (0, uuid4_1.uuid4)();
+        this.id = (0, uuid4_1.default)();
         this.createdAt = new Date();
     }
 };

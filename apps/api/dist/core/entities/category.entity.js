@@ -8,6 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 var Category_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Category = void 0;
@@ -15,9 +18,11 @@ const openapi = require("@nestjs/swagger");
 const core_1 = require("@mikro-orm/core");
 const postgresql_1 = require("@mikro-orm/postgresql");
 const swagger_1 = require("@nestjs/swagger");
+const uuid4_1 = __importDefault(require("uuid4"));
 let Category = Category_1 = class Category extends core_1.BaseEntity {
     constructor() {
         super(...arguments);
+        this.id = (0, uuid4_1.default)();
         this.children = new core_1.Collection(this);
         this.createdAt = new Date();
     }
@@ -25,7 +30,7 @@ let Category = Category_1 = class Category extends core_1.BaseEntity {
         return this.children.isInitialized() ? this.children.getIdentifiers() : [];
     }
     static _OPENAPI_METADATA_FACTORY() {
-        return { id: { required: true, type: () => String }, name: { required: true, type: () => String }, searchIndex: { required: true, type: () => String }, parentId: { required: true, type: () => String }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date } };
+        return { id: { required: true, type: () => String, default: (0, uuid4_1.default)() }, name: { required: true, type: () => String }, searchIndex: { required: true, type: () => String }, parentId: { required: true, type: () => String }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date } };
     }
 };
 __decorate([

@@ -1,0 +1,9 @@
+.table__thead {
+    background-color: var(--layer-1-color);
+    cursor: pointer;
+}
+
+.table__row > th {
+    border: 1px solid var(--layer-2-color);
+    padding: var(--size-2);
+}

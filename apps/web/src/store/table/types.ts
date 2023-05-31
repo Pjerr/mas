@@ -66,7 +66,7 @@ export interface ColumnFiltersAction {
     columnFilters: ColumnFiltersState;
 }
 
-export interface RowSeletctionAction {
+export interface RowSelectionAction {
     instanceId: string;
     rowSelection: RowSelectionState;
 }

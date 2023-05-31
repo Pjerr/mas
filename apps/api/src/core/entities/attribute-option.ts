@@ -6,7 +6,7 @@ import {
   Property,
   Unique,
 } from '@mikro-orm/core';
-import { uuid4 } from 'uuid4';
+import uuid4 from 'uuid4';
 import { Attribute } from './attribute.entity';
 @Entity()
 export default class AttributeOption extends BaseEntity<AttributeOption, 'id'> {

@@ -2,9 +2,11 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { initialState } from './initialState';
 import {
     ColumnFiltersAction,
+    EntityAction,
     LoadDataAction,
     RefreshStateAction,
     RemoveManyAction,
+    RowSelectionAction,
     SortingAction,
     initialInstance,
 } from './types';
@@ -46,6 +48,29 @@ export const tableSlice = createSlice({
             const instanceId = payload.instanceId;
             state[instanceId].columnFilters = payload.columnFilters;
         },
+        setRowSelection: (
+            state,
+            { payload }: PayloadAction<RowSelectionAction>
+        ) => {
+            const instanceId = payload.instanceId;
+            state[instanceId].rowSelection = payload.rowSelection;
+        },
+        appendEntity: (state, { payload }: PayloadAction<EntityAction>) => {
+            const instanceId = payload.instanceId;
+            if (payload.entity && state[instanceId].data) {
+                state[instanceId].data.push(payload.entity);
+            }
+        },
+        updateEntity: (state, { payload }: PayloadAction<EntityAction>) => {
+            const instanceId = payload.instanceId;
+            if (!payload.entity || !state[instanceId].data) return;
+            const index = state[instanceId].data.findIndex(
+                (entity) => entity.id === payload.entity.id
+            );
+            if (state[instanceId].data && index !== undefined) {
+                state[instanceId].data[index] = payload.entity;
+            }
+        },
     },
 });
 
@@ -56,6 +81,9 @@ export const {
     removeMany,
     setColumnFilters,
     setSorting,
+    setRowSelection,
+    appendEntity,
+    updateEntity,
 } = tableSlice.actions;
 
 export * from './selectors';

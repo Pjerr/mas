@@ -8,10 +8,11 @@ import {
   Property,
 } from '@mikro-orm/core';
 import { Part } from './part.entity';
+import uuid4 from 'uuid4';
 @Entity()
 export class Manufacturer extends BaseEntity<Manufacturer, 'id'> {
   @PrimaryKey({ type: 'uuid' })
-  id: string;
+  id: string = uuid4();
 
   @Property()
   name: string;

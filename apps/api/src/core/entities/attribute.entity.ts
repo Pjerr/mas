@@ -13,7 +13,7 @@ import {
   Unique,
 } from '@mikro-orm/core';
 import { FullTextType } from '@mikro-orm/postgresql';
-import { uuid4 } from 'uuid4';
+import uuid4 from 'uuid4';
 import { EditorType, EditorValidation } from 'shared';
 import { Group } from './group.entity';
 import AttributeOption from './attribute-option';
@@ -23,7 +23,7 @@ import AdditionalMetadata from '../types/additional-metadata';
 @Entity()
 export class Attribute extends BaseEntity<Attribute, 'id'> {
   @PrimaryKey({ type: 'uuid' })
-  id: string = uuid4;
+  id: string = uuid4();
 
   @Property()
   @Unique()

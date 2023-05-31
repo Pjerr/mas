@@ -16,7 +16,7 @@ exports.Attribute = void 0;
 const openapi = require("@nestjs/swagger");
 const core_1 = require("@mikro-orm/core");
 const postgresql_1 = require("@mikro-orm/postgresql");
-const uuid4_1 = require("uuid4");
+const uuid4_1 = __importDefault(require("uuid4"));
 const shared_1 = require("shared");
 const group_entity_1 = require("./group.entity");
 const attribute_option_1 = __importDefault(require("./attribute-option"));
@@ -26,7 +26,7 @@ const additional_metadata_1 = __importDefault(require("../types/additional-metad
 let Attribute = class Attribute extends core_1.BaseEntity {
     constructor() {
         super(...arguments);
-        this.id = uuid4_1.uuid4;
+        this.id = (0, uuid4_1.default)();
         this.editorType = shared_1.EditorType.Text;
         this.editorValidation = shared_1.EditorValidation.None;
         this.options = new core_1.Collection(this);
@@ -34,7 +34,7 @@ let Attribute = class Attribute extends core_1.BaseEntity {
         this.createdAt = new Date();
     }
     static _OPENAPI_METADATA_FACTORY() {
-        return { id: { required: true, type: () => String, default: uuid4_1.uuid4 }, propertyKey: { required: true, type: () => String }, displayName: { required: true, type: () => String }, searchIndex: { required: true, type: () => String }, editorType: { required: true, type: () => Object, default: shared_1.EditorType.Text, enum: require("../../../../../packages/shared/dist/types/enums").EditorType }, editorValidation: { required: true, type: () => Object, default: shared_1.EditorValidation.None, enum: require("../../../../../packages/shared/dist/types/enums").EditorValidation }, group: { required: true, type: () => require("./group.entity").Group }, options: { required: true, type: () => Object, default: new core_1.Collection(this) }, cars: { required: true, type: () => Object, default: new core_1.Collection(this) }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date }, additionalMetadata: { required: false, type: () => require("../types/additional-metadata").default } };
+        return { id: { required: true, type: () => String, default: (0, uuid4_1.default)() }, propertyKey: { required: true, type: () => String }, displayName: { required: true, type: () => String }, searchIndex: { required: true, type: () => String }, editorType: { required: true, type: () => Object, default: shared_1.EditorType.Text, enum: require("../../../../../packages/shared/dist/types/enums").EditorType }, editorValidation: { required: true, type: () => Object, default: shared_1.EditorValidation.None, enum: require("../../../../../packages/shared/dist/types/enums").EditorValidation }, group: { required: true, type: () => require("./group.entity").Group }, options: { required: true, type: () => Object, default: new core_1.Collection(this) }, cars: { required: true, type: () => Object, default: new core_1.Collection(this) }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date }, additionalMetadata: { required: false, type: () => require("../types/additional-metadata").default } };
     }
 };
 __decorate([
