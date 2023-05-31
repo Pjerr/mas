@@ -16,10 +16,12 @@ import { Attribute } from './attribute.entity';
 import { ApiResponseProperty } from '@nestjs/swagger';
 import { PartStatus } from 'shared';
 import uuid4 from 'uuid4';
+import { Filterable } from '../meta/decorators/filter.decorator';
 
 @Entity()
 export class Part extends BaseEntity<Part, 'id'> {
   @PrimaryKey()
+  @Filterable()
   id: string = uuid4();
 
   @Property()
@@ -34,6 +36,7 @@ export class Part extends BaseEntity<Part, 'id'> {
     onCreate: (part: Part) => part.name,
     onUpdate: (part: Part) => part.name,
   })
+  @Filterable()
   searchIndex: string;
 
   @Property({ type: 'jsonb', nullable: true })
@@ -43,6 +46,7 @@ export class Part extends BaseEntity<Part, 'id'> {
   manufacturerId: string;
 
   @ManyToOne(() => Category, { nullable: true, mapToPk: true })
+  @Filterable()
   categoryId: string;
 
   @ManyToMany(() => Attribute)

@@ -19,6 +19,7 @@ const core_1 = require("@mikro-orm/core");
 const postgresql_1 = require("@mikro-orm/postgresql");
 const swagger_1 = require("@nestjs/swagger");
 const uuid4_1 = __importDefault(require("uuid4"));
+const filter_decorator_1 = require("../meta/decorators/filter.decorator");
 let Category = Category_1 = class Category extends core_1.BaseEntity {
     constructor() {
         super(...arguments);
@@ -35,6 +36,7 @@ let Category = Category_1 = class Category extends core_1.BaseEntity {
 };
 __decorate([
     (0, core_1.PrimaryKey)({ type: 'uuid' }),
+    (0, filter_decorator_1.Filterable)(),
     __metadata("design:type", String)
 ], Category.prototype, "id", void 0);
 __decorate([
@@ -48,10 +50,12 @@ __decorate([
         onCreate: (category) => category.name,
         onUpdate: (category) => category.name,
     }),
+    (0, filter_decorator_1.Filterable)(),
     __metadata("design:type", String)
 ], Category.prototype, "searchIndex", void 0);
 __decorate([
     (0, core_1.ManyToOne)(() => Category_1, { nullable: true, mapToPk: true }),
+    (0, filter_decorator_1.Filterable)(),
     __metadata("design:type", String)
 ], Category.prototype, "parentId", void 0);
 __decorate([
@@ -60,6 +64,7 @@ __decorate([
         orphanRemoval: true,
         cascade: [core_1.Cascade.PERSIST],
     }),
+    (0, filter_decorator_1.Filterable)(),
     __metadata("design:type", Object)
 ], Category.prototype, "children", void 0);
 __decorate([

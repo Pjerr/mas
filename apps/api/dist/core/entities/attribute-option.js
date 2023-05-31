@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@mikro-orm/core");
 const uuid4_1 = __importDefault(require("uuid4"));
 const attribute_entity_1 = require("./attribute.entity");
+const filter_decorator_1 = require("../meta/decorators/filter.decorator");
 let AttributeOption = class AttributeOption extends core_1.BaseEntity {
     constructor() {
         super(...arguments);
@@ -24,10 +25,12 @@ let AttributeOption = class AttributeOption extends core_1.BaseEntity {
 };
 __decorate([
     (0, core_1.PrimaryKey)({ type: 'uuid' }),
+    (0, filter_decorator_1.Filterable)(),
     __metadata("design:type", String)
 ], AttributeOption.prototype, "id", void 0);
 __decorate([
     (0, core_1.Property)(),
+    (0, filter_decorator_1.Filterable)(),
     __metadata("design:type", String)
 ], AttributeOption.prototype, "value", void 0);
 __decorate([
@@ -42,6 +45,7 @@ __decorate([
 ], AttributeOption.prototype, "displayName", void 0);
 __decorate([
     (0, core_1.ManyToOne)(() => attribute_entity_1.Attribute, { mapToPk: true }),
+    (0, filter_decorator_1.Filterable)(),
     __metadata("design:type", String)
 ], AttributeOption.prototype, "attributeId", void 0);
 __decorate([

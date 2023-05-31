@@ -23,6 +23,7 @@ const attribute_option_1 = __importDefault(require("./attribute-option"));
 const swagger_1 = require("@nestjs/swagger");
 const part_entity_1 = require("./part.entity");
 const additional_metadata_1 = __importDefault(require("../types/additional-metadata"));
+const filter_decorator_1 = require("../meta/decorators/filter.decorator");
 let Attribute = class Attribute extends core_1.BaseEntity {
     constructor() {
         super(...arguments);
@@ -39,15 +40,18 @@ let Attribute = class Attribute extends core_1.BaseEntity {
 };
 __decorate([
     (0, core_1.PrimaryKey)({ type: 'uuid' }),
+    (0, filter_decorator_1.Filterable)(),
     __metadata("design:type", String)
 ], Attribute.prototype, "id", void 0);
 __decorate([
     (0, core_1.Property)(),
+    (0, filter_decorator_1.Filterable)(),
     (0, core_1.Unique)(),
     __metadata("design:type", String)
 ], Attribute.prototype, "propertyKey", void 0);
 __decorate([
     (0, core_1.Property)(),
+    (0, filter_decorator_1.Filterable)(),
     __metadata("design:type", String)
 ], Attribute.prototype, "displayName", void 0);
 __decorate([
@@ -57,6 +61,7 @@ __decorate([
         onUpdate: (attribute) => attribute.displayName,
         onCreate: (attribute) => attribute.displayName,
     }),
+    (0, filter_decorator_1.Filterable)(),
     __metadata("design:type", String)
 ], Attribute.prototype, "searchIndex", void 0);
 __decorate([
@@ -69,6 +74,7 @@ __decorate([
 ], Attribute.prototype, "editorValidation", void 0);
 __decorate([
     (0, core_1.ManyToOne)(() => group_entity_1.Group),
+    (0, filter_decorator_1.Filterable)(),
     __metadata("design:type", group_entity_1.Group)
 ], Attribute.prototype, "group", void 0);
 __decorate([
@@ -80,6 +86,7 @@ __decorate([
     (0, swagger_1.ApiResponseProperty)({
         type: [attribute_option_1.default],
     }),
+    (0, filter_decorator_1.Filterable)(),
     __metadata("design:type", Object)
 ], Attribute.prototype, "options", void 0);
 __decorate([
@@ -87,6 +94,7 @@ __decorate([
     (0, swagger_1.ApiResponseProperty)({
         type: [part_entity_1.Part],
     }),
+    (0, filter_decorator_1.Filterable)(),
     __metadata("design:type", Object)
 ], Attribute.prototype, "parts", void 0);
 __decorate([

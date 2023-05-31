@@ -22,6 +22,7 @@ const attribute_entity_1 = require("./attribute.entity");
 const swagger_1 = require("@nestjs/swagger");
 const shared_1 = require("shared");
 const uuid4_1 = __importDefault(require("uuid4"));
+const filter_decorator_1 = require("../meta/decorators/filter.decorator");
 let Part = class Part extends core_1.BaseEntity {
     constructor() {
         super(...arguments);
@@ -37,6 +38,7 @@ let Part = class Part extends core_1.BaseEntity {
 };
 __decorate([
     (0, core_1.PrimaryKey)(),
+    (0, filter_decorator_1.Filterable)(),
     __metadata("design:type", String)
 ], Part.prototype, "id", void 0);
 __decorate([
@@ -54,6 +56,7 @@ __decorate([
         onCreate: (part) => part.name,
         onUpdate: (part) => part.name,
     }),
+    (0, filter_decorator_1.Filterable)(),
     __metadata("design:type", String)
 ], Part.prototype, "searchIndex", void 0);
 __decorate([
@@ -66,6 +69,7 @@ __decorate([
 ], Part.prototype, "manufacturerId", void 0);
 __decorate([
     (0, core_1.ManyToOne)(() => category_entity_1.Category, { nullable: true, mapToPk: true }),
+    (0, filter_decorator_1.Filterable)(),
     __metadata("design:type", String)
 ], Part.prototype, "categoryId", void 0);
 __decorate([

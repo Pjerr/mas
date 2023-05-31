@@ -12,10 +12,12 @@ import {
 import { FullTextType } from '@mikro-orm/postgresql';
 import { ApiHideProperty, ApiProperty } from '@nestjs/swagger';
 import uuid4 from 'uuid4';
+import { Filterable } from '../meta/decorators/filter.decorator';
 
 @Entity()
 export class Category extends BaseEntity<Category, 'id'> {
   @PrimaryKey({ type: 'uuid' })
+  @Filterable()
   id: string = uuid4();
 
   @Property()
@@ -27,9 +29,11 @@ export class Category extends BaseEntity<Category, 'id'> {
     onCreate: (category: Category) => category.name,
     onUpdate: (category: Category) => category.name,
   })
+  @Filterable()
   searchIndex: string;
 
   @ManyToOne(() => Category, { nullable: true, mapToPk: true })
+  @Filterable()
   parentId: string;
 
   @ApiHideProperty()
@@ -37,6 +41,7 @@ export class Category extends BaseEntity<Category, 'id'> {
     orphanRemoval: true,
     cascade: [Cascade.PERSIST],
   })
+  @Filterable()
   children = new Collection<Category>(this);
 
   @ApiProperty()

@@ -19,6 +19,7 @@ const postgresql_1 = require("@mikro-orm/postgresql");
 const swagger_1 = require("@nestjs/swagger");
 const attribute_entity_1 = require("./attribute.entity");
 const uuid4_1 = __importDefault(require("uuid4"));
+const filter_decorator_1 = require("../meta/decorators/filter.decorator");
 let Group = class Group extends core_1.BaseEntity {
     constructor() {
         super(...arguments);
@@ -32,6 +33,7 @@ let Group = class Group extends core_1.BaseEntity {
 };
 __decorate([
     (0, core_1.PrimaryKey)({ type: 'uuid' }),
+    (0, filter_decorator_1.Filterable)(),
     __metadata("design:type", String)
 ], Group.prototype, "id", void 0);
 __decorate([
@@ -46,6 +48,7 @@ __decorate([
         onUpdate: (group) => group.name,
         nullable: true,
     }),
+    (0, filter_decorator_1.Filterable)(),
     __metadata("design:type", String)
 ], Group.prototype, "searchIndex", void 0);
 __decorate([

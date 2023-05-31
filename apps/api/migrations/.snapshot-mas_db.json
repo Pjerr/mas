@@ -481,6 +481,15 @@
           "nullable": false,
           "mappedType": "string"
         },
+        "search_index": {
+          "name": "search_index",
+          "type": "tsvector",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "unknown"
+        },
         "address": {
           "name": "address",
           "type": "varchar(255)",
@@ -514,6 +523,16 @@
       "name": "manufacturer",
       "schema": "public",
       "indexes": [
+        {
+          "keyName": "manufacturer_search_index_index",
+          "columnNames": [
+            "search_index"
+          ],
+          "composite": false,
+          "primary": false,
+          "unique": false,
+          "type": "fulltext"
+        },
         {
           "keyName": "manufacturer_pkey",
           "columnNames": [

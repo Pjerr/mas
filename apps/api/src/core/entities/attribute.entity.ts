@@ -20,16 +20,20 @@ import AttributeOption from './attribute-option';
 import { ApiResponseProperty } from '@nestjs/swagger';
 import { Part } from './part.entity';
 import AdditionalMetadata from '../types/additional-metadata';
+import { Filterable } from '../meta/decorators/filter.decorator';
 @Entity()
 export class Attribute extends BaseEntity<Attribute, 'id'> {
   @PrimaryKey({ type: 'uuid' })
+  @Filterable()
   id: string = uuid4();
 
   @Property()
+  @Filterable()
   @Unique()
   propertyKey: string;
 
   @Property()
+  @Filterable()
   displayName: string;
 
   @Index({ type: 'fulltext' })
@@ -38,6 +42,7 @@ export class Attribute extends BaseEntity<Attribute, 'id'> {
     onUpdate: (attribute: Attribute) => attribute.displayName,
     onCreate: (attribute: Attribute) => attribute.displayName,
   })
+  @Filterable()
   searchIndex: string;
 
   @Enum(() => EditorType)
@@ -47,6 +52,7 @@ export class Attribute extends BaseEntity<Attribute, 'id'> {
   editorValidation = EditorValidation.None;
 
   @ManyToOne(() => Group)
+  @Filterable()
   group: Group;
 
   @OneToMany(() => AttributeOption, (option) => option.attributeId, {
@@ -57,12 +63,14 @@ export class Attribute extends BaseEntity<Attribute, 'id'> {
   @ApiResponseProperty({
     type: [AttributeOption],
   })
+  @Filterable()
   options = new Collection<AttributeOption>(this);
 
   @ManyToMany(() => Part, (part) => part.attributes)
   @ApiResponseProperty({
     type: [Part],
   })
+  @Filterable()
   parts = new Collection<Part>(this);
 
   @Property()
