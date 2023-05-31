@@ -1,0 +1,4 @@
+.cell {
+    border: 1px solid var(--color-secondary);
+    padding: var(--size-2);
+}
