@@ -1,0 +1,38 @@
+.chips__container {
+    display: flex;
+    gap: var(--size-2);
+    overflow-y: auto;
+}
+
+.chip__container {
+    display: flex;
+    cursor: pointer;
+    padding: var(--size-1);
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--rounded-xl);
+    white-space: nowrap;
+}
+
+.chip__title {
+    padding: 0px var(--size-2);
+}
+.chip__delete {
+    border-radius: var(--rounded-xl);
+}
+.chip__filled {
+    background-color: var(--layer-2-color);
+}
+.chip__outlined {
+    border: 1px solid var(--layer-2-color);
+}
+.chip__filled:hover:not(.chip--active),
+.chip__outlined:hover:not(.chip--active) {
+    background-color: var(--color-secondary--hover);
+}
+.chip__delete:hover {
+    background-color: var(--color-secondary--hover);
+}
+.chip--active {
+    background-color: var(--color-secondary);
+}
