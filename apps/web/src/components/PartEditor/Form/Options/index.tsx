@@ -1,6 +1,8 @@
 import { Attribute } from '@/store/api/endpoints';
 import styles from '../styles.module.css';
 import OptionsTable from './OptionTable';
+import { Accordion } from '@/components/Accordion';
+import { AccordionItem } from '@/components/Accordion/Item';
 
 interface OptionsProps {
     attributes: Attribute[];
@@ -14,7 +16,7 @@ export default function Options({ attributes }: OptionsProps) {
             <div className={styles['product-options']} id={`group-options`}>
                 <h1 className={styles['group__title']}>Options</h1>
                 <div className={styles['options']} data-cy="options__container">
-                    {/* <Accordion onExpand={() => {}} data-cy="options__accordion">
+                    <Accordion onExpand={() => {}} data-cy="options__accordion">
                         {attributes.map((attribute) => {
                             return (
                                 <AccordionItem
@@ -25,7 +27,7 @@ export default function Options({ attributes }: OptionsProps) {
                                 </AccordionItem>
                             );
                         })}
-                    </Accordion> */}
+                    </Accordion>
                 </div>
             </div>
         </>
