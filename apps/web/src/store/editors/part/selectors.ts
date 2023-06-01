@@ -1,3 +1,5 @@
 import { RootState } from '@/store';
 
-export const selectCarEditor = (state: RootState) => state.partEditor;
+export const selectPartEditor = (state: RootState) => state.partEditor;
+
+export const selectPartForm = (state: RootState) => state.partEditor.form;
