@@ -4,7 +4,7 @@ import { FaTimes } from 'react-icons/fa';
 import Button from '../Button';
 import styles from './styles.module.css';
 import ConfirmModal from '@/components/Modal/ConfirmModal';
-import { ChipsContext } from './provider';
+import { ChipsContext } from './Provider';
 
 export interface ChipProps {
     title: string;

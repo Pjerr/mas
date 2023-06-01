@@ -1,0 +1,26 @@
+.attribute-renderer__container {
+    display: flex;
+    gap: var(--size-4);
+}
+
+.groups__name,
+.attributes__attribute {
+    cursor: pointer;
+    padding: var(--size-1) var(--size-2);
+}
+
+.groups__name {
+    font-size: var(--font-xl);
+}
+
+.groups__attributes {
+    margin-left: var(--size-2);
+    display: flex;
+    flex-direction: column;
+}
+
+.groups__name:hover,
+.attributes__attribute:hover {
+    background-color: var(--layer-2-color);
+    border-radius: var(--rounded-sm);
+}

@@ -1,7 +1,7 @@
 import React, { Children, cloneElement, isValidElement } from 'react';
 import { HTMLProps } from 'react';
 import styles from './styles.module.css';
-import { ChipsProvider } from './provider';
+import { ChipsProvider } from './Provider';
 
 export interface ChipsProps {
     children?: React.ReactNode;
