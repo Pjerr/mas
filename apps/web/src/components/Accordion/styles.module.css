@@ -1,0 +1,22 @@
+.accordion__item {
+    overflow: visible;
+}
+.accordion__item-header {
+    display: flex;
+    background: var(--layer-2-color);
+    align-items: center;
+    gap: var(--size-2);
+    padding: var(--size-2);
+    user-select: none;
+}
+
+.accordion__item-header:hover {
+    background: var(--layer-2-color--hover);
+}
+.item-header__title {
+    font-size: var(--font-base);
+}
+.accordion__content {
+    transform-origin: top center;
+    padding-left: var(--size-8);
+}
