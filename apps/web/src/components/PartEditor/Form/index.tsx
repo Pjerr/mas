@@ -8,12 +8,12 @@ import { selectPartForm } from '@/store/editors/part';
 import { Attribute, Part } from '@/store/api/endpoints';
 import CommonProperties from './StaticForms/CommonProperties';
 import FormButtons from './FormButtons';
-import { useProductApi } from '@/hooks/usePartApi';
+import { usePartApi } from '@/hooks/usePartApi';
 import FormGroups from './DynamicForms/FormGroups';
 import Options from './Options';
 
 export default function PartForm() {
-    const { onSaveProduct } = useProductApi();
+    const { onSavePart } = usePartApi();
 
     const form = useSelector(selectPartForm);
     const part = form?.state.defaultValues as Part;
@@ -31,7 +31,7 @@ export default function PartForm() {
     });
     const { handleSubmit, reset } = methods;
     const onSubmit: SubmitHandler<Part> = async (data) => {
-        onSaveProduct(data, part.id);
+        onSavePart(data, part.id);
     };
 
     // const onInvalid = (data: any) => {

@@ -23,7 +23,7 @@ export default function FormButtons({ handleCancel }: FormButtonsProps) {
                     </Button>
                 }
             />
-            <Button type={'submit'} icon={<FaCheck />}>
+            <Button type={'submit'} icon={<FaCheck />} variant={'primary'}>
                 Save
             </Button>
         </div>
