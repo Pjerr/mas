@@ -35,12 +35,14 @@ export class PartController {
   constructor(private readonly partService: PartService) {}
 
   @Post()
-  async create(@Body() payload: CreatePart): Promise<PartResponse> {
+  async create(
+    @Body(ValidationPipe) payload: CreatePart,
+  ): Promise<PartResponse> {
     const response = await this.partService.create(payload);
     return { data: response };
   }
 
-  @Post()
+  @Post('multiple')
   async multipleCreate(
     @Body(ValidationPipe) request: MultipeCreatePart,
   ): Promise<PartsResponse> {

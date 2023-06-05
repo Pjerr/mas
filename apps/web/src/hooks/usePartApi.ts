@@ -1,12 +1,14 @@
-import { useAppDispatch } from '@/store';
-import { Attribute, Part, useUpdatePartMutation } from '@/store/api/endpoints';
+import {
+    Attribute,
+    Part,
+    useCreatePartMutation,
+    useUpdatePartMutation,
+} from '@/store/api/endpoints';
 import { toast } from 'react-toastify';
 
 export function usePartApi() {
-    // const [createPart] = useCreatePartMutation();
+    const [createPart] = useCreatePartMutation();
     const [updatePart] = useUpdatePartMutation();
-
-    const dispatch = useAppDispatch();
 
     const handleUpdate = async (data: Part, id: string) => {
         const { attributes, ...rest } = data;
@@ -25,26 +27,26 @@ export function usePartApi() {
 
     const handleCreate = async (data: Part) => {
         const { attributes, ...rest } = data;
-        // const response = await createPart({
-        //     createProduct: {
-        //         ...rest,
-        //         name: data.name,
-        //         attributeIds: data.attributes.map(
-        //             (attribute) => (attribute as Attribute).id
-        //         ),
-        //     },
-        // });
-        // return response;
+        const response = await createPart({
+            createPart: {
+                ...rest,
+                name: data.name,
+                attributeIds: data.attributes.map(
+                    (attribute) => (attribute as Attribute).id
+                ),
+            },
+        });
+        return response;
     };
 
     const onSavePart = async (data: Part, id?: string) => {
         const response = id
             ? await handleUpdate(data, id)
             : await handleCreate(data);
-        // if (!('data' in response)) {
-        //     toast(`${response.error}`, { type: 'error' });
-        //     return;
-        // }
+        if (!('data' in response)) {
+            toast(`${response.error}`, { type: 'error' });
+            return;
+        }
         toast(`Part ${id ? 'updated' : 'created'}`, {
             type: 'success',
         });

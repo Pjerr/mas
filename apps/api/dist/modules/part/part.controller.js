@@ -78,13 +78,13 @@ let PartController = class PartController {
 __decorate([
     (0, common_1.Post)(),
     openapi.ApiResponse({ status: 201, type: require("./dto/part.response").PartResponse }),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(common_1.ValidationPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [dto_1.CreatePart]),
     __metadata("design:returntype", Promise)
 ], PartController.prototype, "create", null);
 __decorate([
-    (0, common_1.Post)(),
+    (0, common_1.Post)('multiple'),
     openapi.ApiResponse({ status: 201, type: require("./dto/part.response").PartsResponse }),
     __param(0, (0, common_1.Body)(common_1.ValidationPipe)),
     __metadata("design:type", Function),

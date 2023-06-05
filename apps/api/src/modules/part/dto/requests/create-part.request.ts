@@ -14,14 +14,14 @@ export class CreatePart {
   manufacturerId: string;
 
   @ApiProperty()
-  categoryId: string;
+  categoryId?: string;
 
   @ApiProperty()
-  attributeIds: string[];
+  attributeIds?: string[];
 
   @ApiProperty()
   properties?: PropertyType;
 
   @ApiProperty()
-  basePrice: number = 0;
+  basePrice?: number = 0;
 }

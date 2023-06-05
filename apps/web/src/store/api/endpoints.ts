@@ -77,17 +77,16 @@ const injectedRtkApi = api
                 }),
                 providesTags: ['Attributes'],
             }),
-            multipleCreatePart: build.mutation<
-                MultipleCreatePartApiResponse,
-                MultipleCreatePartApiArg
-            >({
-                query: (queryArg) => ({
-                    url: `/parts`,
-                    method: 'POST',
-                    body: queryArg.multipeCreatePart,
-                }),
-                invalidatesTags: ['Parts'],
-            }),
+            createPart: build.mutation<CreatePartApiResponse, CreatePartApiArg>(
+                {
+                    query: (queryArg) => ({
+                        url: `/parts`,
+                        method: 'POST',
+                        body: queryArg.createPart,
+                    }),
+                    invalidatesTags: ['Parts'],
+                }
+            ),
             findPart: build.query<FindPartApiResponse, FindPartApiArg>({
                 query: (queryArg) => ({
                     url: `/parts`,
@@ -115,6 +114,17 @@ const injectedRtkApi = api
                     url: `/parts`,
                     method: 'DELETE',
                     params: { ids: queryArg.ids },
+                }),
+                invalidatesTags: ['Parts'],
+            }),
+            multipleCreatePart: build.mutation<
+                MultipleCreatePartApiResponse,
+                MultipleCreatePartApiArg
+            >({
+                query: (queryArg) => ({
+                    url: `/parts/multiple`,
+                    method: 'POST',
+                    body: queryArg.multipeCreatePart,
                 }),
                 invalidatesTags: ['Parts'],
             }),
@@ -442,9 +452,9 @@ export type FindByProductAttributeApiResponse =
 export type FindByProductAttributeApiArg = {
     id: string;
 };
-export type MultipleCreatePartApiResponse = /** status 201  */ PartsResponse;
-export type MultipleCreatePartApiArg = {
-    multipeCreatePart: MultipeCreatePart;
+export type CreatePartApiResponse = /** status 201  */ PartResponse;
+export type CreatePartApiArg = {
+    createPart: CreatePart;
 };
 export type FindPartApiResponse = /** status 200  */ PartsResponse;
 export type FindPartApiArg = {
@@ -458,6 +468,10 @@ export type MultipleUpdatePartApiArg = {
 export type RemoveManyPartApiResponse = unknown;
 export type RemoveManyPartApiArg = {
     ids: string[];
+};
+export type MultipleCreatePartApiResponse = /** status 201  */ PartsResponse;
+export type MultipleCreatePartApiArg = {
+    multipeCreatePart: MultipeCreatePart;
 };
 export type FindOnePartApiResponse = /** status 200  */ PartResponse;
 export type FindOnePartApiArg = {
@@ -745,21 +759,22 @@ export type PartialAttributesResponse = {
     data: AttributeByPart[];
     links?: string[];
 };
-export type PartsResponse = {
-    data: Part[];
+export type PartResponse = {
+    data: Part;
     links?: string[];
 };
 export type CreatePart = {
     status?: 'in-stock' | 'out-of-stock';
     name: string;
     manufacturerId: string;
-    categoryId: string;
-    attributeIds: string[];
+    categoryId?: string;
+    attributeIds?: string[];
     properties?: object;
-    basePrice: number;
+    basePrice?: number;
 };
-export type MultipeCreatePart = {
-    payloads: CreatePart[];
+export type PartsResponse = {
+    data: Part[];
+    links?: string[];
 };
 export type QueryPart = {
     include?: string[];
@@ -770,9 +785,8 @@ export type UpdatePart = {};
 export type MultipleUpdatePart = {
     payloads: UpdatePart[];
 };
-export type PartResponse = {
-    data: Part;
-    links?: string[];
+export type MultipeCreatePart = {
+    payloads: CreatePart[];
 };
 export type UpdateCategoryRelation = {
     categoryId: string;
@@ -855,6 +869,7 @@ export type UpdateOption = {};
 export type Manufacturer = {
     id: string;
     name: string;
+    searchIndex: string;
     address: string;
     parts: object;
     createdAt: string;
@@ -886,10 +901,11 @@ export const {
     useFindOneAttributeQuery,
     useUpdateAttributeMutation,
     useFindByProductAttributeQuery,
-    useMultipleCreatePartMutation,
+    useCreatePartMutation,
     useFindPartQuery,
     useMultipleUpdatePartMutation,
     useRemoveManyPartMutation,
+    useMultipleCreatePartMutation,
     useFindOnePartQuery,
     useUpdatePartMutation,
     useRemovePartMutation,
