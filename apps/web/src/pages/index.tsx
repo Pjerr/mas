@@ -48,7 +48,7 @@ const Parts: NextPageWithLayout = () => {
     };
 
     const onEditMode = (selected: string[] | undefined): boolean => {
-        return selected && selected.length > 1 ? false : true;
+        return selected && selected.length > 0 ? false : true;
     };
 
     return (
