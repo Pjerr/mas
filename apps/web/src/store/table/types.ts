@@ -73,6 +73,6 @@ export interface RowSelectionAction {
 
 export const includeArgMap: Record<EntityType, string[]> = {
     [EntityType.Attribute]: ['options'],
-    [EntityType.Part]: [],
+    [EntityType.Part]: ['attributes.group'],
     [EntityType.Option]: [],
 };
