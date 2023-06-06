@@ -39,7 +39,7 @@ const Parts: NextPageWithLayout = () => {
                 },
             })
         );
-        router.push('/edit');
+        router.push('/create');
     };
 
     const onEdit = (productIds: string[] | undefined) => {

@@ -4,7 +4,7 @@ export default class AttributeOption extends BaseEntity<AttributeOption, 'id'> {
     value: string;
     sku: string;
     displayName: string;
-    attributeId: string;
+    attribute: string;
     createdAt: Date;
     updatedAt: Date;
 }

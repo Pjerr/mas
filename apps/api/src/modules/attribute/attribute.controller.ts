@@ -50,6 +50,7 @@ export class AttributeController {
     const response = await this.attributeService.find(filter);
     return { data: response };
   }
+
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<AttributeResponse> {
     const response = await this.attributeService.findOne(id);

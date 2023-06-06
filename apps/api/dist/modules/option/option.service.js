@@ -67,7 +67,7 @@ let OptionService = class OptionService {
         const attribtue = await this.attributeRepository.findOne(attribtueId);
         if (!attribtue)
             throw new common_1.NotFoundException('Attribute not found');
-        option.attributeId = attribtue.id;
+        option.attribute = attribtue.id;
         await this.em.persistAndFlush(option);
         return option;
     }

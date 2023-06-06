@@ -8,7 +8,7 @@ import { resetForm } from '@/store/editors/part';
 import { createPartForm } from '@/store/editors/part/thunks';
 import { useFindOnePartQuery } from '@/store/api/endpoints';
 
-export default function Edit() {
+export default function EditPart() {
     const router = useRouter();
     const query = router.query;
 
@@ -43,4 +43,4 @@ export default function Edit() {
     );
 }
 
-Edit.getLayout = SidebarLayout;
+EditPart.getLayout = SidebarLayout;

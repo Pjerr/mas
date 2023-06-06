@@ -55,7 +55,7 @@ export class Attribute extends BaseEntity<Attribute, 'id'> {
   @Filterable()
   group: Group;
 
-  @OneToMany(() => AttributeOption, (option) => option.attributeId, {
+  @OneToMany(() => AttributeOption, (option) => option.attribute, {
     nullable: true,
     orphanRemoval: true,
     cascade: [Cascade.PERSIST],

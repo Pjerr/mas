@@ -384,8 +384,8 @@
           "nullable": false,
           "mappedType": "string"
         },
-        "attribute_id_id": {
-          "name": "attribute_id_id",
+        "attribute_id": {
+          "name": "attribute_id",
           "type": "uuid",
           "unsigned": false,
           "autoincrement": false,
@@ -447,10 +447,10 @@
       ],
       "checks": [],
       "foreignKeys": {
-        "attribute_option_attribute_id_id_foreign": {
-          "constraintName": "attribute_option_attribute_id_id_foreign",
+        "attribute_option_attribute_id_foreign": {
+          "constraintName": "attribute_option_attribute_id_foreign",
           "columnNames": [
-            "attribute_id_id"
+            "attribute_id"
           ],
           "localTableName": "public.attribute_option",
           "referencedColumnNames": [

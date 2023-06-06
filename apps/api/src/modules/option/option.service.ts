@@ -72,7 +72,7 @@ export class OptionService {
 
     if (!attribtue) throw new NotFoundException('Attribute not found');
 
-    option.attributeId = attribtue.id;
+    option.attribute = attribtue.id;
 
     await this.em.persistAndFlush(option);
 

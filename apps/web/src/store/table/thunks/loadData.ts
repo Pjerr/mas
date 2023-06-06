@@ -68,7 +68,6 @@ const loadTableDataThunk = createAsyncThunk<
     if (sourceId && type !== EntityType.Part) {
         filters.push(createFilterArg(sourceId, type));
     }
-
     const {
         data: response,
         isError,

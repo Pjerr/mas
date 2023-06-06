@@ -12,7 +12,7 @@ export default function ListItem({ children, index }: ListItemProps) {
     const isActive = activeItem === index;
 
     const handleItemSelect = () => {
-        if (!index) return;
+        if (index === undefined || index === null) return;
         if (index < 0) throw new Error('Listbox index is not defined');
         if (!isActive) setActiveItem(index);
     };

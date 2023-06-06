@@ -29,7 +29,7 @@ export default class AttributeOption extends BaseEntity<AttributeOption, 'id'> {
 
   @ManyToOne(() => Attribute, { mapToPk: true })
   @Filterable()
-  attributeId: string;
+  attribute: string;
 
   @Property()
   createdAt: Date = new Date();

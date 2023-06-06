@@ -78,7 +78,7 @@ __decorate([
     __metadata("design:type", group_entity_1.Group)
 ], Attribute.prototype, "group", void 0);
 __decorate([
-    (0, core_1.OneToMany)(() => attribute_option_1.default, (option) => option.attributeId, {
+    (0, core_1.OneToMany)(() => attribute_option_1.default, (option) => option.attribute, {
         nullable: true,
         orphanRemoval: true,
         cascade: [core_1.Cascade.PERSIST],
