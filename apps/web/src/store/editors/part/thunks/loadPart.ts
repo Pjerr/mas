@@ -6,11 +6,11 @@ interface loadPartProps {
     productId: string;
 }
 
-const loadProductsThunk = createAsyncThunk<
+const loadPartThunk = createAsyncThunk<
     void,
     loadPartProps,
     { dispatch: AppDispatch; state: RootState }
->('product-editor/loadData', async ({ productId }, { dispatch, getState }) => {
+>('part-editor/loadData', async ({ productId }, { dispatch, getState }) => {
     const { data: response } = await dispatch(
         Api.endpoints.findOnePart.initiate({
             id: productId,
@@ -20,4 +20,4 @@ const loadProductsThunk = createAsyncThunk<
     if (!response) throw new Error('Part not found');
 });
 
-export default loadProductsThunk;
+export default loadPartThunk;

@@ -44,7 +44,7 @@ const Parts: NextPageWithLayout = () => {
 
     const onEdit = (productIds: string[] | undefined) => {
         if (!productIds) return;
-        router.push(`/edit?${qs.stringify(productIds[0])}`);
+        router.push(`/${productIds[0]}`);
     };
 
     const onEditMode = (selected: string[] | undefined): boolean => {

@@ -14,17 +14,13 @@ export default function Edit() {
 
     const dispatch = useAppDispatch();
 
-    const queryIds = query['productId'];
-
-    const partIds = useMemo(() => {
-        return Array.isArray(queryIds) ? queryIds : [queryIds];
-    }, [queryIds]);
+    const partId = query.id as string;
 
     const { data: response } = useFindOnePartQuery(
         {
-            id: partIds[0] ?? '',
+            id: partId,
         },
-        { skip: !queryIds }
+        { skip: !partId }
     );
 
     useEffect(() => {
@@ -33,7 +29,7 @@ export default function Edit() {
         dispatch(createPartForm({ part: response.data }));
     }, [response]);
 
-    if (!response && queryIds?.length)
+    if (!response && partId?.length)
         return (
             <div className={styles['spinner__container']}>
                 Spinner goes here!

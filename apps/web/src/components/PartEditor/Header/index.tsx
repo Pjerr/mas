@@ -22,7 +22,7 @@ export default function Header() {
             {form && (
                 <div className={styles['edit__chips']}>
                     <Subheader
-                        activeForm={form}
+                        form={form}
                         setSearchParam={setSearchParam}
                         displaySearch={displaySearch}
                         setDisplaySearch={setDisplaySearch}

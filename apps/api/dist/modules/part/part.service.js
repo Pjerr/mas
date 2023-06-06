@@ -39,7 +39,11 @@ let PartService = class PartService {
         return parts;
     }
     async findOne(id) {
-        const part = await this.partRepository.findOneOrFail(id);
+        const part = await this.partRepository.findOne(id, {
+            populate: ['attributes', 'attributes.group'],
+        });
+        if (!part)
+            throw new common_1.NotFoundException('Part not found');
         return part;
     }
     async update(id, payload) {

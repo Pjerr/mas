@@ -13,30 +13,30 @@ import { removeFormFields } from '@/store/editors/part';
 import SearchInput from '@/components/Inputs/SearchInput';
 interface HeaderChipsProps {
     displaySearch: boolean;
-    activeForm: PartForm;
+    form: PartForm;
     setSearchParam: React.Dispatch<React.SetStateAction<string | null>>;
     setDisplaySearch: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export function Subheader({
-    activeForm,
+    form,
     setSearchParam,
     displaySearch,
     setDisplaySearch,
 }: HeaderChipsProps) {
     const dispatch = useAppDispatch();
-    const activeProduct = activeForm.state.defaultValues as Part;
+    const part = form.state.defaultValues as Part;
 
     const groups: Record<string, Attribute[]> = useMemo(() => {
-        if (!activeProduct.attributes.length) return {};
-        return getAttributeGroups(activeProduct.attributes as Attribute[]);
-    }, [activeForm, activeProduct, activeProduct.attributes]);
+        if (!part.attributes.length) return {};
+        return getAttributeGroups(part.attributes as Attribute[]);
+    }, [form, part, part.attributes]);
 
     const renderOptionChip: boolean = useMemo(() => {
-        if (!activeProduct.attributes.length) return false;
-        return activeProduct.attributes.some((attribute) => {
+        if (!part.attributes.length) return false;
+        return part.attributes.some((attribute) => {
             if ((attribute as Attribute).editorType === 'options') return true;
         });
-    }, [activeForm, activeProduct, activeProduct.attributes]);
+    }, [form, part, part.attributes]);
 
     const scrollToFormGroup = (groupIndex: number) => {
         if (groupIndex === Object.keys(groups).length) {
