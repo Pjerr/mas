@@ -19,4 +19,11 @@ export const metadata: PropertyMetadata[] = [
             selectOptions: Object.values(PartStatus),
         },
     },
+    {
+        displayName: 'Base price',
+        isArray: false,
+        propertyKey: 'basePrice',
+        propertyType: EditorType.Number,
+        propertyValidation: EditorValidation.DecimalNumber,
+    },
 ];

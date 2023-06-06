@@ -766,11 +766,11 @@ export type PartResponse = {
 export type CreatePart = {
     status?: 'in-stock' | 'out-of-stock';
     name: string;
-    manufacturerId: string;
+    manufacturerId?: string;
     categoryId?: string;
     attributeIds?: string[];
     properties?: object;
-    basePrice?: number;
+    basePrice: number;
 };
 export type PartsResponse = {
     data: Part[];

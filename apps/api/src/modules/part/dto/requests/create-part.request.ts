@@ -11,7 +11,7 @@ export class CreatePart {
   name: string;
 
   @ApiProperty()
-  manufacturerId: string;
+  manufacturerId?: string;
 
   @ApiProperty()
   categoryId?: string;
@@ -23,5 +23,5 @@ export class CreatePart {
   properties?: PropertyType;
 
   @ApiProperty()
-  basePrice?: number = 0;
+  basePrice: number = 0;
 }

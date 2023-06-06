@@ -64,11 +64,19 @@ __decorate([
     __metadata("design:type", Object)
 ], Part.prototype, "properties", void 0);
 __decorate([
-    (0, core_1.ManyToOne)(() => manufacturer_entity_1.Manufacturer, { mapToPk: true, onDelete: 'cascade' }),
+    (0, core_1.ManyToOne)(() => manufacturer_entity_1.Manufacturer, {
+        nullable: true,
+        mapToPk: true,
+        onDelete: 'cascade',
+    }),
     __metadata("design:type", String)
 ], Part.prototype, "manufacturerId", void 0);
 __decorate([
-    (0, core_1.ManyToOne)(() => category_entity_1.Category, { nullable: true, mapToPk: true }),
+    (0, core_1.ManyToOne)(() => category_entity_1.Category, {
+        nullable: true,
+        mapToPk: true,
+        onDelete: 'cascade',
+    }),
     (0, filter_decorator_1.Filterable)(),
     __metadata("design:type", String)
 ], Part.prototype, "categoryId", void 0);

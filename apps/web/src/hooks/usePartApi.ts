@@ -1,5 +1,6 @@
 import {
     Attribute,
+    CreatePart,
     Part,
     useCreatePartMutation,
     useUpdatePartMutation,
@@ -27,14 +28,18 @@ export function usePartApi() {
 
     const handleCreate = async (data: Part) => {
         const { attributes, ...rest } = data;
-        const response = await createPart({
-            createPart: {
-                ...rest,
-                name: data.name,
-                attributeIds: data.attributes.map(
+
+        const part: CreatePart = {
+            ...rest,
+            name: data.name,
+            attributeIds:
+                data.attributes.map(
                     (attribute) => (attribute as Attribute).id
-                ),
-            },
+                ) ?? [],
+        };
+
+        const response = await createPart({
+            createPart: part,
         });
         return response;
     };

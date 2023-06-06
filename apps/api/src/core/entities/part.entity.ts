@@ -42,10 +42,18 @@ export class Part extends BaseEntity<Part, 'id'> {
   @Property({ type: 'jsonb', nullable: true })
   properties: Record<string, any>;
 
-  @ManyToOne(() => Manufacturer, { mapToPk: true, onDelete: 'cascade' })
+  @ManyToOne(() => Manufacturer, {
+    nullable: true,
+    mapToPk: true,
+    onDelete: 'cascade',
+  })
   manufacturerId: string;
 
-  @ManyToOne(() => Category, { nullable: true, mapToPk: true })
+  @ManyToOne(() => Category, {
+    nullable: true,
+    mapToPk: true,
+    onDelete: 'cascade',
+  })
   @Filterable()
   categoryId: string;
 
