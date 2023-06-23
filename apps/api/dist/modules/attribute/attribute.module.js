@@ -15,13 +15,13 @@ const attribute_service_1 = require("./attribute.service");
 const attribute_controller_1 = require("./attribute.controller");
 const nestjs_1 = require("@mikro-orm/nestjs");
 const entities_1 = require("../../core/entities");
-const attribute_option_1 = __importDefault(require("../../core/entities/attribute-option"));
+const attribute_option_entity_1 = __importDefault(require("../../core/entities/attribute-option.entity"));
 let AttributeModule = class AttributeModule {
 };
 AttributeModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            nestjs_1.MikroOrmModule.forFeature([entities_1.Attribute, entities_1.Group, entities_1.Part, attribute_option_1.default]),
+            nestjs_1.MikroOrmModule.forFeature([entities_1.Attribute, entities_1.Group, entities_1.Part, attribute_option_entity_1.default]),
         ],
         controllers: [attribute_controller_1.AttributeController],
         providers: [attribute_service_1.AttributeService],

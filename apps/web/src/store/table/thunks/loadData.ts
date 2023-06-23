@@ -21,7 +21,7 @@ const createFilterArg = (
 ) => {
     const filterArgMap: Record<Exclude<EntityType, 'Part'>, Filter> = {
         [EntityType.Attribute]: {
-            field: 'groupId',
+            field: 'group',
             operator: '$eq',
             value: sourceId as any,
         },

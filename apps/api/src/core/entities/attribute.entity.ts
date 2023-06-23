@@ -16,7 +16,7 @@ import { FullTextType } from '@mikro-orm/postgresql';
 import uuid4 from 'uuid4';
 import { EditorType, EditorValidation } from 'shared';
 import { Group } from './group.entity';
-import AttributeOption from './attribute-option';
+import AttributeOption from './attribute-option.entity';
 import { ApiResponseProperty } from '@nestjs/swagger';
 import { Part } from './part.entity';
 import AdditionalMetadata from '../types/additional-metadata';

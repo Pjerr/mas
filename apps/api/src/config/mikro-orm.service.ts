@@ -5,7 +5,7 @@ import {
   Group,
   Manufacturer,
 } from '@/core/entities';
-import AttributeOption from '@/core/entities/attribute-option';
+import AttributeOption from '@/core/entities/attribute-option.entity';
 import {
   IDatabaseDriver,
   Connection,

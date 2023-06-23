@@ -21,7 +21,7 @@ import {
 } from './dto';
 import { FilterQuery } from '@/core/types';
 import { QueryPipe } from '@/core/pipes/query.pipe';
-import AttributeOption from '@/core/entities/attribute-option';
+import AttributeOption from '@/core/entities/attribute-option.entity';
 import { filterEntity } from '@/core/utils/parse-query';
 
 @ApiTags('Attribute option')

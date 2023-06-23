@@ -3,7 +3,7 @@ import { PartService } from './part.service';
 import { PartController } from './part.controller';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { Attribute, Category, Manufacturer, Part } from '@/core/entities';
-import AttributeOption from '@/core/entities/attribute-option';
+import AttributeOption from '@/core/entities/attribute-option.entity';
 
 @Module({
   imports: [

@@ -10,7 +10,6 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles.module.css';
 import GroupListbox from '@/components/GroupListbox';
-import { Row } from '@tanstack/react-table';
 import SidebarPanel from '@/components/Sidebar/SidebarPanel';
 import SidebarPanels from '@/components/Sidebar/SidebarPanels';
 import { instanceIds } from '@/types/entity';

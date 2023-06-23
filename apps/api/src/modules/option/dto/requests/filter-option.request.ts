@@ -1,4 +1,4 @@
-import AttributeOption from '@/core/entities/attribute-option';
+import AttributeOption from '@/core/entities/attribute-option.entity';
 import { QueryEntity } from '@/core/types';
 
 export type OptionRelationTypes = 'attribtue';

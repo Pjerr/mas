@@ -15,7 +15,7 @@ const part_service_1 = require("./part.service");
 const part_controller_1 = require("./part.controller");
 const nestjs_1 = require("@mikro-orm/nestjs");
 const entities_1 = require("../../core/entities");
-const attribute_option_1 = __importDefault(require("../../core/entities/attribute-option"));
+const attribute_option_entity_1 = __importDefault(require("../../core/entities/attribute-option.entity"));
 let PartModule = class PartModule {
 };
 PartModule = __decorate([
@@ -25,7 +25,7 @@ PartModule = __decorate([
                 entities_1.Part,
                 entities_1.Category,
                 entities_1.Attribute,
-                attribute_option_1.default,
+                attribute_option_entity_1.default,
                 entities_1.Manufacturer,
             ]),
         ],

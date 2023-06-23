@@ -8,7 +8,7 @@ import {
   Group,
   Manufacturer,
 } from './core/entities';
-import AttributeOption from './core/entities/attribute-option';
+import AttributeOption from './core/entities/attribute-option.entity';
 
 const dotenvConfig: DotenvConfigOutput = dotenv.config({
   path: path.resolve(__dirname, '../.env'),

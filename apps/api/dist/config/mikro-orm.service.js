@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MikroOrmService = void 0;
 const entities_1 = require("../core/entities");
-const attribute_option_1 = __importDefault(require("../core/entities/attribute-option"));
+const attribute_option_entity_1 = __importDefault(require("../core/entities/attribute-option.entity"));
 const postgresql_1 = require("@mikro-orm/postgresql");
 const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
@@ -26,7 +26,7 @@ let MikroOrmService = class MikroOrmService {
         return Object.assign({ entities: [
                 entities_1.Part,
                 entities_1.Attribute,
-                attribute_option_1.default,
+                attribute_option_entity_1.default,
                 entities_1.Manufacturer,
                 entities_1.Category,
                 entities_1.Group,

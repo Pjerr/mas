@@ -609,7 +609,15 @@ export type RemoveManufacturerApiResponse = unknown;
 export type RemoveManufacturerApiArg = {
     id: string;
 };
-export type AttributeOption = {};
+export type AttributeOption = {
+    id: string;
+    value: string;
+    sku: string;
+    displayName: string;
+    attribute: string;
+    createdAt: string;
+    updatedAt: string;
+};
 export type Part = {
     attributes: object[];
     id: string;

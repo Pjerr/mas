@@ -25,7 +25,7 @@ const swagger_1 = require("@nestjs/swagger");
 const dto_1 = require("./dto");
 const types_1 = require("../../core/types");
 const query_pipe_1 = require("../../core/pipes/query.pipe");
-const attribute_option_1 = __importDefault(require("../../core/entities/attribute-option"));
+const attribute_option_entity_1 = __importDefault(require("../../core/entities/attribute-option.entity"));
 const parse_query_1 = require("../../core/utils/parse-query");
 let OptionController = class OptionController {
     constructor(optionService) {
@@ -36,7 +36,7 @@ let OptionController = class OptionController {
         return { data: response };
     }
     async find(query) {
-        const filter = (0, parse_query_1.filterEntity)(query, attribute_option_1.default);
+        const filter = (0, parse_query_1.filterEntity)(query, attribute_option_entity_1.default);
         const response = await this.optionService.find(filter);
         return { data: response };
     }

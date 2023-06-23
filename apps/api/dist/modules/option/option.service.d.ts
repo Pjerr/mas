@@ -1,7 +1,7 @@
 import { CreateOption } from './dto/requests/create-option.request';
 import { UpdateOption } from './dto/requests/update-option.request';
 import { EntityManager, EntityRepository } from '@mikro-orm/postgresql';
-import AttributeOption from '@/core/entities/attribute-option';
+import AttributeOption from '@/core/entities/attribute-option.entity';
 import { Attribute } from '@/core/entities';
 import { FilterEntity } from '@/core/types';
 export declare class OptionService {

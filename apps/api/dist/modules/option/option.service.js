@@ -18,7 +18,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.OptionService = void 0;
 const common_1 = require("@nestjs/common");
 const postgresql_1 = require("@mikro-orm/postgresql");
-const attribute_option_1 = __importDefault(require("../../core/entities/attribute-option"));
+const attribute_option_entity_1 = __importDefault(require("../../core/entities/attribute-option.entity"));
 const nestjs_1 = require("@mikro-orm/nestjs");
 const entities_1 = require("../../core/entities");
 let OptionService = class OptionService {
@@ -74,7 +74,7 @@ let OptionService = class OptionService {
 };
 OptionService = __decorate([
     (0, common_1.Injectable)(),
-    __param(1, (0, nestjs_1.InjectRepository)(attribute_option_1.default)),
+    __param(1, (0, nestjs_1.InjectRepository)(attribute_option_entity_1.default)),
     __param(2, (0, nestjs_1.InjectRepository)(entities_1.Attribute)),
     __metadata("design:paramtypes", [postgresql_1.EntityManager,
         postgresql_1.EntityRepository,
