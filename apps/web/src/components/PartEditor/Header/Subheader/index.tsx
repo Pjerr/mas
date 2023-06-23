@@ -85,14 +85,13 @@ export function Subheader({
                         styles['add-prop__button'],
                         styles['label']
                     )}
-                    data-cy="product-editor__search-button"
                 />
             )}
             {displaySearch && (
                 <div className={classNames(styles['search-input'])}>
                     <SearchInput
                         onChange={setSearchParam}
-                        data-cy="product-editor__search-input"
+                        data-cy="part-editor__search-input"
                         tooltipText="Enter attribute name"
                     />
                     <Button

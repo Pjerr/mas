@@ -1,43 +1,10 @@
-.edit__tabs {
+.edit__subheader {
     display: flex;
-    align-items: center;
-    background-color: var(--layer-2-color);
-    position: relative;
-    overflow: auto;
-}
-
-.add-tab__button {
-    margin: var(--size-1) var(--size-3);
-}
-
-.add-tab__button:hover {
-    color: var(--color-secondary--hover);
-}
-
-.edit__search-results,
-.edit__chips {
+    gap: var(--size-2);
     background-color: var(--header-color);
     padding: var(--size-4) var(--size-2);
 }
 
-.edit__chips {
-    display: flex;
-    flex-direction: column;
-    gap: var(--size-2);
-}
-
 .edit__editors {
     flex: 1;
-}
-
-.search-input {
-    background-color: var(--layer-2-color);
-    border-radius: var(--rounded-xl);
-    padding: var(--size-1) var(--size-2);
-    display: flex;
-    gap: var(--size-2);
-}
-
-.draft-tab {
-    font-style: italic;
 }

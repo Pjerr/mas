@@ -1,36 +1,37 @@
-import Button from '@/components/Button';
 import styles from './styles.module.css';
-import { FaPlusCircle } from 'react-icons/fa';
-import { useAppDispatch } from '@/store';
 import { useSelector } from 'react-redux';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
+import useClickOutside from '@/hooks/useClickOutside';
 import { selectPartForm } from '@/store/editors/part';
-import { createPartForm } from '@/store/editors/part/thunks';
-import { Subheader } from './Subheader';
-import SearchResult from './SearchResult';
+import Searchbar from './Searchbar';
+import { GroupChips } from './GroupChips';
 
 export default function Header() {
-    const dispatch = useAppDispatch();
-
-    const form = useSelector(selectPartForm);
+    const activeForm = useSelector(selectPartForm);
 
     const [searchParam, setSearchParam] = useState<string | null>(null);
     const [displaySearch, setDisplaySearch] = useState<boolean>(false);
 
+    const onClickOutsideRef = useRef<HTMLDivElement | null>(null);
+
+    const onClickOutside = () => {
+        setDisplaySearch(false);
+    };
+
+    useClickOutside(onClickOutsideRef, onClickOutside);
+
     return (
         <React.Fragment>
-            {form && (
-                <div className={styles['edit__chips']}>
-                    <Subheader
-                        form={form}
-                        setSearchParam={setSearchParam}
-                        displaySearch={displaySearch}
-                        setDisplaySearch={setDisplaySearch}
-                    />
-                    <SearchResult
-                        activeForm={form}
+            {activeForm && (
+                <div className={styles['edit__subheader']}>
+                    <GroupChips activeForm={activeForm} />
+                    <Searchbar
+                        ref={onClickOutsideRef}
+                        activeForm={activeForm}
                         searchParam={searchParam}
-                        shouldDisplay={displaySearch}
+                        displaySearch={displaySearch}
+                        setSearchParam={setSearchParam}
+                        setDisplaySearch={setDisplaySearch}
                     />
                 </div>
             )}

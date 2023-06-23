@@ -1,0 +1,13 @@
+.search__container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.search-input {
+    background-color: var(--layer-2-color);
+    border-radius: var(--rounded-xl);
+    padding: var(--size-1) var(--size-2);
+    display: flex;
+    gap: var(--size-2);
+}

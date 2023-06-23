@@ -68,7 +68,7 @@ export default function SearchResult({
     return (
         <AttributeSearchResult
             key={`attribute-renderer__${part.id}`}
-            data={responseAttributes.data}
+            attributes={responseAttributes.data}
             onClick={addProperty}
         />
     );

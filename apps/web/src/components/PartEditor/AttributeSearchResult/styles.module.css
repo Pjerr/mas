@@ -1,6 +1,7 @@
 .attribute-renderer__container {
     display: flex;
     gap: var(--size-4);
+    padding: var(--size-2) var(--size-4);
 }
 
 .groups__name,
@@ -23,4 +24,13 @@
 .attributes__attribute:hover {
     background-color: var(--layer-2-color);
     border-radius: var(--rounded-sm);
+}
+
+.search__container {
+    top: var(--size-12);
+    z-index: 1000;
+    position: absolute;
+    border: 1px solid var(--border-color);
+    border-radius: var(--rounded-sm);
+    background-color: var(--layer-1-color);
 }
