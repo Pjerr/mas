@@ -3,6 +3,8 @@
     flex-direction: column;
     border: 1px solid var(--border-color);
     border-radius: var(--size-1);
+    flex: 1;
+    overflow: hidden;
 }
 
 .edit__tabs {

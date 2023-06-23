@@ -1,12 +1,18 @@
 .attribute__content {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     flex: 1;
+}
+
+.attribute-grid {
+    flex: 1;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .attribute-table {
     overflow: auto;
-    height: var(--size-100);
+    flex: 1;
 }
 
 .placeholder {

@@ -3,7 +3,7 @@ import styles from './styles.module.css';
 import { SidebarLayout } from '@/layouts/SidebarLayout';
 import { PartEditor } from '@/components/PartEditor';
 
-export default function CreatePart() {
+export default function Edit() {
     return (
         <div className={styles['edit__container']}>
             <PartEditor />
@@ -11,4 +11,4 @@ export default function CreatePart() {
     );
 }
 
-CreatePart.getLayout = SidebarLayout;
+Edit.getLayout = SidebarLayout;

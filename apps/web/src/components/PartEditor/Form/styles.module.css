@@ -1,9 +1,19 @@
 .form {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: space-between;
     padding: var(--size-4);
     gap: var(--size-6);
+    flex: 1;
+    overflow: scroll;
+}
+
+.form__inputs {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-6);
+    overflow: scroll;
+    flex: 1;
 }
 
 .form__group {
@@ -28,6 +38,7 @@
     display: flex;
     gap: var(--size-2);
     justify-content: flex-end;
+    align-content: flex-end;
 }
 
 .form__field {

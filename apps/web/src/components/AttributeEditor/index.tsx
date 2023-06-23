@@ -63,7 +63,7 @@ export default function AttributeEditor({
     };
 
     return (
-        <React.Fragment>
+        <div className={styles['form__container']}>
             <span className={styles['form__title']} data-cy="form__title">
                 {state.mode === EditorMode.Create
                     ? 'Create attribute'
@@ -104,6 +104,6 @@ export default function AttributeEditor({
                     <FormButtons />
                 </form>
             </FormProvider>
-        </React.Fragment>
+        </div>
     );
 }
