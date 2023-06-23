@@ -4,62 +4,62 @@ import { useState } from 'react';
 
 export const useSidebar = () => {
     const [tabs, setTabs] = useState<TabItem[]>([]);
-    const [activeTabId, setActiveTabId] = useState<string | null>(null);
+    const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
-    function toggleSidebar(tabId: string) {
-        activeTabId === tabId ? setActiveTabId(null) : setActiveTabId(tabId);
+    function toggleSidebar(index: number) {
+        activeIndex === index ? setActiveIndex(null) : setActiveIndex(index);
     }
 
-    function addTab(newTab: TabItem) {
-        const tabIndex = tabs.findIndex((tab) => tab.id === newTab.id);
-
-        const tabsCopy = tabs.slice();
-
-        if (tabIndex >= 0) {
-            tabsCopy.splice(tabIndex, 1, newTab);
-            setTabs(tabsCopy);
-        } else {
-            tabsCopy.push(newTab);
-            setTabs(tabsCopy);
-        }
+    function addTab(tab: TabItem) {
+        setTabs([...tabs, tab]);
     }
 
     function addTabs(newTabs: TabItem[]) {
-        newTabs.forEach((newTab) => {
-            const foundIndex = tabs.findIndex((tab) => newTab.id === tab.id);
-            if (foundIndex >= 0) {
-                newTabs.splice(foundIndex, 1);
-            }
-        });
-
         setTabs([...tabs, ...newTabs]);
     }
 
-    function getActiveTab() {
-        return tabs.find((tab) => tab.id === activeTabId);
+    function removeTab(tabIndex: number) {
+        const newTabs = tabs.slice();
+        newTabs.splice(tabIndex, 1);
+        setTabs(newTabs);
     }
 
-    function removeTab(tabId: string) {
-        const tabsCopy = tabs.slice().filter((tab) => tab.id !== tabId);
-        setTabs(tabsCopy);
+    function removeTabs(tabIndexes: number[]) {
+        const newTabs = tabs.slice();
+        newTabs.filter((_, index) => !tabIndexes.includes(index));
+        setTabs(newTabs);
     }
 
     function clearSidebar() {
         setTabs([]);
-        setActiveTabId(null);
+        setActiveIndex(null);
     }
 
     return React.useMemo(
         () => ({
             tabs,
-            getActiveTab,
-            toggleSidebar,
+            activeIndex,
             addTab,
             addTabs,
             removeTab,
+            removeTabs,
+            toggleSidebar,
             clearSidebar,
+            setTabs,
+            setActiveIndex,
         }),
-        [tabs, getActiveTab, toggleSidebar, addTab, removeTab, clearSidebar]
+        [
+            tabs,
+            activeIndex,
+            setTabs,
+            addTab,
+            addTabs,
+            removeTab,
+            removeTabs,
+            toggleSidebar,
+            clearSidebar,
+            setActiveIndex,
+        ]
     );
 };
 

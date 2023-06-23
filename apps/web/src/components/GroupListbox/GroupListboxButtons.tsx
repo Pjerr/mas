@@ -1,7 +1,7 @@
 import { FaEdit, FaTimes } from 'react-icons/fa';
+import Button from '../Button';
 import styles from './styles.module.css';
 import ConfirmModal from '@/components/Modal/ConfirmModal';
-import Button from '../Button';
 
 interface GroupListboxButtonsProps {
     itemIndex: number;

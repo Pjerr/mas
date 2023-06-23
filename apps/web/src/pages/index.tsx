@@ -13,6 +13,8 @@ import Table from '@/components/Table';
 import { partColumnDef } from '@/components/Table/ColumnDef';
 import PartTableHeader from '@/components/PartTableHeader';
 import { createPartForm } from '@/store/editors/part/thunks';
+import SidebarPanels from '@/components/Sidebar/SidebarPanels';
+import SidebarPanel from '@/components/Sidebar/SidebarPanel';
 
 const Parts: NextPageWithLayout = () => {
     const router = useRouter();
@@ -52,25 +54,27 @@ const Parts: NextPageWithLayout = () => {
     };
 
     return (
-        <TableProvider>
-            <PartTableHeader
-                toolbarProps={{
-                    onCreate,
-                    onEdit,
-                    onEditMode,
-                }}
-                bulkActionProps={{
-                    name: 'bulkActionTestName',
-                }}
-            />
-            <Table
-                placeholder={`Part table is empty`}
-                view={partColumnDef}
-                instanceId={instanceIds[EntityType.Part]}
-                refetch={refetch}
-                paginate={true}
-            ></Table>
-        </TableProvider>
+        <>
+            <TableProvider>
+                <PartTableHeader
+                    toolbarProps={{
+                        onCreate,
+                        onEdit,
+                        onEditMode,
+                    }}
+                    bulkActionProps={{
+                        name: 'bulkActionTestName',
+                    }}
+                />
+                <Table
+                    placeholder={`Part table is empty`}
+                    view={partColumnDef}
+                    instanceId={instanceIds[EntityType.Part]}
+                    refetch={refetch}
+                    paginate={true}
+                ></Table>
+            </TableProvider>
+        </>
     );
 };
 

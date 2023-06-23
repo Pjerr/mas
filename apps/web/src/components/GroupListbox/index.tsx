@@ -23,16 +23,12 @@ import Button from '../Button';
 import { EntityType } from '@/store/table/types';
 
 interface GroupListProps {
-    listboxEditMode: boolean;
-    setListboxEditMode: React.Dispatch<React.SetStateAction<boolean>>;
     setActiveGroup: React.Dispatch<React.SetStateAction<PartialGroup | null>>;
 }
 
-export default function GroupListbox({
-    listboxEditMode,
-    setActiveGroup,
-    setListboxEditMode,
-}: GroupListProps) {
+export default function GroupListbox({ setActiveGroup }: GroupListProps) {
+    const [listboxEditMode, setListboxEditMode] = useState<boolean>(false);
+
     const dispatch = useDispatch();
     const [createGroup] = useCreateGroupMutation();
     const [updateGroup] = useUpdateGroupMutation();
@@ -54,8 +50,6 @@ export default function GroupListbox({
         setGroups(response.data);
         resetActiveGroup(activeIndex);
     }, [response]);
-
-    if (!response) return <></>;
 
     const handleSearch = (value: string) => {
         // console.log(value);

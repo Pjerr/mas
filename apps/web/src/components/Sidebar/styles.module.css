@@ -35,11 +35,10 @@
     position: relative;
     min-width: var(--size-64);
     display: flex;
-}
-
-.content-container {
-    background-color: var(--layer-1-color);
     padding: var(--size-2) var(--size-6);
     overflow: auto;
-    flex: 1;
+}
+
+.sidebar-panels {
+    display: none;
 }
