@@ -1,7 +1,6 @@
 import { PropertyMetadata } from '@/lib/metadata';
 import { EditorMap } from '@/types/editors';
 import { Control, Controller, FieldValues } from 'react-hook-form';
-
 interface FormFieldProps {
     metadata: PropertyMetadata;
     control: Control<FieldValues, any>;

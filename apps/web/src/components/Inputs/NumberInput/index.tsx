@@ -4,6 +4,7 @@ import styles from './styles.module.css';
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
 import TextInput from '../TextInput';
 import Button from '@/components/Button';
+import classNames from 'classnames';
 
 interface NumberInputProps {
     icon?: React.ReactNode;
@@ -41,7 +42,7 @@ const NumberInput = React.forwardRef<
             <TextInput
                 {...props}
                 ref={ref}
-                className={styles['number-input']}
+                className={classNames(styles['number-input'], props.className)}
                 value={value}
                 onChange={handleInputChange}
             />

@@ -12,6 +12,7 @@
     justify-content: center;
     border-radius: var(--rounded-xl);
     white-space: nowrap;
+    height: var(--size-10);
 }
 
 .chip__title {
