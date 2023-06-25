@@ -45,3 +45,8 @@
 .links__link:hover {
     color: var(--text-primary);
 }
+
+.theme__button {
+    width: var(--size-6);
+    height: var(--size-6);
+}

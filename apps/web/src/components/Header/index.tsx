@@ -4,8 +4,7 @@ import { useRouter } from 'next/router';
 import styles from './styles.module.css';
 import Button from '../Button';
 import useTheme, { Theme } from '@/hooks/useTheme';
-import { FaSun, FaMoon } from 'react-icons/fa';
-
+import { BiSun, BiMoon } from 'react-icons/bi';
 interface NavLink {
     label: string;
     href: string;
@@ -54,7 +53,13 @@ export function Header() {
                                 ? setTheme(Theme.Light)
                                 : setTheme(Theme.Dark)
                         }
-                        icon={theme === Theme.Dark ? <FaMoon /> : <FaSun />}
+                        icon={
+                            theme === Theme.Dark ? (
+                                <BiMoon className={styles['theme__button']} />
+                            ) : (
+                                <BiSun className={styles['theme__button']} />
+                            )
+                        }
                     />
                 </ul>
             </nav>
