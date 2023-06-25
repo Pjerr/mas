@@ -10,6 +10,11 @@
     border-bottom: 1px solid var(--border-color);
 }
 
+.grid__toolbar {
+    border: 1px solid var(--border-color);
+    border-radius: var(--rounded-sm) var(--rounded-sm) 0 0;
+}
+
 .attribute-table {
     overflow: auto;
     flex: 1;

@@ -121,12 +121,14 @@ const Attributes: NextPageWithLayout = () => {
             <div className={styles['attribute__content']}>
                 <div className={styles['attribute-grid']}>
                     <TableProvider>
-                        <Toolbar
-                            type={EntityType.Attribute}
-                            onEdit={onEdit}
-                            onEditMode={onEditMode}
-                            onCreate={onCreate}
-                        ></Toolbar>
+                        <div className={styles['grid__toolbar']}>
+                            <Toolbar
+                                type={EntityType.Attribute}
+                                onEdit={onEdit}
+                                onEditMode={onEditMode}
+                                onCreate={onCreate}
+                            ></Toolbar>
+                        </div>
                         {activeGroup?.id ? (
                             <div className={styles['attribute-table']}>
                                 <Table
