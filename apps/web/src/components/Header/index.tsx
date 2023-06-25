@@ -2,6 +2,9 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styles from './styles.module.css';
+import Button from '../Button';
+import useTheme, { Theme } from '@/hooks/useTheme';
+import { FaSun, FaMoon } from 'react-icons/fa';
 
 interface NavLink {
     label: string;
@@ -18,6 +21,8 @@ const links: NavLink[] = [
 export function Header() {
     const router = useRouter();
     const activeRoute = router.pathname;
+
+    const { theme, setTheme } = useTheme();
 
     return (
         <header className={classNames(styles['header-container'])}>
@@ -43,6 +48,14 @@ export function Header() {
                             </li>
                         );
                     })}
+                    <Button
+                        onClick={() =>
+                            theme === Theme.Dark
+                                ? setTheme(Theme.Light)
+                                : setTheme(Theme.Dark)
+                        }
+                        icon={theme === Theme.Dark ? <FaMoon /> : <FaSun />}
+                    />
                 </ul>
             </nav>
         </header>

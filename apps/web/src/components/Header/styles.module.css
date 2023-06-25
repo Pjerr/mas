@@ -7,7 +7,7 @@
 
 .header-container__nav {
     width: 100%;
-    max-width: var(--container-lg);
+    max-width: var(--container-xl);
     padding: var(--size-4);
     display: flex;
     justify-content: space-between;
@@ -28,6 +28,7 @@
 .nav__links {
     display: flex;
     gap: var(--size-4);
+    align-items: center;
 }
 
 .links__link {
