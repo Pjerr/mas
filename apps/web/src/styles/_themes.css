@@ -1,7 +1,8 @@
 [data-theme='dark'] {
     --background-color: #181818;
-    --layer-1-color: #111111;
-    --layer-2-color: #3d3d3d;
+    --layer-1-color: #282828;
+    --layer-2-color: #303030;
+    --layer-3-color: #383838;
 
     --text-primary: #fefefe;
     --text-secondary: #d8d8d8;
@@ -12,23 +13,25 @@
     --subtitle-weight: var(--font-weight-semibold);
     --subtitle-size: var(--font-xl);
 
-    --color-danger: #c93132;
-    --color-danger--hover: rgba(201, 49, 50, 80%);
+    --color-danger: #ff4136;
+    --color-danger--hover: #e60000;
 
-    --color-primary: #8809ff;
-    --color-primary--hover: rgba(136, 9, 255, 80%);
+    --color-primary: #1db954;
+    --color-primary--hover: rgba(28, 185, 84, 80%);
 
-    --color-secondary: #5c527f;
-    --color-secondary--hover: rgba(92, 82, 127, 80%);
+    --color-secondary: #666666;
+    --color-secondary--hover: rgba(102, 102, 102, 80%);
 
     --layer-modal-color: rgba(25, 25, 25, 0.5);
 
-    --color-warning: #d89216;
-    --color-warning--hover: rgba(216, 146, 22, 80%);
+    --color-warning: #ffa700;
+    --color-warning--hover: #e66500;
 
     --header-color: var(--layer-1-color);
 
-    --border-color: #675968;
+    --border-color: #6c757d;
+
+    --select-color: #999999;
 }
 
 [data-theme='light'] {

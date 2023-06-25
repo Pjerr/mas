@@ -4,6 +4,6 @@
 }
 
 .table__row > th {
-    border: 1px solid var(--layer-2-color);
+    border: 1px solid var(--border-color);
     padding: var(--size-2);
 }

@@ -4,7 +4,7 @@
     align-items: center;
     background-color: var(--layer-2-color);
     border: 1px solid var(--border-color);
-    border-radius: var(--rounded-sm);
+    border-radius: var(--rounded-sm) var(--rounded-sm) 0 0;
     border-bottom: none;
 }
 
@@ -12,10 +12,9 @@
     display: flex;
     align-items: center;
     gap: var(--size-1);
-    background-color: var(--layer-2-color);
+    background-color: var(--layer-3-color);
     padding: var(--size-2) var(--size-6);
     border-right: 1px solid var(--border-color);
-    border-left: 1px solid var(--border-color);
     cursor: pointer;
     white-space: nowrap;
 }
@@ -25,7 +24,7 @@
 }
 
 .tab:hover:not(.tab--active) {
-    background-color: var(--color-secondary--hover);
+    background-color: var(--color-secondary);
 }
 
 .tab--addTab {

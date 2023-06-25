@@ -15,7 +15,7 @@
 }
 
 .list-item:hover:not(.list-item--active) {
-    background-color: var(--color-secondary--hover);
+    background-color: var(--layer-3-color);
 }
 
 .list-item--active {

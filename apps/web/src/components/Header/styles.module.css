@@ -38,7 +38,7 @@
 }
 
 .links__link--active {
-    border-bottom: 2px solid var(--color-primary);
+    border-bottom: 2px solid var(--color-secondary);
 }
 
 .links__link:hover {
