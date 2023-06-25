@@ -35,8 +35,37 @@
 }
 
 [data-theme='light'] {
-    --base-color: var(--color-white-100);
-    --header-color: var(--color-white-200);
+    --background-color: #f4f4f4;
+    --layer-1-color: #d9d9d9;
+    --layer-2-color: #bebebe;
+    --layer-3-color: #a3a3a3;
 
     --text-primary: var(--color-dark-gray-800);
+    --text-secondary: #2e2d2d;
+
+    --title-weight: var(--font-weight-bold);
+    --title-size: var(--font-2xl);
+
+    --subtitle-weight: var(--font-weight-semibold);
+    --subtitle-size: var(--font-xl);
+
+    --color-danger: #ff4136;
+    --color-danger--hover: #e60000;
+
+    --color-primary: #1ed760;
+    --color-primary--hover: rgba(28, 185, 84, 80%);
+
+    --color-secondary: #999999;
+    --color-secondary--hover: rgba(102, 102, 102, 80%);
+
+    --layer-modal-color: rgba(25, 25, 25, 0.5);
+
+    --color-warning: #ffa700;
+    --color-warning--hover: #e66500;
+
+    --header-color: var(--layer-1-color);
+
+    --border-color: #6c757d;
+
+    --select-color: #999999;
 }

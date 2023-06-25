@@ -1,5 +1,5 @@
 import { Toastify } from '@/components/Toastify';
-import useTheme from '@/hooks/useTheme';
+import useTheme, { Theme } from '@/hooks/useTheme';
 import { MainLayout } from '@/layouts/MainLayout';
 import { NextPage } from 'next';
 import { AppProps } from 'next/app';
