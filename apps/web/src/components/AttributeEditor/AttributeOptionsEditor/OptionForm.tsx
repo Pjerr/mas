@@ -19,6 +19,13 @@ export default function OptionForm({ index, remove }: OptionFormProps) {
             key={`option-form__${index}`}
             data-cy={'option__form'}
         >
+            <div className={styles['remove-button__container']}>
+                <Button
+                    onClick={() => remove(index)}
+                    icon={<FaMinusCircle />}
+                    data-cy={'option-editor__remove-button'}
+                />
+            </div>
             {optionsFormMetadata.map((generalMetadata) => (
                 <Controller
                     key={`options[${index}].${generalMetadata.propertyKey}`}
@@ -39,11 +46,6 @@ export default function OptionForm({ index, remove }: OptionFormProps) {
                     }}
                 />
             ))}
-            <Button
-                onClick={() => remove(index)}
-                icon={<FaMinusCircle />}
-                data-cy={'option-editor__remove-button'}
-            />
         </div>
     );
 }

@@ -24,7 +24,6 @@ export default function TextEditor({
                 {...register(metadata.propertyKey)}
                 {...field}
                 variant="border"
-                className={styles['editor__input']}
                 data-cy={`editor__${metadata.propertyKey}`}
             />
             <ErrorMessage

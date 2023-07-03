@@ -9,10 +9,6 @@
     flex-direction: column;
 }
 
-.editor__input {
-    height: var(--size-10);
-}
-
 .error-message {
     color: var(--color-danger);
 }

@@ -48,20 +48,6 @@ export const optionsFormMetadata: PropertyMetadata[] = [
         propertyValidation: EditorValidation.AY09,
     },
     {
-        displayName: 'Price',
-        isArray: false,
-        propertyKey: 'price',
-        propertyType: EditorType.Number,
-        propertyValidation: EditorValidation.DecimalNumber,
-    },
-    {
-        displayName: 'SKU',
-        isArray: false,
-        propertyKey: 'sku',
-        propertyType: EditorType.Text,
-        propertyValidation: EditorValidation.AY09,
-    },
-    {
         displayName: 'Display Name',
         isArray: false,
         propertyKey: 'displayName',

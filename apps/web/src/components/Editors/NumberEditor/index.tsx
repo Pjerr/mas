@@ -22,7 +22,6 @@ export function NumberEditor({ field, metadata, formState }: EditorProps) {
                 {...field}
                 variant={'border'}
                 data-cy={`editor__${metadata.propertyKey}`}
-                className={styles['editor__input']}
             />
             <ErrorMessage
                 errors={formState.errors}

@@ -1,7 +1,6 @@
 .input-field {
     display: flex;
     align-items: center;
-    flex: 1;
 }
 
 .input {
@@ -9,10 +8,12 @@
     color: var(--text-primary);
     background-color: transparent;
     text-indent: var(--size-2);
+    height: var(--size-10);
+    width: 100%;
 }
 
 .input-field-border {
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--color-secondary);
 }
 
 .input-field-right {
@@ -25,7 +26,7 @@
 
 .input-field-underline {
     border: none;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--color-secondary);
 }
 
 .input-field:focus-within {
