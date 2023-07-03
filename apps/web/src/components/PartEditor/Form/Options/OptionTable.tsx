@@ -11,14 +11,15 @@ interface OptionTableProps {
 }
 
 export default function OptionsTable({ attributeId }: OptionTableProps) {
-    const { loadTableData } = useTable(instanceIds[EntityType.Option]);
+    const instanceId = `${instanceIds[EntityType.Option]}-${attributeId}`;
+    const { loadTableData } = useTable(instanceId);
 
     useEffect(() => {
         loadTableData(EntityType.Option, attributeId);
     }, [attributeId]);
 
     const refetch = () => {
-        loadTableData(EntityType.Option, attributeId);
+        // loadTableData(EntityType.Option, attributeId);
     };
 
     return (
@@ -26,9 +27,9 @@ export default function OptionsTable({ attributeId }: OptionTableProps) {
             <Table
                 placeholder={`Option table is empty`}
                 view={optionColumnDef as any}
-                instanceId={instanceIds[EntityType.Option]}
+                instanceId={instanceId}
                 refetch={refetch}
-                paginate={true}
+                showPagination={true}
             ></Table>
         </TableProvider>
     );

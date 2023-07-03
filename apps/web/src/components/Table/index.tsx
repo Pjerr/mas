@@ -33,7 +33,7 @@ interface TableProps {
     view: ColumnDef<any, any>[];
     refetch: () => void;
     instanceId?: string;
-    paginate: boolean;
+    showPagination?: boolean;
     placeholder: string;
 }
 
@@ -41,7 +41,7 @@ function Table({
     view,
     refetch,
     instanceId = uuid4(),
-    paginate,
+    showPagination: paginate,
     placeholder,
 }: TableProps) {
     const { refreshRefs, getInstance, addInstance } = useContext(TableContext);

@@ -9,6 +9,7 @@ import { loadData } from '..';
 interface LoadDataProps {
     sourceId?: string;
     type: EntityType;
+    instanceId: string;
 }
 
 const createIncludeArg = (type: EntityType) => {
@@ -41,55 +42,56 @@ const loadTableDataThunk = createAsyncThunk<
     void,
     LoadDataProps,
     { dispatch: AppDispatch; state: RootState }
->('table/loadData', async ({ type, sourceId }, { dispatch, getState }) => {
-    const { table } = getState();
+>(
+    'table/loadData',
+    async ({ type, instanceId, sourceId }, { dispatch, getState }) => {
+        const { table } = getState();
 
-    const instanceId = instanceIds[type];
+        const sort: Sort | undefined =
+            table[instanceId].sorting.length > 0
+                ? {
+                      field: table[instanceId].sorting[0].id,
+                      order: orderMap(table[instanceId].sorting[0].desc),
+                  }
+                : undefined;
 
-    const sort: Sort | undefined =
-        table[instanceId].sorting.length > 0
-            ? {
-                  field: table[instanceId].sorting[0].id,
-                  order: orderMap(table[instanceId].sorting[0].desc),
-              }
-            : undefined;
+        const filters = table.columnFilters
+            ? table[instanceId].columnFilters.map((filter) => {
+                  const parsed: Filter = {
+                      field: filter.id,
+                      operator: '$like',
+                      value: [`%${filter.value}`],
+                  };
+                  return parsed;
+              })
+            : [];
 
-    const filters = table.columnFilters
-        ? table[instanceId].columnFilters.map((filter) => {
-              const parsed: Filter = {
-                  field: filter.id,
-                  operator: '$like',
-                  value: [`%${filter.value}`],
-              };
-              return parsed;
-          })
-        : [];
-
-    if (sourceId && type !== EntityType.Part) {
-        filters.push(createFilterArg(sourceId, type));
-    }
-    const {
-        data: response,
-        isError,
-        isLoading,
-    } = await dispatch(
-        Api.endpoints[findNotation[type]].initiate({
-            query: {
-                filters,
-                sort,
-                include: createIncludeArg(type),
-            },
-        }) as any
-    );
-
-    dispatch(
-        loadData({
-            data: response ? response.data : [],
+        if (sourceId && type !== EntityType.Part) {
+            filters.push(createFilterArg(sourceId, type));
+        }
+        const {
+            data: response,
             isError,
             isLoading,
-            instanceId: instanceIds[type],
-        })
-    );
-});
+        } = await dispatch(
+            Api.endpoints[findNotation[type]].initiate({
+                query: {
+                    filters,
+                    sort,
+                    include: createIncludeArg(type),
+                },
+            }) as any
+        );
+
+        dispatch(
+            loadData({
+                data: response ? response.data : [],
+                isError,
+                isLoading,
+                instanceId,
+            })
+        );
+    }
+);
 
 export default loadTableDataThunk;

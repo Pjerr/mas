@@ -29,9 +29,7 @@ import { SidebarLayout } from '@/layouts/SidebarLayout';
 
 const Attributes: NextPageWithLayout = () => {
     const dispatch = useDispatch<AppDispatch>();
-    const { loadTableData, clearTableData } = useTable(
-        instanceIds[EntityType.Attribute]
-    );
+    const { loadTableData, clearTableData } = useTable();
 
     const { updateAttribute: update, createAttribute: create } =
         useAttributeApi();
@@ -137,7 +135,7 @@ const Attributes: NextPageWithLayout = () => {
                                         instanceIds[EntityType.Attribute]
                                     }
                                     refetch={refetch}
-                                    paginate={true}
+                                    showPagination={true}
                                     placeholder="Group does not have attributes"
                                 ></Table>
                             </div>

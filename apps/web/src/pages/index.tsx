@@ -20,7 +20,7 @@ const Parts: NextPageWithLayout = () => {
     const router = useRouter();
     const dispatch = useAppDispatch();
 
-    const { loadTableData } = useTable(instanceIds[EntityType.Part]);
+    const { loadTableData } = useTable();
 
     const refetch = () => {
         loadTableData(EntityType.Part);
@@ -71,7 +71,7 @@ const Parts: NextPageWithLayout = () => {
                     view={partColumnDef}
                     instanceId={instanceIds[EntityType.Part]}
                     refetch={refetch}
-                    paginate={true}
+                    showPagination={true}
                 ></Table>
             </TableProvider>
         </>
