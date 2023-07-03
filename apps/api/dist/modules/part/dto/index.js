@@ -21,5 +21,6 @@ __exportStar(require("./requests/update-part.request"), exports);
 __exportStar(require("./requests/update-attribute-relation.request"), exports);
 __exportStar(require("./requests/update-category-relation.request"), exports);
 __exportStar(require("./requests/multiple-create-part.request"), exports);
-__exportStar(require("./requests//multiple-update-part.request"), exports);
+__exportStar(require("./requests/multiple-update-part.request"), exports);
+__exportStar(require("./requests/create-variant.request"), exports);
 //# sourceMappingURL=index.js.map

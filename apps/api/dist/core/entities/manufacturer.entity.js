@@ -54,7 +54,7 @@ __decorate([
     __metadata("design:type", String)
 ], Manufacturer.prototype, "address", void 0);
 __decorate([
-    (0, core_1.OneToMany)(() => part_entity_1.Part, (part) => part.manufacturerId, {
+    (0, core_1.OneToMany)(() => part_entity_1.Part, (part) => part.manufacturer, {
         nullable: true,
         orphanRemoval: true,
         cascade: [core_1.Cascade.PERSIST],

@@ -15,11 +15,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AttributeOption = void 0;
 const openapi = require("@nestjs/swagger");
 const core_1 = require("@mikro-orm/core");
-const uuid4_1 = __importDefault(require("uuid4"));
 const attribute_entity_1 = require("./attribute.entity");
 const filter_decorator_1 = require("../meta/decorators/filter.decorator");
 const swagger_1 = require("@nestjs/swagger");
 const option_config_entity_1 = require("./option-config.entity");
+const uuid4_1 = __importDefault(require("uuid4"));
 let AttributeOption = class AttributeOption extends core_1.BaseEntity {
     constructor() {
         super(...arguments);

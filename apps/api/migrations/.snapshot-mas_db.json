@@ -366,15 +366,6 @@
           "nullable": false,
           "mappedType": "string"
         },
-        "sku": {
-          "name": "sku",
-          "type": "varchar(255)",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "string"
-        },
         "display_name": {
           "name": "display_name",
           "type": "varchar(255)",
@@ -417,15 +408,6 @@
       "name": "attribute_option",
       "schema": "public",
       "indexes": [
-        {
-          "columnNames": [
-            "sku"
-          ],
-          "composite": false,
-          "keyName": "attribute_option_sku_unique",
-          "primary": false,
-          "unique": true
-        },
         {
           "columnNames": [
             "display_name"
@@ -550,6 +532,86 @@
       "columns": {
         "id": {
           "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "price": {
+          "name": "price",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "0",
+          "mappedType": "integer"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "option_id": {
+          "name": "option_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        }
+      },
+      "name": "option_config",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "option_config_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "option_config_option_id_foreign": {
+          "constraintName": "option_config_option_id_foreign",
+          "columnNames": [
+            "option_id"
+          ],
+          "localTableName": "public.option_config",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.attribute_option",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
           "type": "varchar(255)",
           "unsigned": false,
           "autoincrement": false,
@@ -598,8 +660,8 @@
           "nullable": true,
           "mappedType": "json"
         },
-        "manufacturer_id_id": {
-          "name": "manufacturer_id_id",
+        "manufacturer_id": {
+          "name": "manufacturer_id",
           "type": "uuid",
           "unsigned": false,
           "autoincrement": false,
@@ -607,8 +669,8 @@
           "nullable": true,
           "mappedType": "uuid"
         },
-        "category_id_id": {
-          "name": "category_id_id",
+        "category_id": {
+          "name": "category_id",
           "type": "uuid",
           "unsigned": false,
           "autoincrement": false,
@@ -672,30 +734,30 @@
       ],
       "checks": [],
       "foreignKeys": {
-        "part_manufacturer_id_id_foreign": {
-          "constraintName": "part_manufacturer_id_id_foreign",
+        "part_manufacturer_id_foreign": {
+          "constraintName": "part_manufacturer_id_foreign",
           "columnNames": [
-            "manufacturer_id_id"
+            "manufacturer_id"
           ],
           "localTableName": "public.part",
           "referencedColumnNames": [
             "id"
           ],
           "referencedTableName": "public.manufacturer",
-          "deleteRule": "cascade",
+          "deleteRule": "set null",
           "updateRule": "cascade"
         },
-        "part_category_id_id_foreign": {
-          "constraintName": "part_category_id_id_foreign",
+        "part_category_id_foreign": {
+          "constraintName": "part_category_id_foreign",
           "columnNames": [
-            "category_id_id"
+            "category_id"
           ],
           "localTableName": "public.part",
           "referencedColumnNames": [
             "id"
           ],
           "referencedTableName": "public.category",
-          "deleteRule": "cascade",
+          "deleteRule": "set null",
           "updateRule": "cascade"
         }
       }
@@ -760,6 +822,141 @@
             "id"
           ],
           "referencedTableName": "public.attribute",
+          "deleteRule": "cascade",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "part_id": {
+          "name": "part_id",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "string"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz(0)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "length": 6,
+          "mappedType": "datetime"
+        }
+      },
+      "name": "variant",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "variant_pkey",
+          "columnNames": [
+            "id"
+          ],
+          "composite": false,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "variant_part_id_foreign": {
+          "constraintName": "variant_part_id_foreign",
+          "columnNames": [
+            "part_id"
+          ],
+          "localTableName": "public.variant",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.part",
+          "updateRule": "cascade"
+        }
+      }
+    },
+    {
+      "columns": {
+        "option_config_id": {
+          "name": "option_config_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "variant_id": {
+          "name": "variant_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        }
+      },
+      "name": "option_config_variants",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "option_config_variants_pkey",
+          "columnNames": [
+            "option_config_id",
+            "variant_id"
+          ],
+          "composite": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "option_config_variants_option_config_id_foreign": {
+          "constraintName": "option_config_variants_option_config_id_foreign",
+          "columnNames": [
+            "option_config_id"
+          ],
+          "localTableName": "public.option_config_variants",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.option_config",
+          "deleteRule": "cascade",
+          "updateRule": "cascade"
+        },
+        "option_config_variants_variant_id_foreign": {
+          "constraintName": "option_config_variants_variant_id_foreign",
+          "columnNames": [
+            "variant_id"
+          ],
+          "localTableName": "public.option_config_variants",
+          "referencedColumnNames": [
+            "id"
+          ],
+          "referencedTableName": "public.variant",
           "deleteRule": "cascade",
           "updateRule": "cascade"
         }

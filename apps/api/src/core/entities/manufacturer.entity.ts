@@ -33,7 +33,7 @@ export class Manufacturer extends BaseEntity<Manufacturer, 'id'> {
   @Property()
   address: string;
 
-  @OneToMany(() => Part, (part) => part.manufacturerId, {
+  @OneToMany(() => Part, (part) => part.manufacturer, {
     nullable: true,
     orphanRemoval: true,
     cascade: [Cascade.PERSIST],

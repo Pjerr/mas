@@ -1,25 +1,25 @@
 import {
-  Entity,
   BaseEntity,
-  PrimaryKey,
-  ManyToOne,
-  ManyToMany,
   Cascade,
   Collection,
+  Entity,
+  ManyToMany,
+  ManyToOne,
+  PrimaryKey,
   Property,
 } from '@mikro-orm/core';
-import { ApiResponseProperty, ApiProperty } from '@nestjs/swagger';
-import { Filterable } from '../meta/decorators/filter.decorator';
-import { OptionConfig } from './option-config.entity';
-import { Part } from './part.entity';
+import { OptionConfig, Part } from '@/core/entities';
+import { Filterable } from '@/core/meta/decorators/filter.decorator';
+import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
+import uuid4 from 'uuid4';
 
 @Entity()
 export class Variant extends BaseEntity<Variant, 'id'> {
   @PrimaryKey({ type: 'uuid' })
   @Filterable()
-  id: string = uuidv4();
+  id: string = uuid4();
 
-  @ManyToOne({ hidden: true })
+  @ManyToOne(() => Part, { hidden: true })
   part: Part;
 
   @ApiResponseProperty({ type: [OptionConfig] })
@@ -42,7 +42,4 @@ export class Variant extends BaseEntity<Variant, 'id'> {
       .toArray()
       .reduce((sum, config) => sum + config.price, this.part.basePrice);
   }
-}
-function uuidv4(): string {
-  throw new Error('Function not implemented.');
 }

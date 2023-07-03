@@ -1,6 +1,5 @@
 import { BaseEntity, Collection } from '@mikro-orm/core';
-import { OptionConfig } from './option-config.entity';
-import { Part } from './part.entity';
+import { OptionConfig, Part } from '@/core/entities';
 export declare class Variant extends BaseEntity<Variant, 'id'> {
     id: string;
     part: Part;

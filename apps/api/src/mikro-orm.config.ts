@@ -7,8 +7,10 @@ import {
   Category,
   Group,
   Manufacturer,
+  AttributeOption,
+  Variant,
+  OptionConfig,
 } from './core/entities';
-import AttributeOption from './core/entities/attribute-option.entity';
 
 const dotenvConfig: DotenvConfigOutput = dotenv.config({
   path: path.resolve(__dirname, '../.env'),
@@ -17,7 +19,16 @@ if (dotenvConfig.error) {
   throw dotenvConfig.error;
 }
 const config: Options = {
-  entities: [Attribute, AttributeOption, Part, Manufacturer, Group, Category],
+  entities: [
+    Attribute,
+    AttributeOption,
+    Part,
+    Manufacturer,
+    Group,
+    Category,
+    Variant,
+    OptionConfig,
+  ],
   dbName: process.env.DB_NAME,
   host: process.env.DB_HOST,
   name: process.env.DB_USER,

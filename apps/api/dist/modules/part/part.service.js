@@ -99,7 +99,7 @@ let PartService = class PartService {
     async addCategory(id, categoryId) {
         const part = await this.findOne(id);
         const category = await this.categoryRepository.findOneOrFail(categoryId);
-        part.categoryId = category.id;
+        part.category = category.id;
         await this.em.persistAndFlush(part);
         return part;
     }

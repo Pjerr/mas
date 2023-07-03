@@ -138,7 +138,7 @@ export class PartService {
     const part = await this.findOne(id);
     const category = await this.categoryRepository.findOneOrFail(categoryId);
 
-    part.categoryId = category.id;
+    part.category = category.id;
 
     await this.em.persistAndFlush(part);
 

@@ -1,6 +1,7 @@
-import { IDatabaseDriver, Connection } from '@mikro-orm/core';
-import { MikroOrmModuleOptions, MikroOrmOptionsFactory } from '@mikro-orm/nestjs';
 import { ConfigService } from '@nestjs/config';
+import { MikroOrmModuleOptions, MikroOrmOptionsFactory } from '@mikro-orm/nestjs';
+import { Connection } from '@mikro-orm/core/connections';
+import { IDatabaseDriver } from '@mikro-orm/core/drivers';
 export declare class MikroOrmService implements MikroOrmOptionsFactory {
     private configService;
     constructor(configService: ConfigService);

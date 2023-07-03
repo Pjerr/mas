@@ -1,4 +1,4 @@
-import AttributeOption from '@/core/entities/attribute-option.entity';
+import { AttributeOption } from '@/core/entities';
 import { EntityResponse } from '@/core/types';
 export declare class OptionResponse implements EntityResponse<AttributeOption> {
     data: AttributeOption;

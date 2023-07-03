@@ -1,4 +1,4 @@
-import { AttributeService } from '@/modules/attribute/dto/attribute/attribute.service';
+import { AttributeService } from '@/modules/attribute/attribute.service';
 import { CreateAttribute, QueryAttribute, UpdateAttribute } from '@/modules/attribute/dto/attribute';
 import { AttributeResponse, AttributesResponse, PartialAttributesResponse } from '@/modules/attribute/dto/attribute/attribute.response';
 export declare class AttributeController {

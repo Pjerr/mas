@@ -8,28 +8,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MikroOrmService = void 0;
-const entities_1 = require("../core/entities");
-const attribute_option_entity_1 = __importDefault(require("../core/entities/attribute-option.entity"));
 const postgresql_1 = require("@mikro-orm/postgresql");
 const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
+const entities_1 = require("../core/entities");
 let MikroOrmService = class MikroOrmService {
     constructor(configService) {
         this.configService = configService;
     }
     createMikroOrmOptions(contextName) {
         return Object.assign({ entities: [
-                entities_1.Part,
                 entities_1.Attribute,
-                attribute_option_entity_1.default,
-                entities_1.Manufacturer,
-                entities_1.Category,
                 entities_1.Group,
+                entities_1.Category,
+                entities_1.Variant,
+                entities_1.Part,
+                entities_1.AttributeOption,
+                entities_1.OptionConfig,
             ], driver: postgresql_1.PostgreSqlDriver, verbose: true, type: 'postgresql', debug: true }, this.configService.get('database'));
     }
 };

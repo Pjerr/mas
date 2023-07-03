@@ -11,9 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.OptionController = void 0;
 const openapi = require("@nestjs/swagger");
@@ -25,8 +22,8 @@ const swagger_1 = require("@nestjs/swagger");
 const dto_1 = require("./dto");
 const types_1 = require("../../core/types");
 const query_pipe_1 = require("../../core/pipes/query.pipe");
-const attribute_option_entity_1 = __importDefault(require("../../core/entities/attribute-option.entity"));
 const parse_query_1 = require("../../core/utils/parse-query");
+const entities_1 = require("../../core/entities");
 let OptionController = class OptionController {
     constructor(optionService) {
         this.optionService = optionService;
@@ -36,7 +33,7 @@ let OptionController = class OptionController {
         return { data: response };
     }
     async find(query) {
-        const filter = (0, parse_query_1.filterEntity)(query, attribute_option_entity_1.default);
+        const filter = (0, parse_query_1.filterEntity)(query, entities_1.AttributeOption);
         const response = await this.optionService.find(filter);
         return { data: response };
     }

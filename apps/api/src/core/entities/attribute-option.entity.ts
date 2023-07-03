@@ -8,11 +8,11 @@ import {
   Property,
   Unique,
 } from '@mikro-orm/core';
-import uuid4 from 'uuid4';
 import { Attribute } from './attribute.entity';
 import { Filterable } from '../meta/decorators/filter.decorator';
 import { ApiProperty } from '@nestjs/swagger';
 import { OptionConfig } from './option-config.entity';
+import uuid4 from 'uuid4';
 @Entity()
 export class AttributeOption extends BaseEntity<AttributeOption, 'id'> {
   @PrimaryKey({ type: 'uuid' })
