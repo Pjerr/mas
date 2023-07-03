@@ -60,17 +60,17 @@ export class Attribute extends BaseEntity<Attribute, 'id'> {
     orphanRemoval: true,
     cascade: [Cascade.PERSIST],
   })
+  @Filterable()
   @ApiResponseProperty({
     type: [AttributeOption],
   })
-  @Filterable()
   options = new Collection<AttributeOption>(this);
 
   @ManyToMany(() => Part, (part) => part.attributes)
+  @Filterable()
   @ApiResponseProperty({
     type: [Part],
   })
-  @Filterable()
   parts = new Collection<Part>(this);
 
   @Property()

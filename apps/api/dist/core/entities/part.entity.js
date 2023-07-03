@@ -23,6 +23,7 @@ const swagger_1 = require("@nestjs/swagger");
 const shared_1 = require("shared");
 const uuid4_1 = __importDefault(require("uuid4"));
 const filter_decorator_1 = require("../meta/decorators/filter.decorator");
+const variant_entity_1 = require("./variant.entity");
 let Part = class Part extends core_1.BaseEntity {
     constructor() {
         super(...arguments);
@@ -30,10 +31,11 @@ let Part = class Part extends core_1.BaseEntity {
         this.status = shared_1.PartStatus.InStock;
         this.attributes = new core_1.Collection(this);
         this.basePrice = 0;
+        this.variants = new core_1.Collection(this);
         this.createdAt = new Date();
     }
     static _OPENAPI_METADATA_FACTORY() {
-        return { id: { required: true, type: () => String, default: (0, uuid4_1.default)() }, name: { required: true, type: () => String }, status: { required: true, default: shared_1.PartStatus.InStock, enum: require("../../../../../packages/shared/dist/types/enums").PartStatus }, searchIndex: { required: true, type: () => String }, properties: { required: true, type: () => Object }, manufacturerId: { required: true, type: () => String }, categoryId: { required: true, type: () => String }, attributes: { required: true, type: () => Object, default: new core_1.Collection(this) }, basePrice: { required: true, type: () => Number, default: 0 }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date } };
+        return { id: { required: true, type: () => String, default: (0, uuid4_1.default)() }, name: { required: true, type: () => String }, status: { required: true, default: shared_1.PartStatus.InStock, enum: require("../../../../../packages/shared/dist/types/enums").PartStatus }, searchIndex: { required: true, type: () => String }, properties: { required: true, type: () => Object }, manufacturer: { required: true, type: () => String }, category: { required: true, type: () => String }, attributes: { required: true, type: () => Object, default: new core_1.Collection(this) }, basePrice: { required: true, type: () => Number, default: 0 }, variants: { required: true, type: () => Object, default: new core_1.Collection(this) }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date } };
     }
 };
 __decorate([
@@ -64,33 +66,37 @@ __decorate([
     __metadata("design:type", Object)
 ], Part.prototype, "properties", void 0);
 __decorate([
-    (0, core_1.ManyToOne)(() => manufacturer_entity_1.Manufacturer, {
-        nullable: true,
-        mapToPk: true,
-        onDelete: 'cascade',
-    }),
-    __metadata("design:type", String)
-], Part.prototype, "manufacturerId", void 0);
-__decorate([
-    (0, core_1.ManyToOne)(() => category_entity_1.Category, {
-        nullable: true,
-        mapToPk: true,
-        onDelete: 'cascade',
-    }),
+    (0, core_1.ManyToOne)(() => manufacturer_entity_1.Manufacturer, { nullable: true, mapToPk: true }),
     (0, filter_decorator_1.Filterable)(),
     __metadata("design:type", String)
-], Part.prototype, "categoryId", void 0);
+], Part.prototype, "manufacturer", void 0);
 __decorate([
-    (0, core_1.ManyToMany)(() => attribute_entity_1.Attribute),
+    (0, core_1.ManyToOne)(() => category_entity_1.Category, { nullable: true, mapToPk: true }),
+    (0, filter_decorator_1.Filterable)(),
+    __metadata("design:type", String)
+], Part.prototype, "category", void 0);
+__decorate([
     (0, swagger_1.ApiResponseProperty)({
         type: [attribute_entity_1.Attribute],
     }),
+    (0, core_1.ManyToMany)(() => attribute_entity_1.Attribute),
     __metadata("design:type", Object)
 ], Part.prototype, "attributes", void 0);
 __decorate([
     (0, core_1.Property)(),
     __metadata("design:type", Number)
 ], Part.prototype, "basePrice", void 0);
+__decorate([
+    (0, swagger_1.ApiResponseProperty)({
+        type: [variant_entity_1.Variant],
+    }),
+    (0, core_1.OneToMany)(() => variant_entity_1.Variant, (variant) => variant.part, {
+        nullable: true,
+        orphanRemoval: true,
+        cascade: [core_1.Cascade.PERSIST],
+    }),
+    __metadata("design:type", Object)
+], Part.prototype, "variants", void 0);
 __decorate([
     (0, core_1.Property)(),
     __metadata("design:type", Date)

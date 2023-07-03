@@ -1,11 +1,13 @@
 import {
   BaseEntity,
+  Cascade,
   Collection,
   Entity,
   Enum,
   Index,
   ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryKey,
   Property,
 } from '@mikro-orm/core';
@@ -14,9 +16,10 @@ import { Manufacturer } from './manufacturer.entity';
 import { Category } from './category.entity';
 import { Attribute } from './attribute.entity';
 import { ApiResponseProperty } from '@nestjs/swagger';
-import { PartStatus } from 'shared';
+import { PartStatus, PropertyType } from 'shared';
 import uuid4 from 'uuid4';
 import { Filterable } from '../meta/decorators/filter.decorator';
+import { Variant } from './variant.entity';
 
 @Entity()
 export class Part extends BaseEntity<Part, 'id'> {
@@ -40,31 +43,34 @@ export class Part extends BaseEntity<Part, 'id'> {
   searchIndex: string;
 
   @Property({ type: 'jsonb', nullable: true })
-  properties: Record<string, any>;
+  properties: Record<string, PropertyType>;
 
-  @ManyToOne(() => Manufacturer, {
-    nullable: true,
-    mapToPk: true,
-    onDelete: 'cascade',
-  })
-  manufacturerId: string;
-
-  @ManyToOne(() => Category, {
-    nullable: true,
-    mapToPk: true,
-    onDelete: 'cascade',
-  })
+  @ManyToOne(() => Manufacturer, { nullable: true, mapToPk: true })
   @Filterable()
-  categoryId: string;
+  manufacturer: string;
 
-  @ManyToMany(() => Attribute)
+  @ManyToOne(() => Category, { nullable: true, mapToPk: true })
+  @Filterable()
+  category: string;
+
   @ApiResponseProperty({
     type: [Attribute],
   })
+  @ManyToMany(() => Attribute)
   attributes = new Collection<Attribute>(this);
 
   @Property()
   basePrice: number = 0;
+
+  @ApiResponseProperty({
+    type: [Variant],
+  })
+  @OneToMany(() => Variant, (variant) => variant.part, {
+    nullable: true,
+    orphanRemoval: true,
+    cascade: [Cascade.PERSIST],
+  })
+  variants = new Collection<Variant>(this);
 
   @Property()
   createdAt: Date = new Date();

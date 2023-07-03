@@ -1,11 +1,12 @@
-import { BaseEntity } from '@mikro-orm/core';
+import { BaseEntity, Collection } from '@mikro-orm/core';
+import { OptionConfig } from './option-config.entity';
 export default class AttributeOption extends BaseEntity<AttributeOption, 'id'> {
     id: string;
     value: string;
-    sku: string;
     displayName: string;
     attribute: string;
     createdAt: Date;
     updatedAt: Date;
+    optionConfigs: Collection<OptionConfig, object>;
 }
 //# sourceMappingURL=attribute-option.entity.d.ts.map

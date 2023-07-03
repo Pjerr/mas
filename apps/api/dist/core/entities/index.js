@@ -20,4 +20,6 @@ __exportStar(require("./part.entity"), exports);
 __exportStar(require("./manufacturer.entity"), exports);
 __exportStar(require("./category.entity"), exports);
 __exportStar(require("./attribute-option.entity"), exports);
+__exportStar(require("./option-config.entity"), exports);
+__exportStar(require("./variant.entity"), exports);
 //# sourceMappingURL=index.js.map

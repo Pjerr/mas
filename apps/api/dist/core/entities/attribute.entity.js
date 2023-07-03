@@ -83,18 +83,18 @@ __decorate([
         orphanRemoval: true,
         cascade: [core_1.Cascade.PERSIST],
     }),
+    (0, filter_decorator_1.Filterable)(),
     (0, swagger_1.ApiResponseProperty)({
         type: [attribute_option_entity_1.default],
     }),
-    (0, filter_decorator_1.Filterable)(),
     __metadata("design:type", Object)
 ], Attribute.prototype, "options", void 0);
 __decorate([
     (0, core_1.ManyToMany)(() => part_entity_1.Part, (part) => part.attributes),
+    (0, filter_decorator_1.Filterable)(),
     (0, swagger_1.ApiResponseProperty)({
         type: [part_entity_1.Part],
     }),
-    (0, filter_decorator_1.Filterable)(),
     __metadata("design:type", Object)
 ], Attribute.prototype, "parts", void 0);
 __decorate([
