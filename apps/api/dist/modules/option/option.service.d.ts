@@ -11,11 +11,11 @@ export declare class OptionService {
     constructor(em: EntityManager, optionRepository: EntityRepository<AttributeOption>, attributeRepository: EntityRepository<Attribute>);
     create(payload: CreateOption): Promise<AttributeOption>;
     multipleCreate(payloads: CreateOption[]): Promise<AttributeOption[]>;
-    find(filters: FilterEntity<AttributeOption>): Promise<import("@mikro-orm/core").Loaded<AttributeOption, any>[]>;
-    findOne(id: string): Promise<import("@mikro-orm/core").Loaded<AttributeOption, never>>;
-    update(id: string, payload: UpdateOption): Promise<import("@mikro-orm/core").Loaded<AttributeOption, never>>;
+    find(filters: FilterEntity<AttributeOption>): Promise<any[]>;
+    findOne(id: string): Promise<any>;
+    update(id: string, payload: UpdateOption): Promise<any>;
     remove(id: string): Promise<void>;
     removeMany(ids: string[]): Promise<void>;
-    updateAttributeRelation(id: string, attribtueId: string): Promise<import("@mikro-orm/core").Loaded<AttributeOption, never>>;
+    updateAttributeRelation(id: string, attribtueId: string): Promise<any>;
 }
 //# sourceMappingURL=option.service.d.ts.map

@@ -14,7 +14,7 @@ import { Filterable } from '../meta/decorators/filter.decorator';
 import { ApiProperty } from '@nestjs/swagger';
 import { OptionConfig } from './option-config.entity';
 @Entity()
-export default class AttributeOption extends BaseEntity<AttributeOption, 'id'> {
+export class AttributeOption extends BaseEntity<AttributeOption, 'id'> {
   @PrimaryKey({ type: 'uuid' })
   @Filterable()
   id: string = uuid4();

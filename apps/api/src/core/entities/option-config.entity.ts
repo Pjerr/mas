@@ -9,9 +9,9 @@ import {
 } from '@mikro-orm/core';
 import { Filterable } from '../meta/decorators/filter.decorator';
 import uuid4 from 'uuid4';
-import AttributeOption from './attribute-option.entity';
 import { ApiResponseProperty } from '@nestjs/swagger';
 import { Variant } from './variant.entity';
+import { AttributeOption } from './attribute-option.entity';
 
 @Entity()
 export class OptionConfig extends BaseEntity<OptionConfig, 'id'> {

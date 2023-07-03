@@ -18,8 +18,8 @@ const entities_1 = require("../../core/entities");
 const query_pipe_1 = require("../../core/pipes/query.pipe");
 const types_1 = require("../../core/types");
 const parse_query_1 = require("../../core/utils/parse-query");
-const attribute_service_1 = require("./attribute.service");
-const dto_1 = require("./dto");
+const attribute_service_1 = require("./dto/attribute/attribute.service");
+const attribute_1 = require("./dto/attribute");
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
 let AttributeController = class AttributeController {
@@ -53,24 +53,24 @@ let AttributeController = class AttributeController {
 };
 __decorate([
     (0, common_1.Post)(),
-    openapi.ApiResponse({ status: 201, type: require("./dto/attribute.response").AttributeResponse }),
+    openapi.ApiResponse({ status: 201, type: require("./dto/attribute/attribute.response").AttributeResponse }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [dto_1.CreateAttribute]),
+    __metadata("design:paramtypes", [attribute_1.CreateAttribute]),
     __metadata("design:returntype", Promise)
 ], AttributeController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
-    (0, types_1.FilterQuery)('query', dto_1.QueryAttribute),
-    openapi.ApiResponse({ status: 200, type: require("./dto/attribute.response").AttributesResponse }),
+    (0, types_1.FilterQuery)('query', attribute_1.QueryAttribute),
+    openapi.ApiResponse({ status: 200, type: require("./dto/attribute/attribute.response").AttributesResponse }),
     __param(0, (0, common_1.Query)('query', (query_pipe_1.QueryPipe))),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [dto_1.QueryAttribute]),
+    __metadata("design:paramtypes", [attribute_1.QueryAttribute]),
     __metadata("design:returntype", Promise)
 ], AttributeController.prototype, "find", null);
 __decorate([
     (0, common_1.Get)(':id'),
-    openapi.ApiResponse({ status: 200, type: require("./dto/attribute.response").AttributeResponse }),
+    openapi.ApiResponse({ status: 200, type: require("./dto/attribute/attribute.response").AttributeResponse }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -78,7 +78,7 @@ __decorate([
 ], AttributeController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Get)(':id/product'),
-    openapi.ApiResponse({ status: 200, type: require("./dto/attribute.response").PartialAttributesResponse }),
+    openapi.ApiResponse({ status: 200, type: require("./dto/attribute/attribute.response").PartialAttributesResponse }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -86,11 +86,11 @@ __decorate([
 ], AttributeController.prototype, "findByProduct", null);
 __decorate([
     (0, common_1.Patch)(':id'),
-    openapi.ApiResponse({ status: 200, type: require("./dto/attribute.response").AttributeResponse }),
+    openapi.ApiResponse({ status: 200, type: require("./dto/attribute/attribute.response").AttributeResponse }),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, dto_1.UpdateAttribute]),
+    __metadata("design:paramtypes", [String, attribute_1.UpdateAttribute]),
     __metadata("design:returntype", Promise)
 ], AttributeController.prototype, "update", null);
 __decorate([

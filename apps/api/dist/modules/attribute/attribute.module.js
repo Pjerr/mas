@@ -11,8 +11,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AttributeModule = void 0;
 const common_1 = require("@nestjs/common");
-const attribute_service_1 = require("./attribute.service");
-const attribute_controller_1 = require("./attribute.controller");
+const attribute_service_1 = require("./dto/attribute/attribute.service");
+const attribute_controller_1 = require("./dto/attribute/attribute.controller");
 const nestjs_1 = require("@mikro-orm/nestjs");
 const entities_1 = require("../../core/entities");
 const attribute_option_entity_1 = __importDefault(require("../../core/entities/attribute-option.entity"));

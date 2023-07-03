@@ -1,6 +1,6 @@
-export * from './requests/create-attribute.request';
-export * from './requests/update-attribute.request';
-export * from './requests/update-group-relation.request';
-export * from './requests/filter-attribute.request';
-export * from './attribute.response';
+export * from './attribute/requests/create-attribute.request';
+export * from './attribute/requests/update-attribute.request';
+export * from './attribute/requests/update-group-relation.request';
+export * from './attribute/requests/filter-attribute.request';
+export * from './attribute/attribute.response';
 //# sourceMappingURL=index.d.ts.map

@@ -1,7 +1,10 @@
 import { Attribute, Group, Part } from '@/core/entities';
 import { FilterEntity } from '@/core/types';
 import { generatePropertyKey } from '@/core/utils/property-key';
-import { CreateAttribute, UpdateAttribute } from '@/modules/attribute/dto';
+import {
+  CreateAttribute,
+  UpdateAttribute,
+} from '@/modules/attribute/dto/attribute';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityManager, EntityRepository } from '@mikro-orm/postgresql';
 import { Injectable, NotFoundException } from '@nestjs/common';

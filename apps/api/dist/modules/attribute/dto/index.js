@@ -14,9 +14,9 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(require("./requests/create-attribute.request"), exports);
-__exportStar(require("./requests/update-attribute.request"), exports);
-__exportStar(require("./requests/update-group-relation.request"), exports);
-__exportStar(require("./requests/filter-attribute.request"), exports);
-__exportStar(require("./attribute.response"), exports);
+__exportStar(require("./attribute/requests/create-attribute.request"), exports);
+__exportStar(require("./attribute/requests/update-attribute.request"), exports);
+__exportStar(require("./attribute/requests/update-group-relation.request"), exports);
+__exportStar(require("./attribute/requests/filter-attribute.request"), exports);
+__exportStar(require("./attribute/attribute.response"), exports);
 //# sourceMappingURL=index.js.map

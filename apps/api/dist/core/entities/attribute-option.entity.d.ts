@@ -1,6 +1,6 @@
 import { BaseEntity, Collection } from '@mikro-orm/core';
 import { OptionConfig } from './option-config.entity';
-export default class AttributeOption extends BaseEntity<AttributeOption, 'id'> {
+export declare class AttributeOption extends BaseEntity<AttributeOption, 'id'> {
     id: string;
     value: string;
     displayName: string;

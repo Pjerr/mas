@@ -8,12 +8,12 @@ import {
   CreateAttribute,
   QueryAttribute,
   UpdateAttribute,
-} from '@/modules/attribute/dto';
+} from '@/modules/attribute/dto/attribute';
 import {
   AttributeResponse,
   AttributesResponse,
   PartialAttributesResponse,
-} from '@/modules/attribute/dto/attribute.response';
+} from '@/modules/attribute/dto/attribute/attribute.response';
 import {
   Controller,
   Get,

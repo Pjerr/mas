@@ -1,6 +1,6 @@
 import { Attribute, Group, Part } from '@/core/entities';
 import { FilterEntity } from '@/core/types';
-import { CreateAttribute, UpdateAttribute } from '@/modules/attribute/dto';
+import { CreateAttribute, UpdateAttribute } from '@/modules/attribute/dto/attribute';
 import { EntityManager, EntityRepository } from '@mikro-orm/postgresql';
 export declare class AttributeService {
     private readonly em;

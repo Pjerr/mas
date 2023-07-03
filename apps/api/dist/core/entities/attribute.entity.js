@@ -19,11 +19,11 @@ const postgresql_1 = require("@mikro-orm/postgresql");
 const uuid4_1 = __importDefault(require("uuid4"));
 const shared_1 = require("shared");
 const group_entity_1 = require("./group.entity");
-const attribute_option_entity_1 = __importDefault(require("./attribute-option.entity"));
 const swagger_1 = require("@nestjs/swagger");
 const part_entity_1 = require("./part.entity");
 const additional_metadata_1 = __importDefault(require("../types/additional-metadata"));
 const filter_decorator_1 = require("../meta/decorators/filter.decorator");
+const attribute_option_entity_1 = require("./attribute-option.entity");
 let Attribute = class Attribute extends core_1.BaseEntity {
     constructor() {
         super(...arguments);
@@ -78,14 +78,14 @@ __decorate([
     __metadata("design:type", group_entity_1.Group)
 ], Attribute.prototype, "group", void 0);
 __decorate([
-    (0, core_1.OneToMany)(() => attribute_option_entity_1.default, (option) => option.attribute, {
+    (0, core_1.OneToMany)(() => attribute_option_entity_1.AttributeOption, (option) => option.attribute, {
         nullable: true,
         orphanRemoval: true,
         cascade: [core_1.Cascade.PERSIST],
     }),
     (0, filter_decorator_1.Filterable)(),
     (0, swagger_1.ApiResponseProperty)({
-        type: [attribute_option_entity_1.default],
+        type: [attribute_option_entity_1.AttributeOption],
     }),
     __metadata("design:type", Object)
 ], Attribute.prototype, "options", void 0);

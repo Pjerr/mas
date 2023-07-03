@@ -1,9 +1,9 @@
 import { BaseEntity, Collection } from '@mikro-orm/core';
 import { EditorType, EditorValidation } from 'shared';
 import { Group } from './group.entity';
-import AttributeOption from './attribute-option.entity';
 import { Part } from './part.entity';
 import AdditionalMetadata from '../types/additional-metadata';
+import { AttributeOption } from './attribute-option.entity';
 export declare class Attribute extends BaseEntity<Attribute, 'id'> {
     id: string;
     propertyKey: string;

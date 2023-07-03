@@ -1,0 +1,1 @@
+{"version":3,"file":"create-config.request.d.ts","sourceRoot":"","sources":["../../../../../../src/modules/attribute/dto/option/requests/create-config.request.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,eAAe,EAAE,MAAM,iBAAiB,CAAC;AAElD,qBAAa,YAAY;IACvB,KAAK,CAAC,EAAE,MAAM,CAAC;IACf,MAAM,EAAE,eAAe,CAAC;CACzB"}
