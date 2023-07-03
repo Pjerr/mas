@@ -1,9 +1,18 @@
-import { Module, ValidationPipe } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { PartService } from './part.service';
 import { PartController } from './part.controller';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
-import { Attribute, Category, Manufacturer, Part } from '@/core/entities';
-import AttributeOption from '@/core/entities/attribute-option.entity';
+import {
+  Attribute,
+  AttributeOption,
+  Category,
+  Manufacturer,
+  OptionConfig,
+  Part,
+  Variant,
+} from '@/core/entities';
+import { VariantService } from './variant.service';
+import { OptionConfigService } from '../attribute/option-config.service';
 
 @Module({
   imports: [
@@ -12,10 +21,11 @@ import AttributeOption from '@/core/entities/attribute-option.entity';
       Category,
       Attribute,
       AttributeOption,
-      Manufacturer,
+      Variant,
+      OptionConfig,
     ]),
   ],
   controllers: [PartController],
-  providers: [PartService],
+  providers: [PartService, VariantService, OptionConfigService],
 })
 export class PartModule {}
