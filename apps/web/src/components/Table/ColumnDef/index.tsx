@@ -23,15 +23,6 @@ export const optionColumnDef: ColumnDef<AttributeOption, any>[] = [
         enableGlobalFilter: true,
         enableResizing: true,
     },
-    {
-        id: 'sku',
-        accessorKey: 'sku',
-        header: () => 'SKU',
-        meta: { editorType: 'Text' },
-        enableColumnFilter: false,
-        enableGlobalFilter: false,
-        enableResizing: true,
-    },
 ];
 export const attributeColumnDef: ColumnDef<Attribute, any>[] = [
     {
