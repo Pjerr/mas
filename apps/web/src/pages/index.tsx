@@ -2,7 +2,6 @@ import { NextPageWithLayout } from '@/pages/_app';
 import { useEffect } from 'react';
 import { useAppDispatch } from '@/store';
 import { useRouter } from 'next/router';
-import qs from 'qs';
 import { SidebarLayout } from '@/layouts/SidebarLayout';
 import { useTable } from '@/hooks/useTable';
 import { instanceIds } from '@/types/entity';
@@ -13,8 +12,6 @@ import Table from '@/components/Table';
 import { partColumnDef } from '@/components/Table/ColumnDef';
 import PartTableHeader from '@/components/PartTableHeader';
 import { createPartForm } from '@/store/editors/part/thunks';
-import SidebarPanels from '@/components/Sidebar/SidebarPanels';
-import SidebarPanel from '@/components/Sidebar/SidebarPanel';
 
 const Parts: NextPageWithLayout = () => {
     const router = useRouter();
@@ -46,7 +43,7 @@ const Parts: NextPageWithLayout = () => {
 
     const onEdit = (productIds: string[] | undefined) => {
         if (!productIds) return;
-        router.push(`/${productIds[0]}`);
+        router.push(`${productIds[0]}`);
     };
 
     const onEditMode = (selected: string[] | undefined): boolean => {
