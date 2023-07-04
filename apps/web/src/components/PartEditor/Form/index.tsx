@@ -17,7 +17,6 @@ export default function PartForm() {
 
     const form = useSelector(selectPartForm);
     const part = form?.state.defaultValues as Part;
-
     const validationSchema = useMemo(() => {
         return createValidationSchema(part.attributes as Attribute[]);
     }, [part, part.properties, part.attributes]);
@@ -29,7 +28,7 @@ export default function PartForm() {
         }),
         mode: 'onBlur',
     });
-    const { handleSubmit, reset } = methods;
+    const { handleSubmit, reset, formState } = methods;
     const onSubmit: SubmitHandler<Part> = async (data) => {
         onSavePart(data, part.id);
     };
@@ -56,7 +55,10 @@ export default function PartForm() {
                         ) as Attribute[]
                     }
                 />
-                <FormButtons handleCancel={handleCancel} />
+                <FormButtons
+                    handleCancel={handleCancel}
+                    generateDisabled={!formState.isValid}
+                />
             </form>
         </FormProvider>
     );
