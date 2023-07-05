@@ -50,8 +50,8 @@ export default function ManufacturerEditor({
         <div className={styles['form__container']}>
             <span className={styles['form__title']} data-cy="form__title">
                 {state.mode === EditorMode.Create
-                    ? 'Create attribute'
-                    : 'Update attribute'}
+                    ? 'Create manufacturer'
+                    : 'Update manufacturer'}
             </span>
             <FormProvider {...methods}>
                 <form

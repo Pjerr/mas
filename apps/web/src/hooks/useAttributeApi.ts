@@ -1,7 +1,6 @@
 import { AppDispatch } from '@/store';
 import {
     Attribute,
-    MasApi as Api,
     useCreateAttributeMutation,
     useUpdateAttributeMutation,
 } from '@/store/api/endpoints';

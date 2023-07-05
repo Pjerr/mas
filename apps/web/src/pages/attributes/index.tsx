@@ -130,14 +130,14 @@ const Attributes: NextPageWithLayout = () => {
                         {activeGroup?.id ? (
                             <div className={styles['attribute-table']}>
                                 <Table
-                                    view={attributeColumnDef as any}
+                                    view={attributeColumnDef}
                                     instanceId={
                                         instanceIds[EntityType.Attribute]
                                     }
                                     refetch={refetch}
                                     showPagination={true}
                                     placeholder="Group does not have attributes"
-                                ></Table>
+                                />
                             </div>
                         ) : (
                             <div className={styles['placeholder']}>

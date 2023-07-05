@@ -1,5 +1,3 @@
-import AttributeEditor from '@/components/AttributeEditor';
-import { useAttributeApi } from '@/hooks/useAttributeApi';
 import { useSidebarContext } from '@/hooks/useSidebar';
 import { useTable } from '@/hooks/useTable';
 import { NextPageWithLayout } from '@/pages/_app';
@@ -9,7 +7,7 @@ import {
     useCreateManufacturerMutation,
     useUpdateManufacturerMutation,
 } from '@/store/api/endpoints';
-import React, { useState } from 'react';
+import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles.module.css';
@@ -30,18 +28,12 @@ import { manufacturerColumnDef } from '@/components/Table/ColumnDef';
 
 const Manufacturers: NextPageWithLayout = () => {
     const dispatch = useDispatch<AppDispatch>();
-    const { loadTableData, clearTableData } = useTable();
+    const { loadTableData } = useTable();
 
     const [updateManufacturer] = useUpdateManufacturerMutation();
     const [createManufacturer] = useCreateManufacturerMutation();
 
-    const { setActiveIndex } = useSidebarContext();
-
     const editorMode = useSelector(selectManufacturerEditorMode);
-
-    useEffect(() => {
-        setActiveIndex(0);
-    }, []);
 
     const gridData = useSelector((state: RootState) =>
         selectTableData(state, instanceIds[EntityType.Manufacturer])
@@ -116,14 +108,14 @@ const Manufacturers: NextPageWithLayout = () => {
                         </div>
                         <div className={styles['manufacturer-table']}>
                             <Table
-                                view={manufacturerColumnDef as any}
+                                view={manufacturerColumnDef}
                                 instanceId={
                                     instanceIds[EntityType.Manufacturer]
                                 }
                                 refetch={refetch}
                                 showPagination={true}
                                 placeholder="There are no manufacturers. Create one!"
-                            ></Table>
+                            />
                         </div>
                     </TableProvider>
                 </div>
