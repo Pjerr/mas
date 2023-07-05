@@ -34,7 +34,7 @@ export default function ManufacturerEditor({
         mode: 'onBlur',
     });
 
-    const { handleSubmit, watch, reset, control } = methods;
+    const { handleSubmit, reset, control } = methods;
 
     useEffect(() => {
         reset(state.manufacturer);

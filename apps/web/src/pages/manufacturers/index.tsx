@@ -1,4 +1,3 @@
-import { useSidebarContext } from '@/hooks/useSidebar';
 import { useTable } from '@/hooks/useTable';
 import { NextPageWithLayout } from '@/pages/_app';
 import { AppDispatch, RootState } from '@/store';
@@ -25,13 +24,13 @@ import {
 } from '@/store/editors/manufacturer';
 import ManufacturerEditor from '@/components/ManufacturerEditor';
 import { manufacturerColumnDef } from '@/components/Table/ColumnDef';
+import { useManufacturerApi } from '@/hooks/useManufacturerApi';
 
 const Manufacturers: NextPageWithLayout = () => {
     const dispatch = useDispatch<AppDispatch>();
     const { loadTableData } = useTable();
 
-    const [updateManufacturer] = useUpdateManufacturerMutation();
-    const [createManufacturer] = useCreateManufacturerMutation();
+    const { createManufacturer, updateManufacturer } = useManufacturerApi();
 
     const editorMode = useSelector(selectManufacturerEditorMode);
 
@@ -48,12 +47,7 @@ const Manufacturers: NextPageWithLayout = () => {
     };
 
     const handleUpdate = (data: Manufacturer, id: string) => {
-        updateManufacturer({
-            id,
-            updateManufacturer: {
-                ...data,
-            },
-        });
+        updateManufacturer(data, id);
         dispatch(
             setManufacturerEditorState({
                 mode: EditorMode.None,
@@ -62,7 +56,7 @@ const Manufacturers: NextPageWithLayout = () => {
     };
 
     const handleCreate = (data: Manufacturer) => {
-        createManufacturer({ createManufacturer: data });
+        createManufacturer(data);
         dispatch(
             setManufacturerEditorState({
                 mode: EditorMode.None,
