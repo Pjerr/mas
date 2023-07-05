@@ -31,10 +31,6 @@ let PartController = class PartController {
         const response = await this.partService.create(payload);
         return { data: response };
     }
-    async multipleCreate(request) {
-        const response = await this.partService.multipleCreate(request.payloads);
-        return { data: response };
-    }
     async find(query) {
         const filter = (0, parse_query_1.filterEntity)(query, entities_1.Part);
         const response = await this.partService.find(filter);
@@ -46,10 +42,6 @@ let PartController = class PartController {
     }
     async update(id, payload) {
         const response = await this.partService.update(id, payload);
-        return { data: response };
-    }
-    async multipleUpdate(ids, request) {
-        const response = await this.partService.multipleUpdate(ids, request.payloads);
         return { data: response };
     }
     async addCategory(id, payload) {
@@ -84,14 +76,6 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], PartController.prototype, "create", null);
 __decorate([
-    (0, common_1.Post)('multiple'),
-    openapi.ApiResponse({ status: 201, type: require("./dto/part.response").PartsResponse }),
-    __param(0, (0, common_1.Body)(common_1.ValidationPipe)),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [dto_1.MultipeCreatePart]),
-    __metadata("design:returntype", Promise)
-], PartController.prototype, "multipleCreate", null);
-__decorate([
     (0, common_1.Get)(),
     (0, types_1.FilterQuery)('query', dto_1.QueryPart),
     openapi.ApiResponse({ status: 200, type: require("./dto/part.response").PartsResponse }),
@@ -117,15 +101,6 @@ __decorate([
     __metadata("design:paramtypes", [String, update_part_request_1.UpdatePart]),
     __metadata("design:returntype", Promise)
 ], PartController.prototype, "update", null);
-__decorate([
-    (0, common_1.Patch)(),
-    openapi.ApiResponse({ status: 200, type: require("./dto/part.response").PartsResponse }),
-    __param(0, (0, common_1.Query)('ids')),
-    __param(1, (0, common_1.Body)(common_1.ValidationPipe)),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Array, dto_1.MultipleUpdatePart]),
-    __metadata("design:returntype", Promise)
-], PartController.prototype, "multipleUpdate", null);
 __decorate([
     (0, common_1.Patch)(':id/relationships/category'),
     openapi.ApiResponse({ status: 200, type: require("./dto/part.response").PartResponse }),

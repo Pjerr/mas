@@ -78,49 +78,6 @@ export class PartService {
     return updatedPart;
   }
 
-  async multipleCreate(payloads: CreatePart[]) {
-    const parts = payloads.map((payload) => {
-      return this.partRepository.create({
-        ...payload,
-        attributes: payload.attributeIds,
-      });
-    });
-
-    await this.em.persistAndFlush(parts);
-
-    const ids = parts.map((part) => part.id);
-
-    const createdParts = this.partRepository.find(ids, {
-      populate: ['attributes.group'],
-    });
-
-    return createdParts;
-  }
-
-  async multipleUpdate(ids: string[], payloads: UpdatePart[]) {
-    const parts = await this.partRepository.find(
-      { id: { $in: ids } },
-      { populate: ['attributes'] },
-    );
-
-    parts.map((part, index) => {
-      if (payloads[index].attributeIds) {
-        const attribtueRefs = payloads[index].attributeIds.map((attributeId) =>
-          this.attributeRepository.getReference(attributeId),
-        );
-        part.attributes.add(attribtueRefs);
-      }
-    });
-
-    await this.em.persistAndFlush(parts);
-
-    const updatedParts = this.partRepository.find(ids, {
-      populate: ['attributes.group'],
-    });
-
-    return updatedParts;
-  }
-
   async remove(id: string) {
     const part = await this.findOne(id);
     await this.em.removeAndFlush(part);

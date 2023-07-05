@@ -133,18 +133,6 @@ const injectedRtkApi = api
                 }),
                 providesTags: ['Parts'],
             }),
-            multipleUpdatePart: build.mutation<
-                MultipleUpdatePartApiResponse,
-                MultipleUpdatePartApiArg
-            >({
-                query: (queryArg) => ({
-                    url: `/parts`,
-                    method: 'PATCH',
-                    body: queryArg.multipleUpdatePart,
-                    params: { ids: queryArg.ids },
-                }),
-                invalidatesTags: ['Parts'],
-            }),
             removeManyPart: build.mutation<
                 RemoveManyPartApiResponse,
                 RemoveManyPartApiArg
@@ -153,17 +141,6 @@ const injectedRtkApi = api
                     url: `/parts`,
                     method: 'DELETE',
                     params: { ids: queryArg.ids },
-                }),
-                invalidatesTags: ['Parts'],
-            }),
-            multipleCreatePart: build.mutation<
-                MultipleCreatePartApiResponse,
-                MultipleCreatePartApiArg
-            >({
-                query: (queryArg) => ({
-                    url: `/parts/multiple`,
-                    method: 'POST',
-                    body: queryArg.multipeCreatePart,
                 }),
                 invalidatesTags: ['Parts'],
             }),
@@ -447,18 +424,9 @@ export type FindPartApiResponse = /** status 200  */ PartsResponse;
 export type FindPartApiArg = {
     query?: QueryPart;
 };
-export type MultipleUpdatePartApiResponse = /** status 200  */ PartsResponse;
-export type MultipleUpdatePartApiArg = {
-    ids: string[];
-    multipleUpdatePart: MultipleUpdatePart;
-};
 export type RemoveManyPartApiResponse = unknown;
 export type RemoveManyPartApiArg = {
     ids: string[];
-};
-export type MultipleCreatePartApiResponse = /** status 201  */ PartsResponse;
-export type MultipleCreatePartApiArg = {
-    multipeCreatePart: MultipeCreatePart;
 };
 export type FindOnePartApiResponse = /** status 200  */ PartResponse;
 export type FindOnePartApiArg = {
@@ -783,12 +751,6 @@ export type QueryPart = {
     sort?: Sort;
 };
 export type UpdatePart = {};
-export type MultipleUpdatePart = {
-    payloads: UpdatePart[];
-};
-export type MultipeCreatePart = {
-    payloads: CreatePart[];
-};
 export type UpdateCategoryRelation = {
     categoryId: string;
 };
@@ -887,9 +849,7 @@ export const {
     useRemoveOptionMutation,
     useCreatePartMutation,
     useFindPartQuery,
-    useMultipleUpdatePartMutation,
     useRemoveManyPartMutation,
-    useMultipleCreatePartMutation,
     useFindOnePartQuery,
     useUpdatePartMutation,
     useRemovePartMutation,
