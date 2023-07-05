@@ -340,6 +340,17 @@ const injectedRtkApi = api
                 }),
                 providesTags: ['Manufacturer'],
             }),
+            removeManyManufacturer: build.mutation<
+                RemoveManyManufacturerApiResponse,
+                RemoveManyManufacturerApiArg
+            >({
+                query: (queryArg) => ({
+                    url: `/manufacturer`,
+                    method: 'DELETE',
+                    params: { ids: queryArg.ids },
+                }),
+                invalidatesTags: ['Manufacturer'],
+            }),
             findOneManufacturer: build.query<
                 FindOneManufacturerApiResponse,
                 FindOneManufacturerApiArg
@@ -518,6 +529,10 @@ export type FindManufacturerApiResponse =
     /** status 200  */ ManufacturersResponse;
 export type FindManufacturerApiArg = {
     query?: QueryManufacturer;
+};
+export type RemoveManyManufacturerApiResponse = unknown;
+export type RemoveManyManufacturerApiArg = {
+    ids: string[];
 };
 export type FindOneManufacturerApiResponse =
     /** status 200  */ ManufacturerResponse;
@@ -870,6 +885,7 @@ export const {
     useRemoveGroupMutation,
     useCreateManufacturerMutation,
     useFindManufacturerQuery,
+    useRemoveManyManufacturerMutation,
     useFindOneManufacturerQuery,
     useUpdateManufacturerMutation,
     useRemoveManufacturerMutation,

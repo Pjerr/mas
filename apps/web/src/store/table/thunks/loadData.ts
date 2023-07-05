@@ -18,9 +18,12 @@ const createIncludeArg = (type: EntityType) => {
 
 const createFilterArg = (
     sourceId: string,
-    type: Exclude<EntityType, 'Part'>
+    type: Exclude<EntityType, 'Part' | 'Manufacturer'>
 ) => {
-    const filterArgMap: Record<Exclude<EntityType, 'Part'>, Filter> = {
+    const filterArgMap: Record<
+        Exclude<EntityType, 'Part' | 'Manufacturer'>,
+        Filter
+    > = {
         [EntityType.Attribute]: {
             field: 'group',
             operator: '$eq',
@@ -66,7 +69,11 @@ const loadTableDataThunk = createAsyncThunk<
               })
             : [];
 
-        if (sourceId && type !== EntityType.Part) {
+        if (
+            sourceId &&
+            type !== EntityType.Part &&
+            type !== EntityType.Manufacturer
+        ) {
             filters.push(createFilterArg(sourceId, type));
         }
         const {

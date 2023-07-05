@@ -10,5 +10,6 @@ export declare class ManufacturerController {
     findOne(id: string): Promise<ManufacturerResponse>;
     update(id: string, payload: UpdateManufacturer): Promise<ManufacturerResponse>;
     remove(id: string): Promise<void>;
+    removeMany(ids: string[]): Promise<void>;
 }
 //# sourceMappingURL=manufacturer.controller.d.ts.map

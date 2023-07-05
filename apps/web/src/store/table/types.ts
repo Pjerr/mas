@@ -10,6 +10,7 @@ export enum EntityType {
     Attribute = 'Attribute',
     Part = 'Part',
     Option = 'Option',
+    Manufacturer = 'Manufacturer',
 }
 
 export interface TableInstance {
@@ -75,4 +76,5 @@ export const includeArgMap: Record<EntityType, string[]> = {
     [EntityType.Attribute]: ['options'],
     [EntityType.Part]: ['attributes.group'],
     [EntityType.Option]: [],
+    [EntityType.Manufacturer]: [],
 };

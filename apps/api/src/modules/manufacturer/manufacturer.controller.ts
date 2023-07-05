@@ -71,4 +71,9 @@ export class ManufacturerController {
   remove(@Param('id') id: string) {
     return this.manufacturerService.remove(id);
   }
+
+  @Delete()
+  removeMany(@Query('ids') ids: string[]) {
+    return this.manufacturerService.removeMany(ids);
+  }
 }

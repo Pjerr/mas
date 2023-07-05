@@ -12,5 +12,6 @@ export declare class ManufacturerService {
     findOne(id: string): Promise<import("@mikro-orm/core").Loaded<Manufacturer, never>>;
     update(id: string, payload: UpdateManufacturer): Promise<import("@mikro-orm/core").Loaded<Manufacturer, never>>;
     remove(id: string): Promise<void>;
+    removeMany(ids: string[]): Promise<void>;
 }
 //# sourceMappingURL=manufacturer.service.d.ts.map

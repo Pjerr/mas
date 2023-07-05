@@ -48,6 +48,9 @@ let ManufacturerController = class ManufacturerController {
     remove(id) {
         return this.manufacturerService.remove(id);
     }
+    removeMany(ids) {
+        return this.manufacturerService.removeMany(ids);
+    }
 };
 __decorate([
     (0, common_1.Post)(),
@@ -91,6 +94,14 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], ManufacturerController.prototype, "remove", null);
+__decorate([
+    (0, common_1.Delete)(),
+    openapi.ApiResponse({ status: 200 }),
+    __param(0, (0, common_1.Query)('ids')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Array]),
+    __metadata("design:returntype", void 0)
+], ManufacturerController.prototype, "removeMany", null);
 ManufacturerController = __decorate([
     (0, swagger_1.ApiTags)('Manufacturer'),
     (0, common_1.Controller)('manufacturer'),

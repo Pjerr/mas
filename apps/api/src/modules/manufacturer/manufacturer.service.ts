@@ -48,4 +48,9 @@ export class ManufacturerService {
     const manufacturer = this.em.getReference(Manufacturer, id);
     await this.em.removeAndFlush(manufacturer);
   }
+
+  async removeMany(ids: string[]) {
+    ids.forEach((id) => this.remove(id));
+    await this.em.flush();
+  }
 }

@@ -46,6 +46,10 @@ let ManufacturerService = class ManufacturerService {
         const manufacturer = this.em.getReference(entities_1.Manufacturer, id);
         await this.em.removeAndFlush(manufacturer);
     }
+    async removeMany(ids) {
+        ids.forEach((id) => this.remove(id));
+        await this.em.flush();
+    }
 };
 ManufacturerService = __decorate([
     (0, common_1.Injectable)(),

@@ -15,6 +15,10 @@ const links: NavLink[] = [
         href: '/attributes',
         label: 'Attributes',
     },
+    {
+        href: '/manufacturers',
+        label: 'Manufacturers',
+    },
 ];
 
 export function Header() {

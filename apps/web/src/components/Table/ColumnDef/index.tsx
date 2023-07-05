@@ -1,5 +1,10 @@
 import Checkbox from '@/components/Inputs/Checkbox';
-import { Attribute, AttributeOption, Part } from '@/store/api/endpoints';
+import {
+    Attribute,
+    AttributeOption,
+    Manufacturer,
+    Part,
+} from '@/store/api/endpoints';
 import { ColumnDef } from '@tanstack/react-table';
 import { Cell } from '../Cell';
 import { EntityType } from '@/store/table/types';
@@ -114,8 +119,32 @@ export const partColumnDef: ColumnDef<Part, any>[] = [
     },
 ];
 
+export const manufacturerColumnDef: ColumnDef<Manufacturer, any>[] = [
+    {
+        id: 'select',
+        header: ({ table }) => (
+            <Checkbox
+                {...{
+                    checked: table.getIsAllRowsSelected(),
+                    indeterminate: table.getIsSomeRowsSelected(),
+                    onChange: table.getToggleAllRowsSelectedHandler(),
+                }}
+            />
+        ),
+        cell: ({ row }) => <Cell {...{ canExpand: true, row: row }} />,
+        accessorKey: 'id',
+        enableSorting: false,
+        meta: { propertyKey: 'Text' },
+        enableColumnFilter: false,
+        enableGlobalFilter: false,
+        enableResizing: true,
+    },
+    { accessorKey: 'name', header: 'Name' },
+];
+
 export const extractColumnDef: Record<EntityType, ColumnDef<any, any>[]> = {
     [EntityType.Attribute]: attributeColumnDef,
     [EntityType.Part]: partColumnDef,
     [EntityType.Option]: optionColumnDef,
+    [EntityType.Manufacturer]: manufacturerColumnDef,
 };
