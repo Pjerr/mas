@@ -20,7 +20,6 @@ const group_module_1 = require("./modules/group/group.module");
 const config_1 = require("@nestjs/config");
 const configuration_1 = __importDefault(require("./config/configuration"));
 const mikro_orm_service_1 = require("./config/mikro-orm.service");
-const option_module_1 = require("./modules/option/option.module");
 const manufacturer_module_1 = require("./modules/manufacturer/manufacturer.module");
 const part_module_1 = require("./modules/part/part.module");
 let AppModule = class AppModule {
@@ -40,7 +39,6 @@ AppModule = __decorate([
             part_module_1.PartModule,
             category_module_1.CategoryModule,
             group_module_1.GroupModule,
-            option_module_1.OptionModule,
             manufacturer_module_1.ManufacturerModule,
         ],
         controllers: [app_controller_1.AppController],

@@ -1,10 +1,10 @@
 import { api } from '../api';
 export const addTagTypes = [
     'Attributes',
+    'Options',
     'Parts',
     'Categories',
     'Group',
-    'Attribute option',
     'Manufacturer',
 ] as const;
 const injectedRtkApi = api
@@ -76,6 +76,45 @@ const injectedRtkApi = api
                     url: `/attributes/${queryArg.id}/product`,
                 }),
                 providesTags: ['Attributes'],
+            }),
+            createOption: build.mutation<
+                CreateOptionApiResponse,
+                CreateOptionApiArg
+            >({
+                query: (queryArg) => ({
+                    url: `/options`,
+                    method: 'POST',
+                    body: queryArg.createOption,
+                }),
+                invalidatesTags: ['Options'],
+            }),
+            findOption: build.query<FindOptionApiResponse, FindOptionApiArg>({
+                query: (queryArg) => ({
+                    url: `/options`,
+                    params: { query: queryArg.query },
+                }),
+                providesTags: ['Options'],
+            }),
+            removeManyOption: build.mutation<
+                RemoveManyOptionApiResponse,
+                RemoveManyOptionApiArg
+            >({
+                query: (queryArg) => ({
+                    url: `/options`,
+                    method: 'DELETE',
+                    params: { ids: queryArg.ids },
+                }),
+                invalidatesTags: ['Options'],
+            }),
+            removeOption: build.mutation<
+                RemoveOptionApiResponse,
+                RemoveOptionApiArg
+            >({
+                query: (queryArg) => ({
+                    url: `/options/${queryArg.id}`,
+                    method: 'DELETE',
+                }),
+                invalidatesTags: ['Options'],
             }),
             createPart: build.mutation<CreatePartApiResponse, CreatePartApiArg>(
                 {
@@ -303,74 +342,6 @@ const injectedRtkApi = api
                 }),
                 invalidatesTags: ['Group'],
             }),
-            createOption: build.mutation<
-                CreateOptionApiResponse,
-                CreateOptionApiArg
-            >({
-                query: (queryArg) => ({
-                    url: `/option`,
-                    method: 'POST',
-                    body: queryArg.createOption,
-                }),
-                invalidatesTags: ['Attribute option'],
-            }),
-            findOption: build.query<FindOptionApiResponse, FindOptionApiArg>({
-                query: (queryArg) => ({
-                    url: `/option`,
-                    params: { query: queryArg.query },
-                }),
-                providesTags: ['Attribute option'],
-            }),
-            removeManyOption: build.mutation<
-                RemoveManyOptionApiResponse,
-                RemoveManyOptionApiArg
-            >({
-                query: (queryArg) => ({
-                    url: `/option`,
-                    method: 'DELETE',
-                    params: { ids: queryArg.ids },
-                }),
-                invalidatesTags: ['Attribute option'],
-            }),
-            findOneOption: build.query<
-                FindOneOptionApiResponse,
-                FindOneOptionApiArg
-            >({
-                query: (queryArg) => ({ url: `/option/${queryArg.id}` }),
-                providesTags: ['Attribute option'],
-            }),
-            updateOption: build.mutation<
-                UpdateOptionApiResponse,
-                UpdateOptionApiArg
-            >({
-                query: (queryArg) => ({
-                    url: `/option/${queryArg.id}`,
-                    method: 'PATCH',
-                    body: queryArg.updateOption,
-                }),
-                invalidatesTags: ['Attribute option'],
-            }),
-            removeOption: build.mutation<
-                RemoveOptionApiResponse,
-                RemoveOptionApiArg
-            >({
-                query: (queryArg) => ({
-                    url: `/option/${queryArg.id}`,
-                    method: 'DELETE',
-                }),
-                invalidatesTags: ['Attribute option'],
-            }),
-            updateRelationOption: build.mutation<
-                UpdateRelationOptionApiResponse,
-                UpdateRelationOptionApiArg
-            >({
-                query: (queryArg) => ({
-                    url: `/option/${queryArg.id}/relationships/attribute`,
-                    method: 'PATCH',
-                    body: queryArg.updateAttributeRelation,
-                }),
-                invalidatesTags: ['Attribute option'],
-            }),
             createManufacturer: build.mutation<
                 CreateManufacturerApiResponse,
                 CreateManufacturerApiArg
@@ -450,6 +421,22 @@ export type UpdateAttributeApiArg = {
 export type FindByProductAttributeApiResponse =
     /** status 200  */ PartialAttributesResponse;
 export type FindByProductAttributeApiArg = {
+    id: string;
+};
+export type CreateOptionApiResponse = /** status 201  */ OptionResponse;
+export type CreateOptionApiArg = {
+    createOption: CreateOption;
+};
+export type FindOptionApiResponse = /** status 200  */ OptionsResponse;
+export type FindOptionApiArg = {
+    query?: QueryOption;
+};
+export type RemoveManyOptionApiResponse = unknown;
+export type RemoveManyOptionApiArg = {
+    ids: string[];
+};
+export type RemoveOptionApiResponse = unknown;
+export type RemoveOptionApiArg = {
     id: string;
 };
 export type CreatePartApiResponse = /** status 201  */ PartResponse;
@@ -554,36 +541,6 @@ export type RemoveGroupApiResponse = unknown;
 export type RemoveGroupApiArg = {
     id: string;
 };
-export type CreateOptionApiResponse = /** status 201  */ OptionResponse;
-export type CreateOptionApiArg = {
-    createOption: CreateOption;
-};
-export type FindOptionApiResponse = /** status 200  */ OptionsResponse;
-export type FindOptionApiArg = {
-    query?: QueryOption;
-};
-export type RemoveManyOptionApiResponse = unknown;
-export type RemoveManyOptionApiArg = {
-    ids: string[];
-};
-export type FindOneOptionApiResponse = /** status 200  */ OptionResponse;
-export type FindOneOptionApiArg = {
-    id: string;
-};
-export type UpdateOptionApiResponse = /** status 200  */ OptionResponse;
-export type UpdateOptionApiArg = {
-    id: string;
-    updateOption: UpdateOption;
-};
-export type RemoveOptionApiResponse = unknown;
-export type RemoveOptionApiArg = {
-    id: string;
-};
-export type UpdateRelationOptionApiResponse = /** status 200  */ OptionResponse;
-export type UpdateRelationOptionApiArg = {
-    id: string;
-    updateAttributeRelation: UpdateAttributeRelation;
-};
 export type CreateManufacturerApiResponse =
     /** status 201  */ ManufacturerResponse;
 export type CreateManufacturerApiArg = {
@@ -609,30 +566,47 @@ export type RemoveManufacturerApiResponse = unknown;
 export type RemoveManufacturerApiArg = {
     id: string;
 };
-export type AttributeOption = {
-    id: string;
-    value: string;
-    sku: string;
-    displayName: string;
-    attribute: string;
-    createdAt: string;
-    updatedAt: string;
-};
 export type Part = {
     attributes: object[];
+    variants: Variant[];
     id: string;
     name: string;
     status: 'in-stock' | 'out-of-stock';
     searchIndex: string;
     properties: object;
-    manufacturerId: string;
-    categoryId: string;
+    manufacturer: string;
+    category: string;
     basePrice: number;
     createdAt: string;
     updatedAt: string;
 };
+export type Variant = {
+    optionsConfigs: object[];
+    price: number;
+    id: string;
+    part: Part;
+    createdAt: string;
+    updatedAt: string;
+};
+export type OptionConfig = {
+    variants: Variant[];
+    id: string;
+    price: number;
+    createdAt: string;
+    updatedAt: string;
+    option: AttributeOption;
+};
+export type AttributeOption = {
+    optionConfigs: OptionConfig[];
+    id: string;
+    value: string;
+    displayName: string;
+    attribute: string;
+    createdAt: string;
+    updatedAt: string;
+};
 export type Group = {
-    attributes: Attribute[];
+    attributes: object[];
     id: string;
     name: string;
     searchIndex: string;
@@ -767,6 +741,25 @@ export type PartialAttributesResponse = {
     data: AttributeByPart[];
     links?: string[];
 };
+export type OptionResponse = {
+    data: AttributeOption;
+    links?: string[];
+};
+export type CreateOption = {
+    value: string;
+    displayName: string;
+    attributeId: string;
+    price: number;
+};
+export type OptionsResponse = {
+    data: AttributeOption[];
+    links?: string[];
+};
+export type QueryOption = {
+    include?: string[];
+    filters?: Filter[];
+    sort?: Sort;
+};
 export type PartResponse = {
     data: Part;
     links?: string[];
@@ -854,26 +847,6 @@ export type QueryGroup = {
     sort?: Sort;
 };
 export type UpdateGroup = {};
-export type OptionResponse = {
-    data: AttributeOption;
-    links?: string[];
-};
-export type CreateOption = {
-    value: string;
-    displayName: string;
-    attributeId: string;
-    sku: string;
-};
-export type OptionsResponse = {
-    data: AttributeOption[];
-    links?: string[];
-};
-export type QueryOption = {
-    include?: string[];
-    filters?: Filter[];
-    sort?: Sort;
-};
-export type UpdateOption = {};
 export type Manufacturer = {
     id: string;
     name: string;
@@ -909,6 +882,10 @@ export const {
     useFindOneAttributeQuery,
     useUpdateAttributeMutation,
     useFindByProductAttributeQuery,
+    useCreateOptionMutation,
+    useFindOptionQuery,
+    useRemoveManyOptionMutation,
+    useRemoveOptionMutation,
     useCreatePartMutation,
     useFindPartQuery,
     useMultipleUpdatePartMutation,
@@ -932,13 +909,6 @@ export const {
     useFindOneGroupQuery,
     useUpdateGroupMutation,
     useRemoveGroupMutation,
-    useCreateOptionMutation,
-    useFindOptionQuery,
-    useRemoveManyOptionMutation,
-    useFindOneOptionQuery,
-    useUpdateOptionMutation,
-    useRemoveOptionMutation,
-    useUpdateRelationOptionMutation,
     useCreateManufacturerMutation,
     useFindManufacturerQuery,
     useFindOneManufacturerQuery,
