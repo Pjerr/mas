@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import tableReducer from './table/index';
 import attributeEditorReducer from './editors/attribute/index';
 import partEditorReducer from './editors/part/index';
+import manufacturerEditorReducer from './editors/manufacturer/index';
 import { api } from './api';
 
 const rootReducer = combineReducers({
@@ -10,6 +11,7 @@ const rootReducer = combineReducers({
     table: tableReducer,
     attributeEditor: attributeEditorReducer,
     partEditor: partEditorReducer,
+    manufacturerEditor: manufacturerEditorReducer,
 });
 
 export const store = configureStore({

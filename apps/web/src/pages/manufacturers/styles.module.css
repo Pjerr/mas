@@ -1,0 +1,26 @@
+.manufacturer__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+}
+
+.manufacturer-grid {
+    flex: 1;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.grid__toolbar {
+    border: 1px solid var(--border-color);
+    border-radius: var(--rounded-sm) var(--rounded-sm) 0 0;
+}
+
+.manufacturer-table {
+    overflow: auto;
+    flex: 1;
+}
+
+.placeholder {
+    text-align: center;
+    padding-top: var(--size-2);
+}

@@ -14,16 +14,12 @@ const openapi = require("@nestjs/swagger");
 const swagger_1 = require("@nestjs/swagger");
 class CreateManufacturer {
     static _OPENAPI_METADATA_FACTORY() {
-        return { name: { required: true, type: () => String }, address: { required: true, type: () => String } };
+        return { name: { required: true, type: () => String } };
     }
 }
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
 ], CreateManufacturer.prototype, "name", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
-], CreateManufacturer.prototype, "address", void 0);
 exports.CreateManufacturer = CreateManufacturer;
 //# sourceMappingURL=create-manufacturer.request.js.map

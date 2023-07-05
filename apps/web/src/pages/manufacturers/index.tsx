@@ -4,86 +4,89 @@ import { useSidebarContext } from '@/hooks/useSidebar';
 import { useTable } from '@/hooks/useTable';
 import { NextPageWithLayout } from '@/pages/_app';
 import { AppDispatch, RootState } from '@/store';
-import { Attribute } from '@/store/api/endpoints';
+import {
+    Manufacturer,
+    useCreateManufacturerMutation,
+    useUpdateManufacturerMutation,
+} from '@/store/api/endpoints';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles.module.css';
-import GroupListbox from '@/components/GroupListbox';
-import SidebarPanel from '@/components/Sidebar/SidebarPanel';
-import SidebarPanels from '@/components/Sidebar/SidebarPanels';
 import { instanceIds } from '@/types/entity';
 import { EntityType } from '@/store/table/types';
-import { PartialGroup } from '@/store/editors/attribute/types';
-import {
-    selectAttributeEditorMode,
-    setAttributeEditorState,
-} from '@/store/editors/attribute';
 import { selectTableData } from '@/store/table';
 import { EditorMode } from '@/store/editors/enums';
 import { TableProvider } from '@/components/Table/TableProvider';
 import Toolbar from '@/components/Toolbar';
 import Table from '@/components/Table';
-import { attributeColumnDef } from '@/components/Table/ColumnDef';
 import { SidebarLayout } from '@/layouts/SidebarLayout';
+import {
+    selectManufacturerEditorMode,
+    setManufacturerEditorState,
+} from '@/store/editors/manufacturer';
+import ManufacturerEditor from '@/components/ManufacturerEditor';
+import { manufacturerColumnDef } from '@/components/Table/ColumnDef';
 
 const Manufacturers: NextPageWithLayout = () => {
     const dispatch = useDispatch<AppDispatch>();
     const { loadTableData, clearTableData } = useTable();
 
-    const { updateAttribute: update, createAttribute: create } =
-        useAttributeApi();
+    const [updateManufacturer] = useUpdateManufacturerMutation();
+    const [createManufacturer] = useCreateManufacturerMutation();
 
     const { setActiveIndex } = useSidebarContext();
 
-    const editorMode = useSelector(selectAttributeEditorMode);
+    const editorMode = useSelector(selectManufacturerEditorMode);
 
     useEffect(() => {
         setActiveIndex(0);
     }, []);
 
     const gridData = useSelector((state: RootState) =>
-        selectTableData(state, instanceIds[EntityType.Attribute])
+        selectTableData(state, instanceIds[EntityType.Manufacturer])
     );
 
     useEffect(() => {
         loadTableData(EntityType.Manufacturer);
     }, []);
 
-    const refetch = () => {};
+    const refetch = () => {
+        loadTableData(EntityType.Manufacturer);
+    };
 
-    // const updateAttribute = (data: Attribute, attributeId: string) => {
-    //     if (!activeGroup?.id) return;
-    //     update(data, attributeId, activeGroup.id);
-    //     dispatch(
-    //         setAttributeEditorState({
-    //             group: null,
-    //             mode: EditorMode.None,
-    //         })
-    //     );
-    // };
+    const handleUpdate = (data: Manufacturer, id: string) => {
+        updateManufacturer({
+            id,
+            updateManufacturer: {
+                ...data,
+            },
+        });
+        dispatch(
+            setManufacturerEditorState({
+                mode: EditorMode.None,
+            })
+        );
+    };
 
-    // const createAttribute = (data: Attribute) => {
-    //     if (!activeGroup?.id) return;
-    //     create(data, activeGroup.id);
-    //     dispatch(
-    //         setAttributeEditorState({
-    //             group: null,
-    //             mode: EditorMode.None,
-    //         })
-    //     );
-    // };
+    const handleCreate = (data: Manufacturer) => {
+        createManufacturer({ createManufacturer: data });
+        dispatch(
+            setManufacturerEditorState({
+                mode: EditorMode.None,
+            })
+        );
+    };
 
     const onEdit = (selectedIds: string[] | undefined) => {
         if (!selectedIds) return;
         const entity = gridData?.find((entity) => entity.id === selectedIds[0]);
-        // dispatch(
-        //     setAttributeEditorState({
-        //         attribute: entity as Attribute,
-        //         group: activeGroup,
-        //         mode: EditorMode.Edit,
-        //     })
-        // );
+        dispatch(
+            setManufacturerEditorState({
+                manufacturer: entity as Manufacturer,
+                mode: EditorMode.Edit,
+            })
+        );
     };
 
     const onEditMode = (selected: string[] | undefined): boolean => {
@@ -91,18 +94,17 @@ const Manufacturers: NextPageWithLayout = () => {
     };
 
     const onCreate = () => {
-        // dispatch(
-        //     setAttributeEditorState({
-        //         group: activeGroup,
-        //         mode: EditorMode.Create,
-        //     })
-        // );
+        dispatch(
+            setManufacturerEditorState({
+                mode: EditorMode.Create,
+            })
+        );
     };
 
     return (
         <>
-            <div className={styles['attribute__content']}>
-                <div className={styles['attribute-grid']}>
+            <div className={styles['manufacturer__content']}>
+                <div className={styles['manufacturer-grid']}>
                     <TableProvider>
                         <div className={styles['grid__toolbar']}>
                             <Toolbar
@@ -112,9 +114,9 @@ const Manufacturers: NextPageWithLayout = () => {
                                 onCreate={onCreate}
                             ></Toolbar>
                         </div>
-                        <div className={styles['attribute-table']}>
+                        <div className={styles['manufacturer-table']}>
                             <Table
-                                view={attributeColumnDef as any}
+                                view={manufacturerColumnDef as any}
                                 instanceId={
                                     instanceIds[EntityType.Manufacturer]
                                 }
@@ -125,19 +127,18 @@ const Manufacturers: NextPageWithLayout = () => {
                         </div>
                     </TableProvider>
                 </div>
-                <>Render manufacturer editor here</>
-                {/* {editorMode === EditorMode.Edit && (
-                    <AttributeEditor
-                        onCreate={createAttribute}
-                        onUpdate={updateAttribute}
+                {editorMode === EditorMode.Edit && (
+                    <ManufacturerEditor
+                        onCreate={handleCreate}
+                        onUpdate={handleUpdate}
                     />
                 )}
                 {editorMode === EditorMode.Create && (
-                    <AttributeEditor
-                        onCreate={createAttribute}
-                        onUpdate={updateAttribute}
+                    <ManufacturerEditor
+                        onCreate={handleCreate}
+                        onUpdate={handleUpdate}
                     />
-                )} */}
+                )}
             </div>
         </>
     );

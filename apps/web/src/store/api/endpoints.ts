@@ -838,7 +838,6 @@ export type ManufacturerResponse = {
 };
 export type CreateManufacturer = {
     name: string;
-    address: string;
 };
 export type ManufacturersResponse = {
     data: Manufacturer[];
