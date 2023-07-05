@@ -26,4 +26,14 @@ export const metadata: PropertyMetadata[] = [
         propertyType: EditorType.Number,
         propertyValidation: EditorValidation.DecimalNumber,
     },
+    {
+        displayName: 'Manufacturer',
+        isArray: true,
+        propertyKey: 'manufacturer',
+        propertyType: EditorType.Select,
+        propertyValidation: EditorValidation.Array,
+        additionalMetadata: {
+            selectOptions: ['AMD', 'INTEL', 'Gigabyte'],
+        },
+    },
 ];

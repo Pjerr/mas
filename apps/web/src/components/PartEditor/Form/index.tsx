@@ -30,6 +30,7 @@ export default function PartForm() {
     });
     const { handleSubmit, reset, formState } = methods;
     const onSubmit: SubmitHandler<Part> = async (data) => {
+        console.log(data);
         onSavePart(data, part.id);
     };
 

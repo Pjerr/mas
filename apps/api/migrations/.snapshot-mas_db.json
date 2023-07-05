@@ -472,15 +472,6 @@
           "nullable": false,
           "mappedType": "unknown"
         },
-        "address": {
-          "name": "address",
-          "type": "varchar(255)",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "string"
-        },
         "created_at": {
           "name": "created_at",
           "type": "timestamptz(0)",

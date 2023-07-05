@@ -1,3 +1,4 @@
+import { OptionProps } from '@/components/Inputs/Select';
 import { EditorType, EditorValidation } from 'shared';
 
 export interface PropertyMetadata {

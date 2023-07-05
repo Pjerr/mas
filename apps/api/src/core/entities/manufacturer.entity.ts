@@ -30,9 +30,6 @@ export class Manufacturer extends BaseEntity<Manufacturer, 'id'> {
   @Filterable()
   searchIndex: string;
 
-  @Property()
-  address: string;
-
   @OneToMany(() => Part, (part) => part.manufacturer, {
     nullable: true,
     orphanRemoval: true,

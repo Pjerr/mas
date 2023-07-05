@@ -851,7 +851,6 @@ export type Manufacturer = {
     id: string;
     name: string;
     searchIndex: string;
-    address: string;
     parts: object;
     createdAt: string;
     updatedAt: string;

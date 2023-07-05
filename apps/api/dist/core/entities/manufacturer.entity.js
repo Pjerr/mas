@@ -27,7 +27,7 @@ let Manufacturer = class Manufacturer extends core_1.BaseEntity {
         this.createdAt = new Date();
     }
     static _OPENAPI_METADATA_FACTORY() {
-        return { id: { required: true, type: () => String, default: (0, uuid4_1.default)() }, name: { required: true, type: () => String }, searchIndex: { required: true, type: () => String }, address: { required: true, type: () => String }, parts: { required: true, type: () => Object, default: new core_1.Collection(this) }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date } };
+        return { id: { required: true, type: () => String, default: (0, uuid4_1.default)() }, name: { required: true, type: () => String }, searchIndex: { required: true, type: () => String }, parts: { required: true, type: () => Object, default: new core_1.Collection(this) }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date } };
     }
 };
 __decorate([
@@ -49,10 +49,6 @@ __decorate([
     (0, filter_decorator_1.Filterable)(),
     __metadata("design:type", String)
 ], Manufacturer.prototype, "searchIndex", void 0);
-__decorate([
-    (0, core_1.Property)(),
-    __metadata("design:type", String)
-], Manufacturer.prototype, "address", void 0);
 __decorate([
     (0, core_1.OneToMany)(() => part_entity_1.Part, (part) => part.manufacturer, {
         nullable: true,
