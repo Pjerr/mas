@@ -1,3 +1,5 @@
+import { EntityType } from '@/store/table/types';
+
 export interface PartTableHeaderProps {
     toolbarProps: ToolbarProps;
     bulkActionProps: BulkActionProps;
@@ -9,7 +11,8 @@ export interface ToolbarProps {
 }
 
 export interface BulkActionProps {
-    name: string;
+    type: EntityType;
+    selectedIds: string[] | undefined;
 }
 export interface PartTableHeaderTab {
     title: string;

@@ -1,6 +1,7 @@
 import Toolbar from '@/components/Toolbar';
 import { PartTableHeaderProps, PartTableHeaderTab } from './types';
 import { EntityType } from '@/store/table/types';
+import BulkActionToolbar from '../BulkActionToolbar';
 
 export const createProductHeaderTabs = (
     props: PartTableHeaderProps
@@ -14,7 +15,7 @@ export const createProductHeaderTabs = (
         },
         {
             title: 'Bulk actions',
-            component: <>I am bulk action component</>,
+            component: <BulkActionToolbar {...props.bulkActionProps} />,
         },
     ];
 };

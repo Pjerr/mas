@@ -117,6 +117,14 @@ export const partColumnDef: ColumnDef<Part, any>[] = [
         enableGlobalFilter: false,
         enableResizing: true,
     },
+    {
+        accessorKey: 'basePrice',
+        header: 'Base price',
+        meta: { editorType: 'Text' },
+        enableColumnFilter: false,
+        enableGlobalFilter: false,
+        enableResizing: true,
+    },
 ];
 
 export const manufacturerColumnDef: ColumnDef<Manufacturer, any>[] = [

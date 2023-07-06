@@ -19,3 +19,14 @@ export const selectSelectedRows = (state: RootState, instanceId: string) => {
     );
     return filtered.map((entity) => entity.id);
 };
+
+export const selectSelectedEntities = (
+    state: RootState,
+    instanceId: string,
+    selectedIds: string[] | undefined
+) => {
+    if (!state.table[instanceId] || !selectedIds) return;
+    return state.table[instanceId].data.filter((entity) =>
+        selectedIds.includes(entity.id)
+    );
+};
