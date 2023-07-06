@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { HTMLProps } from 'react';
 import styles from './styles.module.css';
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
 import TextInput from '../TextInput';
 import Button from '@/components/Button';
-import classNames from 'classnames';
 
 interface NumberInputProps {
     icon?: React.ReactNode;
@@ -20,6 +19,10 @@ const NumberInput = React.forwardRef<
     HTMLProps<HTMLInputElement> & NumberInputProps
 >(({ value: propValue, onChange: propOnChange, ...props }, ref) => {
     const [value, setValue] = useState(propValue || 0);
+
+    useEffect(() => {
+        setValue(propValue as number);
+    }, [propValue]);
 
     const handleChange = (newValue: number) => {
         setValue(newValue);
@@ -42,7 +45,7 @@ const NumberInput = React.forwardRef<
             <TextInput
                 {...props}
                 ref={ref}
-                className={classNames(styles['number-input'], props.className)}
+                className={styles['number-input']}
                 value={value}
                 onChange={handleInputChange}
             />

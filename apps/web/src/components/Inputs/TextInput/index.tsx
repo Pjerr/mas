@@ -27,9 +27,12 @@ const TextInput = React.forwardRef<
                 <input
                     ref={ref}
                     {...props}
+                    value={props.value ?? ''}
                     className={classNames(styles[`input`], props.className)}
                 />
-                <div className={classNames(styles['icon'])}>{icon}</div>
+                {icon && (
+                    <div className={classNames(styles['icon'])}>{icon}</div>
+                )}
             </div>
         </>
     );
