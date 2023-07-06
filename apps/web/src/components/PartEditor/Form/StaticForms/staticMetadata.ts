@@ -16,7 +16,10 @@ export const metadata: PropertyMetadata[] = [
         propertyType: EditorType.Select,
         propertyValidation: EditorValidation.None,
         additionalMetadata: {
-            selectOptions: Object.values(PartStatus),
+            selectOptions: Object.values(PartStatus).map((value) => ({
+                label: value,
+                value: value,
+            })),
         },
     },
     {
@@ -25,15 +28,5 @@ export const metadata: PropertyMetadata[] = [
         propertyKey: 'basePrice',
         propertyType: EditorType.Number,
         propertyValidation: EditorValidation.DecimalNumber,
-    },
-    {
-        displayName: 'Manufacturer',
-        isArray: true,
-        propertyKey: 'manufacturer',
-        propertyType: EditorType.Select,
-        propertyValidation: EditorValidation.Array,
-        additionalMetadata: {
-            selectOptions: ['AMD', 'INTEL', 'Gigabyte'],
-        },
     },
 ];

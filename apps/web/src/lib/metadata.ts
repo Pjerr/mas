@@ -11,5 +11,5 @@ export interface PropertyMetadata {
 }
 
 interface AdditionalMetadata {
-    selectOptions?: string[];
+    selectOptions?: OptionProps[];
 }

@@ -25,7 +25,7 @@ let PartService = class PartService {
         this.categoryRepository = categoryRepository;
     }
     async create(payload) {
-        const part = this.partRepository.create(Object.assign(Object.assign({}, payload), { attributes: payload.attributeIds }));
+        const part = this.partRepository.create(Object.assign(Object.assign({}, payload), { attributes: payload.attributeIds, manufacturer: payload.manufacturerId }));
         await this.em.persistAndFlush(part);
         const createdPart = await this.partRepository.findOne({
             id: part.id,

@@ -15,9 +15,9 @@ export const attributeMetadata: PropertyMetadata[] = [
         propertyKey: 'editorType',
         propertyType: EditorType.Select,
         additionalMetadata: {
-            selectOptions: Object.values(EditorType).filter(
-                (type) => type != EditorType.Button
-            ),
+            selectOptions: Object.values(EditorType)
+                .filter((type) => type != EditorType.Button)
+                .map((value) => ({ label: value, value })),
         },
     },
     {
@@ -26,7 +26,10 @@ export const attributeMetadata: PropertyMetadata[] = [
         propertyKey: 'editorValidation',
         propertyType: EditorType.Select,
         additionalMetadata: {
-            selectOptions: Object.values(EditorValidation),
+            selectOptions: Object.values(EditorValidation).map((value) => ({
+                label: value,
+                value,
+            })),
         },
         propertyValidation: EditorValidation.None,
     },

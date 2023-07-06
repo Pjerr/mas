@@ -22,6 +22,7 @@ export class PartService {
     const part = this.partRepository.create({
       ...payload,
       attributes: payload.attributeIds,
+      manufacturer: payload.manufacturerId,
     });
 
     await this.em.persistAndFlush(part);

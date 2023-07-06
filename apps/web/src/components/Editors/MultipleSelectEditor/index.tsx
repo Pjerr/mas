@@ -14,14 +14,9 @@ export default function MultipleSelectEditor({
 }: EditorProps) {
     const { register } = useFormContext();
 
-    const optionsMetadata = metadata.additionalMetadata?.selectOptions;
+    const options = metadata.additionalMetadata?.selectOptions;
 
-    if (!optionsMetadata) throw new Error('Select options undefined!');
-
-    const options: OptionProps[] = optionsMetadata.map((option) => ({
-        label: option,
-        value: option,
-    }));
+    if (!options) throw new Error('Select options undefined!');
 
     const roles = field.value as Array<string>;
 
