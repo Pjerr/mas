@@ -133,6 +133,18 @@ const injectedRtkApi = api
                 }),
                 providesTags: ['Parts'],
             }),
+            multipleUpdatePart: build.mutation<
+                MultipleUpdatePartApiResponse,
+                MultipleUpdatePartApiArg
+            >({
+                query: (queryArg) => ({
+                    url: `/parts`,
+                    method: 'PATCH',
+                    body: queryArg.multipleUpdatePart,
+                    params: { ids: queryArg.ids },
+                }),
+                invalidatesTags: ['Parts'],
+            }),
             removeManyPart: build.mutation<
                 RemoveManyPartApiResponse,
                 RemoveManyPartApiArg
@@ -434,6 +446,11 @@ export type CreatePartApiArg = {
 export type FindPartApiResponse = /** status 200  */ PartsResponse;
 export type FindPartApiArg = {
     query?: QueryPart;
+};
+export type MultipleUpdatePartApiResponse = /** status 200  */ PartsResponse;
+export type MultipleUpdatePartApiArg = {
+    ids: string[];
+    multipleUpdatePart: MultipleUpdatePart;
 };
 export type RemoveManyPartApiResponse = unknown;
 export type RemoveManyPartApiArg = {
@@ -766,6 +783,9 @@ export type QueryPart = {
     sort?: Sort;
 };
 export type UpdatePart = {};
+export type MultipleUpdatePart = {
+    payloads: UpdatePart[];
+};
 export type UpdateCategoryRelation = {
     categoryId: string;
 };
@@ -863,6 +883,7 @@ export const {
     useRemoveOptionMutation,
     useCreatePartMutation,
     useFindPartQuery,
+    useMultipleUpdatePartMutation,
     useRemoveManyPartMutation,
     useFindOnePartQuery,
     useUpdatePartMutation,

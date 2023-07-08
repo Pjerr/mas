@@ -26,6 +26,7 @@
     flex-direction: column;
     align-items: flex-end;
     gap: var(--size-2);
+    flex: 1;
 }
 
 .bulk-edit__content {
@@ -33,4 +34,5 @@
     flex-direction: column;
     gap: var(--size-2);
     align-self: flex-start;
+    flex: 1;
 }

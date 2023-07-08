@@ -1,0 +1,17 @@
+.form__item {
+    display: flex;
+    gap: var(--size-2);
+    border-bottom: 1px solid var(--border-color);
+    padding: var(--size-2);
+    align-self: center;
+}
+
+.bulk__form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.item__name {
+    align-self: center;
+}

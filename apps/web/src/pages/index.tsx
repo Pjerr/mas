@@ -14,7 +14,7 @@ import PartTableHeader from '@/components/PartTableHeader';
 import { createPartForm } from '@/store/editors/part/thunks';
 import { useSelector } from 'react-redux';
 import { selectSelectedRows } from '@/store/table';
-import { useUpdatePartMutation } from '@/store/api/endpoints';
+import { useMultipleUpdatePartMutation } from '@/store/api/endpoints';
 
 const Parts: NextPageWithLayout = () => {
     const router = useRouter();
@@ -22,7 +22,7 @@ const Parts: NextPageWithLayout = () => {
 
     const { loadTableData } = useTable();
 
-    const [updatePart] = useUpdatePartMutation();
+    const [multipleUpdatePart] = useMultipleUpdatePartMutation();
 
     const refetch = () => {
         loadTableData(EntityType.Part);

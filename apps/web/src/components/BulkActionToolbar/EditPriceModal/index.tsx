@@ -1,13 +1,14 @@
 import { FaCheck, FaMoneyBillWave } from 'react-icons/fa';
-import Button from '../Button';
-import Modal from '../Modal';
-import styles from './styles.module.css';
+import Button from '../../Button';
+import Modal, { ModalSize } from '../../Modal';
+import styles from '../styles.module.css';
 import { EntityType } from '@/store/table/types';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { selectSelectedEntities } from '@/store/table';
 import { instanceIds } from '@/types/entity';
 import { Part } from '@/store/api/endpoints';
+import { BulkPriceForm } from './BulkPriceForm';
 
 interface EditPriceModalProps {
     type: EntityType;
@@ -48,21 +49,13 @@ export function EditPriceModal({
                 />
             }
             title="Edit base price"
+            size={ModalSize.XL}
         >
-            <div className={styles['bulk-edit__containter']}>
-                {parts && parts.length > 0 && (
-                    <div className={styles['bulk-edit__content']}>
-                        {parts.map((part) => part.name)}
-                    </div>
-                )}
-                <Button
-                    variant={'primary'}
-                    icon={<FaCheck />}
-                    onClick={handleEditPrice}
-                >
-                    Save
-                </Button>
-            </div>
+            {parts && parts.length > 0 && (
+                <div className={styles['bulk-edit__content']}>
+                    <BulkPriceForm parts={parts} />
+                </div>
+            )}
         </Modal>
     );
 }
