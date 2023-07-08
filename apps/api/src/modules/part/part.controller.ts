@@ -13,6 +13,7 @@ import { PartService } from './part.service';
 import { UpdatePart } from './dto/requests/update-part.request';
 import {
   CreatePart,
+  MultipleUpdatePart,
   PartRelationTypes,
   PartResponse,
   PartsResponse,
@@ -62,6 +63,18 @@ export class PartController {
     @Body(ValidationPipe) payload: UpdatePart,
   ): Promise<PartResponse> {
     const response = await this.partService.update(id, payload);
+    return { data: response };
+  }
+
+  @Patch()
+  async multipleUpdate(
+    @Query('ids') ids: string[],
+    @Body(ValidationPipe) request: MultipleUpdatePart,
+  ): Promise<PartsResponse> {
+    const response = await this.partService.multipleUpdate(
+      ids,
+      request.payloads,
+    );
     return { data: response };
   }
 

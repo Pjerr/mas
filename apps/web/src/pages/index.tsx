@@ -12,20 +12,17 @@ import Table from '@/components/Table';
 import { partColumnDef } from '@/components/Table/ColumnDef';
 import PartTableHeader from '@/components/PartTableHeader';
 import { createPartForm } from '@/store/editors/part/thunks';
-import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
-import {
-    selectTableData,
-    selectIsLoading,
-    selectSelectedRows,
-} from '@/store/table';
-import { type } from 'cypress/types/jquery';
+import { selectSelectedRows } from '@/store/table';
+import { useUpdatePartMutation } from '@/store/api/endpoints';
 
 const Parts: NextPageWithLayout = () => {
     const router = useRouter();
     const dispatch = useAppDispatch();
 
     const { loadTableData } = useTable();
+
+    const [updatePart] = useUpdatePartMutation();
 
     const refetch = () => {
         loadTableData(EntityType.Part);
@@ -62,6 +59,13 @@ const Parts: NextPageWithLayout = () => {
         return selected && selected.length === 1 ? false : true;
     };
 
+    const onBulkUpdate = (
+        selectedIds: string[],
+        type: 'price' | 'status' | 'manufacturer'
+    ) => {
+        console.log(selectedIds, type);
+    };
+
     return (
         <>
             <TableProvider>
@@ -74,6 +78,7 @@ const Parts: NextPageWithLayout = () => {
                     bulkActionProps={{
                         selectedIds,
                         type: EntityType.Part,
+                        onUpdate: onBulkUpdate,
                     }}
                 />
                 <Table

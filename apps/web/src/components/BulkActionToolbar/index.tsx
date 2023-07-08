@@ -16,9 +16,16 @@ import { EditPriceModal } from './EditPriceModal';
 
 interface BulkActionToolbarProps {
     type: EntityType;
+    onUpdate: (
+        selectedIds: string[],
+        prop: 'price' | 'status' | 'manufacturer'
+    ) => void;
 }
 
-export default function BulkActionToolbar({ type }: BulkActionToolbarProps) {
+export default function BulkActionToolbar({
+    type,
+    onUpdate,
+}: BulkActionToolbarProps) {
     const table = useTableSelector(instanceIds[type]);
 
     const tableData = useSelector((state: RootState) =>
@@ -40,7 +47,11 @@ export default function BulkActionToolbar({ type }: BulkActionToolbarProps) {
     return (
         <div className={styles['toolbar']}>
             <div className={styles['action-icons']}>
-                <EditPriceModal type={type} selectedIds={selectedIds} />
+                <EditPriceModal
+                    type={type}
+                    selectedIds={selectedIds}
+                    onUpdate={onUpdate}
+                />
                 <Button
                     icon={
                         <AiOutlineShoppingCart
