@@ -27,7 +27,6 @@ const TextInput = React.forwardRef<
                 <input
                     ref={ref}
                     {...props}
-                    value={props.value ?? ''}
                     className={classNames(styles[`input`], props.className)}
                 />
                 {icon && (

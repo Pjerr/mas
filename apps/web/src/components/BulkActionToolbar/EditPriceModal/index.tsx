@@ -51,11 +51,13 @@ export function EditPriceModal({
             title="Edit base price"
             size={ModalSize.XL}
         >
-            {parts && parts.length > 0 && (
-                <div className={styles['bulk-edit__content']}>
-                    <BulkPriceForm parts={parts} />
-                </div>
-            )}
+            <>
+                {parts && parts.length > 0 && (
+                    <div className={styles['bulk-edit__content']}>
+                        <BulkPriceForm parts={parts} />
+                    </div>
+                )}
+            </>
         </Modal>
     );
 }
