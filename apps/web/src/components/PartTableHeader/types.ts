@@ -13,10 +13,7 @@ export interface ToolbarProps {
 export interface BulkActionProps {
     type: EntityType;
     selectedIds: string[] | undefined;
-    onUpdate: (
-        selectedIds: string[],
-        prop: 'price' | 'status' | 'manufacturer'
-    ) => void;
+    onUpdate: (selectedIds: string[]) => void;
 }
 export interface PartTableHeaderTab {
     title: string;

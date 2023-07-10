@@ -48,6 +48,10 @@ let PartController = class PartController {
         const response = await this.partService.multipleUpdate(ids, request.payloads);
         return { data: response };
     }
+    async bulkUpdatePrice(ids, request) {
+        const response = await this.partService.bulkUpdatePrice(ids, request.payloads);
+        return { data: response };
+    }
     async addCategory(id, payload) {
         const response = await this.partService.addCategory(id, payload.categoryId);
         return { data: response };
@@ -114,6 +118,15 @@ __decorate([
     __metadata("design:paramtypes", [Array, dto_1.MultipleUpdatePart]),
     __metadata("design:returntype", Promise)
 ], PartController.prototype, "multipleUpdate", null);
+__decorate([
+    (0, common_1.Patch)(),
+    openapi.ApiResponse({ status: 200, type: require("./dto/part.response").PartsResponse }),
+    __param(0, (0, common_1.Query)('ids')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Array, dto_1.BulkUpdatePrice]),
+    __metadata("design:returntype", Promise)
+], PartController.prototype, "bulkUpdatePrice", null);
 __decorate([
     (0, common_1.Patch)(':id/relationships/category'),
     openapi.ApiResponse({ status: 200, type: require("./dto/part.response").PartResponse }),

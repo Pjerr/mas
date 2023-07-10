@@ -14,15 +14,12 @@ import PartTableHeader from '@/components/PartTableHeader';
 import { createPartForm } from '@/store/editors/part/thunks';
 import { useSelector } from 'react-redux';
 import { selectSelectedRows } from '@/store/table';
-import { useMultipleUpdatePartMutation } from '@/store/api/endpoints';
 
 const Parts: NextPageWithLayout = () => {
     const router = useRouter();
     const dispatch = useAppDispatch();
 
     const { loadTableData } = useTable();
-
-    const [multipleUpdatePart] = useMultipleUpdatePartMutation();
 
     const refetch = () => {
         loadTableData(EntityType.Part);
@@ -59,11 +56,8 @@ const Parts: NextPageWithLayout = () => {
         return selected && selected.length === 1 ? false : true;
     };
 
-    const onBulkUpdate = (
-        selectedIds: string[],
-        type: 'price' | 'status' | 'manufacturer'
-    ) => {
-        console.log(selectedIds, type);
+    const onBulkUpdate = (selectedIds: string[]) => {
+        console.log(selectedIds);
     };
 
     return (

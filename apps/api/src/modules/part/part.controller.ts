@@ -12,6 +12,7 @@ import {
 import { PartService } from './part.service';
 import { UpdatePart } from './dto/requests/update-part.request';
 import {
+  BulkUpdatePrice,
   CreatePart,
   MultipleUpdatePart,
   PartRelationTypes,
@@ -72,6 +73,18 @@ export class PartController {
     @Body(ValidationPipe) request: MultipleUpdatePart,
   ): Promise<PartsResponse> {
     const response = await this.partService.multipleUpdate(
+      ids,
+      request.payloads,
+    );
+    return { data: response };
+  }
+
+  @Patch()
+  async bulkUpdatePrice(
+    @Query('ids') ids: string[],
+    @Body() request: BulkUpdatePrice,
+  ): Promise<PartsResponse> {
+    const response = await this.partService.bulkUpdatePrice(
       ids,
       request.payloads,
     );

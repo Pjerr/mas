@@ -9,17 +9,11 @@ import { EntityType } from '@/store/table/types';
 import { instanceIds } from '@/types/entity';
 import { useSelector } from 'react-redux';
 import styles from './styles.module.css';
-import Button from '../Button';
-import { AiOutlineShoppingCart } from 'react-icons/ai';
-import { TbAdjustmentsAlt } from 'react-icons/tb';
 import { EditPriceModal } from './EditPriceModal';
 
 interface BulkActionToolbarProps {
     type: EntityType;
-    onUpdate: (
-        selectedIds: string[],
-        prop: 'price' | 'status' | 'manufacturer'
-    ) => void;
+    onUpdate: (selectedIds: string[]) => void;
 }
 
 export default function BulkActionToolbar({
@@ -51,24 +45,6 @@ export default function BulkActionToolbar({
                     type={type}
                     selectedIds={selectedIds}
                     onUpdate={onUpdate}
-                />
-                <Button
-                    icon={
-                        <AiOutlineShoppingCart
-                            className={styles['toolbar-icon']}
-                        />
-                    }
-                    variant={'borderless'}
-                    disabled={!selectedIds}
-                    tooltipText={`Edit status`}
-                />
-                <Button
-                    icon={
-                        <TbAdjustmentsAlt className={styles['toolbar-icon']} />
-                    }
-                    variant={'borderless'}
-                    disabled={!selectedIds}
-                    tooltipText={`Edit manufacturer`}
                 />
             </div>
         </div>

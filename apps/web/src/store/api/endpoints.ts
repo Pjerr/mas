@@ -133,14 +133,14 @@ const injectedRtkApi = api
                 }),
                 providesTags: ['Parts'],
             }),
-            multipleUpdatePart: build.mutation<
-                MultipleUpdatePartApiResponse,
-                MultipleUpdatePartApiArg
+            bulkUpdatePricePart: build.mutation<
+                BulkUpdatePricePartApiResponse,
+                BulkUpdatePricePartApiArg
             >({
                 query: (queryArg) => ({
                     url: `/parts`,
                     method: 'PATCH',
-                    body: queryArg.multipleUpdatePart,
+                    body: queryArg.bulkUpdatePrice,
                     params: { ids: queryArg.ids },
                 }),
                 invalidatesTags: ['Parts'],
@@ -447,10 +447,10 @@ export type FindPartApiResponse = /** status 200  */ PartsResponse;
 export type FindPartApiArg = {
     query?: QueryPart;
 };
-export type MultipleUpdatePartApiResponse = /** status 200  */ PartsResponse;
-export type MultipleUpdatePartApiArg = {
+export type BulkUpdatePricePartApiResponse = /** status 200  */ PartsResponse;
+export type BulkUpdatePricePartApiArg = {
     ids: string[];
-    multipleUpdatePart: MultipleUpdatePart;
+    bulkUpdatePrice: BulkUpdatePrice;
 };
 export type RemoveManyPartApiResponse = unknown;
 export type RemoveManyPartApiArg = {
@@ -782,10 +782,10 @@ export type QueryPart = {
     filters?: Filter[];
     sort?: Sort;
 };
-export type UpdatePart = {};
-export type MultipleUpdatePart = {
-    payloads: UpdatePart[];
+export type BulkUpdatePrice = {
+    payloads: number[];
 };
+export type UpdatePart = {};
 export type UpdateCategoryRelation = {
     categoryId: string;
 };
@@ -883,7 +883,7 @@ export const {
     useRemoveOptionMutation,
     useCreatePartMutation,
     useFindPartQuery,
-    useMultipleUpdatePartMutation,
+    useBulkUpdatePricePartMutation,
     useRemoveManyPartMutation,
     useFindOnePartQuery,
     useUpdatePartMutation,

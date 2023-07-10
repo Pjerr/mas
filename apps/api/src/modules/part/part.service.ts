@@ -103,6 +103,26 @@ export class PartService {
     return updatedParts;
   }
 
+  async bulkUpdatePrice(ids: string[], payloads: number[]) {
+    const parts = await this.partRepository.find({ id: { $in: ids } });
+
+    const updatedParts: Part[] = [];
+
+    parts.map((part, index) => {
+      const newPart: Part = {
+        ...part,
+        basePrice: payloads[index],
+      };
+
+      updatedParts.push(newPart);
+      this.em.persist(newPart);
+    });
+
+    await this.em.flush();
+
+    return updatedParts;
+  }
+
   async remove(id: string) {
     const part = await this.findOne(id);
     await this.em.removeAndFlush(part);

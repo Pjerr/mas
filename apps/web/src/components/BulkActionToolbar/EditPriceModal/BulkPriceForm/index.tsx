@@ -1,4 +1,4 @@
-import { Part, useMultipleUpdatePartMutation } from '@/store/api/endpoints';
+import { Part, useBulkUpdatePricePartMutation } from '@/store/api/endpoints';
 import Button from '@/components/Button';
 import { FaCheck } from 'react-icons/fa';
 import styles from './styles.module.css';
@@ -16,7 +16,7 @@ interface BulkFormPricePart {
 }
 
 export function BulkPriceForm({ parts }: BulkPriceFormProps) {
-    const [multipleUpdate] = useMultipleUpdatePartMutation();
+    const [bulkUpdatePrice] = useBulkUpdatePricePartMutation();
 
     const initialValues: BulkFormPricePart[] = useMemo(() => {
         return parts.map(
@@ -29,22 +29,20 @@ export function BulkPriceForm({ parts }: BulkPriceFormProps) {
         );
     }, [parts]);
 
-    const [formValues, setFormValues] = useState<BulkFormPricePart[]>(
+    const [formItems, setFormItems] = useState<BulkFormPricePart[]>(
         initialValues ?? []
     );
 
     useEffect(() => {
-        setFormValues(initialValues);
+        setFormItems(initialValues);
     }, [initialValues]);
 
     const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const response = await multipleUpdate({
-            ids: formValues.map((item) => item.id),
-            multipleUpdatePart: {
-                payloads: formValues.map((item) => ({
-                    basePrice: item.basePrice,
-                })),
+        const response = await bulkUpdatePrice({
+            ids: formItems.map((item) => item.id),
+            bulkUpdatePrice: {
+                payloads: formItems.map((item) => Number(item.basePrice)),
             },
         });
         if ('error' in response) {
@@ -58,17 +56,17 @@ export function BulkPriceForm({ parts }: BulkPriceFormProps) {
         index: number
     ) => {
         const { value } = event.target;
-        const newFormValues = [...formValues];
+        const newFormValues = [...formItems];
         newFormValues[index] = {
             ...newFormValues[index],
             basePrice: Number(value),
         };
-        setFormValues(newFormValues);
+        setFormItems(newFormValues);
     };
 
     return (
         <form onSubmit={onSubmit} className={styles['bulk__form']}>
-            {formValues.map((part, index) => (
+            {formItems.map((part, index) => (
                 <div key={part.id} className={styles[`form__item`]}>
                     <label className={styles['item__name']}>
                         Part name: {part.name}
