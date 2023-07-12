@@ -56,10 +56,6 @@ const Parts: NextPageWithLayout = () => {
         return selected && selected.length === 1 ? false : true;
     };
 
-    const onBulkUpdate = (selectedIds: string[]) => {
-        console.log(selectedIds);
-    };
-
     return (
         <>
             <TableProvider>
@@ -72,7 +68,6 @@ const Parts: NextPageWithLayout = () => {
                     bulkActionProps={{
                         selectedIds,
                         type: EntityType.Part,
-                        onUpdate: onBulkUpdate,
                     }}
                 />
                 <Table

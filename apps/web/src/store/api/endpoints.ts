@@ -133,18 +133,6 @@ const injectedRtkApi = api
                 }),
                 providesTags: ['Parts'],
             }),
-            bulkUpdatePricePart: build.mutation<
-                BulkUpdatePricePartApiResponse,
-                BulkUpdatePricePartApiArg
-            >({
-                query: (queryArg) => ({
-                    url: `/parts`,
-                    method: 'PATCH',
-                    body: queryArg.bulkUpdatePrice,
-                    params: { ids: queryArg.ids },
-                }),
-                invalidatesTags: ['Parts'],
-            }),
             removeManyPart: build.mutation<
                 RemoveManyPartApiResponse,
                 RemoveManyPartApiArg
@@ -181,6 +169,18 @@ const injectedRtkApi = api
                     invalidatesTags: ['Parts'],
                 }
             ),
+            bulkUpdatePricePart: build.mutation<
+                BulkUpdatePricePartApiResponse,
+                BulkUpdatePricePartApiArg
+            >({
+                query: (queryArg) => ({
+                    url: `/parts/bulk-update`,
+                    method: 'PATCH',
+                    body: queryArg.bulkUpdatePrice,
+                    params: { ids: queryArg.ids },
+                }),
+                invalidatesTags: ['Parts'],
+            }),
             addCategoryPart: build.mutation<
                 AddCategoryPartApiResponse,
                 AddCategoryPartApiArg
@@ -447,11 +447,6 @@ export type FindPartApiResponse = /** status 200  */ PartsResponse;
 export type FindPartApiArg = {
     query?: QueryPart;
 };
-export type BulkUpdatePricePartApiResponse = /** status 200  */ PartsResponse;
-export type BulkUpdatePricePartApiArg = {
-    ids: string[];
-    bulkUpdatePrice: BulkUpdatePrice;
-};
 export type RemoveManyPartApiResponse = unknown;
 export type RemoveManyPartApiArg = {
     ids: string[];
@@ -468,6 +463,11 @@ export type UpdatePartApiArg = {
 export type RemovePartApiResponse = unknown;
 export type RemovePartApiArg = {
     id: string;
+};
+export type BulkUpdatePricePartApiResponse = /** status 200  */ PartsResponse;
+export type BulkUpdatePricePartApiArg = {
+    ids: string[];
+    bulkUpdatePrice: BulkUpdatePrice;
 };
 export type AddCategoryPartApiResponse = /** status 200  */ PartResponse;
 export type AddCategoryPartApiArg = {
@@ -782,10 +782,10 @@ export type QueryPart = {
     filters?: Filter[];
     sort?: Sort;
 };
+export type UpdatePart = {};
 export type BulkUpdatePrice = {
     payloads: number[];
 };
-export type UpdatePart = {};
 export type UpdateCategoryRelation = {
     categoryId: string;
 };
@@ -883,11 +883,11 @@ export const {
     useRemoveOptionMutation,
     useCreatePartMutation,
     useFindPartQuery,
-    useBulkUpdatePricePartMutation,
     useRemoveManyPartMutation,
     useFindOnePartQuery,
     useUpdatePartMutation,
     useRemovePartMutation,
+    useBulkUpdatePricePartMutation,
     useAddCategoryPartMutation,
     useAddAttributePartMutation,
     useRemoveAttributePartMutation,

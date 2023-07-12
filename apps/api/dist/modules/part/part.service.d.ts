@@ -13,7 +13,6 @@ export declare class PartService {
     find(filters: FilterEntity<Part>): Promise<import("@mikro-orm/core").Loaded<Part, any>[]>;
     findOne(id: string): Promise<import("@mikro-orm/core").Loaded<Part, "attributes" | "attributes.group">>;
     update(id: string, payload: UpdatePart): Promise<import("@mikro-orm/core").Loaded<Part, "attributes" | "attributes.group">>;
-    multipleUpdate(ids: string[], payloads: UpdatePart[]): Promise<import("@mikro-orm/core").Loaded<Part, "attributes.group">[]>;
     bulkUpdatePrice(ids: string[], payloads: number[]): Promise<Part[]>;
     remove(id: string): Promise<void>;
     removeMany(ids: string[]): Promise<void>;

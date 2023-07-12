@@ -58,28 +58,7 @@ export class PartController {
     return { data: response };
   }
 
-  @Patch(':id')
-  async update(
-    @Param('id') id: string,
-    @Body(ValidationPipe) payload: UpdatePart,
-  ): Promise<PartResponse> {
-    const response = await this.partService.update(id, payload);
-    return { data: response };
-  }
-
-  @Patch()
-  async multipleUpdate(
-    @Query('ids') ids: string[],
-    @Body(ValidationPipe) request: MultipleUpdatePart,
-  ): Promise<PartsResponse> {
-    const response = await this.partService.multipleUpdate(
-      ids,
-      request.payloads,
-    );
-    return { data: response };
-  }
-
-  @Patch()
+  @Patch('bulk-update')
   async bulkUpdatePrice(
     @Query('ids') ids: string[],
     @Body() request: BulkUpdatePrice,
@@ -88,6 +67,15 @@ export class PartController {
       ids,
       request.payloads,
     );
+    return { data: response };
+  }
+
+  @Patch(':id')
+  async update(
+    @Param('id') id: string,
+    @Body(ValidationPipe) payload: UpdatePart,
+  ): Promise<PartResponse> {
+    const response = await this.partService.update(id, payload);
     return { data: response };
   }
 

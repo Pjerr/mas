@@ -50,6 +50,8 @@ let PartService = class PartService {
         const part = await this.partRepository.findOne(id, {
             populate: ['attributes', 'attributes.group'],
         });
+        if (!part)
+            throw new common_1.NotFoundException('Part not found');
         if (payload.attributeIds) {
             const attributeRefs = payload.attributeIds.map((attributeId) => this.attributeRepository.getReference(attributeId));
             part.attributes.set(attributeRefs);
@@ -61,27 +63,11 @@ let PartService = class PartService {
         });
         return updatedPart;
     }
-    async multipleUpdate(ids, payloads) {
-        const parts = await this.partRepository.find({ id: { $in: ids } }, { populate: ['attributes'] });
-        parts.map((part, index) => {
-            if (payloads[index].attributeIds) {
-                const attribtueRefs = payloads[index].attributeIds.map((attributeId) => this.attributeRepository.getReference(attributeId));
-                part.attributes.add(attribtueRefs);
-            }
-        });
-        await this.em.persistAndFlush(parts);
-        const updatedParts = this.partRepository.find(ids, {
-            populate: ['attributes.group'],
-        });
-        return updatedParts;
-    }
     async bulkUpdatePrice(ids, payloads) {
         const parts = await this.partRepository.find({ id: { $in: ids } });
         const updatedParts = [];
         parts.map((part, index) => {
-            const newPart = Object.assign(Object.assign({}, part), { basePrice: payloads[index] });
-            updatedParts.push(newPart);
-            this.em.persist(newPart);
+            part.basePrice = payloads[index];
         });
         await this.em.flush();
         return updatedParts;

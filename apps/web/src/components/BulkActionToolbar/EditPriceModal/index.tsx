@@ -13,28 +13,12 @@ import { BulkPriceForm } from './BulkPriceForm';
 interface EditPriceModalProps {
     type: EntityType;
     selectedIds: string[] | undefined;
-    onUpdate: (
-        selectedIds: string[],
-        prop: 'price' | 'status' | 'manufacturer'
-    ) => void;
 }
 
-export function EditPriceModal({
-    selectedIds,
-    type,
-    onUpdate,
-}: EditPriceModalProps) {
+export function EditPriceModal({ selectedIds }: EditPriceModalProps) {
     const parts = useSelector((state: RootState) =>
         selectSelectedEntities(state, instanceIds[EntityType.Part], selectedIds)
     ) as Part[];
-
-    const handleEditPrice = () => {
-        if (!parts || parts.length === 0) return;
-        onUpdate(
-            parts.map((part) => part.id),
-            'price'
-        );
-    };
 
     return (
         <Modal

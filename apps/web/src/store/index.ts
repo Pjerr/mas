@@ -5,6 +5,7 @@ import attributeEditorReducer from './editors/attribute/index';
 import partEditorReducer from './editors/part/index';
 import manufacturerEditorReducer from './editors/manufacturer/index';
 import { api } from './api';
+import { MasApi } from './api/endpoints';
 
 const rootReducer = combineReducers({
     [api.reducerPath]: api.reducer,
@@ -23,3 +24,53 @@ export const store = configureStore({
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
 export const useAppDispatch: () => AppDispatch = useDispatch;
+
+export const enhancedApi = MasApi.enhanceEndpoints({
+    endpoints: {
+        findPart: {
+            providesTags: (result) =>
+                result
+                    ? [
+                          ...result.data.map(({ id }) => ({
+                              type: 'Parts' as const,
+                              id,
+                          })),
+                          { type: 'Parts', id: 'LIST' },
+                      ]
+                    : [{ type: 'Parts', id: 'LIST' }],
+        },
+        findAttribute: {
+            providesTags: (result) =>
+                result
+                    ? [
+                          ...result.data.map(({ id }) => ({
+                              type: 'Attributes' as const,
+                              id,
+                          })),
+                          { type: 'Attributes', id: 'LIST' },
+                      ]
+                    : [{ type: 'Attributes', id: 'LIST' }],
+        },
+        createPart: {
+            invalidatesTags: [{ type: 'Parts', id: 'LIST' }],
+        },
+        updatePart: {
+            invalidatesTags: [{ type: 'Parts', id: 'LIST' }],
+        },
+        createAttribute: {
+            invalidatesTags: [{ type: 'Attributes', id: 'LIST' }],
+        },
+        updateAttribute: {
+            invalidatesTags: [{ type: 'Attributes', id: 'LIST' }],
+        },
+        removeManyAttribute: {
+            invalidatesTags: [
+                { type: 'Parts', id: 'LIST' },
+                { type: 'Attributes', id: 'LIST' },
+            ],
+        },
+        bulkUpdatePricePart: {
+            invalidatesTags: [{ type: 'Parts', id: 'LIST' }],
+        },
+    },
+});
