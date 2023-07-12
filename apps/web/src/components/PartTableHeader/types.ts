@@ -13,6 +13,7 @@ export interface ToolbarProps {
 export interface BulkActionProps {
     type: EntityType;
     selectedIds: string[] | undefined;
+    onBulkPriceEdit: (selectedIds: string[], payloads: number[]) => void;
 }
 export interface PartTableHeaderTab {
     title: string;

@@ -13,12 +13,12 @@ import { EditPriceModal } from './EditPriceModal';
 
 interface BulkActionToolbarProps {
     type: EntityType;
-    onUpdate: (selectedIds: string[]) => void;
+    onBulkPriceEdit: (selectedIds: string[], payloads: number[]) => void;
 }
 
 export default function BulkActionToolbar({
     type,
-    onUpdate,
+    onBulkPriceEdit,
 }: BulkActionToolbarProps) {
     const table = useTableSelector(instanceIds[type]);
 
@@ -44,7 +44,7 @@ export default function BulkActionToolbar({
                 <EditPriceModal
                     type={type}
                     selectedIds={selectedIds}
-                    onUpdate={onUpdate}
+                    onBulkPriceEdit={onBulkPriceEdit}
                 />
             </div>
         </div>

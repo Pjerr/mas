@@ -14,12 +14,16 @@ import PartTableHeader from '@/components/PartTableHeader';
 import { createPartForm } from '@/store/editors/part/thunks';
 import { useSelector } from 'react-redux';
 import { selectSelectedRows } from '@/store/table';
+import { useBulkUpdatePricePartMutation } from '@/store/api/endpoints';
+import { toast } from 'react-toastify';
 
 const Parts: NextPageWithLayout = () => {
     const router = useRouter();
     const dispatch = useAppDispatch();
 
     const { loadTableData } = useTable();
+
+    const [bulkUpdatePrice] = useBulkUpdatePricePartMutation();
 
     const refetch = () => {
         loadTableData(EntityType.Part);
@@ -56,6 +60,24 @@ const Parts: NextPageWithLayout = () => {
         return selected && selected.length === 1 ? false : true;
     };
 
+    const onBulkPriceEdit = async (
+        selectedIds: string[],
+        payloads: number[]
+    ) => {
+        const response = await bulkUpdatePrice({
+            ids: selectedIds,
+            bulkUpdatePrice: {
+                payloads,
+            },
+        });
+        if ('error' in response) {
+            toast('Error on bulk update', { type: 'error' });
+            return;
+        }
+
+        toast('Prices updated', { type: 'success' });
+    };
+
     return (
         <>
             <TableProvider>
@@ -68,6 +90,7 @@ const Parts: NextPageWithLayout = () => {
                     bulkActionProps={{
                         selectedIds,
                         type: EntityType.Part,
+                        onBulkPriceEdit,
                     }}
                 />
                 <Table

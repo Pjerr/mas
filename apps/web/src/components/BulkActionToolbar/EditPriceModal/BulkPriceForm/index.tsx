@@ -1,13 +1,22 @@
-import { Part, useBulkUpdatePricePartMutation } from '@/store/api/endpoints';
+import { Part } from '@/store/api/endpoints';
 import Button from '@/components/Button';
 import { FaCheck } from 'react-icons/fa';
 import styles from './styles.module.css';
 import TextInput from '@/components/Inputs/TextInput';
-import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from 'react';
-import { toast } from 'react-toastify';
+import {
+    ChangeEvent,
+    Dispatch,
+    FormEvent,
+    SetStateAction,
+    useEffect,
+    useMemo,
+    useState,
+} from 'react';
 
 interface BulkPriceFormProps {
     parts: Part[];
+    onBulkPriceEdit: (selectedIds: string[], payloads: number[]) => void;
+    setIsModalOpen: Dispatch<SetStateAction<boolean>>;
 }
 interface BulkFormPricePart {
     id: string;
@@ -15,9 +24,11 @@ interface BulkFormPricePart {
     basePrice: number;
 }
 
-export function BulkPriceForm({ parts }: BulkPriceFormProps) {
-    const [bulkUpdatePrice] = useBulkUpdatePricePartMutation();
-
+export function BulkPriceForm({
+    parts,
+    onBulkPriceEdit,
+    setIsModalOpen,
+}: BulkPriceFormProps) {
     const initialValues: BulkFormPricePart[] = useMemo(() => {
         return parts.map(
             (part) =>
@@ -39,16 +50,10 @@ export function BulkPriceForm({ parts }: BulkPriceFormProps) {
 
     const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const response = await bulkUpdatePrice({
-            ids: formItems.map((item) => item.id),
-            bulkUpdatePrice: {
-                payloads: formItems.map((item) => Number(item.basePrice)),
-            },
-        });
-        if ('error' in response) {
-            toast('Something went wrong', { type: 'error' });
-            return;
-        }
+        const selectedIds = formItems.map((item) => item.id);
+        const payloads = formItems.map((item) => Number(item.basePrice));
+        setIsModalOpen(false);
+        onBulkPriceEdit(selectedIds, payloads);
     };
 
     const handleChange = (

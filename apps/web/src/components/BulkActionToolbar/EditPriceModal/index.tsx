@@ -9,19 +9,28 @@ import { selectSelectedEntities } from '@/store/table';
 import { instanceIds } from '@/types/entity';
 import { Part } from '@/store/api/endpoints';
 import { BulkPriceForm } from './BulkPriceForm';
+import { useState } from 'react';
 
 interface EditPriceModalProps {
     type: EntityType;
     selectedIds: string[] | undefined;
+    onBulkPriceEdit: (selectedIds: string[], payloads: number[]) => void;
 }
 
-export function EditPriceModal({ selectedIds }: EditPriceModalProps) {
+export function EditPriceModal({
+    selectedIds,
+    onBulkPriceEdit,
+}: EditPriceModalProps) {
     const parts = useSelector((state: RootState) =>
         selectSelectedEntities(state, instanceIds[EntityType.Part], selectedIds)
     ) as Part[];
 
+    const [modalOpen, setIsModalOpen] = useState(false);
+
     return (
         <Modal
+            isOpen={modalOpen}
+            setOpen={setIsModalOpen}
             control={
                 <Button
                     icon={
@@ -30,6 +39,7 @@ export function EditPriceModal({ selectedIds }: EditPriceModalProps) {
                     variant={'borderless'}
                     tooltipText={`Edit base price`}
                     disabled={!selectedIds}
+                    onClick={() => setIsModalOpen(true)}
                 />
             }
             title="Edit base price"
@@ -38,7 +48,11 @@ export function EditPriceModal({ selectedIds }: EditPriceModalProps) {
             <>
                 {parts && parts.length > 0 && (
                     <div className={styles['bulk-edit__content']}>
-                        <BulkPriceForm parts={parts} />
+                        <BulkPriceForm
+                            parts={parts}
+                            onBulkPriceEdit={onBulkPriceEdit}
+                            setIsModalOpen={setIsModalOpen}
+                        />
                     </div>
                 )}
             </>
