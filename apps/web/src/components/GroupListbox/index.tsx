@@ -51,9 +51,7 @@ export default function GroupListbox({ setActiveGroup }: GroupListProps) {
         resetActiveGroup(activeIndex);
     }, [response]);
 
-    const handleSearch = (value: string) => {
-        // console.log(value);
-    };
+    const handleSearch = (value: string) => {};
 
     const resetActiveGroup = (index: number) => {
         if (!response || !response.data.length) return;

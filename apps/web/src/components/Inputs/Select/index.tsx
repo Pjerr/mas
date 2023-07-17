@@ -26,7 +26,6 @@ const Select = React.forwardRef<
             options={options}
             styles={selectStyles}
             isSearchable={false}
-            instanceId={options[0].label}
             value={selectedOptions}
             onChange={(e) => onChange(e?.value)}
             menuPlacement={'auto'}

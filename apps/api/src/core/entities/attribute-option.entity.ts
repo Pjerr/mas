@@ -42,5 +42,5 @@ export class AttributeOption extends BaseEntity<AttributeOption, 'id'> {
     orphanRemoval: true,
     nullable: true,
   })
-  optionConfigs = new Collection<OptionConfig>(this);
+  configs = new Collection<OptionConfig>(this);
 }

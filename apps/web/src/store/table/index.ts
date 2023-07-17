@@ -8,8 +8,10 @@ import {
     RemoveManyAction,
     RowSelectionAction,
     SortingAction,
+    UpdateCellAction,
     initialInstance,
 } from './types';
+import objectPath from 'object-path';
 
 export const tableSlice = createSlice({
     name: 'table',
@@ -71,6 +73,14 @@ export const tableSlice = createSlice({
                 state[instanceId].data[index] = payload.entity;
             }
         },
+        updateTableCell: (
+            state,
+            { payload }: PayloadAction<UpdateCellAction>
+        ) => {
+            const instanceId = payload.instanceId;
+            const option = state[instanceId].data[payload.rowIndex];
+            objectPath.set(option, `${payload.columnId}`, payload.value);
+        },
     },
 });
 
@@ -84,6 +94,7 @@ export const {
     setRowSelection,
     appendEntity,
     updateEntity,
+    updateTableCell,
 } = tableSlice.actions;
 
 export * from './selectors';

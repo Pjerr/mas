@@ -25,41 +25,24 @@ let VariantService = class VariantService {
         this.configService = configService;
         this.repository = repository;
     }
-    cartesianProduct(data) {
+    cartesianPart(data) {
         return data.reduce(function (previous, current) {
             return previous
                 .map((x) => current.map((y) => x.concat([y])))
                 .reduce((previous, current) => previous.concat(current), []);
         }, [[]]);
     }
-    generateVariants(partId, options) {
-        if (options.length === 0)
+    generateVariants(partId, attributeConfigs) {
+        if (attributeConfigs.length === 0)
             return [];
-        const optionConfigs = options.map((attributeOptions) => this.configService.create(attributeOptions));
-        const configVariants = this.cartesianProduct(optionConfigs);
+        const optionConfigs = attributeConfigs.map((configs) => this.configService.create(partId, configs));
+        const configVariants = this.cartesianPart(optionConfigs);
         common_1.Logger.log('config-combinations', configVariants);
         const variants = configVariants.map((optionsConfigs) => this.repository.create({
             part: partId,
             optionsConfigs,
         }));
-        this.em.persist(variants);
         return variants;
-    }
-    async findOne(id) {
-        const variant = await this.repository.findOne(id);
-        if (!variant)
-            throw new common_1.NotFoundException('Variant does not exist');
-        return variant;
-    }
-    async find() {
-        const variant = await this.repository.findAll();
-        return variant;
-    }
-    async remove(id) {
-        const variant = await this.repository.findOne(id);
-        if (!variant)
-            throw new common_1.NotFoundException('Variant does not exist');
-        await this.em.removeAndFlush(variant);
     }
 };
 VariantService = __decorate([

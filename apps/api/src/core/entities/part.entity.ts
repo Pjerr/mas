@@ -16,7 +16,7 @@ import { Manufacturer } from './manufacturer.entity';
 import { Category } from './category.entity';
 import { Attribute } from './attribute.entity';
 import { ApiResponseProperty } from '@nestjs/swagger';
-import { PartStatus, PropertyType } from 'shared';
+import { PartStatus, PropertyType, PublishStatus } from 'shared';
 import uuid4 from 'uuid4';
 import { Filterable } from '../meta/decorators/filter.decorator';
 import { Variant } from './variant.entity';
@@ -77,4 +77,7 @@ export class Part extends BaseEntity<Part, 'id'> {
 
   @Property({ nullable: true, onUpdate: () => new Date() })
   updatedAt: Date;
+
+  @Property({ nullable: true })
+  publishStatus: PublishStatus = PublishStatus.Draft;
 }

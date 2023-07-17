@@ -6,11 +6,12 @@ import {
   Param,
   Delete,
   Query,
+  Logger,
 } from '@nestjs/common';
 import { OptionService } from './option.service';
 import { ApiTags } from '@nestjs/swagger';
 import { QueryPipe } from '@/core/pipes/query.pipe';
-import { AttributeOption } from '@/core/entities';
+import { AttributeOption, OptionConfig } from '@/core/entities';
 import { FilterQuery } from '@/core/types';
 import { filterEntity } from '@/core/utils/parse-query';
 import {
@@ -20,11 +21,16 @@ import {
   OptionRelationTypes,
   OptionsResponse,
 } from '@/modules/attribute/dto/option';
+import { FilterOptionConfig } from './dto/option/requests/filter-option-config.request';
+import { OptionConfigService } from './option-config.service';
 
 @ApiTags('Options')
 @Controller('options')
 export class OptionController {
-  constructor(private readonly optionService: OptionService) {}
+  constructor(
+    private readonly optionService: OptionService,
+    private readonly configService: OptionConfigService,
+  ) {}
 
   @Post()
   async create(@Body() payload: CreateOption): Promise<OptionResponse> {
@@ -46,11 +52,19 @@ export class OptionController {
     return { data: response };
   }
 
-  // @Get(':id')
-  // async findOne(@Param('id') id: string) {
-  //     const response = await this.optionService.findOne(id);
-  //     return { data: response };
-  // }
+  @Get(':id/config')
+  async findOneConfig(@Param('id') id: string): Promise<OptionConfig> {
+    const response = await this.configService.findOne(id);
+    return response;
+  }
+
+  @Get('config')
+  async findPart(@Query() query: FilterOptionConfig): Promise<OptionsResponse> {
+    Logger.log(query);
+    const response = await this.optionService.findPartOptions(query);
+
+    return { data: response };
+  }
 
   // @Patch(':id')
   // async update(@Param('id') id: string, @Body() payload: UpdateOption) {

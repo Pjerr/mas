@@ -1,6 +1,6 @@
 import { BaseEntity, Collection } from '@mikro-orm/core';
 import { Attribute } from './attribute.entity';
-import { PartStatus, PropertyType } from 'shared';
+import { PartStatus, PropertyType, PublishStatus } from 'shared';
 import { Variant } from './variant.entity';
 export declare class Part extends BaseEntity<Part, 'id'> {
     id: string;
@@ -15,5 +15,6 @@ export declare class Part extends BaseEntity<Part, 'id'> {
     variants: Collection<Variant, object>;
     createdAt: Date;
     updatedAt: Date;
+    publishStatus: PublishStatus;
 }
 //# sourceMappingURL=part.entity.d.ts.map

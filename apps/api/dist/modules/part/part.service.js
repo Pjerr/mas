@@ -17,20 +17,44 @@ const common_1 = require("@nestjs/common");
 const postgresql_1 = require("@mikro-orm/postgresql");
 const nestjs_1 = require("@mikro-orm/nestjs");
 const entities_1 = require("../../core/entities");
+const variant_service_1 = require("./variant.service");
+const option_config_service_1 = require("../attribute/option-config.service");
 let PartService = class PartService {
-    constructor(em, partRepository, attributeRepository, categoryRepository) {
+    constructor(em, partRepository, attributeRepository, categoryRepository, variantService, configService) {
         this.em = em;
         this.partRepository = partRepository;
         this.attributeRepository = attributeRepository;
         this.categoryRepository = categoryRepository;
+        this.variantService = variantService;
+        this.configService = configService;
+    }
+    existOptions(attributeConfigs) {
+        if (attributeConfigs.length === 0 || attributeConfigs[0].length === 0)
+            return [];
+        return attributeConfigs;
     }
     async create(payload) {
-        const part = this.partRepository.create(Object.assign(Object.assign({}, payload), { attributes: payload.attributeIds, manufacturer: payload.manufacturerId }));
-        await this.em.persistAndFlush(part);
-        const createdPart = await this.partRepository.findOne({
-            id: part.id,
-        }, { populate: ['attributes.group'] });
+        const part = this.partRepository.create(Object.assign(Object.assign({}, payload), { createdAt: new Date(), category: payload.categoryId, attributes: payload.attributeIds }));
+        this.em.persistAndFlush(part);
+        const createdPart = await this.partRepository.findOne({ id: part.id }, {
+            populate: ['attributes.group', 'attributes.options'],
+        });
+        const configs = this.existOptions(payload.attributeConfigs);
+        const variants = this.variantService.generateVariants(createdPart.id, configs);
+        this.em.flush();
+        createdPart.variants.add(variants);
+        common_1.Logger.log('Created part', JSON.stringify(createdPart));
         return createdPart;
+    }
+    async createDraft() {
+        const product = this.partRepository.create({
+            name: 'Untitled product',
+            attributes: [],
+            properties: {},
+            createdAt: null,
+        });
+        common_1.Logger.log('Created draft', JSON.stringify(product));
+        return product;
     }
     async find(filters) {
         const parts = await this.partRepository.find(filters.query, filters.options);
@@ -47,19 +71,21 @@ let PartService = class PartService {
         return part;
     }
     async update(id, payload) {
-        const part = await this.partRepository.findOne(id, {
-            populate: ['attributes', 'attributes.group'],
+        const part = await this.partRepository.findOne({ id }, {
+            populate: ['attributes.group', 'attributes.options'],
         });
-        if (!part)
-            throw new common_1.NotFoundException('Part not found');
+        const configs = this.existOptions(payload.attributeConfigs);
+        this.configService.removeMany(id);
+        const variants = this.variantService.generateVariants(part.id, configs);
+        part.variants.add(variants);
         if (payload.attributeIds) {
-            const attributeRefs = payload.attributeIds.map((attributeId) => this.attributeRepository.getReference(attributeId));
-            part.attributes.set(attributeRefs);
+            const attributes = payload.attributeIds.map((id) => this.attributeRepository.getReference(id));
+            part.attributes.set(attributes);
         }
         part.assign(payload);
         await this.em.persistAndFlush(part);
-        const updatedPart = await this.partRepository.findOne(id, {
-            populate: ['attributes', 'attributes.group'],
+        const updatedPart = this.partRepository.findOne(id, {
+            populate: ['attributes.group'],
         });
         return updatedPart;
     }
@@ -125,7 +151,9 @@ PartService = __decorate([
     __metadata("design:paramtypes", [postgresql_1.EntityManager,
         postgresql_1.EntityRepository,
         postgresql_1.EntityRepository,
-        postgresql_1.EntityRepository])
+        postgresql_1.EntityRepository,
+        variant_service_1.VariantService,
+        option_config_service_1.OptionConfigService])
 ], PartService);
 exports.PartService = PartService;
 //# sourceMappingURL=part.service.js.map

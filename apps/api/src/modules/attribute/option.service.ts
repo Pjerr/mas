@@ -1,10 +1,11 @@
 import { Attribute, AttributeOption } from '@/core/entities';
 import { FilterEntity } from '@/core/types';
 import { CreateOption, UpdateOption } from '@/modules/attribute/dto/option';
-import { EntityRepository } from '@mikro-orm/core';
+import { EntityRepository, LoadStrategy } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityManager } from '@mikro-orm/postgresql';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { FilterOptionConfig } from './dto/option/requests/filter-option-config.request';
 
 @Injectable()
 export class OptionService {
@@ -95,5 +96,27 @@ export class OptionService {
     await this.em.persistAndFlush(option);
 
     return option;
+  }
+
+  async findPartOptions(request: FilterOptionConfig) {
+    const options = await this.optionRepository.find(
+      { attribute: { $eq: request.attributeId } },
+
+      {
+        strategy: LoadStrategy.SELECT_IN,
+        populate: ['configs'],
+        populateWhere: {
+          configs: {
+            variants: {
+              part: { id: { $eq: request.partId } },
+            },
+          },
+        },
+      },
+    );
+
+    Logger.log('options-config', options);
+
+    return options;
   }
 }

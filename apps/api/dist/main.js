@@ -22,7 +22,10 @@ async function bootstrap() {
     swagger_1.SwaggerModule.setup('docs', app, document);
     await app.get(core_1.MikroORM).getSchemaGenerator().ensureDatabase();
     await app.get(core_1.MikroORM).getSchemaGenerator().updateSchema();
-    app.enableCors();
+    app.enableCors({
+        origin: ['http://localhost:3000'],
+        methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS'],
+    });
     await app.listen(4000);
 }
 bootstrap();

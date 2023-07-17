@@ -14,7 +14,6 @@ import { UpdatePart } from './dto/requests/update-part.request';
 import {
   BulkUpdatePrice,
   CreatePart,
-  MultipleUpdatePart,
   PartRelationTypes,
   PartResponse,
   PartsResponse,
@@ -36,9 +35,15 @@ export class PartController {
 
   @Post()
   async create(
-    @Body(ValidationPipe) payload: CreatePart,
+    @Body(ValidationPipe) request: CreatePart,
   ): Promise<PartResponse> {
-    const response = await this.partService.create(payload);
+    const response = await this.partService.create(request);
+    return { data: response };
+  }
+
+  @Post('draft')
+  async createDraft(): Promise<PartResponse> {
+    const response = await this.partService.createDraft();
     return { data: response };
   }
 

@@ -27,8 +27,12 @@ let PartController = class PartController {
     constructor(partService) {
         this.partService = partService;
     }
-    async create(payload) {
-        const response = await this.partService.create(payload);
+    async create(request) {
+        const response = await this.partService.create(request);
+        return { data: response };
+    }
+    async createDraft() {
+        const response = await this.partService.createDraft();
         return { data: response };
     }
     async find(query) {
@@ -79,6 +83,13 @@ __decorate([
     __metadata("design:paramtypes", [dto_1.CreatePart]),
     __metadata("design:returntype", Promise)
 ], PartController.prototype, "create", null);
+__decorate([
+    (0, common_1.Post)('draft'),
+    openapi.ApiResponse({ status: 201, type: require("./dto/part.response").PartResponse }),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], PartController.prototype, "createDraft", null);
 __decorate([
     (0, common_1.Get)(),
     (0, types_1.FilterQuery)('query', dto_1.QueryPart),

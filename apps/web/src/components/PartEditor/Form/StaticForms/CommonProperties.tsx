@@ -12,8 +12,6 @@ export default function CommonProperties() {
 
     const { data: manufacturers } = useFindManufacturerQuery({ query: {} });
 
-    console.log(manufacturers);
-
     const newMetadata = useMemo(() => {
         const newMetadata = [...metadata];
         newMetadata.push({

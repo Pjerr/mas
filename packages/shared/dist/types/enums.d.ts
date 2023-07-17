@@ -38,4 +38,8 @@ export declare enum ConditionalOperator {
     IN = "$in",
     NOT_IN = "$nin"
 }
+export declare enum PublishStatus {
+    Published = "published",
+    Draft = "draft"
+}
 //# sourceMappingURL=enums.d.ts.map

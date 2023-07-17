@@ -14,6 +14,7 @@ const createPartForm = createAsyncThunk<
 
     const form: PartForm = {
         state: formState,
+        value: data as Part,
     };
 
     dispatch(setForm({ form }));

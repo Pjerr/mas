@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-exports.ConditionalOperator = exports.PartStatus = exports.EditorValidation = exports.EditorType = void 0;
+exports.PublishStatus = exports.ConditionalOperator = exports.PartStatus = exports.EditorValidation = exports.EditorType = void 0;
 var EditorType;
 (function (EditorType) {
     EditorType["Checkbox"] = "checkbox";
@@ -61,3 +61,8 @@ var ConditionalOperator;
     // IN_LOW = '$inL',
     // NOT_IN_LOW = '$notinL',
 })(ConditionalOperator = exports.ConditionalOperator || (exports.ConditionalOperator = {}));
+var PublishStatus;
+(function (PublishStatus) {
+    PublishStatus["Published"] = "published";
+    PublishStatus["Draft"] = "draft";
+})(PublishStatus = exports.PublishStatus || (exports.PublishStatus = {}));

@@ -31,7 +31,10 @@ async function bootstrap() {
   await app.get(MikroORM).getSchemaGenerator().ensureDatabase();
   await app.get(MikroORM).getSchemaGenerator().updateSchema();
 
-  app.enableCors();
+  app.enableCors({
+    origin: ['http://localhost:3000'],
+    methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS'],
+  });
 
   await app.listen(4000);
 }

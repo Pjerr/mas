@@ -14,7 +14,10 @@ import PartTableHeader from '@/components/PartTableHeader';
 import { createPartForm } from '@/store/editors/part/thunks';
 import { useSelector } from 'react-redux';
 import { selectSelectedRows } from '@/store/table';
-import { useBulkUpdatePricePartMutation } from '@/store/api/endpoints';
+import {
+    useBulkUpdatePricePartMutation,
+    useCreateDraftPartMutation,
+} from '@/store/api/endpoints';
 import { toast } from 'react-toastify';
 
 const Parts: NextPageWithLayout = () => {
@@ -23,6 +26,7 @@ const Parts: NextPageWithLayout = () => {
 
     const { loadTableData } = useTable();
 
+    const [createDraft] = useCreateDraftPartMutation();
     const [bulkUpdatePrice] = useBulkUpdatePricePartMutation();
 
     const refetch = () => {
@@ -33,15 +37,14 @@ const Parts: NextPageWithLayout = () => {
         loadTableData(EntityType.Part);
     }, []);
 
-    const onCreate = () => {
+    const onCreate = async () => {
         dispatch(resetForm());
+
+        const { data: part } = await createDraft().unwrap();
+
         dispatch(
             createPartForm({
-                part: {
-                    name: 'Untitled part',
-                    attributes: [],
-                    properties: {},
-                },
+                part,
             })
         );
         router.push('/create');

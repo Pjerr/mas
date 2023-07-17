@@ -33,9 +33,10 @@ let Part = class Part extends core_1.BaseEntity {
         this.basePrice = 0;
         this.variants = new core_1.Collection(this);
         this.createdAt = new Date();
+        this.publishStatus = shared_1.PublishStatus.Draft;
     }
     static _OPENAPI_METADATA_FACTORY() {
-        return { id: { required: true, type: () => String, default: (0, uuid4_1.default)() }, name: { required: true, type: () => String }, status: { required: true, default: shared_1.PartStatus.InStock, enum: require("../../../../../packages/shared/dist/types/enums").PartStatus }, searchIndex: { required: true, type: () => String }, properties: { required: true, type: () => Object }, manufacturer: { required: true, type: () => String }, category: { required: true, type: () => String }, attributes: { required: true, type: () => Object, default: new core_1.Collection(this) }, basePrice: { required: true, type: () => Number, default: 0 }, variants: { required: true, type: () => Object, default: new core_1.Collection(this) }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date } };
+        return { id: { required: true, type: () => String, default: (0, uuid4_1.default)() }, name: { required: true, type: () => String }, status: { required: true, default: shared_1.PartStatus.InStock, enum: require("../../../../../packages/shared/dist/types/enums").PartStatus }, searchIndex: { required: true, type: () => String }, properties: { required: true, type: () => Object }, manufacturer: { required: true, type: () => String }, category: { required: true, type: () => String }, attributes: { required: true, type: () => Object, default: new core_1.Collection(this) }, basePrice: { required: true, type: () => Number, default: 0 }, variants: { required: true, type: () => Object, default: new core_1.Collection(this) }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date }, publishStatus: { required: true, default: shared_1.PublishStatus.Draft, enum: require("../../../../../packages/shared/dist/types/enums").PublishStatus } };
     }
 };
 __decorate([
@@ -105,6 +106,10 @@ __decorate([
     (0, core_1.Property)({ nullable: true, onUpdate: () => new Date() }),
     __metadata("design:type", Date)
 ], Part.prototype, "updatedAt", void 0);
+__decorate([
+    (0, core_1.Property)({ nullable: true }),
+    __metadata("design:type", String)
+], Part.prototype, "publishStatus", void 0);
 Part = __decorate([
     (0, core_1.Entity)()
 ], Part);

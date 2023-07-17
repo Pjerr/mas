@@ -1,3 +1,4 @@
+import { CreateConfig } from '@/modules/attribute/dto/option';
 import { PartStatus, PropertyType } from 'shared';
 export declare class CreatePart {
     status?: PartStatus;
@@ -7,5 +8,6 @@ export declare class CreatePart {
     attributeIds?: string[];
     properties?: PropertyType;
     basePrice: number;
+    attributeConfigs: CreateConfig[][];
 }
 //# sourceMappingURL=create-part.request.d.ts.map

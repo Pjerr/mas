@@ -8,6 +8,7 @@ import {
 import { ColumnDef } from '@tanstack/react-table';
 import { Cell } from '../Cell';
 import { EntityType } from '@/store/table/types';
+import { EditableCell } from '../EditableCell';
 
 export const optionColumnDef: ColumnDef<AttributeOption, any>[] = [
     {
@@ -150,9 +151,50 @@ export const manufacturerColumnDef: ColumnDef<Manufacturer, any>[] = [
     { accessorKey: 'name', header: 'Name' },
 ];
 
+export const partOptionColumnDef: ColumnDef<AttributeOption, any>[] = [
+    {
+        id: 'value',
+        header: () => 'Value',
+        accessorKey: 'value',
+        meta: { propertyKey: 'Text' },
+        enableColumnFilter: true,
+        enableGlobalFilter: true,
+        enableResizing: true,
+    },
+    {
+        id: 'displayName',
+        header: () => 'Display Name',
+        accessorKey: 'displayName',
+        meta: { displayName: 'Text' },
+        enableColumnFilter: true,
+        enableGlobalFilter: true,
+        enableResizing: true,
+    },
+    {
+        id: 'configs.0.price',
+        header: () => 'Additional price',
+        cell: ({ row, column, getValue }) => (
+            <EditableCell
+                value={getValue()}
+                columnId={column.id}
+                rowIndex={row.index}
+            />
+        ),
+        accessorFn: (option: AttributeOption) =>
+            //@ts-ignore
+            option.configs.length > 0 ? option.configs[0].price : 0,
+        enableSorting: false,
+        meta: { propertyKey: 'Number' },
+        enableColumnFilter: false,
+        enableGlobalFilter: false,
+        enableResizing: true,
+    },
+];
+
 export const extractColumnDef: Record<EntityType, ColumnDef<any, any>[]> = {
     [EntityType.Attribute]: attributeColumnDef,
     [EntityType.Part]: partColumnDef,
     [EntityType.Option]: optionColumnDef,
     [EntityType.Manufacturer]: manufacturerColumnDef,
+    [EntityType.PartOption]: partOptionColumnDef,
 };

@@ -11,6 +11,7 @@ export enum EntityType {
     Part = 'Part',
     Option = 'Option',
     Manufacturer = 'Manufacturer',
+    PartOption = 'PartOption',
 }
 
 export interface TableInstance {
@@ -77,4 +78,12 @@ export const includeArgMap: Record<EntityType, string[]> = {
     [EntityType.Part]: ['attributes.group'],
     [EntityType.Option]: [],
     [EntityType.Manufacturer]: [],
+    [EntityType.PartOption]: [],
 };
+
+export interface UpdateCellAction {
+    instanceId: string;
+    rowIndex: number;
+    columnId: string;
+    value: unknown;
+}

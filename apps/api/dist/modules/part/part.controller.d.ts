@@ -4,7 +4,8 @@ import { BulkUpdatePrice, CreatePart, PartResponse, PartsResponse, QueryPart, Up
 export declare class PartController {
     private readonly partService;
     constructor(partService: PartService);
-    create(payload: CreatePart): Promise<PartResponse>;
+    create(request: CreatePart): Promise<PartResponse>;
+    createDraft(): Promise<PartResponse>;
     find(query: QueryPart): Promise<PartsResponse>;
     findOne(id: string): Promise<PartResponse>;
     bulkUpdatePrice(ids: string[], request: BulkUpdatePrice): Promise<PartsResponse>;

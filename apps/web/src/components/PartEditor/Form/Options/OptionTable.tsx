@@ -1,34 +1,54 @@
+import { AccordionContext } from '@/components/Accordion/Provider';
 import Table from '@/components/Table';
-import { optionColumnDef } from '@/components/Table/ColumnDef';
+import { partOptionColumnDef } from '@/components/Table/ColumnDef';
 import { TableProvider } from '@/components/Table/TableProvider';
 import { useTable } from '@/hooks/useTable';
-import { EntityType } from '@/store/table/types';
-import { instanceIds } from '@/types/entity';
-import { useEffect } from 'react';
+import { useAppDispatch } from '@/store';
+import {
+    addAttributePath,
+    selectActivePartId,
+    selectAttributeConfigPaths,
+} from '@/store/editors/part';
+import { useContext, useEffect, useMemo } from 'react';
+import { useSelector } from 'react-redux';
 
 interface OptionTableProps {
     attributeId: string;
 }
 
 export default function OptionsTable({ attributeId }: OptionTableProps) {
-    const instanceId = `${instanceIds[EntityType.Option]}-${attributeId}`;
-    const { loadTableData } = useTable(instanceId);
+    const partId = useSelector(selectActivePartId);
+    const { activeItem } = useContext(AccordionContext);
+    const dispatch = useAppDispatch();
+    const attributePath = useSelector(selectAttributeConfigPaths);
+
+    const instanceId = useMemo(() => {
+        return `${partId}-${activeItem}`;
+    }, [partId, activeItem]);
 
     useEffect(() => {
-        loadTableData(EntityType.Option, attributeId);
-    }, [attributeId]);
+        dispatch(
+            addAttributePath({
+                partId,
+                attributeId,
+                instanceId,
+            })
+        );
+    }, [!attributePath]);
 
-    const refetch = () => {
-        // loadTableData(EntityType.Option, attributeId);
-    };
+    const { loadOptionConfig } = useTable();
+
+    useEffect(() => {
+        loadOptionConfig(instanceId, attributeId, partId);
+    }, [attributeId, partId]);
 
     return (
         <TableProvider key={`option-grid__${attributeId}`}>
             <Table
                 placeholder={`Option table is empty`}
-                view={optionColumnDef as any}
+                view={partOptionColumnDef}
+                refetch={() => {}}
                 instanceId={instanceId}
-                refetch={refetch}
                 showPagination={true}
             ></Table>
         </TableProvider>

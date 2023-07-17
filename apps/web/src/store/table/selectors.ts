@@ -1,4 +1,5 @@
 import { RootState } from '..';
+import { AttributeOption, OptionConfig } from '../api/endpoints';
 
 export const selectTableData = (state: RootState, instanceId: string) =>
     state.table[instanceId]?.data;
@@ -29,4 +30,17 @@ export const selectSelectedEntities = (
     return state.table[instanceId].data.filter((entity) =>
         selectedIds.includes(entity.id)
     );
+};
+
+export const selectConfigPayload = (state: RootState, instaceId: string) => {
+    const [option] = state.table[instaceId].data as AttributeOption[];
+
+    const configs: Partial<OptionConfig>[] = option.configs.map((config) => {
+        return {
+            id: option.id,
+            ...(config as Partial<OptionConfig>),
+        };
+    });
+
+    return configs;
 };

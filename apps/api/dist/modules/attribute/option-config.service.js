@@ -23,10 +23,23 @@ let OptionConfigService = class OptionConfigService {
         this.em = em;
         this.configRepository = configRepository;
     }
-    create(options) {
-        const configVariant = options.map((option) => this.configRepository.create({ option }));
+    create(partId, configs) {
+        const configVariant = configs.map((config) => this.configRepository.create(Object.assign(Object.assign({}, config), { part: partId, id: undefined })));
         this.em.persist(configVariant);
         return configVariant;
+    }
+    async findOne(id) {
+        const option = await this.configRepository.findOne(id);
+        if (!option)
+            throw new common_1.NotFoundException('Option does not exist');
+        return option;
+    }
+    async removeMany(partId) {
+        const configs = await this.configRepository.find({
+            part: { $eq: partId },
+        });
+        common_1.Logger.log('Configs', configs);
+        await this.em.removeAndFlush(configs);
     }
 };
 OptionConfigService = __decorate([
