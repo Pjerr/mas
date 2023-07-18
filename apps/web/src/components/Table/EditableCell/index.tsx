@@ -44,6 +44,7 @@ export function EditableCell({
             onChange={(e) => setValue(e.target.value)}
             onBlur={onBlur}
             className={styles['editable-cell__input']}
+            variant={'border'}
         />
     );
 }
