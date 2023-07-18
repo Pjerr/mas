@@ -20,6 +20,7 @@ import { PartStatus, PropertyType, PublishStatus } from 'shared';
 import uuid4 from 'uuid4';
 import { Filterable } from '../meta/decorators/filter.decorator';
 import { Variant } from './variant.entity';
+import { OptionConfig } from './option-config.entity';
 
 @Entity()
 export class Part extends BaseEntity<Part, 'id'> {
@@ -63,7 +64,7 @@ export class Part extends BaseEntity<Part, 'id'> {
   basePrice: number = 0;
 
   @ApiResponseProperty({
-    type: [Variant],
+    type: (type) => [Variant],
   })
   @OneToMany(() => Variant, (variant) => variant.part, {
     nullable: true,
@@ -77,6 +78,16 @@ export class Part extends BaseEntity<Part, 'id'> {
 
   @Property({ nullable: true, onUpdate: () => new Date() })
   updatedAt: Date;
+
+  @ApiResponseProperty({
+    type: (type) => [OptionConfig],
+  })
+  @OneToMany(() => OptionConfig, (config) => config.part, {
+    nullable: true,
+    orphanRemoval: true,
+    cascade: [Cascade.PERSIST],
+  })
+  configs = new Collection<OptionConfig>(this);
 
   @Property({ nullable: true })
   publishStatus: PublishStatus = PublishStatus.Draft;

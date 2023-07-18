@@ -16,6 +16,7 @@ import {
   Category,
   OptionConfig,
   Part,
+  Manufacturer,
 } from '@/core/entities';
 
 @Injectable()
@@ -35,6 +36,7 @@ export class MikroOrmService implements MikroOrmOptionsFactory {
         Part,
         AttributeOption,
         OptionConfig,
+        Manufacturer,
       ],
       driver: PostgreSqlDriver,
       verbose: true,

@@ -66,6 +66,7 @@ const createThunk = createAsyncThunk<
     }
 
     const part = response.data.data;
+    console.log(part);
     dispatch(
         updateDefaultFormValue({
             part,

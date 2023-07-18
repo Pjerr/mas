@@ -29,8 +29,8 @@ export class OptionConfig extends BaseEntity<OptionConfig, 'id'> {
   @Property({ nullable: true, onUpdate: () => new Date() })
   updatedAt: Date;
 
-  @ManyToOne(() => AttributeOption, { nullable: true, mapToPk: true })
-  option: string;
+  @ManyToOne(() => AttributeOption, { nullable: true })
+  option: AttributeOption;
 
   @ApiResponseProperty({ type: [Variant] })
   @ManyToMany(() => Variant)

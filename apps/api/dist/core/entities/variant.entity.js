@@ -45,7 +45,7 @@ __decorate([
     __metadata("design:type", entities_1.Part)
 ], Variant.prototype, "part", void 0);
 __decorate([
-    (0, swagger_1.ApiResponseProperty)({ type: [entities_1.OptionConfig] }),
+    (0, swagger_1.ApiResponseProperty)({ type: (type) => [entities_1.OptionConfig] }),
     (0, core_1.ManyToMany)(() => entities_1.OptionConfig, (optionConfig) => optionConfig.variants, {
         nullable: true,
         cascade: [core_1.Cascade.PERSIST, core_1.Cascade.REMOVE],

@@ -27,7 +27,7 @@ export class AttributeOption extends BaseEntity<AttributeOption, 'id'> {
   @Unique()
   displayName: string;
 
-  @ManyToOne(() => Attribute, { mapToPk: true })
+  @ManyToOne(() => Attribute)
   @Filterable()
   attribute: string;
 
@@ -37,10 +37,9 @@ export class AttributeOption extends BaseEntity<AttributeOption, 'id'> {
   @Property({ nullable: true, onUpdate: () => new Date() })
   updatedAt: Date;
 
-  @ApiProperty({ type: [OptionConfig] })
+  @ApiProperty({ type: (type) => [OptionConfig] })
   @OneToMany(() => OptionConfig, (optoinConfig) => optoinConfig.option, {
     orphanRemoval: true,
-    nullable: true,
   })
   configs = new Collection<OptionConfig>(this);
 }

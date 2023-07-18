@@ -47,7 +47,7 @@ __decorate([
     __metadata("design:type", String)
 ], AttributeOption.prototype, "displayName", void 0);
 __decorate([
-    (0, core_1.ManyToOne)(() => attribute_entity_1.Attribute, { mapToPk: true }),
+    (0, core_1.ManyToOne)(() => attribute_entity_1.Attribute),
     (0, filter_decorator_1.Filterable)(),
     __metadata("design:type", String)
 ], AttributeOption.prototype, "attribute", void 0);
@@ -60,10 +60,9 @@ __decorate([
     __metadata("design:type", Date)
 ], AttributeOption.prototype, "updatedAt", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ type: [option_config_entity_1.OptionConfig] }),
+    (0, swagger_1.ApiProperty)({ type: (type) => [option_config_entity_1.OptionConfig] }),
     (0, core_1.OneToMany)(() => option_config_entity_1.OptionConfig, (optoinConfig) => optoinConfig.option, {
         orphanRemoval: true,
-        nullable: true,
     }),
     __metadata("design:type", Object)
 ], AttributeOption.prototype, "configs", void 0);

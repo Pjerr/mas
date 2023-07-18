@@ -30,7 +30,7 @@ let OptionConfig = class OptionConfig extends core_1.BaseEntity {
         this.variants = new core_1.Collection(this);
     }
     static _OPENAPI_METADATA_FACTORY() {
-        return { id: { required: true, type: () => String, default: (0, uuid4_1.default)() }, price: { required: true, type: () => Number, default: 0 }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date }, option: { required: true, type: () => String }, variants: { required: true, type: () => Object, default: new core_1.Collection(this) }, part: { required: true, type: () => String } };
+        return { id: { required: true, type: () => String, default: (0, uuid4_1.default)() }, price: { required: true, type: () => Number, default: 0 }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date }, option: { required: true, type: () => require("./attribute-option.entity").AttributeOption }, variants: { required: true, type: () => Object, default: new core_1.Collection(this) }, part: { required: true, type: () => String } };
     }
 };
 __decorate([
@@ -51,8 +51,8 @@ __decorate([
     __metadata("design:type", Date)
 ], OptionConfig.prototype, "updatedAt", void 0);
 __decorate([
-    (0, core_1.ManyToOne)(() => attribute_option_entity_1.AttributeOption, { nullable: true, mapToPk: true }),
-    __metadata("design:type", String)
+    (0, core_1.ManyToOne)(() => attribute_option_entity_1.AttributeOption, { nullable: true }),
+    __metadata("design:type", attribute_option_entity_1.AttributeOption)
 ], OptionConfig.prototype, "option", void 0);
 __decorate([
     (0, swagger_1.ApiResponseProperty)({ type: [variant_entity_1.Variant] }),

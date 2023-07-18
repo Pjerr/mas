@@ -27,6 +27,7 @@ let MikroOrmService = class MikroOrmService {
                 entities_1.Part,
                 entities_1.AttributeOption,
                 entities_1.OptionConfig,
+                entities_1.Manufacturer,
             ], driver: postgresql_1.PostgreSqlDriver, verbose: true, type: 'postgresql', debug: true }, this.configService.get('database'));
     }
 };

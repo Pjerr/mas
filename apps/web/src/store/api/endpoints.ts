@@ -609,6 +609,7 @@ export type RemoveManufacturerApiArg = {
 export type Part = {
     attributes: object[];
     variants: Variant[];
+    configs: OptionConfig[];
     id: string;
     name: string;
     status: 'in-stock' | 'out-of-stock';
@@ -622,7 +623,7 @@ export type Part = {
     publishStatus: 'published' | 'draft';
 };
 export type Variant = {
-    optionsConfigs: object[];
+    optionsConfigs: OptionConfig[];
     price: number;
     id: string;
     part: Part;
@@ -635,7 +636,7 @@ export type OptionConfig = {
     price: number;
     createdAt: string;
     updatedAt: string;
-    option: string;
+    option: AttributeOption;
     part: string;
 };
 export type AttributeOption = {
