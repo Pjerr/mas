@@ -55,7 +55,7 @@ export class Part extends BaseEntity<Part, 'id'> {
   category: string;
 
   @ApiResponseProperty({
-    type: [Attribute],
+    type: (type) => [Attribute],
   })
   @ManyToMany(() => Attribute)
   attributes = new Collection<Attribute>(this);

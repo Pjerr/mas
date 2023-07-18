@@ -607,7 +607,7 @@ export type RemoveManufacturerApiArg = {
     id: string;
 };
 export type Part = {
-    attributes: object[];
+    attributes: Attribute[];
     variants: Variant[];
     configs: OptionConfig[];
     id: string;
@@ -649,7 +649,7 @@ export type AttributeOption = {
     updatedAt: string;
 };
 export type Group = {
-    attributes: object[];
+    attributes: Attribute[];
     id: string;
     name: string;
     searchIndex: string;

@@ -2,17 +2,22 @@ import styles from './styles.module.css';
 import Button from '@/components/Button';
 import { FaTimes } from 'react-icons/fa';
 import ConfirmModal from '@/components/Modal/ConfirmModal';
-import { ProductVariantsProps } from './types';
+import { Part, Variant } from '@/store/api/endpoints';
 
-export default function PartVariants({ part }: ProductVariantsProps) {
-    if (!part || !part.variants[0]) throw new Error('Response is empty');
-    const columnHeaders: string[] = part.attributes.map(
+interface VariantsProps {
+    part: Part;
+}
+export default function ProductVariants({ part: product }: VariantsProps) {
+    const columnHeaders: string[] = product.attributes.map(
         (attribute) => attribute.displayName
     );
 
     const removeVariant = (index: number) => {
-        console.log(part.variants[index]);
+        console.log('We should remove this variant from the response');
+        console.log(product.variants[index]);
     };
+
+    const variants = product.variants as Variant[];
 
     return (
         <table className={styles['variant__table']}>
@@ -29,13 +34,13 @@ export default function PartVariants({ part }: ProductVariantsProps) {
                 </tr>
             </thead>
             <tbody>
-                {part.variants.map((variant, index) => {
-                    if (!variant.options) return <tr></tr>;
+                {variants.map((variant, index) => {
+                    if (!variant) return <tr></tr>;
                     return (
                         <tr key={index} className={styles['table__data-row']}>
-                            {variant.options.map(({ value }) => (
+                            {variant.optionsConfigs.map((config) => (
                                 <td className={styles['table__data']}>
-                                    {value}
+                                    {config.option.displayName}
                                 </td>
                             ))}
                             <td className={styles['table__data']}>

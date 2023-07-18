@@ -21,7 +21,7 @@ export default function PartForm() {
     const form = useSelector(selectPartForm);
     const part = form?.value as Part;
     const validationSchema = useMemo(() => {
-        return createValidationSchema(part.attributes as Attribute[]);
+        return createValidationSchema(part.attributes);
     }, [part, part.properties, part.attributes]);
 
     const methods = useForm<Part>({
@@ -59,13 +59,9 @@ export default function PartForm() {
                 <CommonProperties key={`cpt`} />
                 <FormGroups part={part} />
                 <Options
-                    attributes={
-                        part.attributes.filter(
-                            (attribute) =>
-                                (attribute as Attribute).editorType ===
-                                'options'
-                        ) as Attribute[]
-                    }
+                    attributes={part.attributes.filter(
+                        (attribute) => attribute.editorType === 'options'
+                    )}
                 />
                 <FormButtons
                     handleCancel={handleCancel}

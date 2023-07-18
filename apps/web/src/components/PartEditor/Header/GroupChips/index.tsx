@@ -16,13 +16,13 @@ export function GroupChips({ activeForm }: HeaderChipsProps) {
 
     const groups: Record<string, Attribute[]> = useMemo(() => {
         if (!activePart || !activePart.attributes.length) return {};
-        return getAttributeGroups(activePart.attributes as Attribute[]);
+        return getAttributeGroups(activePart.attributes);
     }, [activeForm, activePart, activePart.attributes]);
 
     const renderOptionChip: boolean = useMemo(() => {
         if (!activePart.attributes.length) return false;
         return activePart.attributes.some((attribute) => {
-            if ((attribute as Attribute).editorType === 'options') return true;
+            if (attribute.editorType === 'options') return true;
         });
     }, [activeForm, activePart, activePart.attributes]);
 

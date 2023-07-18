@@ -13,9 +13,7 @@ export function usePartApi() {
             id: data.id,
             updatePart: {
                 ...rest,
-                attributeIds: attributes.map(
-                    (attribute) => (attribute as Attribute).id
-                ),
+                attributeIds: attributes.map((attribute) => attribute.id),
                 properties: data.properties,
             },
         });

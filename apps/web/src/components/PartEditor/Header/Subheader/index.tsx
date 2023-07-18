@@ -28,13 +28,13 @@ export function Subheader({
 
     const groups: Record<string, Attribute[]> = useMemo(() => {
         if (!part.attributes.length) return {};
-        return getAttributeGroups(part.attributes as Attribute[]);
+        return getAttributeGroups(part.attributes);
     }, [form, part, part.attributes]);
 
     const renderOptionChip: boolean = useMemo(() => {
         if (!part.attributes.length) return false;
         return part.attributes.some((attribute) => {
-            if ((attribute as Attribute).editorType === 'options') return true;
+            if (attribute.editorType === 'options') return true;
         });
     }, [form, part, part.attributes]);
 

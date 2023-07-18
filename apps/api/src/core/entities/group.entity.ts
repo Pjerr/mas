@@ -33,7 +33,7 @@ export class Group extends BaseEntity<Group, 'id'> {
   @Filterable()
   searchIndex: string;
 
-  @ApiResponseProperty({ type: [Attribute] })
+  @ApiResponseProperty({ type: (type) => [Attribute] })
   @OneToMany(() => Attribute, (attribute) => attribute.group, {
     nullable: true,
     orphanRemoval: true,

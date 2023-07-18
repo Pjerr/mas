@@ -32,8 +32,7 @@ export default function SearchResult({
         const attributesToAdd = attributes.filter(
             (attribute) =>
                 !part.attributes.some(
-                    (attributeForAdd) =>
-                        (attributeForAdd as Attribute).id === attribute.id
+                    (attributeForAdd) => attributeForAdd.id === attribute.id
                 )
         );
         if (!attributesToAdd || !attributesToAdd.length) {
@@ -43,7 +42,7 @@ export default function SearchResult({
             return;
         }
 
-        dispatch(addFormFields({ attributes: attributesToAdd as Attribute[] }));
+        dispatch(addFormFields({ attributes: attributesToAdd }));
     };
 
     const { data: responseAttributes } = useFindAttributeQuery(

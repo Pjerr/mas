@@ -54,7 +54,7 @@ const createThunk = createAsyncThunk<
             createPart: {
                 ...rest,
                 name: data.name,
-                attributeIds: data.attributes.map((a) => (a as Attribute).id),
+                attributeIds: data.attributes.map((a) => a.id),
                 attributeConfigs: config,
             },
         })

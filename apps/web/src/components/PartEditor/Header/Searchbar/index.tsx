@@ -48,8 +48,7 @@ const Searchbar = React.forwardRef<
             const attributesToAdd = attributes.filter(
                 (attribute) =>
                     !(activeForm.state.defaultValues as Part).attributes.some(
-                        (attributeForAdd) =>
-                            (attributeForAdd as Attribute).id === attribute.id
+                        (attributeForAdd) => attributeForAdd.id === attribute.id
                     )
             );
             if (!attributesToAdd || !attributesToAdd.length) {
@@ -59,9 +58,7 @@ const Searchbar = React.forwardRef<
                 return;
             }
 
-            dispatch(
-                addFormFields({ attributes: attributesToAdd as Attribute[] })
-            );
+            dispatch(addFormFields({ attributes: attributesToAdd }));
         };
 
         const { data: responseAttributes } = useFindAttributeQuery(

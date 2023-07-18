@@ -9,6 +9,10 @@ export const selectActivePartId = (state: RootState) => {
     return state.partEditor.form.value.id;
 };
 
+export const selectPartEditorValue = (state: RootState) => {
+    return state.partEditor.form?.value;
+};
+
 export const selectAttributeConfigPaths = (
     state: RootState,
     partId?: string

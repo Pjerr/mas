@@ -37,8 +37,7 @@ export const partSlice = createSlice({
             const product = state.form.value;
 
             const updatedAttributes = product.attributes.filter(
-                (attribute) =>
-                    (attribute as Attribute).group.id !== payload.groupId
+                (attribute) => attribute.group.id !== payload.groupId
             );
             const updatedProperties = Object.fromEntries(
                 Object.entries(product.properties || {}).filter(

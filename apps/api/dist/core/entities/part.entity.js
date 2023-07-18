@@ -80,7 +80,7 @@ __decorate([
 ], Part.prototype, "category", void 0);
 __decorate([
     (0, swagger_1.ApiResponseProperty)({
-        type: [attribute_entity_1.Attribute],
+        type: (type) => [attribute_entity_1.Attribute],
     }),
     (0, core_1.ManyToMany)(() => attribute_entity_1.Attribute),
     __metadata("design:type", Object)

@@ -17,7 +17,7 @@ export default function Groups({
     const handleOnClick = (addAttributesProps: AddAttributesProps) => {
         const { type, attribute, group } = addAttributesProps;
         if (type === 'group' && group) {
-            onClick(group.attributes as Attribute[]);
+            onClick(group.attributes);
         }
         if (type === 'attribute' && attribute) {
             onClick([attribute]);
@@ -36,7 +36,7 @@ export default function Groups({
                 {group.name}
             </div>
             <div className={styles['groups__attributes']}>
-                {(group.attributes as Attribute[]).map((attribute) => (
+                {group.attributes.map((attribute) => (
                     <div
                         key={`attributes__attribute-${attribute.id}`}
                         className={styles['attributes__attribute']}

@@ -52,7 +52,7 @@ __decorate([
     __metadata("design:type", String)
 ], Group.prototype, "searchIndex", void 0);
 __decorate([
-    (0, swagger_1.ApiResponseProperty)({ type: [attribute_entity_1.Attribute] }),
+    (0, swagger_1.ApiResponseProperty)({ type: (type) => [attribute_entity_1.Attribute] }),
     (0, core_1.OneToMany)(() => attribute_entity_1.Attribute, (attribute) => attribute.group, {
         nullable: true,
         orphanRemoval: true,
