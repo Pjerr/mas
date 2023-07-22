@@ -115,8 +115,6 @@ export class OptionService {
       },
     );
 
-    Logger.log('options-config', options);
-
     return options;
   }
 }

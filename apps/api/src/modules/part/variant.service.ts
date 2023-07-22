@@ -5,6 +5,7 @@ import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityManager } from '@mikro-orm/postgresql';
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { CreateConfig } from '../attribute/dto/option';
+import { GeneratedVariants } from './types';
 
 @Injectable()
 export class VariantService {
@@ -26,25 +27,28 @@ export class VariantService {
     );
   }
 
-  generateVariants(partId: string, attributeConfigs: CreateConfig[][]) {
-    if (attributeConfigs.length === 0) return [];
+  async generateVariants(
+    partId: string,
+    attributeConfigs: CreateConfig[][],
+  ): Promise<GeneratedVariants> {
+    if (attributeConfigs.length === 0) return { configs: [], variants: [] };
 
     const optionConfigs = attributeConfigs.map((configs) =>
       this.configService.create(partId, configs),
     );
 
-    const configVariants = this.cartesianPart(optionConfigs);
+    const configVariants = this.cartesianPart(await Promise.all(optionConfigs));
 
     Logger.log('config-combinations', configVariants);
 
-    const variants = configVariants.map((optionsConfigs) =>
+    const variants = configVariants.map((configVariant) =>
       this.repository.create({
         part: partId,
-        optionsConfigs,
+        optionsConfigs: configVariant,
       }),
     );
 
-    return variants;
+    return { configs: configVariants, variants };
   }
 
   // async findOne(id: string) {

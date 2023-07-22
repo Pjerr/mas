@@ -25,14 +25,8 @@ export default function MultipleSelectEditor({
     );
 
     return (
-        <div
-            className={styles['editor__container']}
-            data-cy={`editor__${metadata.propertyKey}`}
-        >
-            <label
-                className={styles['editor__label']}
-                data-cy={`editor__label__${metadata.propertyKey}`}
-            >
+        <div className={styles['editor__container']}>
+            <label className={styles['editor__label']}>
                 {metadata.displayName}
             </label>
             <MultipleSelect
@@ -47,7 +41,6 @@ export default function MultipleSelectEditor({
                 name={field.name}
                 render={({ message }) => (
                     <span
-                        data-cy="editor__error-message"
                         className={styles['error-message']}
                     >{`${metadata.displayName} ${message}`}</span>
                 )}

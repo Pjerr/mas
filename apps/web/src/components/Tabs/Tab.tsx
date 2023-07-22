@@ -32,7 +32,6 @@ const Tab = React.forwardRef<
                 rest.className
             )}
             onClick={handleTabSelect}
-            data-cy={`tab-${index}`}
         >
             {title}
         </div>

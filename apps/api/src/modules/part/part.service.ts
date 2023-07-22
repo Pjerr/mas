@@ -8,6 +8,7 @@ import { FilterEntity } from '@/core/types';
 import { CreateConfig } from '../attribute/dto/option';
 import { VariantService } from './variant.service';
 import { OptionConfigService } from '../attribute/option-config.service';
+import { CreatedPart } from './types';
 
 @Injectable()
 export class PartService {
@@ -30,7 +31,7 @@ export class PartService {
     return attributeConfigs;
   }
 
-  async create(payload: CreatePart) {
+  async create(payload: CreatePart): Promise<CreatedPart> {
     const part = this.partRepository.create({
       ...payload,
       createdAt: new Date(),
@@ -47,11 +48,11 @@ export class PartService {
       },
     );
 
-    const configs = this.existOptions(payload.attributeConfigs);
+    const attributeConfigs = this.existOptions(payload.attributeConfigs);
 
-    const variants = this.variantService.generateVariants(
+    const { configs, variants } = await this.variantService.generateVariants(
       createdPart.id,
-      configs,
+      attributeConfigs,
     );
 
     this.em.flush();
@@ -60,7 +61,7 @@ export class PartService {
 
     Logger.log('Created part', JSON.stringify(createdPart));
 
-    return createdPart;
+    return { configs, part };
   }
 
   async createDraft() {
@@ -95,7 +96,7 @@ export class PartService {
     return part;
   }
 
-  async update(id: string, payload: UpdatePart) {
+  async update(id: string, payload: UpdatePart): Promise<CreatedPart> {
     const part = await this.partRepository.findOne(
       { id },
       {
@@ -103,15 +104,7 @@ export class PartService {
       },
     );
 
-    const configs = this.existOptions(payload.attributeConfigs);
-
-    this.configService.removeMany(id);
-
-    const variants = this.variantService.generateVariants(part.id, configs);
-
-    part.variants.add(variants);
-
-    if (payload.attributeIds) {
+    if (payload.attributeIds.length > 0) {
       const attributes = payload.attributeIds.map((id) =>
         this.attributeRepository.getReference(id),
       );
@@ -120,13 +113,20 @@ export class PartService {
 
     part.assign(payload);
 
+    const attributeConfigs = this.existOptions(payload.attributeConfigs);
+
+    this.configService.removeMany(id);
+
+    const { variants, configs } = await this.variantService.generateVariants(
+      part.id,
+      attributeConfigs,
+    );
+
     await this.em.persistAndFlush(part);
 
-    const updatedPart = this.partRepository.findOne(id, {
-      populate: ['attributes.group'],
-    });
+    part.variants.add(variants);
 
-    return updatedPart;
+    return { configs, part };
   }
 
   async bulkUpdatePrice(ids: string[], payloads: number[]) {

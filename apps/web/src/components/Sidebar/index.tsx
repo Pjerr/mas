@@ -16,10 +16,7 @@ export function Sidebar() {
 
     return (
         <>
-            <div
-                className={styles['sidebar-container']}
-                data-cy="cy__container"
-            >
+            <div className={styles['sidebar-container']}>
                 <nav className={classNames(styles['nav-container'])}>
                     {tabs.map((tab, index) => (
                         <div
@@ -28,7 +25,6 @@ export function Sidebar() {
                             })}
                             key={`${tab.title}`}
                             onClick={() => handleToggleSidebar(index)}
-                            data-cy="cy__tab"
                         >
                             {tab.title}
                         </div>

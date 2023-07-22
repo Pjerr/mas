@@ -65,7 +65,6 @@ export function Subheader({
                     index={index}
                     variant={'filled'}
                     onDelete={() => deleteFormGroup(attributes, id)}
-                    data-cy="subheader__chip"
                 />
             ))}
             {renderOptionChip && (
@@ -74,7 +73,6 @@ export function Subheader({
                     index={Object.keys(groups).length}
                     title="Options"
                     variant={'filled'}
-                    data-cy="chip__options"
                 />
             )}
             {!displaySearch && (
@@ -91,7 +89,6 @@ export function Subheader({
                 <div className={classNames(styles['search-input'])}>
                     <SearchInput
                         onChange={setSearchParam}
-                        data-cy="part-editor__search-input"
                         tooltipText="Enter attribute name"
                     />
                     <Button

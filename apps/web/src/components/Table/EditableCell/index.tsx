@@ -6,37 +6,32 @@ import { AccordionContext } from '@/components/Accordion/Provider';
 import { selectActivePartId } from '@/store/editors/part';
 import TextInput from '@/components/Inputs/TextInput';
 import { updateTableCell } from '@/store/table';
-interface EditableCellProps {
-    rowIndex: number;
-    columnId: string;
-    value: unknown;
-}
+import { CellContext } from '@tanstack/react-table';
+import { AttributeOption } from '@/store/api/endpoints';
+interface EditableCellProps {}
 
 export function EditableCell({
-    columnId,
-    rowIndex,
-    value: initialValue,
-}: EditableCellProps) {
+    cell,
+}: CellContext<AttributeOption, any> & EditableCellProps) {
     const dispatch = useAppDispatch();
     const partId = useSelector(selectActivePartId);
-    const { activeItem } = useContext(AccordionContext);
 
-    const [value, setValue] = React.useState(initialValue);
+    const [value, setValue] = React.useState(cell.getValue());
 
     const onBlur = () => {
         dispatch(
             updateTableCell({
-                rowIndex,
-                columnId,
+                rowIndex: cell.row.index,
+                columnId: cell.column.id,
                 value,
-                instanceId: `${partId}-${activeItem}`,
+                instanceId: `${partId}-${cell.row.original.attribute}`,
             })
         );
     };
 
     React.useEffect(() => {
-        setValue(initialValue);
-    }, [initialValue]);
+        setValue(cell.getValue());
+    }, [cell.getValue()]);
 
     return (
         <TextInput

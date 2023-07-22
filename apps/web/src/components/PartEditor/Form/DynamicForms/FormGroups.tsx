@@ -26,7 +26,6 @@ export default function FormGroups({ part }: { part: Part }) {
                             ? attributes[0].group.name
                             : `Group-${index}`
                     }
-                    data-cy="form__form-group"
                 >
                     {attributes.map((attribute) => {
                         const metadata = createDynamicMetadata(attribute);

@@ -39,12 +39,12 @@ let PartService = class PartService {
         const createdPart = await this.partRepository.findOne({ id: part.id }, {
             populate: ['attributes.group', 'attributes.options'],
         });
-        const configs = this.existOptions(payload.attributeConfigs);
-        const variants = this.variantService.generateVariants(createdPart.id, configs);
+        const attributeConfigs = this.existOptions(payload.attributeConfigs);
+        const { configs, variants } = await this.variantService.generateVariants(createdPart.id, attributeConfigs);
         this.em.flush();
         createdPart.variants.add(variants);
         common_1.Logger.log('Created part', JSON.stringify(createdPart));
-        return createdPart;
+        return { configs, part };
     }
     async createDraft() {
         const product = this.partRepository.create({
@@ -74,20 +74,17 @@ let PartService = class PartService {
         const part = await this.partRepository.findOne({ id }, {
             populate: ['attributes.group', 'attributes.options'],
         });
-        const configs = this.existOptions(payload.attributeConfigs);
-        this.configService.removeMany(id);
-        const variants = this.variantService.generateVariants(part.id, configs);
-        part.variants.add(variants);
-        if (payload.attributeIds) {
+        if (payload.attributeIds.length > 0) {
             const attributes = payload.attributeIds.map((id) => this.attributeRepository.getReference(id));
             part.attributes.set(attributes);
         }
         part.assign(payload);
+        const attributeConfigs = this.existOptions(payload.attributeConfigs);
+        this.configService.removeMany(id);
+        const { variants, configs } = await this.variantService.generateVariants(part.id, attributeConfigs);
         await this.em.persistAndFlush(part);
-        const updatedPart = this.partRepository.findOne(id, {
-            populate: ['attributes.group'],
-        });
-        return updatedPart;
+        part.variants.add(variants);
+        return { configs, part };
     }
     async bulkUpdatePrice(ids, payloads) {
         const parts = await this.partRepository.find({ id: { $in: ids } });

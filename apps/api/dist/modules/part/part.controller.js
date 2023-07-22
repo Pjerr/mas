@@ -28,8 +28,8 @@ let PartController = class PartController {
         this.partService = partService;
     }
     async create(request) {
-        const response = await this.partService.create(request);
-        return { data: response };
+        const { configs, part } = await this.partService.create(request);
+        return { data: part, variantConfigs: configs };
     }
     async createDraft() {
         const response = await this.partService.createDraft();
@@ -49,8 +49,8 @@ let PartController = class PartController {
         return { data: response };
     }
     async update(id, payload) {
-        const response = await this.partService.update(id, payload);
-        return { data: response };
+        const { configs, part } = await this.partService.update(id, payload);
+        return { data: part, variantConfigs: configs };
     }
     async addCategory(id, payload) {
         const response = await this.partService.addCategory(id, payload.categoryId);

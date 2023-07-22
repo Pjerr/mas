@@ -18,14 +18,12 @@ export default function CheckboxEditor({
                 {...register(metadata.propertyKey)}
                 {...field}
                 label={metadata.displayName}
-                data-cy={`editor__${metadata.propertyKey}`}
             />
             <ErrorMessage
                 errors={formState.errors}
                 name={field.name}
                 render={({ message }) => (
                     <span
-                        data-cy="editor__error-message"
                         className={styles['error-message']}
                     >{`${metadata.displayName} ${message}`}</span>
                 )}

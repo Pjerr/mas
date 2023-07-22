@@ -10,9 +10,5 @@ interface TabPanelsProps {
 export default function TabPanel({ children, index }: TabPanelsProps) {
     const { activeTab } = useContext(TabsContext);
     if (activeTab !== index) return <></>;
-    return (
-        <div className={styles['tab-panel']} data-cy={`tab-panel__${index}`}>
-            {children}
-        </div>
-    );
+    return <div className={styles['tab-panel']}>{children}</div>;
 }

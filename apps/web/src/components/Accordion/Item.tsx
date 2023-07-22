@@ -23,11 +23,7 @@ function AccordionItem({ children, index = 0, title }: AccordionItemProps) {
     };
 
     return (
-        <div
-            className={styles.accordion__item}
-            key={index + title}
-            data-cy="accordion__item"
-        >
+        <div className={styles.accordion__item} key={index + title}>
             <AccordionHeader title={title} index={index} />
             <LazyMotion features={domAnimation} strict>
                 <AnimatePresence initial={false} mode={'wait'}>
@@ -40,10 +36,7 @@ function AccordionItem({ children, index = 0, title }: AccordionItemProps) {
                             variants={animation.variants}
                             transition={animation.transition}
                         >
-                            <m.div
-                                className={styles.accordion__content}
-                                data-cy="accordion__content"
-                            >
+                            <m.div className={styles.accordion__content}>
                                 {children}
                             </m.div>
                         </m.div>
@@ -70,29 +63,19 @@ const AccordionHeader = ({
     };
 
     return (
-        <div
-            className={styles['accordion__item-header']}
-            onClick={onClose}
-            data-cy="accordion__item-header"
-        >
+        <div className={styles['accordion__item-header']} onClick={onClose}>
             <LazyMotion features={domAnimation} strict>
                 <m.button
                     animate={isActive ? { rotate: 180 } : { rotate: 0 }}
                     type="button"
                     aria-label="Close accordion"
                     onClick={onClose}
-                    data-cy="accordion__expand"
                 >
-                    <FaCaretDown data-cy="accordion__icon" />
+                    <FaCaretDown />
                 </m.button>
             </LazyMotion>
 
-            <span
-                className={styles['item-header__title']}
-                data-cy="item-header__title"
-            >
-                {title}
-            </span>
+            <span className={styles['item-header__title']}>{title}</span>
         </div>
     );
 };

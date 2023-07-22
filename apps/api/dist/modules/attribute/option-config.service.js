@@ -23,9 +23,9 @@ let OptionConfigService = class OptionConfigService {
         this.em = em;
         this.configRepository = configRepository;
     }
-    create(partId, configs) {
+    async create(partId, configs) {
         const configVariant = configs.map((config) => this.configRepository.create(Object.assign(Object.assign({}, config), { part: partId, id: undefined })));
-        this.em.persist(configVariant);
+        await this.em.persistAndFlush(configVariant);
         return configVariant;
     }
     async findOne(id) {

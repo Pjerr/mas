@@ -173,15 +173,8 @@ export const partOptionColumnDef: ColumnDef<AttributeOption, any>[] = [
     {
         id: 'configs.0.price',
         header: () => 'Additional price',
-        cell: ({ row, column, getValue }) => (
-            <EditableCell
-                value={getValue()}
-                columnId={column.id}
-                rowIndex={row.index}
-            />
-        ),
+        cell: EditableCell,
         accessorFn: (option: AttributeOption) =>
-            //@ts-ignore
             option.configs.length > 0 ? option.configs[0].price : 0,
         enableSorting: false,
         meta: { propertyKey: 'Number' },

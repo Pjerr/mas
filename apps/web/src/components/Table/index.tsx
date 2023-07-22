@@ -142,8 +142,8 @@ function Table({
     }
 
     return (
-        <div className={styles['grid-container']} data-cy="grid-container">
-            <table className={styles['table']} data-cy="table">
+        <div className={styles['grid-container']}>
+            <table className={styles['table']}>
                 <TableHeader instanceId={instanceId} />
                 <TableBody instanceId={instanceId} />
             </table>

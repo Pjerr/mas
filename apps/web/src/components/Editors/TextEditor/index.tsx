@@ -14,24 +14,19 @@ export default function TextEditor({
 
     return (
         <div className={styles['editor__container']}>
-            <label
-                className={styles['editor__label']}
-                data-cy={`editor__label__${metadata.propertyKey}`}
-            >
+            <label className={styles['editor__label']}>
                 {metadata.displayName}
             </label>
             <TextInput
                 {...register(metadata.propertyKey)}
                 {...field}
                 variant="border"
-                data-cy={`editor__${metadata.propertyKey}`}
             />
             <ErrorMessage
                 errors={formState.errors}
                 name={field.name}
                 render={({ message }) => (
                     <span
-                        data-cy="editor__error-message"
                         className={styles['error-message']}
                     >{`${metadata.displayName} ${message}`}</span>
                 )}

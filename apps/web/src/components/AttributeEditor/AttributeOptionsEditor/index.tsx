@@ -30,7 +30,6 @@ export default function AttributeOptionsEditor() {
                         onClick={() => append('')}
                         type="button"
                         icon={<FaPlusCircle />}
-                        data-cy={'option-editor__add-button'}
                     />
                 </div>
             </div>

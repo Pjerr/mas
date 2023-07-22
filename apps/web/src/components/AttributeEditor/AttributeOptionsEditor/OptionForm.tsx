@@ -14,16 +14,11 @@ interface OptionFormProps {
 export default function OptionForm({ index, remove }: OptionFormProps) {
     const { control } = useFormContext();
     return (
-        <div
-            className={styles['option']}
-            key={`option-form__${index}`}
-            data-cy={'option__form'}
-        >
+        <div className={styles['option']} key={`option-form__${index}`}>
             <div className={styles['remove-button__container']}>
                 <Button
                     onClick={() => remove(index)}
                     icon={<FaMinusCircle />}
-                    data-cy={'option-editor__remove-button'}
                 />
             </div>
             {optionsFormMetadata.map((generalMetadata) => (

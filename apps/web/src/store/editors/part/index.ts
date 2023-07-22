@@ -1,14 +1,12 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { initialState } from './initialState';
 import {
-    AddAttributePathAction,
     AddFieldsAction,
     RemoveFieldsAction,
     SetDraftFormAction,
     SetFormAction,
     UpdateDefaultFormStateAction,
 } from './types';
-import { Attribute, Part } from '@/store/api/endpoints';
 import { castDraft } from 'immer';
 
 export const partSlice = createSlice({
@@ -68,25 +66,6 @@ export const partSlice = createSlice({
                 value: payload.part,
             };
         },
-        addAttributePath: (
-            state,
-            { payload }: PayloadAction<AddAttributePathAction>
-        ) => {
-            if (!state.attributePaths[payload.partId]) {
-                state.attributePaths[payload.partId] = [];
-            }
-
-            if (
-                !state.attributePaths[payload.partId].find(
-                    (path) => path.attributeId === payload.attributeId
-                )
-            ) {
-                state.attributePaths[payload.partId].push({
-                    attributeId: payload.attributeId,
-                    instanceId: payload.instanceId,
-                });
-            }
-        },
     },
 });
 
@@ -97,7 +76,6 @@ export const {
     setForm,
     updateDefaultFormValue,
     setDraftForm,
-    addAttributePath,
 } = partSlice.actions;
 
 export * from './selectors';

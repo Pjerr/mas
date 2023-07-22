@@ -86,7 +86,6 @@ let OptionService = class OptionService {
                 },
             },
         });
-        common_1.Logger.log('options-config', options);
         return options;
     }
 };

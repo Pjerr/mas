@@ -32,17 +32,17 @@ let VariantService = class VariantService {
                 .reduce((previous, current) => previous.concat(current), []);
         }, [[]]);
     }
-    generateVariants(partId, attributeConfigs) {
+    async generateVariants(partId, attributeConfigs) {
         if (attributeConfigs.length === 0)
-            return [];
+            return { configs: [], variants: [] };
         const optionConfigs = attributeConfigs.map((configs) => this.configService.create(partId, configs));
-        const configVariants = this.cartesianPart(optionConfigs);
+        const configVariants = this.cartesianPart(await Promise.all(optionConfigs));
         common_1.Logger.log('config-combinations', configVariants);
-        const variants = configVariants.map((optionsConfigs) => this.repository.create({
+        const variants = configVariants.map((configVariant) => this.repository.create({
             part: partId,
-            optionsConfigs,
+            optionsConfigs: configVariant,
         }));
-        return variants;
+        return { configs: configVariants, variants };
     }
 };
 VariantService = __decorate([

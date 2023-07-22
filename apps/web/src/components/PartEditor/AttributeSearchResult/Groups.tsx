@@ -46,7 +46,6 @@ export default function Groups({
                                 attribute,
                             })
                         }
-                        data-cy="search-results__attribute"
                     >
                         {attribute.displayName}
                     </div>

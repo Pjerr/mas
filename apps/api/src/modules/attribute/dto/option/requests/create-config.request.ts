@@ -1,4 +1,6 @@
+import { AttributeOption } from '@/core/entities';
+
 export class CreateConfig {
   price?: number;
-  option: string;
+  option: Partial<AttributeOption>;
 }

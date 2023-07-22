@@ -1,6 +1,8 @@
 import { RootState } from '..';
 import { AttributeOption, OptionConfig } from '../api/endpoints';
 
+export const selectTable = (state: RootState) => state.table;
+
 export const selectTableData = (state: RootState, instanceId: string) =>
     state.table[instanceId]?.data;
 

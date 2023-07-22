@@ -631,12 +631,12 @@ export type Variant = {
     updatedAt: string;
 };
 export type OptionConfig = {
+    option: AttributeOption;
     variants: Variant[];
     id: string;
     price: number;
     createdAt: string;
     updatedAt: string;
-    option: AttributeOption;
     part: string;
 };
 export type AttributeOption = {
@@ -805,11 +805,12 @@ export type QueryOption = {
 };
 export type PartResponse = {
     data: Part;
+    variantConfigs: OptionConfig[][];
     links?: string[];
 };
 export type CreateConfig = {
     price?: number;
-    option: string;
+    option: object;
 };
 export type CreatePart = {
     status?: 'in-stock' | 'out-of-stock';

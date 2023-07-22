@@ -4,11 +4,10 @@ import { useSelector } from 'react-redux';
 import { selectPartForm } from '@/store/editors/part';
 
 export default function Body() {
-
     const form = useSelector(selectPartForm);
 
     return (
-        <div className={styles['editor__body']} data-cy="product-editor__body">
+        <div className={styles['editor__body']}>
             {form && <PartForm key={`product-form`} />}
         </div>
     );

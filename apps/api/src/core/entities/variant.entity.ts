@@ -23,10 +23,7 @@ export class Variant extends BaseEntity<Variant, 'id'> {
   part: Part;
 
   @ApiResponseProperty({ type: (type) => [OptionConfig] })
-  @ManyToMany(() => OptionConfig, (optionConfig) => optionConfig.variants, {
-    nullable: true,
-    cascade: [Cascade.PERSIST, Cascade.REMOVE],
-  })
+  @ManyToMany(() => OptionConfig, (optionConfig) => optionConfig.variants)
   optionsConfigs = new Collection<OptionConfig>(this);
 
   @Property()

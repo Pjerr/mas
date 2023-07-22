@@ -29,6 +29,7 @@ export class OptionConfig extends BaseEntity<OptionConfig, 'id'> {
   @Property({ nullable: true, onUpdate: () => new Date() })
   updatedAt: Date;
 
+  @ApiResponseProperty({ type: () => AttributeOption })
   @ManyToOne(() => AttributeOption, { nullable: true })
   option: AttributeOption;
 

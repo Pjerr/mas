@@ -7,17 +7,17 @@ import { Part, Variant } from '@/store/api/endpoints';
 interface VariantsProps {
     part: Part;
 }
-export default function ProductVariants({ part: product }: VariantsProps) {
-    const columnHeaders: string[] = product.attributes.map(
+export default function ProductVariants({ part }: VariantsProps) {
+    const columnHeaders: string[] = part.attributes.map(
         (attribute) => attribute.displayName
     );
 
     const removeVariant = (index: number) => {
         console.log('We should remove this variant from the response');
-        console.log(product.variants[index]);
+        console.log(part.variants[index]);
     };
 
-    const variants = product.variants as Variant[];
+    const variants = part.variants;
 
     return (
         <table className={styles['variant__table']}>

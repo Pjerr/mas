@@ -34,7 +34,6 @@ const Checkbox = React.forwardRef<
                 type="checkbox"
                 className={classNames(props.className, styles['checkbox'])}
                 {...props}
-                data-cy="checkbox"
             />
         </div>
     );

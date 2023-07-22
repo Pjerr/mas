@@ -13,7 +13,7 @@ export class OptionConfigService {
     private readonly configRepository: EntityRepository<OptionConfig>,
   ) {}
 
-  create(partId: string, configs: CreateConfig[]) {
+  async create(partId: string, configs: CreateConfig[]) {
     const configVariant = configs.map((config) =>
       this.configRepository.create({
         ...config,
@@ -22,7 +22,7 @@ export class OptionConfigService {
       }),
     );
 
-    this.em.persist(configVariant);
+    await this.em.persistAndFlush(configVariant);
 
     return configVariant;
   }

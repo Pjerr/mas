@@ -51,6 +51,7 @@ __decorate([
     __metadata("design:type", Date)
 ], OptionConfig.prototype, "updatedAt", void 0);
 __decorate([
+    (0, swagger_1.ApiResponseProperty)({ type: () => attribute_option_entity_1.AttributeOption }),
     (0, core_1.ManyToOne)(() => attribute_option_entity_1.AttributeOption, { nullable: true }),
     __metadata("design:type", attribute_option_entity_1.AttributeOption)
 ], OptionConfig.prototype, "option", void 0);

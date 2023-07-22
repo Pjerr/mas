@@ -31,10 +31,7 @@ export default function ConfirmModal({
             title={modalTitle}
             control={control}
         >
-            <div
-                className={styles['modal__container']}
-                data-cy="modal__container"
-            >
+            <div className={styles['modal__container']}>
                 {text}
                 <div className={styles['confirm__button']}>
                     <Button
@@ -42,7 +39,6 @@ export default function ConfirmModal({
                         onClick={handleConfirm}
                         variant={'primary'}
                         type="button"
-                        data-cy="confirm__button"
                     >
                         OK
                     </Button>

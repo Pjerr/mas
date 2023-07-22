@@ -15,8 +15,8 @@ export default function Options({ attributes }: OptionsProps) {
         <>
             <div className={styles['product-options']} id={`group-options`}>
                 <h1 className={styles['group__title']}>Options</h1>
-                <div className={styles['options']} data-cy="options__container">
-                    <Accordion onExpand={() => {}} data-cy="options__accordion">
+                <div className={styles['options']}>
+                    <Accordion onExpand={() => {}}>
                         {attributes.map((attribute) => {
                             return (
                                 <AccordionItem
