@@ -90,7 +90,7 @@ export class PartService {
 
   async findOne(id: string) {
     const part = await this.partRepository.findOne(id, {
-      populate: ['attributes', 'attributes.group'],
+      populate: ['attributes', 'attributes.group', 'attributes.options'],
     });
     if (!part) throw new NotFoundException('Part not found');
     return part;
