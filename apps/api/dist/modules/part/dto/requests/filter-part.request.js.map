@@ -1,1 +1,1 @@
-{"version":3,"file":"filter-part.request.js","sourceRoot":"","sources":["../../../../../src/modules/part/dto/requests/filter-part.request.ts"],"names":[],"mappings":";;;;AACA,kDAA2C;AAI3C,MAAa,SAAU,SAAQ,mBAAoC;;;;CAElE;AAFD,8BAEC"}
+{"version":3,"file":"filter-part.request.js","sourceRoot":"","sources":["../../../../../src/modules/part/dto/requests/filter-part.request.ts"],"names":[],"mappings":";;;;AACA,kDAA2C;AAE3C,MAAM,QAAQ,GAAG,CAAC,kBAAkB,EAAE,yBAAyB,CAAC,CAAC;AAMjE,MAAa,SAAU,SAAQ,mBAAoC;;;;CAElE;AAFD,8BAEC"}
