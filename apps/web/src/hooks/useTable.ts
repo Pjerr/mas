@@ -19,12 +19,8 @@ export const useTable = (instanceId?: string) => {
         );
     }
 
-    async function loadOptionConfig(
-        instanceId: string,
-        attributeId: string,
-        partId: string
-    ) {
-        await dispatch(loadPartOptions({ attributeId, partId, instanceId }));
+    async function loadOptionConfig(attributeIds: string[], partId: string) {
+        await dispatch(loadPartOptions({ attributeIds, partId }));
     }
 
     async function removeMany(ids: string[], type: EntityType) {
@@ -41,8 +37,8 @@ export const useTable = (instanceId?: string) => {
         return {
             loadTableData,
             removeMany,
-            clearTableData,
             loadOptionConfig,
+            clearTableData,
         };
     }, [loadTableData, removeMany, clearTableData, loadOptionConfig]);
 };

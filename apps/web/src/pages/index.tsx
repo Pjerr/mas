@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { RootState, useAppDispatch } from '@/store';
 import { useRouter } from 'next/router';
 import { SidebarLayout } from '@/layouts/SidebarLayout';
-import { useTable, useTableSelector } from '@/hooks/useTable';
+import { useTable } from '@/hooks/useTable';
 import { instanceIds } from '@/types/entity';
 import { EntityType } from '@/store/table/types';
 import { resetForm } from '@/store/editors/part';

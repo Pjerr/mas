@@ -1,7 +1,10 @@
 import { Attribute } from '@/core/entities';
 import { QueryEntity } from '@/core/types';
 
-export type AttributeRelationTypes = 'options';
+const POPULATE = ['options', 'options.configs'];
+export type AttributeRelationTuple = typeof POPULATE;
+
+export type AttributeRelationTypes = AttributeRelationTuple[number];
 
 export class QueryAttribute extends QueryEntity<
   AttributeRelationTypes,

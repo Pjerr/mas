@@ -81,7 +81,7 @@ export interface UpdateCellAction {
 
 export const includeArgMap: Record<EntityType, string[]> = {
     [EntityType.Attribute]: ['options'],
-    [EntityType.Part]: ['attributes.group'],
-    [EntityType.Option]: [],
+    [EntityType.Option]: ['configs'],
     [EntityType.Manufacturer]: [],
+    [EntityType.Part]: [],
 };

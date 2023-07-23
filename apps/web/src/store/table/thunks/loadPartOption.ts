@@ -35,6 +35,7 @@ const loadPartOptions = createAsyncThunk<
                 : [];
 
             const { table } = getState();
+
             if (table[instanceId].data.length === 0) {
                 dispatch(
                     loadData({

@@ -10,7 +10,7 @@ const loadPartThunk = createAsyncThunk<
     void,
     loadPartProps,
     { dispatch: AppDispatch; state: RootState }
->('part-editor/loadData', async ({ productId }, { dispatch, getState }) => {
+>('part-editor/loadPart', async ({ productId }, { dispatch, getState }) => {
     const { data: response } = await dispatch(
         Api.endpoints.findOnePart.initiate({
             id: productId,

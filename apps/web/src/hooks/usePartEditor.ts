@@ -18,6 +18,7 @@ export function usePartEditor() {
         if (!attributes.length) throw new Error('No attributes selected');
 
         if (!formAttributes?.length) {
+            dispatch(addFormFields({ attributes }));
             await dispatch(
                 loadPartOptions({
                     attributeIds: attributes.map((a) => a.id),

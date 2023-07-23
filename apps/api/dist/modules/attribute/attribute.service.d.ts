@@ -11,7 +11,7 @@ export declare class AttributeService {
     create(payload: CreateAttribute): Promise<Attribute>;
     findOne(id: string): Promise<import("@mikro-orm/core").Loaded<Attribute, never>>;
     find(filters: FilterEntity<Attribute>): Promise<import("@mikro-orm/core").Loaded<Attribute, any>[]>;
-    update(id: string, payload: UpdateAttribute): Promise<import("@mikro-orm/core").Loaded<Attribute, "group" | "options">>;
+    update(id: string, payload: UpdateAttribute): Promise<import("@mikro-orm/core").Loaded<Attribute, "options" | "group">>;
     remove(id: string): Promise<void>;
     removeMany(ids: string[]): Promise<void>;
     updateGroup(id: string, groupId: string): Promise<import("@mikro-orm/core").Loaded<Attribute, never>>;

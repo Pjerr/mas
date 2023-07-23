@@ -27,7 +27,7 @@ export class AttributeOption extends BaseEntity<AttributeOption, 'id'> {
   @Unique()
   displayName: string;
 
-  @ManyToOne(() => Attribute)
+  @ManyToOne(() => Attribute, { mapToPk: true })
   @Filterable()
   attribute: string;
 

@@ -20,6 +20,7 @@ export default function PartForm() {
 
     const form = useSelector(selectPartForm);
     const part = form?.value as Part;
+
     const validationSchema = useMemo(() => {
         return createValidationSchema(part.attributes);
     }, [part, part.properties, part.attributes]);
