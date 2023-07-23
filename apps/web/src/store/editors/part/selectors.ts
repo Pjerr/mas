@@ -13,11 +13,6 @@ export const selectPartEditorValue = (state: RootState) => {
     return state.partEditor.form?.value;
 };
 
-export const selectAttributeConfigPaths = (
-    state: RootState,
-    partId?: string
-) => {
-    if (!state.partEditor.form) return;
-    const formId = partId ? partId : state.partEditor.form.value.id;
-    return state.partEditor.attributePaths[formId];
+export const selectFormAttributes = (state: RootState) => {
+    return state.partEditor.form?.value.attributes;
 };

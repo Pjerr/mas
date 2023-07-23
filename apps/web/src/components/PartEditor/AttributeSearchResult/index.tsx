@@ -5,18 +5,17 @@ import Groups from './Groups';
 
 interface AttributeSearchResultProps {
     attributes: Attribute[];
-    onClick: (attributes: Attribute[]) => void;
 }
 const AttributeSearchResult = React.forwardRef<
     HTMLDivElement,
-    Omit<HTMLProps<HTMLDivElement>, 'onClick'> & AttributeSearchResultProps
->(({ attributes, onClick }, ref) => {
+    HTMLProps<HTMLDivElement> & AttributeSearchResultProps
+>(({ attributes }, ref) => {
     const groupIds = attributes.map((attribute) => attribute.group.id);
     const { data: groupsResponse } = useFindGroupQuery(
         {
             query: {
                 sort: { field: 'id', order: 'ASC' },
-                include: ['attributes', 'attributes.group'],
+                include: ['attributes.group'],
                 filters: [
                     {
                         field: 'id',
@@ -38,7 +37,6 @@ const AttributeSearchResult = React.forwardRef<
                             <Groups
                                 key={`rendered-group__${group.id}`}
                                 group={group}
-                                onClick={onClick}
                             />
                         );
                     })}

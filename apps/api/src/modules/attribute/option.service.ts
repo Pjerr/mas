@@ -100,7 +100,7 @@ export class OptionService {
 
   async findPartOptions(request: FilterOptionConfig) {
     const options = await this.optionRepository.find(
-      { attribute: { $eq: request.attributeId } },
+      { attribute: { $in: request.attributeIds } },
 
       {
         strategy: LoadStrategy.SELECT_IN,

@@ -11,7 +11,6 @@ export enum EntityType {
     Part = 'Part',
     Option = 'Option',
     Manufacturer = 'Manufacturer',
-    PartOption = 'PartOption',
 }
 
 export interface TableInstance {
@@ -73,17 +72,16 @@ export interface RowSelectionAction {
     rowSelection: RowSelectionState;
 }
 
-export const includeArgMap: Record<EntityType, string[]> = {
-    [EntityType.Attribute]: ['options'],
-    [EntityType.Part]: ['attributes.group'],
-    [EntityType.Option]: [],
-    [EntityType.Manufacturer]: [],
-    [EntityType.PartOption]: [],
-};
-
 export interface UpdateCellAction {
     instanceId: string;
     rowIndex: number;
     columnId: string;
     value: unknown;
 }
+
+export const includeArgMap: Record<EntityType, string[]> = {
+    [EntityType.Attribute]: ['options'],
+    [EntityType.Part]: ['attributes.group'],
+    [EntityType.Option]: [],
+    [EntityType.Manufacturer]: [],
+};

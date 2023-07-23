@@ -189,5 +189,4 @@ export const extractColumnDef: Record<EntityType, ColumnDef<any, any>[]> = {
     [EntityType.Part]: partColumnDef,
     [EntityType.Option]: optionColumnDef,
     [EntityType.Manufacturer]: manufacturerColumnDef,
-    [EntityType.PartOption]: partOptionColumnDef,
 };

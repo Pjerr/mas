@@ -75,7 +75,7 @@ let OptionService = class OptionService {
         return option;
     }
     async findPartOptions(request) {
-        const options = await this.optionRepository.find({ attribute: { $eq: request.attributeId } }, {
+        const options = await this.optionRepository.find({ attribute: { $in: request.attributeIds } }, {
             strategy: core_1.LoadStrategy.SELECT_IN,
             populate: ['configs'],
             populateWhere: {

@@ -1,11 +1,10 @@
 import { AppDispatch, RootState } from '@/store';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { MasApi } from '@/store/api/endpoints';
-import { loadData } from '..';
+import { initTable, loadData } from '..';
 
 interface LoadPartOptionProps {
-    instanceId: string;
-    attributeId: string;
+    attributeIds: string[];
     partId: string;
 }
 
@@ -15,29 +14,38 @@ const loadPartOptions = createAsyncThunk<
     { dispatch: AppDispatch; state: RootState }
 >(
     `table/load-options`,
-    async ({ attributeId, partId, instanceId }, { dispatch, getState }) => {
+    async ({ attributeIds, partId }, { dispatch, getState }) => {
         const {
-            data: response,
             isError,
             isLoading,
+            data: response,
         } = await dispatch(
             MasApi.endpoints['findPartOption'].initiate({
-                attributeId,
+                attributeIds,
                 partId,
             })
         );
-        const { table } = getState();
 
-        if (!table[instanceId].data || table[instanceId].data.length === 0) {
-            dispatch(
-                loadData({
-                    data: response ? response.data : [],
-                    isError,
-                    isLoading,
-                    instanceId,
-                })
-            );
-        }
+        attributeIds.forEach((id) => {
+            const instanceId = `${partId}-${id}`;
+            dispatch(initTable(instanceId));
+
+            const currentAttributeOptions = response
+                ? response.data.filter((option) => option.attribute === id)
+                : [];
+
+            const { table } = getState();
+            if (table[instanceId].data.length === 0) {
+                dispatch(
+                    loadData({
+                        data: currentAttributeOptions,
+                        isError,
+                        isLoading,
+                        instanceId,
+                    })
+                );
+            }
+        });
     }
 );
 

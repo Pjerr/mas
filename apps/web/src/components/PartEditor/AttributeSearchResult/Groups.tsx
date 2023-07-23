@@ -1,5 +1,6 @@
 import { Attribute, Group } from '@/store/api/endpoints';
 import styles from './styles.module.css';
+import { usePartEditor } from '@/hooks/usePartEditor';
 
 interface AddAttributesProps {
     type: 'group' | 'attribute';
@@ -7,20 +8,16 @@ interface AddAttributesProps {
     group?: Group;
 }
 
-export default function Groups({
-    group,
-    onClick,
-}: {
-    group: Group;
-    onClick: (attributes: Attribute[]) => void;
-}) {
+export default function Groups({ group }: { group: Group }) {
+    const { addProperty } = usePartEditor();
+
     const handleOnClick = (addAttributesProps: AddAttributesProps) => {
         const { type, attribute, group } = addAttributesProps;
         if (type === 'group' && group) {
-            onClick(group.attributes);
+            addProperty(group.attributes);
         }
         if (type === 'attribute' && attribute) {
-            onClick([attribute]);
+            addProperty([attribute]);
         }
     };
 

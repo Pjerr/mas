@@ -122,7 +122,7 @@ const injectedRtkApi = api
                 query: (queryArg) => ({
                     url: `/options/config`,
                     params: {
-                        attributeId: queryArg.attributeId,
+                        attributeIds: queryArg.attributeIds,
                         partId: queryArg.partId,
                     },
                 }),
@@ -470,7 +470,7 @@ export type FindOneConfigOptionApiArg = {
 };
 export type FindPartOptionApiResponse = /** status 200  */ OptionsResponse;
 export type FindPartOptionApiArg = {
-    attributeId: string;
+    attributeIds: string[];
     partId: string;
 };
 export type RemoveOptionApiResponse = unknown;

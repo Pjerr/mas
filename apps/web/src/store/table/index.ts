@@ -26,6 +26,8 @@ export const tableSlice = createSlice({
             state[instanceId].data = payload.data;
             state[instanceId].isError = payload.isError;
             state[instanceId].isLoading = payload.isLoading;
+            console.log(instanceId);
+            console.log(state[instanceId].data);
         },
         refreshState: (
             state,

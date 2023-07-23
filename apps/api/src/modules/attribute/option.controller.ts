@@ -66,28 +66,10 @@ export class OptionController {
     return { data: response };
   }
 
-  // @Patch(':id')
-  // async update(@Param('id') id: string, @Body() payload: UpdateOption) {
-  //     const response = await this.optionService.update(id, payload);
-  //     return { data: response };
-  // }
-
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.optionService.remove(id);
   }
-
-  // @Patch(':id/relationships/attribute')
-  // async updateRelation(
-  //     @Param('id') id: ID,
-  //     @Body() payload: UpdateAttributeRelation
-  // ): Promise<OptionResponse> {
-  //     const response = await this.optionService.updateAttributeRelation(
-  //         id,
-  //         payload.attributeId
-  //     );
-  //     return { data: response };
-  // }
 
   @Delete()
   removeMany(@Query('ids') ids: string[]) {

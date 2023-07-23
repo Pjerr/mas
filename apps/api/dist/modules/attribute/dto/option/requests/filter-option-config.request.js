@@ -4,7 +4,7 @@ exports.FilterOptionConfig = void 0;
 const openapi = require("@nestjs/swagger");
 class FilterOptionConfig {
     static _OPENAPI_METADATA_FACTORY() {
-        return { attributeId: { required: true, type: () => String }, partId: { required: true, type: () => String } };
+        return { attributeIds: { required: true, type: () => [String] }, partId: { required: true, type: () => String } };
     }
 }
 exports.FilterOptionConfig = FilterOptionConfig;

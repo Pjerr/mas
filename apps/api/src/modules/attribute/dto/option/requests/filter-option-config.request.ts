@@ -1,4 +1,4 @@
 export class FilterOptionConfig {
-  attributeId: string;
+  attributeIds: string[];
   partId: string;
 }
