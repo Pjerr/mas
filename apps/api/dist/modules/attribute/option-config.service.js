@@ -23,10 +23,14 @@ let OptionConfigService = class OptionConfigService {
         this.em = em;
         this.configRepository = configRepository;
     }
-    async create(partId, configs) {
-        const configVariant = configs.map((config) => this.configRepository.create(Object.assign(Object.assign({}, config), { part: partId, id: undefined })));
-        await this.em.persistAndFlush(configVariant);
-        return configVariant;
+    create(partId, configs) {
+        const configVariants = configs.map((config) => this.configRepository.create({
+            price: config.price,
+            option: config.option,
+            part: partId,
+        }));
+        this.em.persistAndFlush(configVariants);
+        return configVariants;
     }
     async findOne(id) {
         const option = await this.configRepository.findOne(id);
@@ -38,7 +42,6 @@ let OptionConfigService = class OptionConfigService {
         const configs = await this.configRepository.find({
             part: { $eq: partId },
         });
-        common_1.Logger.log('Configs', configs);
         await this.em.removeAndFlush(configs);
     }
 };

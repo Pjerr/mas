@@ -17,15 +17,12 @@ const common_1 = require("@nestjs/common");
 const postgresql_1 = require("@mikro-orm/postgresql");
 const nestjs_1 = require("@mikro-orm/nestjs");
 const entities_1 = require("../../core/entities");
-const variant_service_1 = require("./variant.service");
 const option_config_service_1 = require("../attribute/option-config.service");
 let PartService = class PartService {
-    constructor(em, partRepository, attributeRepository, categoryRepository, variantService, configService) {
+    constructor(em, partRepository, attributeRepository, configService) {
         this.em = em;
         this.partRepository = partRepository;
         this.attributeRepository = attributeRepository;
-        this.categoryRepository = categoryRepository;
-        this.variantService = variantService;
         this.configService = configService;
     }
     existOptions(attributeConfigs) {
@@ -35,16 +32,16 @@ let PartService = class PartService {
     }
     async create(payload) {
         const part = this.partRepository.create(Object.assign(Object.assign({}, payload), { createdAt: new Date(), category: payload.categoryId, attributes: payload.attributeIds }));
-        this.em.persistAndFlush(part);
-        const createdPart = await this.partRepository.findOne({ id: part.id }, {
+        this.em.persist(part);
+        const attributeConfigs = this.existOptions(payload.attributeConfigs);
+        if (attributeConfigs.length > 0) {
+            attributeConfigs.map((configs) => this.configService.create(part.id, configs));
+        }
+        await this.em.flush();
+        const createdPart = await this.partRepository.findOne(part.id, {
             populate: ['attributes.group', 'attributes.options'],
         });
-        const attributeConfigs = this.existOptions(payload.attributeConfigs);
-        const { configs, variants } = await this.variantService.generateVariants(createdPart.id, attributeConfigs);
-        this.em.flush();
-        createdPart.variants.add(variants);
-        common_1.Logger.log('Created part', JSON.stringify(createdPart));
-        return { configs, part };
+        return createdPart;
     }
     async createDraft() {
         const product = this.partRepository.create({
@@ -71,20 +68,20 @@ let PartService = class PartService {
         return part;
     }
     async update(id, payload) {
-        const part = await this.partRepository.findOne({ id }, {
-            populate: ['attributes.group', 'attributes.options'],
-        });
-        if (payload.attributeIds.length > 0) {
+        var _a;
+        const part = await this.partRepository.findOne(id);
+        if (((_a = payload.attributeIds) === null || _a === void 0 ? void 0 : _a.length) > 0) {
             const attributes = payload.attributeIds.map((id) => this.attributeRepository.getReference(id));
             part.attributes.set(attributes);
         }
-        part.assign(payload);
         const attributeConfigs = this.existOptions(payload.attributeConfigs);
-        this.configService.removeMany(id);
-        const { variants, configs } = await this.variantService.generateVariants(part.id, attributeConfigs);
-        await this.em.persistAndFlush(part);
-        part.variants.add(variants);
-        return { configs, part };
+        if (attributeConfigs.length > 0) {
+            this.configService.removeMany(id);
+            attributeConfigs.map((configs) => this.configService.create(part.id, configs));
+        }
+        await this.em.flush();
+        await part.populate(['attributes.group', 'attributes.options']);
+        return part;
     }
     async bulkUpdatePrice(ids, payloads) {
         const parts = await this.partRepository.find({ id: { $in: ids } });
@@ -107,7 +104,9 @@ let PartService = class PartService {
     }
     async addCategory(id, categoryId) {
         const part = await this.findOne(id);
-        const category = await this.categoryRepository.findOneOrFail(categoryId);
+        const category = await this.em.findOne(entities_1.Category, categoryId);
+        if (!category)
+            throw new common_1.NotFoundException('Category does not exist');
         part.category = category.id;
         await this.em.persistAndFlush(part);
         return part;
@@ -144,12 +143,9 @@ PartService = __decorate([
     (0, common_1.Injectable)(),
     __param(1, (0, nestjs_1.InjectRepository)(entities_1.Part)),
     __param(2, (0, nestjs_1.InjectRepository)(entities_1.Attribute)),
-    __param(3, (0, nestjs_1.InjectRepository)(entities_1.Category)),
     __metadata("design:paramtypes", [postgresql_1.EntityManager,
         postgresql_1.EntityRepository,
         postgresql_1.EntityRepository,
-        postgresql_1.EntityRepository,
-        variant_service_1.VariantService,
         option_config_service_1.OptionConfigService])
 ], PartService);
 exports.PartService = PartService;

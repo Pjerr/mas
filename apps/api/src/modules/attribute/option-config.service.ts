@@ -13,18 +13,18 @@ export class OptionConfigService {
     private readonly configRepository: EntityRepository<OptionConfig>,
   ) {}
 
-  async create(partId: string, configs: CreateConfig[]) {
-    const configVariant = configs.map((config) =>
+  create(partId: string, configs: CreateConfig[]) {
+    const configVariants = configs.map((config) =>
       this.configRepository.create({
-        ...config,
+        price: config.price,
+        option: config.option,
         part: partId,
-        id: undefined,
       }),
     );
 
-    await this.em.persistAndFlush(configVariant);
+    this.em.persistAndFlush(configVariants);
 
-    return configVariant;
+    return configVariants;
   }
 
   async findOne(id: string) {
@@ -39,8 +39,6 @@ export class OptionConfigService {
     const configs = await this.configRepository.find({
       part: { $eq: partId },
     });
-
-    Logger.log('Configs', configs);
 
     await this.em.removeAndFlush(configs);
   }

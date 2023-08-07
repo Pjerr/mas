@@ -80,9 +80,7 @@ let OptionService = class OptionService {
             populate: ['configs'],
             populateWhere: {
                 configs: {
-                    variants: {
-                        part: { id: { $eq: request.partId } },
-                    },
+                    part: { $eq: request.partId },
                 },
             },
         });

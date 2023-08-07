@@ -8,7 +8,6 @@ import { FilterEntity } from '@/core/types';
 import { CreateConfig } from '../attribute/dto/option';
 import { VariantService } from './variant.service';
 import { OptionConfigService } from '../attribute/option-config.service';
-import { CreatedPart } from './types';
 
 @Injectable()
 export class PartService {
@@ -18,9 +17,6 @@ export class PartService {
     private readonly partRepository: EntityRepository<Part>,
     @InjectRepository(Attribute)
     private readonly attributeRepository: EntityRepository<Attribute>,
-    @InjectRepository(Category)
-    private readonly categoryRepository: EntityRepository<Category>,
-    private readonly variantService: VariantService,
     private readonly configService: OptionConfigService,
   ) {}
 
@@ -31,7 +27,7 @@ export class PartService {
     return attributeConfigs;
   }
 
-  async create(payload: CreatePart): Promise<CreatedPart> {
+  async create(payload: CreatePart) {
     const part = this.partRepository.create({
       ...payload,
       createdAt: new Date(),
@@ -39,29 +35,23 @@ export class PartService {
       attributes: payload.attributeIds,
     });
 
-    this.em.persistAndFlush(part);
-
-    const createdPart = await this.partRepository.findOne(
-      { id: part.id },
-      {
-        populate: ['attributes.group', 'attributes.options'],
-      },
-    );
+    this.em.persist(part);
 
     const attributeConfigs = this.existOptions(payload.attributeConfigs);
 
-    const { configs, variants } = await this.variantService.generateVariants(
-      createdPart.id,
-      attributeConfigs,
-    );
+    if (attributeConfigs.length > 0) {
+      attributeConfigs.map((configs) =>
+        this.configService.create(part.id, configs),
+      );
+    }
 
-    this.em.flush();
+    await this.em.flush();
 
-    createdPart.variants.add(variants);
+    const createdPart = await this.partRepository.findOne(part.id, {
+      populate: ['attributes.group', 'attributes.options'],
+    });
 
-    Logger.log('Created part', JSON.stringify(createdPart));
-
-    return { configs, part };
+    return createdPart;
   }
 
   async createDraft() {
@@ -96,37 +86,30 @@ export class PartService {
     return part;
   }
 
-  async update(id: string, payload: UpdatePart): Promise<CreatedPart> {
-    const part = await this.partRepository.findOne(
-      { id },
-      {
-        populate: ['attributes.group', 'attributes.options'],
-      },
-    );
+  async update(id: string, payload: UpdatePart) {
+    const part = await this.partRepository.findOne(id);
 
-    if (payload.attributeIds.length > 0) {
+    if (payload.attributeIds?.length > 0) {
       const attributes = payload.attributeIds.map((id) =>
         this.attributeRepository.getReference(id),
       );
       part.attributes.set(attributes);
     }
 
-    part.assign(payload);
-
     const attributeConfigs = this.existOptions(payload.attributeConfigs);
 
-    this.configService.removeMany(id);
+    if (attributeConfigs.length > 0) {
+      this.configService.removeMany(id);
+      attributeConfigs.map((configs) =>
+        this.configService.create(part.id, configs),
+      );
+    }
 
-    const { variants, configs } = await this.variantService.generateVariants(
-      part.id,
-      attributeConfigs,
-    );
+    await this.em.flush();
 
-    await this.em.persistAndFlush(part);
+    await part.populate(['attributes.group', 'attributes.options']);
 
-    part.variants.add(variants);
-
-    return { configs, part };
+    return part;
   }
 
   async bulkUpdatePrice(ids: string[], payloads: number[]) {
@@ -158,7 +141,10 @@ export class PartService {
 
   async addCategory(id: string, categoryId: string) {
     const part = await this.findOne(id);
-    const category = await this.categoryRepository.findOneOrFail(categoryId);
+
+    const category = await this.em.findOne(Category, categoryId);
+
+    if (!category) throw new NotFoundException('Category does not exist');
 
     part.category = category.id;
 

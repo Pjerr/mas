@@ -9,7 +9,6 @@ import {
 import { Connection } from '@mikro-orm/core/connections';
 import { IDatabaseDriver } from '@mikro-orm/core/drivers';
 import {
-  Variant,
   Attribute,
   Group,
   AttributeOption,
@@ -32,7 +31,6 @@ export class MikroOrmService implements MikroOrmOptionsFactory {
         Attribute,
         Group,
         Category,
-        Variant,
         Part,
         AttributeOption,
         OptionConfig,

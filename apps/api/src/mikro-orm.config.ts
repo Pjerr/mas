@@ -8,7 +8,6 @@ import {
   Group,
   Manufacturer,
   AttributeOption,
-  Variant,
   OptionConfig,
 } from './core/entities';
 
@@ -26,7 +25,6 @@ const config: Options = {
     Manufacturer,
     Group,
     Category,
-    Variant,
     OptionConfig,
   ],
   dbName: process.env.DB_NAME,

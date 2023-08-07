@@ -23,7 +23,6 @@ let MikroOrmService = class MikroOrmService {
                 entities_1.Attribute,
                 entities_1.Group,
                 entities_1.Category,
-                entities_1.Variant,
                 entities_1.Part,
                 entities_1.AttributeOption,
                 entities_1.OptionConfig,

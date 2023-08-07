@@ -6,10 +6,8 @@ import {
   Attribute,
   AttributeOption,
   Category,
-  Manufacturer,
   OptionConfig,
   Part,
-  Variant,
 } from '@/core/entities';
 import { VariantService } from './variant.service';
 import { OptionConfigService } from '../attribute/option-config.service';
@@ -21,7 +19,6 @@ import { OptionConfigService } from '../attribute/option-config.service';
       Category,
       Attribute,
       AttributeOption,
-      Variant,
       OptionConfig,
     ]),
   ],

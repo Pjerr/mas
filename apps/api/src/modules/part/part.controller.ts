@@ -37,8 +37,8 @@ export class PartController {
   async create(
     @Body(ValidationPipe) request: CreatePart,
   ): Promise<PartResponse> {
-    const { configs, part } = await this.partService.create(request);
-    return { data: part, variantConfigs: configs };
+    const part = await this.partService.create(request);
+    return { data: part };
   }
 
   @Post('draft')
@@ -80,8 +80,8 @@ export class PartController {
     @Param('id') id: string,
     @Body(ValidationPipe) payload: UpdatePart,
   ): Promise<PartResponse> {
-    const { configs, part } = await this.partService.update(id, payload);
-    return { data: part, variantConfigs: configs };
+    const part = await this.partService.update(id, payload);
+    return { data: part };
   }
 
   @Patch(':id/relationships/category')

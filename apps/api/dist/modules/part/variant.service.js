@@ -8,49 +8,46 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.VariantService = void 0;
 const entities_1 = require("../../core/entities");
-const option_config_service_1 = require("../attribute/option-config.service");
-const core_1 = require("@mikro-orm/core");
-const nestjs_1 = require("@mikro-orm/nestjs");
 const postgresql_1 = require("@mikro-orm/postgresql");
 const common_1 = require("@nestjs/common");
+const variant_config_entity_1 = require("../../core/entities/variant_config.entity");
 let VariantService = class VariantService {
-    constructor(em, configService, repository) {
+    constructor(em) {
         this.em = em;
-        this.configService = configService;
-        this.repository = repository;
     }
-    cartesianPart(data) {
+    cartesianProduct(data) {
         return data.reduce(function (previous, current) {
             return previous
                 .map((x) => current.map((y) => x.concat([y])))
                 .reduce((previous, current) => previous.concat(current), []);
         }, [[]]);
     }
-    async generateVariants(partId, attributeConfigs) {
-        if (attributeConfigs.length === 0)
-            return { configs: [], variants: [] };
-        const optionConfigs = attributeConfigs.map((configs) => this.configService.create(partId, configs));
-        const configVariants = this.cartesianPart(await Promise.all(optionConfigs));
-        common_1.Logger.log('config-combinations', configVariants);
-        const variants = configVariants.map((configVariant) => this.repository.create({
-            part: partId,
-            optionsConfigs: configVariant,
-        }));
-        return { configs: configVariants, variants };
+    async find(id) {
+        const part = await this.em.findOne(entities_1.Part, { id });
+        if (!part)
+            throw new common_1.NotFoundException('Part does not exist');
+        const response = await this.em.find(variant_config_entity_1.VariantConfig, { part: id });
+        const configs = {};
+        response.forEach((config) => {
+            if (!configs[config.attributeId])
+                configs[config.attributeId] = [];
+            configs[config.attributeId].push({
+                attributeName: config.attributeName,
+                id: config.id,
+                price: config.price,
+                optionValue: config.optionValue,
+            });
+        });
+        const configVariants = this.cartesianProduct(Object.values(configs));
+        return { configs: configVariants, basePrice: part.basePrice, part: id };
     }
 };
 VariantService = __decorate([
     (0, common_1.Injectable)(),
-    __param(2, (0, nestjs_1.InjectRepository)(entities_1.Variant)),
-    __metadata("design:paramtypes", [postgresql_1.EntityManager,
-        option_config_service_1.OptionConfigService,
-        core_1.EntityRepository])
+    __metadata("design:paramtypes", [postgresql_1.EntityManager])
 ], VariantService);
 exports.VariantService = VariantService;
 //# sourceMappingURL=variant.service.js.map

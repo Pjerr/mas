@@ -4,6 +4,7 @@ import {
   Collection,
   Entity,
   Enum,
+  Formula,
   Index,
   ManyToMany,
   ManyToOne,
@@ -19,7 +20,6 @@ import { ApiResponseProperty } from '@nestjs/swagger';
 import { PartStatus, PropertyType, PublishStatus } from 'shared';
 import uuid4 from 'uuid4';
 import { Filterable } from '../meta/decorators/filter.decorator';
-import { Variant } from './variant.entity';
 import { OptionConfig } from './option-config.entity';
 
 @Entity()
@@ -63,16 +63,6 @@ export class Part extends BaseEntity<Part, 'id'> {
   @Property()
   basePrice: number = 0;
 
-  @ApiResponseProperty({
-    type: (type) => [Variant],
-  })
-  @OneToMany(() => Variant, (variant) => variant.part, {
-    nullable: true,
-    orphanRemoval: true,
-    cascade: [Cascade.PERSIST],
-  })
-  variants = new Collection<Variant>(this);
-
   @Property()
   createdAt: Date = new Date();
 
@@ -91,4 +81,10 @@ export class Part extends BaseEntity<Part, 'id'> {
 
   @Property({ nullable: true })
   publishStatus: PublishStatus = PublishStatus.Draft;
+
+  @Formula(
+    (alias) =>
+      `(select count(*) as "count" from "option_config" as "o0" where "o0"."product_id" = ${alias}.id)`,
+  )
+  configsCount: number;
 }

@@ -23,7 +23,6 @@ const swagger_1 = require("@nestjs/swagger");
 const shared_1 = require("shared");
 const uuid4_1 = __importDefault(require("uuid4"));
 const filter_decorator_1 = require("../meta/decorators/filter.decorator");
-const variant_entity_1 = require("./variant.entity");
 const option_config_entity_1 = require("./option-config.entity");
 let Part = class Part extends core_1.BaseEntity {
     constructor() {
@@ -32,13 +31,12 @@ let Part = class Part extends core_1.BaseEntity {
         this.status = shared_1.PartStatus.InStock;
         this.attributes = new core_1.Collection(this);
         this.basePrice = 0;
-        this.variants = new core_1.Collection(this);
         this.createdAt = new Date();
         this.configs = new core_1.Collection(this);
         this.publishStatus = shared_1.PublishStatus.Draft;
     }
     static _OPENAPI_METADATA_FACTORY() {
-        return { id: { required: true, type: () => String, default: (0, uuid4_1.default)() }, name: { required: true, type: () => String }, status: { required: true, default: shared_1.PartStatus.InStock, enum: require("../../../../../packages/shared/dist/types/enums").PartStatus }, searchIndex: { required: true, type: () => String }, properties: { required: true, type: () => Object }, manufacturer: { required: true, type: () => String }, category: { required: true, type: () => String }, attributes: { required: true, type: () => Object, default: new core_1.Collection(this) }, basePrice: { required: true, type: () => Number, default: 0 }, variants: { required: true, type: () => Object, default: new core_1.Collection(this) }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date }, configs: { required: true, type: () => Object, default: new core_1.Collection(this) }, publishStatus: { required: true, default: shared_1.PublishStatus.Draft, enum: require("../../../../../packages/shared/dist/types/enums").PublishStatus } };
+        return { id: { required: true, type: () => String, default: (0, uuid4_1.default)() }, name: { required: true, type: () => String }, status: { required: true, default: shared_1.PartStatus.InStock, enum: require("../../../../../packages/shared/dist/types/enums").PartStatus }, searchIndex: { required: true, type: () => String }, properties: { required: true, type: () => Object }, manufacturer: { required: true, type: () => String }, category: { required: true, type: () => String }, attributes: { required: true, type: () => Object, default: new core_1.Collection(this) }, basePrice: { required: true, type: () => Number, default: 0 }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date }, configs: { required: true, type: () => Object, default: new core_1.Collection(this) }, publishStatus: { required: true, default: shared_1.PublishStatus.Draft, enum: require("../../../../../packages/shared/dist/types/enums").PublishStatus }, configsCount: { required: true, type: () => Number } };
     }
 };
 __decorate([
@@ -90,17 +88,6 @@ __decorate([
     __metadata("design:type", Number)
 ], Part.prototype, "basePrice", void 0);
 __decorate([
-    (0, swagger_1.ApiResponseProperty)({
-        type: (type) => [variant_entity_1.Variant],
-    }),
-    (0, core_1.OneToMany)(() => variant_entity_1.Variant, (variant) => variant.part, {
-        nullable: true,
-        orphanRemoval: true,
-        cascade: [core_1.Cascade.PERSIST],
-    }),
-    __metadata("design:type", Object)
-], Part.prototype, "variants", void 0);
-__decorate([
     (0, core_1.Property)(),
     __metadata("design:type", Date)
 ], Part.prototype, "createdAt", void 0);
@@ -123,6 +110,10 @@ __decorate([
     (0, core_1.Property)({ nullable: true }),
     __metadata("design:type", String)
 ], Part.prototype, "publishStatus", void 0);
+__decorate([
+    (0, core_1.Formula)((alias) => `(select count(*) as "count" from "option_config" as "o0" where "o0"."product_id" = ${alias}.id)`),
+    __metadata("design:type", Number)
+], Part.prototype, "configsCount", void 0);
 Part = __decorate([
     (0, core_1.Entity)()
 ], Part);

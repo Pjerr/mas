@@ -1,6 +1,5 @@
-import { AttributeOption } from '@/core/entities';
 export declare class CreateConfig {
     price?: number;
-    option: Partial<AttributeOption>;
+    option: string;
 }
 //# sourceMappingURL=create-config.request.d.ts.map

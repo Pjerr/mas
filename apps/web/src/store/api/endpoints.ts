@@ -606,33 +606,8 @@ export type RemoveManufacturerApiResponse = unknown;
 export type RemoveManufacturerApiArg = {
     id: string;
 };
-export type Part = {
-    attributes: Attribute[];
-    variants: Variant[];
-    configs: OptionConfig[];
-    id: string;
-    name: string;
-    status: 'in-stock' | 'out-of-stock';
-    searchIndex: string;
-    properties: object;
-    manufacturer: string;
-    category: string;
-    basePrice: number;
-    createdAt: string;
-    updatedAt: string;
-    publishStatus: 'published' | 'draft';
-};
-export type Variant = {
-    optionsConfigs: OptionConfig[];
-    price: number;
-    id: string;
-    part: Part;
-    createdAt: string;
-    updatedAt: string;
-};
 export type OptionConfig = {
     option: AttributeOption;
-    variants: Variant[];
     id: string;
     price: number;
     createdAt: string;
@@ -647,6 +622,22 @@ export type AttributeOption = {
     attribute: string;
     createdAt: string;
     updatedAt: string;
+};
+export type Part = {
+    attributes: Attribute[];
+    configs: OptionConfig[];
+    id: string;
+    name: string;
+    status: 'in-stock' | 'out-of-stock';
+    searchIndex: string;
+    properties: object;
+    manufacturer: string;
+    category: string;
+    basePrice: number;
+    createdAt: string;
+    updatedAt: string;
+    publishStatus: 'published' | 'draft';
+    configsCount: number;
 };
 export type Group = {
     attributes: Attribute[];
@@ -810,7 +801,7 @@ export type PartResponse = {
 };
 export type CreateConfig = {
     price?: number;
-    option: object;
+    option: string;
 };
 export type CreatePart = {
     status?: 'in-stock' | 'out-of-stock';

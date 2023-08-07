@@ -18,7 +18,6 @@ const core_1 = require("@mikro-orm/core");
 const filter_decorator_1 = require("../meta/decorators/filter.decorator");
 const uuid4_1 = __importDefault(require("uuid4"));
 const swagger_1 = require("@nestjs/swagger");
-const variant_entity_1 = require("./variant.entity");
 const attribute_option_entity_1 = require("./attribute-option.entity");
 const part_entity_1 = require("./part.entity");
 let OptionConfig = class OptionConfig extends core_1.BaseEntity {
@@ -27,10 +26,9 @@ let OptionConfig = class OptionConfig extends core_1.BaseEntity {
         this.id = (0, uuid4_1.default)();
         this.price = 0;
         this.createdAt = new Date();
-        this.variants = new core_1.Collection(this);
     }
     static _OPENAPI_METADATA_FACTORY() {
-        return { id: { required: true, type: () => String, default: (0, uuid4_1.default)() }, price: { required: true, type: () => Number, default: 0 }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date }, option: { required: true, type: () => require("./attribute-option.entity").AttributeOption }, variants: { required: true, type: () => Object, default: new core_1.Collection(this) }, part: { required: true, type: () => String } };
+        return { id: { required: true, type: () => String, default: (0, uuid4_1.default)() }, price: { required: true, type: () => Number, default: 0 }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date }, option: { required: true, type: () => require("./attribute-option.entity").AttributeOption }, part: { required: true, type: () => String } };
     }
 };
 __decorate([
@@ -56,12 +54,7 @@ __decorate([
     __metadata("design:type", attribute_option_entity_1.AttributeOption)
 ], OptionConfig.prototype, "option", void 0);
 __decorate([
-    (0, swagger_1.ApiResponseProperty)({ type: [variant_entity_1.Variant] }),
-    (0, core_1.ManyToMany)(() => variant_entity_1.Variant),
-    __metadata("design:type", Object)
-], OptionConfig.prototype, "variants", void 0);
-__decorate([
-    (0, core_1.ManyToOne)(() => part_entity_1.Part, { nullable: true, mapToPk: true }),
+    (0, core_1.ManyToOne)(() => part_entity_1.Part, { mapToPk: true }),
     __metadata("design:type", String)
 ], OptionConfig.prototype, "part", void 0);
 OptionConfig = __decorate([
