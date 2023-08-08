@@ -43,7 +43,6 @@ let OptionController = class OptionController {
         return response;
     }
     async findPart(query) {
-        common_1.Logger.log(query);
         const response = await this.optionService.findPartOptions(query);
         return { data: response };
     }

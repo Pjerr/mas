@@ -15,10 +15,6 @@ export class AttributeService {
     private readonly em: EntityManager,
     @InjectRepository(Attribute)
     private readonly attributeRepository: EntityRepository<Attribute>,
-    @InjectRepository(Group)
-    private readonly groupRepository: EntityRepository<Group>,
-    @InjectRepository(Part)
-    private readonly productRepository: EntityRepository<Part>,
   ) {}
 
   async create(payload: CreateAttribute) {
@@ -73,16 +69,17 @@ export class AttributeService {
       populate: ['options'],
     });
 
-    const products = await this.productRepository.find({
+    const parts = await this.em.find(Part, {
       attributes: { id: { $eq: id } },
     });
 
-    products.map((product) => {
-      const properties = product.properties;
-      delete properties[attribute.displayName];
-      product.assign(properties);
-      this.em.persist(product);
+    parts.forEach((part) => {
+      const properties = part.properties;
+      delete properties[attribute.propertyKey];
+
+      part.assign(properties);
     });
+
     await this.em.removeAndFlush(attribute);
   }
 
@@ -97,7 +94,7 @@ export class AttributeService {
   async updateGroup(id: string, groupId: string) {
     const attribute = await this.findOne(id);
 
-    const group = await this.groupRepository.findOne(groupId);
+    const group = await this.em.findOne(Group, groupId);
 
     if (!group) throw new NotFoundException('Group does not exist');
 

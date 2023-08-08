@@ -22,7 +22,7 @@ export class OptionConfigService {
       }),
     );
 
-    this.em.persistAndFlush(configVariants);
+    this.em.persist(configVariants);
 
     return configVariants;
   }

@@ -60,9 +60,7 @@ export class OptionController {
 
   @Get('config')
   async findPart(@Query() query: FilterOptionConfig): Promise<OptionsResponse> {
-    Logger.log(query);
     const response = await this.optionService.findPartOptions(query);
-
     return { data: response };
   }
 

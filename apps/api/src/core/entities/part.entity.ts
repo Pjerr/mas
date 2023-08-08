@@ -75,7 +75,8 @@ export class Part extends BaseEntity<Part, 'id'> {
   @OneToMany(() => OptionConfig, (config) => config.part, {
     nullable: true,
     orphanRemoval: true,
-    cascade: [Cascade.PERSIST],
+    cascade: [Cascade.PERSIST, Cascade.REMOVE],
+    hidden: true,
   })
   configs = new Collection<OptionConfig>(this);
 
@@ -84,7 +85,7 @@ export class Part extends BaseEntity<Part, 'id'> {
 
   @Formula(
     (alias) =>
-      `(select count(*) as "count" from "option_config" as "o0" where "o0"."product_id" = ${alias}.id)`,
+      `(select count(*) as "count" from "option_config" as "o0" where "o0"."part_id" = ${alias}.id)`,
   )
   configsCount: number;
 }

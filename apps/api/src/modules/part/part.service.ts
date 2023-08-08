@@ -1,6 +1,6 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { UpdatePart } from './dto/requests/update-part.request';
-import { CreatePart } from './dto';
+import { CreateDraft, CreatePart } from './dto';
 import { EntityManager, EntityRepository } from '@mikro-orm/postgresql';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Attribute, Category, Part } from '@/core/entities';
@@ -54,15 +54,13 @@ export class PartService {
     return createdPart;
   }
 
-  async createDraft() {
+  async createDraft(payload: CreateDraft) {
     const product = this.partRepository.create({
-      name: 'Untitled product',
+      name: payload.name,
       attributes: [],
       properties: {},
       createdAt: null,
     });
-
-    Logger.log('Created draft', JSON.stringify(product));
 
     return product;
   }
@@ -88,6 +86,8 @@ export class PartService {
 
   async update(id: string, payload: UpdatePart) {
     const part = await this.partRepository.findOne(id);
+
+    part.assign(payload);
 
     if (payload.attributeIds?.length > 0) {
       const attributes = payload.attributeIds.map((id) =>

@@ -47,7 +47,7 @@ __decorate([
     __metadata("design:type", String)
 ], AttributeOption.prototype, "displayName", void 0);
 __decorate([
-    (0, core_1.ManyToOne)(() => attribute_entity_1.Attribute, { mapToPk: true }),
+    (0, core_1.ManyToOne)(() => attribute_entity_1.Attribute, { mapToPk: true, onDelete: 'cascade' }),
     (0, filter_decorator_1.Filterable)(),
     __metadata("design:type", String)
 ], AttributeOption.prototype, "attribute", void 0);

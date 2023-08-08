@@ -29,7 +29,7 @@ let OptionConfigService = class OptionConfigService {
             option: config.option,
             part: partId,
         }));
-        this.em.persistAndFlush(configVariants);
+        this.em.persist(configVariants);
         return configVariants;
     }
     async findOne(id) {

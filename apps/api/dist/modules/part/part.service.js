@@ -43,14 +43,13 @@ let PartService = class PartService {
         });
         return createdPart;
     }
-    async createDraft() {
+    async createDraft(payload) {
         const product = this.partRepository.create({
-            name: 'Untitled product',
+            name: payload.name,
             attributes: [],
             properties: {},
             createdAt: null,
         });
-        common_1.Logger.log('Created draft', JSON.stringify(product));
         return product;
     }
     async find(filters) {
@@ -70,6 +69,7 @@ let PartService = class PartService {
     async update(id, payload) {
         var _a;
         const part = await this.partRepository.findOne(id);
+        part.assign(payload);
         if (((_a = payload.attributeIds) === null || _a === void 0 ? void 0 : _a.length) > 0) {
             const attributes = payload.attributeIds.map((id) => this.attributeRepository.getReference(id));
             part.attributes.set(attributes);

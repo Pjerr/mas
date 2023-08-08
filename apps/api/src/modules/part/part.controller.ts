@@ -13,6 +13,7 @@ import { PartService } from './part.service';
 import { UpdatePart } from './dto/requests/update-part.request';
 import {
   BulkUpdatePrice,
+  CreateDraft,
   CreatePart,
   PartRelationTypes,
   PartResponse,
@@ -27,6 +28,7 @@ import { FilterQuery } from '@/core/types';
 import { QueryPipe } from '@/core/pipes/query.pipe';
 import { Part } from '@/core/entities';
 import { filterEntity } from '@/core/utils/parse-query';
+import { REQUEST } from '@nestjs/core';
 
 @ApiTags('Parts')
 @Controller('parts')
@@ -42,8 +44,8 @@ export class PartController {
   }
 
   @Post('draft')
-  async createDraft(): Promise<PartResponse> {
-    const response = await this.partService.createDraft();
+  async createDraft(@Body() request: CreateDraft): Promise<PartResponse> {
+    const response = await this.partService.createDraft(request);
     return { data: response };
   }
 

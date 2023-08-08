@@ -17,6 +17,7 @@ import {
   Part,
   Manufacturer,
 } from '@/core/entities';
+import { VariantConfig } from '@/core/entities/variant_config.entity';
 
 @Injectable()
 export class MikroOrmService implements MikroOrmOptionsFactory {
@@ -35,6 +36,7 @@ export class MikroOrmService implements MikroOrmOptionsFactory {
         AttributeOption,
         OptionConfig,
         Manufacturer,
+        VariantConfig,
       ],
       driver: PostgreSqlDriver,
       verbose: true,
