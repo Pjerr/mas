@@ -40,7 +40,11 @@ const Parts: NextPageWithLayout = () => {
     const onCreate = async () => {
         dispatch(resetForm());
 
-        const { data: part } = await createDraft().unwrap();
+        const { data: part } = await createDraft({
+            createDraft: {
+                name: 'Untitled part',
+            },
+        }).unwrap();
 
         dispatch(
             createPartForm({

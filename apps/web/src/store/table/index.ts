@@ -18,7 +18,7 @@ export const tableSlice = createSlice({
     initialState,
     reducers: {
         initTable: (state, { payload }: PayloadAction<string>) => {
-            state[payload] = initialInstance;
+            if (!state[payload]) state[payload] = initialInstance;
         },
         loadData: (state, { payload }: PayloadAction<LoadDataAction>) => {
             const instanceId = payload.instanceId;

@@ -16,8 +16,8 @@ export default function OptionsTable({ attributeId }: OptionTableProps) {
             <Table
                 placeholder={`No options found`}
                 view={partOptionColumnDef}
-                refetch={() => {}}
                 instanceId={`${partId}-${attributeId}`}
+                refetch={() => {}}
             ></Table>
         </TableProvider>
     );

@@ -170,7 +170,11 @@ const injectedRtkApi = api
                 CreateDraftPartApiResponse,
                 CreateDraftPartApiArg
             >({
-                query: () => ({ url: `/parts/draft`, method: 'POST' }),
+                query: (queryArg) => ({
+                    url: `/parts/draft`,
+                    method: 'POST',
+                    body: queryArg.createDraft,
+                }),
                 invalidatesTags: ['Parts'],
             }),
             findOnePart: build.query<FindOnePartApiResponse, FindOnePartApiArg>(
@@ -490,7 +494,9 @@ export type RemoveManyPartApiArg = {
     ids: string[];
 };
 export type CreateDraftPartApiResponse = /** status 201  */ PartResponse;
-export type CreateDraftPartApiArg = void;
+export type CreateDraftPartApiArg = {
+    createDraft: CreateDraft;
+};
 export type FindOnePartApiResponse = /** status 200  */ PartResponse;
 export type FindOnePartApiArg = {
     id: string;
@@ -821,6 +827,9 @@ export type QueryPart = {
     include?: string[];
     filters?: Filter[];
     sort?: Sort;
+};
+export type CreateDraft = {
+    name: string;
 };
 export type UpdatePart = {};
 export type BulkUpdatePrice = {

@@ -33,7 +33,6 @@ const config: Options = {
   password: process.env.DB_PASSWORD,
   type: 'postgresql',
   port: 5432,
-  // debug: ['query', 'query-params'],
   verbose: true,
   driver: PostgreSqlDriver,
   migrations: {
