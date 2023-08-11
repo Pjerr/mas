@@ -39,7 +39,7 @@ export function usePartApi() {
 
                     return {
                         ...config,
-                        option,
+                        option: option.id!,
                     };
                 }
             );
@@ -97,19 +97,14 @@ export function usePartApi() {
             return;
         }
 
-        const { variantConfigs, data: part } = response.data;
-        const partWithConfigs = produce(part, (next) => {
-            next.variants.forEach((variant, index) => {
-                variant.optionsConfigs = variantConfigs[index];
-            });
-        });
+        const part = response.data.data;
 
-        dispatch(updateDefaultFormValue({ part: partWithConfigs }));
+        dispatch(updateDefaultFormValue({ part }));
 
         if (data.createdAt) {
             dispatch(
                 updateEntity({
-                    entity: response.data.data,
+                    entity: part,
                     instanceId: instanceIds[EntityType.Part],
                 })
             );
@@ -117,7 +112,7 @@ export function usePartApi() {
         } else {
             dispatch(
                 appendEntity({
-                    entity: response.data.data,
+                    entity: part,
                     instanceId: instanceIds[EntityType.Part],
                 })
             );
