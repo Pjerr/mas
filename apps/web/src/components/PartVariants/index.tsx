@@ -1,67 +1,24 @@
-import styles from './styles.module.css';
-import Button from '@/components/Button';
-import { FaTimes } from 'react-icons/fa';
-import ConfirmModal from '@/components/Modal/ConfirmModal';
-import { Part, Variant } from '@/store/api/endpoints';
+import { variantInstaceId } from '@/utils/constants';
+import { TableProvider } from '../Table/TableProvider';
+import { VariantHeader } from './VariantHeader';
+import Table from '../Table';
+import { variantColumnDef } from '../Table/ColumnDef';
 
 interface VariantsProps {
-    part: Part;
+    partId?: string;
 }
-export default function ProductVariants({ part }: VariantsProps) {
-    const columnHeaders: string[] = part.attributes.map(
-        (attribute) => attribute.displayName
-    );
-
-    const removeVariant = (index: number) => {
-        console.log('We should remove this variant from the response');
-        console.log(part.variants[index]);
-    };
-
-    const variants = part.variants;
-
+export default function PartVariants({ partId }: VariantsProps) {
+    const instanceId = variantInstaceId(partId);
     return (
-        <table className={styles['variant__table']}>
-            <thead>
-                <tr className={styles['table__header-row']}>
-                    {columnHeaders.map((header, index) => (
-                        <th
-                            key={`${header}_${index}`}
-                            className={styles['table__header']}
-                        >
-                            {header}
-                        </th>
-                    ))}
-                </tr>
-            </thead>
-            <tbody>
-                {variants.map((variant, index) => {
-                    if (!variant) return <tr></tr>;
-                    return (
-                        <tr key={index} className={styles['table__data-row']}>
-                            {variant.optionsConfigs.map((config) => (
-                                <td className={styles['table__data']}>
-                                    {config.option.displayName}
-                                </td>
-                            ))}
-                            <td className={styles['table__data']}>
-                                <div className={styles['data__button']}>
-                                    <ConfirmModal
-                                        modalTitle="Remove variant"
-                                        onConfirm={() => removeVariant(index)}
-                                        control={
-                                            <Button
-                                                icon={<FaTimes />}
-                                                tooltipText="Remove"
-                                                variant={'outline'}
-                                            />
-                                        }
-                                    />
-                                </div>
-                            </td>
-                        </tr>
-                    );
-                })}
-            </tbody>
-        </table>
+        <TableProvider>
+            <VariantHeader instanceId={instanceId}></VariantHeader>
+
+            <Table
+                view={variantColumnDef}
+                refetch={() => {}}
+                placeholder={'Variants table is empty'}
+                instanceId={instanceId}
+            ></Table>
+        </TableProvider>
     );
 }

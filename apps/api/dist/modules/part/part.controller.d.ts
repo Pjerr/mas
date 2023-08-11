@@ -1,9 +1,11 @@
 import { PartService } from './part.service';
 import { UpdatePart } from './dto/requests/update-part.request';
-import { BulkUpdatePrice, CreateDraft, CreatePart, PartResponse, PartsResponse, QueryPart, UpdateAttributeRelation, UpdateAttributeRelations, UpdateCategoryRelation } from './dto';
+import { BulkUpdatePrice, CreateDraft, CreatePart, PartResponse, PartsResponse, QueryPart, UpdateAttributeRelation, UpdateAttributeRelations, UpdateCategoryRelation, VariantsResponse } from './dto';
+import { VariantService } from './variant.service';
 export declare class PartController {
     private readonly partService;
-    constructor(partService: PartService);
+    private readonly variantService;
+    constructor(partService: PartService, variantService: VariantService);
     create(request: CreatePart): Promise<PartResponse>;
     createDraft(request: CreateDraft): Promise<PartResponse>;
     find(query: QueryPart): Promise<PartsResponse>;
@@ -16,5 +18,6 @@ export declare class PartController {
     removeAttributes(id: string, payload: UpdateAttributeRelations): Promise<PartResponse>;
     remove(id: string): Promise<void>;
     removeMany(ids: string[]): Promise<void>;
+    findVariant(id: string): Promise<VariantsResponse>;
 }
 //# sourceMappingURL=part.controller.d.ts.map

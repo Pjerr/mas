@@ -7,7 +7,7 @@ export declare class VariantService {
     find(id: string): Promise<{
         configs: VariantConfigResponse[][];
         basePrice: number;
-        part: string;
+        product: string;
     }>;
 }
 //# sourceMappingURL=variant.service.d.ts.map

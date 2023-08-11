@@ -4,6 +4,8 @@ import {
     AttributeOption,
     Manufacturer,
     Part,
+    VariantConfigResponse,
+    Variants,
 } from '@/store/api/endpoints';
 import { ColumnDef } from '@tanstack/react-table';
 import { Cell } from '../Cell';
@@ -169,6 +171,58 @@ export const partOptionColumnDef: ColumnDef<AttributeOption, any>[] = [
         enableResizing: true,
     },
 ];
+
+export const variantColumnDef: ColumnDef<VariantConfigResponse[], any>[] = [
+    {
+        id: 'select',
+        header: ({ table }) => (
+            <Checkbox
+                {...{
+                    checked: table.getIsAllRowsSelected(),
+                    indeterminate: table.getIsSomeRowsSelected(),
+                    onChange: table.getToggleAllRowsSelectedHandler(),
+                }}
+            />
+        ),
+        cell: ({ row }) => <Cell {...{ canExpand: false, row }} />,
+        accessorKey: 'id',
+        enableSorting: false,
+        enableColumnFilter: false,
+        enableGlobalFilter: false,
+        enableResizing: true,
+        minSize: 2,
+        maxSize: 5,
+    },
+];
+
+export const addVariantColumns = ({ configs, basePrice }: Variants) => {
+    variantColumnDef.splice(2, variantColumnDef.length);
+
+    const attributeHeaders = configs[0].map(
+        (configExample) => configExample.attributeName
+    );
+
+    variantColumnDef.push(
+        ...attributeHeaders.map((header, index) => {
+            return {
+                id: header,
+                header: () => header,
+                accessorFn: (variant: VariantConfigResponse[]) =>
+                    variant[index]?.optionValue,
+                minSize: 20,
+                maxSize: 50,
+            };
+        })
+    );
+    variantColumnDef.push({
+        id: 'price',
+        header: 'Price',
+        accessorFn: (variant: VariantConfigResponse[]) =>
+            variant.reduce((acc, current) => acc + current.price, basePrice),
+        minSize: 2,
+        maxSize: 5,
+    });
+};
 
 export const extractColumnDef: Record<EntityType, ColumnDef<any, any>[]> = {
     [EntityType.Attribute]: attributeColumnDef,

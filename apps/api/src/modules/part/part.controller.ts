@@ -22,18 +22,22 @@ import {
   UpdateAttributeRelation,
   UpdateAttributeRelations,
   UpdateCategoryRelation,
+  VariantsResponse,
 } from './dto';
 import { ApiTags } from '@nestjs/swagger';
 import { FilterQuery } from '@/core/types';
 import { QueryPipe } from '@/core/pipes/query.pipe';
 import { Part } from '@/core/entities';
 import { filterEntity } from '@/core/utils/parse-query';
-import { REQUEST } from '@nestjs/core';
+import { VariantService } from './variant.service';
 
 @ApiTags('Parts')
 @Controller('parts')
 export class PartController {
-  constructor(private readonly partService: PartService) {}
+  constructor(
+    private readonly partService: PartService,
+    private readonly variantService: VariantService,
+  ) {}
 
   @Post()
   async create(
@@ -139,5 +143,11 @@ export class PartController {
   @Delete()
   removeMany(@Query('ids') ids: string[]) {
     return this.partService.removeMany(ids);
+  }
+
+  @Get(':id/variant')
+  async findVariant(@Param('id') id: string): Promise<VariantsResponse> {
+    const response = await this.variantService.find(id);
+    return { data: response };
   }
 }

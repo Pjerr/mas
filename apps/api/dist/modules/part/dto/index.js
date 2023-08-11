@@ -24,4 +24,5 @@ __exportStar(require("./requests/multiple-create-part.request"), exports);
 __exportStar(require("./requests/multiple-update-part.request"), exports);
 __exportStar(require("./requests/create-variant.request"), exports);
 __exportStar(require("./requests/create-draft.request"), exports);
+__exportStar(require("./requests/variant.response"), exports);
 //# sourceMappingURL=index.js.map

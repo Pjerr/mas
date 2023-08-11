@@ -8,3 +8,12 @@
 .edit__editors {
     flex: 1;
 }
+
+.variants__link {
+    display: flex;
+}
+
+.link {
+    display: flex;
+    height: var(--size-10);
+}

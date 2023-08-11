@@ -36,7 +36,7 @@ export const tableSlice = createSlice({
         removeMany: (state, { payload }: PayloadAction<RemoveManyAction>) => {
             const instanceId = payload.instanceId;
             state[instanceId].data = state[instanceId].data.filter(
-                (entity) => !payload.ids.includes(entity.id)
+                (entity) => !payload.ids.includes(entity.id!)
             );
         },
         setSorting: (state, { payload }: PayloadAction<SortingAction>) => {

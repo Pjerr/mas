@@ -28,12 +28,15 @@ let VariantService = class VariantService {
     async find(id) {
         const part = await this.em.findOne(entities_1.Part, { id });
         if (!part)
-            throw new common_1.NotFoundException('Part does not exist');
-        const response = await this.em.find(variant_config_entity_1.VariantConfig, { part: id });
+            throw new common_1.NotFoundException('Product does not exist');
+        const response = await this.em.find(variant_config_entity_1.VariantConfig, {
+            part: id,
+        });
         const configs = {};
         response.forEach((config) => {
-            if (!configs[config.attributeId])
+            if (!configs[config.attributeId]) {
                 configs[config.attributeId] = [];
+            }
             configs[config.attributeId].push({
                 attributeName: config.attributeName,
                 id: config.id,
@@ -42,7 +45,11 @@ let VariantService = class VariantService {
             });
         });
         const configVariants = this.cartesianProduct(Object.values(configs));
-        return { configs: configVariants, basePrice: part.basePrice, part: id };
+        return {
+            configs: configVariants,
+            basePrice: part.basePrice,
+            product: id,
+        };
     }
 };
 VariantService = __decorate([

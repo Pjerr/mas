@@ -258,6 +258,13 @@ const injectedRtkApi = api
                 }),
                 invalidatesTags: ['Parts'],
             }),
+            findVariantPart: build.query<
+                FindVariantPartApiResponse,
+                FindVariantPartApiArg
+            >({
+                query: (queryArg) => ({ url: `/parts/${queryArg.id}/variant` }),
+                providesTags: ['Parts'],
+            }),
             createCategory: build.mutation<
                 CreateCategoryApiResponse,
                 CreateCategoryApiArg
@@ -534,6 +541,10 @@ export type RemoveAttributesPartApiResponse = /** status 200  */ PartResponse;
 export type RemoveAttributesPartApiArg = {
     id: string;
     updateAttributeRelations: UpdateAttributeRelations;
+};
+export type FindVariantPartApiResponse = /** status 200  */ VariantsResponse;
+export type FindVariantPartApiArg = {
+    id: string;
 };
 export type CreateCategoryApiResponse = /** status 201  */ CategoryResponse;
 export type CreateCategoryApiArg = {
@@ -844,6 +855,21 @@ export type UpdateAttributeRelation = {
 export type UpdateAttributeRelations = {
     attributeIds: string[];
 };
+export type VariantConfigResponse = {
+    price: number;
+    id: string;
+    attributeName: string;
+    optionValue: string;
+};
+export type Variants = {
+    configs: VariantConfigResponse[][];
+    basePrice: number;
+    product: string;
+};
+export type VariantsResponse = {
+    data: Variants;
+    links?: string[];
+};
 export type Category = {
     childrenIds: string[];
     id: string;
@@ -944,6 +970,7 @@ export const {
     useAddAttributePartMutation,
     useRemoveAttributePartMutation,
     useRemoveAttributesPartMutation,
+    useFindVariantPartQuery,
     useCreateCategoryMutation,
     useFindCategoryQuery,
     useFindOneCategoryQuery,

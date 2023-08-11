@@ -2,6 +2,7 @@ import { TableContext } from '@/components/Table/types/table-context';
 import { useAppDispatch } from '@/store';
 import { initTable, loadTableDataThunk, removeManyThunk } from '@/store/table';
 import loadPartOptions from '@/store/table/thunks/loadPartOption';
+import loadVariantsThunk from '@/store/table/thunks/loadVariants';
 import { EntityType } from '@/store/table/types';
 import { instanceIds } from '@/types/entity';
 import { useContext, useMemo } from 'react';
@@ -33,14 +34,25 @@ export const useTable = (instanceId?: string) => {
         dispatch(initTable(instanceId));
     }
 
+    async function loadVariantData(partId: string) {
+        await dispatch(loadVariantsThunk({ partId }));
+    }
+
     return useMemo(() => {
         return {
             loadTableData,
             removeMany,
             loadOptionConfig,
             clearTableData,
+            loadVariantData,
         };
-    }, [loadTableData, removeMany, clearTableData, loadOptionConfig]);
+    }, [
+        loadTableData,
+        removeMany,
+        clearTableData,
+        loadOptionConfig,
+        loadVariantData,
+    ]);
 };
 
 export const useTableSelector = (instanceId: string) => {
