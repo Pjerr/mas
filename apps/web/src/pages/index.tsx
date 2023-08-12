@@ -54,8 +54,9 @@ const Parts: NextPageWithLayout = () => {
         router.push('/create');
     };
 
-    const selectedIds = useSelector((state: RootState) =>
-        selectSelectedRows(state, instanceIds['Part'])
+    const selectedIds = useSelector(
+        (state: RootState) =>
+            selectSelectedRows(state, instanceIds['Part']) as string[]
     );
 
     const onEdit = (partIds: string[] | undefined) => {
