@@ -8,7 +8,7 @@ import { VariantConfig } from '@/core/entities/variant_config.entity';
 export class VariantService {
   constructor(private readonly em: EntityManager) {}
 
-  cartesianProduct(data: VariantConfigResponse[][]): VariantConfigResponse[][] {
+  cartesianPart(data: VariantConfigResponse[][]): VariantConfigResponse[][] {
     return data.reduce(
       function (previous, current) {
         return previous
@@ -22,7 +22,7 @@ export class VariantService {
   async find(id: string) {
     const part = await this.em.findOne(Part, { id });
 
-    if (!part) throw new NotFoundException('Product does not exist');
+    if (!part) throw new NotFoundException('Part does not exist');
 
     const response = await this.em.find(VariantConfig, {
       part: id,
@@ -42,12 +42,12 @@ export class VariantService {
       });
     });
 
-    const configVariants = this.cartesianProduct(Object.values(configs));
+    const configVariants = this.cartesianPart(Object.values(configs));
 
     return {
       configs: configVariants,
       basePrice: part.basePrice,
-      product: id,
+      part: id,
     };
   }
 }

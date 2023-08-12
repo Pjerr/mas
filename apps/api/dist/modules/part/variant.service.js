@@ -18,7 +18,7 @@ let VariantService = class VariantService {
     constructor(em) {
         this.em = em;
     }
-    cartesianProduct(data) {
+    cartesianPart(data) {
         return data.reduce(function (previous, current) {
             return previous
                 .map((x) => current.map((y) => x.concat([y])))
@@ -28,7 +28,7 @@ let VariantService = class VariantService {
     async find(id) {
         const part = await this.em.findOne(entities_1.Part, { id });
         if (!part)
-            throw new common_1.NotFoundException('Product does not exist');
+            throw new common_1.NotFoundException('Part does not exist');
         const response = await this.em.find(variant_config_entity_1.VariantConfig, {
             part: id,
         });
@@ -44,11 +44,11 @@ let VariantService = class VariantService {
                 optionValue: config.optionValue,
             });
         });
-        const configVariants = this.cartesianProduct(Object.values(configs));
+        const configVariants = this.cartesianPart(Object.values(configs));
         return {
             configs: configVariants,
             basePrice: part.basePrice,
-            product: id,
+            part: id,
         };
     }
 };

@@ -3,7 +3,7 @@ import { PartTableHeaderProps, PartTableHeaderTab } from './types';
 import { EntityType } from '@/store/table/types';
 import BulkActionToolbar from '../BulkActionToolbar';
 
-export const createProductHeaderTabs = (
+export const createPartHeaderTabs = (
     props: PartTableHeaderProps
 ): PartTableHeaderTab[] => {
     return [

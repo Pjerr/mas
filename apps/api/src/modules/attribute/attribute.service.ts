@@ -110,7 +110,7 @@ export class AttributeService {
 
     const response = await attributeQb
       .select(['displayName', 'id', 'propertyKey'])
-      .where({ products: { id: { $eq: partId } } })
+      .where({ parts: { id: { $eq: partId } } })
       .execute('all');
 
     return response;

@@ -5,7 +5,7 @@ export class Variants {
 
   basePrice: number;
 
-  product: string;
+  part: string;
 }
 
 export class VariantsResponse {

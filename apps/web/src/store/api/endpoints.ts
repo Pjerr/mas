@@ -68,12 +68,12 @@ const injectedRtkApi = api
                 }),
                 invalidatesTags: ['Attributes'],
             }),
-            findByProductAttribute: build.query<
-                FindByProductAttributeApiResponse,
-                FindByProductAttributeApiArg
+            findByPartAttribute: build.query<
+                FindByPartAttributeApiResponse,
+                FindByPartAttributeApiArg
             >({
                 query: (queryArg) => ({
-                    url: `/attributes/${queryArg.id}/product`,
+                    url: `/attributes/${queryArg.id}/part`,
                 }),
                 providesTags: ['Attributes'],
             }),
@@ -458,9 +458,9 @@ export type UpdateAttributeApiArg = {
     id: string;
     updateAttribute: UpdateAttribute;
 };
-export type FindByProductAttributeApiResponse =
+export type FindByPartAttributeApiResponse =
     /** status 200  */ PartialAttributesResponse;
-export type FindByProductAttributeApiArg = {
+export type FindByPartAttributeApiArg = {
     id: string;
 };
 export type CreateOptionApiResponse = /** status 201  */ OptionResponse;
@@ -864,7 +864,7 @@ export type VariantConfigResponse = {
 export type Variants = {
     configs: VariantConfigResponse[][];
     basePrice: number;
-    product: string;
+    part: string;
 };
 export type VariantsResponse = {
     data: Variants;
@@ -951,7 +951,7 @@ export const {
     useRemoveManyAttributeMutation,
     useFindOneAttributeQuery,
     useUpdateAttributeMutation,
-    useFindByProductAttributeQuery,
+    useFindByPartAttributeQuery,
     useCreateOptionMutation,
     useFindOptionQuery,
     useRemoveManyOptionMutation,

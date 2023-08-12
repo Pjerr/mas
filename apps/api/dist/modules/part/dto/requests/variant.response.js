@@ -4,7 +4,7 @@ exports.VariantsResponse = exports.Variants = void 0;
 const openapi = require("@nestjs/swagger");
 class Variants {
     static _OPENAPI_METADATA_FACTORY() {
-        return { configs: { required: true, type: () => [[require("../../../attribute/dto/option/requests/config.response").VariantConfigResponse]] }, basePrice: { required: true, type: () => Number }, product: { required: true, type: () => String } };
+        return { configs: { required: true, type: () => [[require("../../../attribute/dto/option/requests/config.response").VariantConfigResponse]] }, basePrice: { required: true, type: () => Number }, part: { required: true, type: () => String } };
     }
 }
 exports.Variants = Variants;

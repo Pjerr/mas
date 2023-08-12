@@ -1,4 +1,4 @@
-export interface ProductVariantsProps {
+export interface PartVariantsProps {
     part: PartVariant;
 }
 export interface AttributeOptionResponse {

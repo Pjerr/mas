@@ -5,13 +5,13 @@ import useLocalStorage from '@/hooks/useLocalStorage';
 import { useEffect } from 'react';
 import PartVariants from '@/components/PartVariants';
 import { SidebarLayout } from '@/layouts/SidebarLayout';
-import { LS_PRODUCT_VARIANT_ID } from '@/utils/constants';
+import { LS_PART_VARIANT_ID } from '@/utils/constants';
 
 const Variants: NextPageWithLayout = () => {
     const router = useRouter();
     const { loadVariantData } = useTable();
     const [partId] = useLocalStorage<string | undefined>(
-        LS_PRODUCT_VARIANT_ID,
+        LS_PART_VARIANT_ID,
         router.query.id as string
     );
 

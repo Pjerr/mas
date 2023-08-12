@@ -58,9 +58,9 @@ const Parts: NextPageWithLayout = () => {
         selectSelectedRows(state, instanceIds['Part'])
     );
 
-    const onEdit = (productIds: string[] | undefined) => {
-        if (!productIds) return;
-        router.push(`${productIds[0]}`);
+    const onEdit = (partIds: string[] | undefined) => {
+        if (!partIds) return;
+        router.push(`${partIds[0]}`);
     };
 
     const onEditMode = (selected: string[] | undefined): boolean => {

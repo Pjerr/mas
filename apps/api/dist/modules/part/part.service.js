@@ -44,13 +44,13 @@ let PartService = class PartService {
         return createdPart;
     }
     async createDraft(payload) {
-        const product = this.partRepository.create({
+        const part = this.partRepository.create({
             name: payload.name,
             attributes: [],
             properties: {},
             createdAt: null,
         });
-        return product;
+        return part;
     }
     async find(filters) {
         const parts = await this.partRepository.find(filters.query, filters.options);

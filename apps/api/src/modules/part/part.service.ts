@@ -55,14 +55,14 @@ export class PartService {
   }
 
   async createDraft(payload: CreateDraft) {
-    const product = this.partRepository.create({
+    const part = this.partRepository.create({
       name: payload.name,
       attributes: [],
       properties: {},
       createdAt: null,
     });
 
-    return product;
+    return part;
   }
 
   async find(filters: FilterEntity<Part>) {

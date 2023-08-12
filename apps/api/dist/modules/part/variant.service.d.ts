@@ -3,11 +3,11 @@ import { VariantConfigResponse } from '../attribute/dto/option/requests/config.r
 export declare class VariantService {
     private readonly em;
     constructor(em: EntityManager);
-    cartesianProduct(data: VariantConfigResponse[][]): VariantConfigResponse[][];
+    cartesianPart(data: VariantConfigResponse[][]): VariantConfigResponse[][];
     find(id: string): Promise<{
         configs: VariantConfigResponse[][];
         basePrice: number;
-        product: string;
+        part: string;
     }>;
 }
 //# sourceMappingURL=variant.service.d.ts.map

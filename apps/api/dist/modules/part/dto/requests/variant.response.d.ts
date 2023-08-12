@@ -2,7 +2,7 @@ import { VariantConfigResponse } from '@/modules/attribute/dto/option';
 export declare class Variants {
     configs: VariantConfigResponse[][];
     basePrice: number;
-    product: string;
+    part: string;
 }
 export declare class VariantsResponse {
     data: Variants;

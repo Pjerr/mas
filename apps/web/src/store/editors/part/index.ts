@@ -32,18 +32,18 @@ export const partSlice = createSlice({
             const attributePropertyKeys = payload.attributes.map(
                 (attribute) => attribute.propertyKey
             );
-            const product = state.form.value;
+            const part = state.form.value;
 
-            const updatedAttributes = product.attributes.filter(
+            const updatedAttributes = part.attributes.filter(
                 (attribute) => attribute.group.id !== payload.groupId
             );
             const updatedProperties = Object.fromEntries(
-                Object.entries(product.properties || {}).filter(
+                Object.entries(part.properties || {}).filter(
                     ([key]) => !attributePropertyKeys.includes(key)
                 )
             );
-            product.attributes = updatedAttributes;
-            product.properties = updatedProperties;
+            part.attributes = updatedAttributes;
+            part.properties = updatedProperties;
         },
         setDraftForm: (
             state,

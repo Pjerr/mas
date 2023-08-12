@@ -13,7 +13,7 @@ export default function Options({ attributes }: OptionsProps) {
 
     return (
         <>
-            <div className={styles['product-options']} id={`group-options`}>
+            <div className={styles['part-options']} id={`group-options`}>
                 <h1 className={styles['group__title']}>Options</h1>
                 <div className={styles['options']}>
                     <Accordion onExpand={() => {}}>

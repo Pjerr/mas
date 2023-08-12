@@ -8,7 +8,7 @@ export default function Body() {
 
     return (
         <div className={styles['editor__body']}>
-            {form && <PartForm key={`product-form`} />}
+            {form && <PartForm key={`part-form`} />}
         </div>
     );
 }
