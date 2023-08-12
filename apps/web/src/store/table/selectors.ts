@@ -30,7 +30,7 @@ export const selectSelectedEntities = (
 ) => {
     if (!state.table[instanceId] || !selectedIds) return;
     return state.table[instanceId].data.filter((entity) =>
-        selectedIds.includes(entity.id)
+        selectedIds.includes(entity.id!)
     );
 };
 
