@@ -18,11 +18,15 @@ export const tableSlice = createSlice({
     initialState,
     reducers: {
         initTable: (state, { payload }: PayloadAction<string>) => {
-            if (!state[payload]) state[payload] = initialInstance;
+            if (!state[payload]) {
+                state[payload] = initialInstance;
+            }
         },
         loadData: (state, { payload }: PayloadAction<LoadDataAction>) => {
             const instanceId = payload.instanceId;
-            if (!state[instanceId]) state[instanceId] = initialInstance;
+            if (!state[instanceId]) {
+                state[instanceId] = initialInstance;
+            }
             state[instanceId].data = payload.data;
             state[instanceId].isError = payload.isError;
             state[instanceId].isLoading = payload.isLoading;

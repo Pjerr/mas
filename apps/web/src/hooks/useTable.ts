@@ -19,11 +19,6 @@ export const useTable = (instanceId?: string) => {
             })
         );
     }
-
-    async function loadOptionConfig(attributeIds: string[], partId: string) {
-        await dispatch(loadPartOptions({ attributeIds, partId }));
-    }
-
     async function removeMany(ids: string[], type: EntityType) {
         if (!instanceId) return;
         await dispatch(removeManyThunk({ ids, type, instanceId }));
@@ -42,17 +37,10 @@ export const useTable = (instanceId?: string) => {
         return {
             loadTableData,
             removeMany,
-            loadOptionConfig,
             clearTableData,
             loadVariantData,
         };
-    }, [
-        loadTableData,
-        removeMany,
-        clearTableData,
-        loadOptionConfig,
-        loadVariantData,
-    ]);
+    }, [loadTableData, removeMany, clearTableData, loadVariantData]);
 };
 
 export const useTableSelector = (instanceId: string) => {
