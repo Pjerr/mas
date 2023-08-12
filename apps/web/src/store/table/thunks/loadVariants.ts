@@ -11,7 +11,7 @@ const loadVariantsThunk = createAsyncThunk<
     void,
     LoadVariantsProps,
     { dispatch: AppDispatch; state: RootState }
->('grid/loadData', async ({ partId }, { dispatch }) => {
+>('grid/loadVariant', async ({ partId }, { dispatch }) => {
     const {
         isError,
         isLoading,

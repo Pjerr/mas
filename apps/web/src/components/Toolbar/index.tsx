@@ -42,8 +42,9 @@ export default function Toolbar({
         selectIsLoading(state, instanceIds[type])
     );
 
-    const selectedIds = useSelector((state: RootState) =>
-        selectSelectedRows(state, instanceIds[type])
+    const selectedIds = useSelector(
+        (state: RootState) =>
+            selectSelectedRows(state, instanceIds[type]) as string[]
     );
 
     while (isLoading) return <>Spinner will go here!</>;
@@ -94,7 +95,7 @@ export default function Toolbar({
                 />
             </div>
             <SearchInput
-                placeholder="Search attributes..."
+                placeholder="Search"
                 value={searchParam}
                 onChange={setSearchParam}
                 onClick={onSearch}

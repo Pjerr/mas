@@ -10,12 +10,16 @@ import { LS_PART_VARIANT_ID } from '@/utils/constants';
 const Variants: NextPageWithLayout = () => {
     const router = useRouter();
     const { loadVariantData } = useTable();
-    const [partId] = useLocalStorage<string | undefined>(
+
+    const partId = router.query.id as string;
+
+    const [_, setLsPartId] = useLocalStorage<string | undefined>(
         LS_PART_VARIANT_ID,
         router.query.id as string
     );
 
     useEffect(() => {
+        setLsPartId(partId);
         loadVariantData(partId!);
     }, [partId]);
 
