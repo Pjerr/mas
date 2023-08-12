@@ -69,12 +69,13 @@ export const tableSlice = createSlice({
         },
         updateEntity: (state, { payload }: PayloadAction<EntityAction>) => {
             const instanceId = payload.instanceId;
-            if (!payload.entity || !state[instanceId].data) return;
-            const index = state[instanceId].data.findIndex(
-                (entity) => entity.id === payload.entity.id
-            );
-            if (state[instanceId].data && index !== undefined) {
-                state[instanceId].data[index] = payload.entity;
+            if (payload.entity && state[instanceId]?.data) {
+                const index = state[instanceId].data.findIndex(
+                    (entity) => entity.id === payload.entity.id
+                );
+                if (state[instanceId].data && index !== undefined) {
+                    state[instanceId].data[index] = payload.entity;
+                }
             }
         },
         updateTableCell: (
