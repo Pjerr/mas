@@ -48,7 +48,7 @@ export default function ManufacturerEditor({
 
     return (
         <div className={styles['form__container']}>
-            <span className={styles['form__title']} data-cy="form__title">
+            <span className={styles['form__title']}>
                 {state.mode === EditorMode.Create
                     ? 'Create manufacturer'
                     : 'Update manufacturer'}
@@ -57,12 +57,8 @@ export default function ManufacturerEditor({
                 <form
                     className={styles['form']}
                     onSubmit={handleSubmit(onSubmit)}
-                    data-cy="form"
                 >
-                    <div
-                        className={classNames(styles['form__inputs'])}
-                        data-cy="form__inputs"
-                    >
+                    <div className={classNames(styles['form__inputs'])}>
                         {Object.values(manufacturerMetadata).map((metadata) => (
                             <FormField
                                 key={metadata.propertyKey}

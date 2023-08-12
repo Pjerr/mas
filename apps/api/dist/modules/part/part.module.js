@@ -24,7 +24,6 @@ PartModule = __decorate([
                 entities_1.Category,
                 entities_1.Attribute,
                 entities_1.AttributeOption,
-                entities_1.Variant,
                 entities_1.OptionConfig,
             ]),
         ],

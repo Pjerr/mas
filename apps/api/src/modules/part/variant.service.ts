@@ -1,20 +1,14 @@
-import { AttributeOption, OptionConfig, Variant } from '@/core/entities';
-import { OptionConfigService } from '@/modules/attribute/option-config.service';
-import { EntityRepository } from '@mikro-orm/core';
-import { InjectRepository } from '@mikro-orm/nestjs';
+import { Part } from '@/core/entities';
 import { EntityManager } from '@mikro-orm/postgresql';
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { VariantConfigResponse } from '../attribute/dto/option/requests/config.response';
+import { VariantConfig } from '@/core/entities/variant_config.entity';
 
 @Injectable()
 export class VariantService {
-  constructor(
-    private readonly em: EntityManager,
-    private readonly configService: OptionConfigService,
-    @InjectRepository(Variant)
-    private readonly repository: EntityRepository<Variant>,
-  ) {}
+  constructor(private readonly em: EntityManager) {}
 
-  cartesianProduct(data: OptionConfig[][]): OptionConfig[][] {
+  cartesianPart(data: VariantConfigResponse[][]): VariantConfigResponse[][] {
     return data.reduce(
       function (previous, current) {
         return previous
@@ -25,48 +19,35 @@ export class VariantService {
     );
   }
 
-  generateVariants(partId: string, options: AttributeOption[][]) {
-    if (options.length === 0) return [];
+  async find(id: string) {
+    const part = await this.em.findOne(Part, { id });
 
-    const optionConfigs = options.map((attributeOptions) =>
-      this.configService.create(attributeOptions),
-    );
+    if (!part) throw new NotFoundException('Part does not exist');
 
-    const configVariants = this.cartesianProduct(optionConfigs);
+    const response = await this.em.find(VariantConfig, {
+      part: id,
+    });
 
-    Logger.log('config-combinations', configVariants);
+    const configs: Record<string, VariantConfigResponse[]> = {};
+    response.forEach((config) => {
+      if (!configs[config.attributeId]) {
+        configs[config.attributeId] = [];
+      }
 
-    const variants = configVariants.map((optionsConfigs) =>
-      this.repository.create({
-        part: partId,
-        optionsConfigs,
-      }),
-    );
+      configs[config.attributeId].push({
+        attributeName: config.attributeName,
+        id: config.id,
+        price: config.price,
+        optionValue: config.optionValue,
+      });
+    });
 
-    this.em.persist(variants);
+    const configVariants = this.cartesianPart(Object.values(configs));
 
-    return variants;
-  }
-
-  async findOne(id: string) {
-    const variant = await this.repository.findOne(id);
-
-    if (!variant) throw new NotFoundException('Variant does not exist');
-
-    return variant;
-  }
-
-  async find() {
-    const variant = await this.repository.findAll();
-
-    return variant;
-  }
-
-  async remove(id: string) {
-    const variant = await this.repository.findOne(id);
-
-    if (!variant) throw new NotFoundException('Variant does not exist');
-
-    await this.em.removeAndFlush(variant);
+    return {
+      configs: configVariants,
+      basePrice: part.basePrice,
+      part: id,
+    };
   }
 }

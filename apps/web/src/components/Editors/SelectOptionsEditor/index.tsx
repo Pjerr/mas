@@ -34,10 +34,7 @@ export default function SelectOptionsEditor({ metadata }: EditorProps) {
 
     return (
         <div className={styles['editor__container']}>
-            <label
-                className={styles['editor__label']}
-                data-cy={`editor__label__${metadata.propertyKey}`}
-            >
+            <label className={styles['editor__label']}>
                 {metadata.displayName}
             </label>
             <Modal
@@ -51,7 +48,6 @@ export default function SelectOptionsEditor({ metadata }: EditorProps) {
                             <FaPlusCircle className={styles['editor__icon']} />
                         }
                         onClick={handleClick}
-                        data-cy={`editor__${metadata.propertyKey}`}
                     />
                 }
             >

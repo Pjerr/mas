@@ -18,7 +18,6 @@ __exportStar(require("./attribute.entity"), exports);
 __exportStar(require("./attribute-option.entity"), exports);
 __exportStar(require("./category.entity"), exports);
 __exportStar(require("./group.entity"), exports);
-__exportStar(require("./variant.entity"), exports);
 __exportStar(require("./option-config.entity"), exports);
 __exportStar(require("./part.entity"), exports);
 __exportStar(require("./manufacturer.entity"), exports);

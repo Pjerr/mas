@@ -9,7 +9,6 @@ function ModalHeader({ title, close }: { title: string; close: () => void }) {
                 className={styles['header__close']}
                 onClick={close}
                 tabIndex={1}
-                data-cy="modal__close-button"
             >
                 <FaTimes className={styles['modal__close-button']} />
             </button>

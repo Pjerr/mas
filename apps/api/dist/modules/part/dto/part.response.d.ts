@@ -1,7 +1,8 @@
-import { Part } from '@/core/entities';
+import { OptionConfig, Part } from '@/core/entities';
 import { EntityResponse } from '@/core/types';
 export declare class PartResponse implements EntityResponse<Part> {
     data: Part;
+    variantConfigs?: OptionConfig[][];
     links?: string[];
 }
 export declare class PartsResponse implements EntityResponse<Part[]> {

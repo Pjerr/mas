@@ -1,5 +1,6 @@
 import { Attribute, Group } from '@/store/api/endpoints';
 import styles from './styles.module.css';
+import { usePartEditor } from '@/hooks/usePartEditor';
 
 interface AddAttributesProps {
     type: 'group' | 'attribute';
@@ -7,20 +8,16 @@ interface AddAttributesProps {
     group?: Group;
 }
 
-export default function Groups({
-    group,
-    onClick,
-}: {
-    group: Group;
-    onClick: (attributes: Attribute[]) => void;
-}) {
+export default function Groups({ group }: { group: Group }) {
+    const { addProperty } = usePartEditor();
+
     const handleOnClick = (addAttributesProps: AddAttributesProps) => {
         const { type, attribute, group } = addAttributesProps;
         if (type === 'group' && group) {
-            onClick(group.attributes as Attribute[]);
+            addProperty(group.attributes);
         }
         if (type === 'attribute' && attribute) {
-            onClick([attribute]);
+            addProperty([attribute]);
         }
     };
 
@@ -36,7 +33,7 @@ export default function Groups({
                 {group.name}
             </div>
             <div className={styles['groups__attributes']}>
-                {(group.attributes as Attribute[]).map((attribute) => (
+                {group.attributes.map((attribute) => (
                     <div
                         key={`attributes__attribute-${attribute.id}`}
                         className={styles['attributes__attribute']}
@@ -46,7 +43,6 @@ export default function Groups({
                                 attribute,
                             })
                         }
-                        data-cy="search-results__attribute"
                     >
                         {attribute.displayName}
                     </div>

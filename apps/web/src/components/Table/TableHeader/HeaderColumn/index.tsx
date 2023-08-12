@@ -18,7 +18,6 @@ export function HeaderColumn({ header }: HeaderColumnProps) {
                     <div
                         className={styles['table-header__sort-container']}
                         onClick={header.column.getToggleSortingHandler()}
-                        data-cy="table-header__sort-container"
                     >
                         {flexRender(
                             header.column.columnDef.header,

@@ -4,6 +4,7 @@ import {
   Collection,
   Entity,
   Enum,
+  Formula,
   Index,
   ManyToMany,
   ManyToOne,
@@ -16,10 +17,10 @@ import { Manufacturer } from './manufacturer.entity';
 import { Category } from './category.entity';
 import { Attribute } from './attribute.entity';
 import { ApiResponseProperty } from '@nestjs/swagger';
-import { PartStatus, PropertyType } from 'shared';
+import { PartStatus, PropertyType, PublishStatus } from 'shared';
 import uuid4 from 'uuid4';
 import { Filterable } from '../meta/decorators/filter.decorator';
-import { Variant } from './variant.entity';
+import { OptionConfig } from './option-config.entity';
 
 @Entity()
 export class Part extends BaseEntity<Part, 'id'> {
@@ -54,7 +55,7 @@ export class Part extends BaseEntity<Part, 'id'> {
   category: string;
 
   @ApiResponseProperty({
-    type: [Attribute],
+    type: (type) => [Attribute],
   })
   @ManyToMany(() => Attribute)
   attributes = new Collection<Attribute>(this);
@@ -62,19 +63,29 @@ export class Part extends BaseEntity<Part, 'id'> {
   @Property()
   basePrice: number = 0;
 
-  @ApiResponseProperty({
-    type: [Variant],
-  })
-  @OneToMany(() => Variant, (variant) => variant.part, {
-    nullable: true,
-    orphanRemoval: true,
-    cascade: [Cascade.PERSIST],
-  })
-  variants = new Collection<Variant>(this);
-
   @Property()
   createdAt: Date = new Date();
 
   @Property({ nullable: true, onUpdate: () => new Date() })
   updatedAt: Date;
+
+  @ApiResponseProperty({
+    type: (type) => [OptionConfig],
+  })
+  @OneToMany(() => OptionConfig, (config) => config.part, {
+    nullable: true,
+    orphanRemoval: true,
+    cascade: [Cascade.PERSIST, Cascade.REMOVE],
+    hidden: true,
+  })
+  configs = new Collection<OptionConfig>(this);
+
+  @Property({ nullable: true })
+  publishStatus: PublishStatus = PublishStatus.Draft;
+
+  @Formula(
+    (alias) =>
+      `(select count(*) as "count" from "option_config" as "o0" where "o0"."part_id" = ${alias}.id)`,
+  )
+  configsCount: number;
 }

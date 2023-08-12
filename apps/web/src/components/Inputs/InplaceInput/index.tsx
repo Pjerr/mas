@@ -45,7 +45,6 @@ const InplaceInput = React.forwardRef<
                 <form
                     className={classNames(styles['inplace-form'])}
                     onSubmit={handleSave}
-                    data-cy="inplace__form"
                 >
                     <TextInput
                         {...rest}
@@ -56,7 +55,6 @@ const InplaceInput = React.forwardRef<
                         value={value}
                         onClick={(e) => e.stopPropagation()}
                         onChange={(e) => setValue(e.target.value)}
-                        data-cy="inplace__input"
                     />
                     <InplaceInputButtons handleCancel={handleCancel} />
                 </form>

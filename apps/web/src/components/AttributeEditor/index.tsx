@@ -64,24 +64,20 @@ export default function AttributeEditor({
 
     return (
         <div className={styles['form__container']}>
-            <span className={styles['form__title']} data-cy="form__title">
+            <span className={styles['form__title']}>
                 {state.mode === EditorMode.Create
                     ? 'Create attribute'
                     : 'Update attribute'}
             </span>
-            <span className={styles['form__subtitle']} data-cy="form__subtitle">
+            <span className={styles['form__subtitle']}>
                 {state.group?.name}
             </span>
             <FormProvider {...methods}>
                 <form
                     className={styles['form']}
                     onSubmit={handleSubmit(onSubmit)}
-                    data-cy="form"
                 >
-                    <div
-                        className={classNames(styles['form__inputs'])}
-                        data-cy="form__inputs"
-                    >
+                    <div className={classNames(styles['form__inputs'])}>
                         {Object.values(attributeMetadata).map((metadata) => (
                             <FormField
                                 key={metadata.propertyKey}

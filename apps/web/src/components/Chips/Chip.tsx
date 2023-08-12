@@ -47,7 +47,6 @@ const Chip = React.forwardRef<
                         <Button
                             icon={<FaTimes />}
                             className={classNames(styles['chip__delete'])}
-                            data-cy="chip__delete-button"
                         />
                     }
                     modalTitle="Remove attributes"

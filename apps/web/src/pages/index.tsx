@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { RootState, useAppDispatch } from '@/store';
 import { useRouter } from 'next/router';
 import { SidebarLayout } from '@/layouts/SidebarLayout';
-import { useTable, useTableSelector } from '@/hooks/useTable';
+import { useTable } from '@/hooks/useTable';
 import { instanceIds } from '@/types/entity';
 import { EntityType } from '@/store/table/types';
 import { resetForm } from '@/store/editors/part';
@@ -14,7 +14,10 @@ import PartTableHeader from '@/components/PartTableHeader';
 import { createPartForm } from '@/store/editors/part/thunks';
 import { useSelector } from 'react-redux';
 import { selectSelectedRows } from '@/store/table';
-import { useBulkUpdatePricePartMutation } from '@/store/api/endpoints';
+import {
+    useBulkUpdatePricePartMutation,
+    useCreateDraftPartMutation,
+} from '@/store/api/endpoints';
 import { toast } from 'react-toastify';
 
 const Parts: NextPageWithLayout = () => {
@@ -23,6 +26,7 @@ const Parts: NextPageWithLayout = () => {
 
     const { loadTableData } = useTable();
 
+    const [createDraft] = useCreateDraftPartMutation();
     const [bulkUpdatePrice] = useBulkUpdatePricePartMutation();
 
     const refetch = () => {
@@ -33,27 +37,31 @@ const Parts: NextPageWithLayout = () => {
         loadTableData(EntityType.Part);
     }, []);
 
-    const onCreate = () => {
+    const onCreate = async () => {
         dispatch(resetForm());
+
+        const { data: part } = await createDraft({
+            createDraft: {
+                name: 'Untitled part',
+            },
+        }).unwrap();
+
         dispatch(
             createPartForm({
-                part: {
-                    name: 'Untitled part',
-                    attributes: [],
-                    properties: {},
-                },
+                part,
             })
         );
         router.push('/create');
     };
 
-    const selectedIds = useSelector((state: RootState) =>
-        selectSelectedRows(state, instanceIds['Part'])
+    const selectedIds = useSelector(
+        (state: RootState) =>
+            selectSelectedRows(state, instanceIds['Part']) as string[]
     );
 
-    const onEdit = (productIds: string[] | undefined) => {
-        if (!productIds) return;
-        router.push(`${productIds[0]}`);
+    const onEdit = (partIds: string[] | undefined) => {
+        if (!partIds) return;
+        router.push(`${partIds[0]}`);
     };
 
     const onEditMode = (selected: string[] | undefined): boolean => {

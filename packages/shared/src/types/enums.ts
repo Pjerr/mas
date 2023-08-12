@@ -57,3 +57,8 @@ export enum ConditionalOperator {
     // IN_LOW = '$inL',
     // NOT_IN_LOW = '$notinL',
 }
+
+export enum PublishStatus {
+    Published = 'published',
+    Draft = 'draft',
+}

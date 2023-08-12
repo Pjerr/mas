@@ -1,7 +1,12 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { initialState } from './initialState';
-import { AddFieldsAction, RemoveFieldsAction, SetFormAction } from './types';
-import { Attribute, Part } from '@/store/api/endpoints';
+import {
+    AddFieldsAction,
+    RemoveFieldsAction,
+    SetDraftFormAction,
+    SetFormAction,
+    UpdateDefaultFormStateAction,
+} from './types';
 import { castDraft } from 'immer';
 
 export const partSlice = createSlice({
@@ -16,22 +21,21 @@ export const partSlice = createSlice({
             state.form = castedForm;
         },
         addFormFields: (state, { payload }: PayloadAction<AddFieldsAction>) => {
-            state.form?.state.defaultValues?.attributes?.push(
-                ...payload.attributes
-            );
+            if (!state.form) return;
+            state.form.value.attributes.push(...payload.attributes);
         },
         removeFormFields: (
             state,
             { payload }: PayloadAction<RemoveFieldsAction>
         ) => {
+            if (!state.form) return;
             const attributePropertyKeys = payload.attributes.map(
                 (attribute) => attribute.propertyKey
             );
-            const part = state.form?.state.defaultValues as Part;
+            const part = state.form.value;
 
             const updatedAttributes = part.attributes.filter(
-                (attribute) =>
-                    (attribute as Attribute).group.id !== payload.groupId
+                (attribute) => attribute.group.id !== payload.groupId
             );
             const updatedProperties = Object.fromEntries(
                 Object.entries(part.properties || {}).filter(
@@ -41,11 +45,38 @@ export const partSlice = createSlice({
             part.attributes = updatedAttributes;
             part.properties = updatedProperties;
         },
+        setDraftForm: (
+            state,
+            { payload }: PayloadAction<SetDraftFormAction>
+        ) => {
+            if (!state.form) return;
+            const castedValue = castDraft(payload.draftValue);
+            state.form.value = castedValue;
+        },
+        updateDefaultFormValue: (
+            state,
+            { payload }: PayloadAction<UpdateDefaultFormStateAction>
+        ) => {
+            if (!state.form) return;
+            state.form = {
+                state: {
+                    ...state.form.state,
+                    defaultValues: payload.part,
+                },
+                value: payload.part,
+            };
+        },
     },
 });
 
-export const { removeFormFields, resetForm, addFormFields, setForm } =
-    partSlice.actions;
+export const {
+    removeFormFields,
+    resetForm,
+    addFormFields,
+    setForm,
+    updateDefaultFormValue,
+    setDraftForm,
+} = partSlice.actions;
 
 export * from './selectors';
 

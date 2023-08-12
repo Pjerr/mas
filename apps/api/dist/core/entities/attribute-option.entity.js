@@ -25,10 +25,10 @@ let AttributeOption = class AttributeOption extends core_1.BaseEntity {
         super(...arguments);
         this.id = (0, uuid4_1.default)();
         this.createdAt = new Date();
-        this.optionConfigs = new core_1.Collection(this);
+        this.configs = new core_1.Collection(this);
     }
     static _OPENAPI_METADATA_FACTORY() {
-        return { id: { required: true, type: () => String, default: (0, uuid4_1.default)() }, value: { required: true, type: () => String }, displayName: { required: true, type: () => String }, attribute: { required: true, type: () => String }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date }, optionConfigs: { required: true, type: () => Object, default: new core_1.Collection(this) } };
+        return { id: { required: true, type: () => String, default: (0, uuid4_1.default)() }, value: { required: true, type: () => String }, displayName: { required: true, type: () => String }, attribute: { required: true, type: () => String }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date }, configs: { required: true, type: () => Object, default: new core_1.Collection(this) } };
     }
 };
 __decorate([
@@ -47,7 +47,7 @@ __decorate([
     __metadata("design:type", String)
 ], AttributeOption.prototype, "displayName", void 0);
 __decorate([
-    (0, core_1.ManyToOne)(() => attribute_entity_1.Attribute, { mapToPk: true }),
+    (0, core_1.ManyToOne)(() => attribute_entity_1.Attribute, { mapToPk: true, onDelete: 'cascade' }),
     (0, filter_decorator_1.Filterable)(),
     __metadata("design:type", String)
 ], AttributeOption.prototype, "attribute", void 0);
@@ -60,13 +60,12 @@ __decorate([
     __metadata("design:type", Date)
 ], AttributeOption.prototype, "updatedAt", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ type: [option_config_entity_1.OptionConfig] }),
-    (0, core_1.OneToMany)(() => option_config_entity_1.OptionConfig, (optoinConfig) => optoinConfig.option, {
+    (0, swagger_1.ApiProperty)({ type: () => [option_config_entity_1.OptionConfig] }),
+    (0, core_1.OneToMany)(() => option_config_entity_1.OptionConfig, (optionConfig) => optionConfig.option, {
         orphanRemoval: true,
-        nullable: true,
     }),
     __metadata("design:type", Object)
-], AttributeOption.prototype, "optionConfigs", void 0);
+], AttributeOption.prototype, "configs", void 0);
 AttributeOption = __decorate([
     (0, core_1.Entity)()
 ], AttributeOption);

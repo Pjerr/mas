@@ -20,5 +20,6 @@ __exportStar(require("./requests/create-option.request"), exports);
 __exportStar(require("./requests/update-attribute-relation.request"), exports);
 __exportStar(require("./requests/filter.request"), exports);
 __exportStar(require("./requests/create-config.request"), exports);
+__exportStar(require("./requests/config.response"), exports);
 __exportStar(require("./option.response"), exports);
 //# sourceMappingURL=index.js.map

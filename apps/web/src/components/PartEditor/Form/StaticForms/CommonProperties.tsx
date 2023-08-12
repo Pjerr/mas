@@ -12,8 +12,6 @@ export default function CommonProperties() {
 
     const { data: manufacturers } = useFindManufacturerQuery({ query: {} });
 
-    console.log(manufacturers);
-
     const newMetadata = useMemo(() => {
         const newMetadata = [...metadata];
         newMetadata.push({
@@ -37,7 +35,7 @@ export default function CommonProperties() {
     if (!manufacturers) return <></>;
 
     return (
-        <div className={styles['form__group']} data-cy="product-form__common">
+        <div className={styles['form__group']}>
             <h1 className={styles['group__title']}>Common properties</h1>
             <div className={styles['group__attributes']}>
                 {newMetadata.map((value) => {

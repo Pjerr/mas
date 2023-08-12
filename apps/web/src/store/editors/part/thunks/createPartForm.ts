@@ -9,11 +9,12 @@ const createPartForm = createAsyncThunk<
     void,
     CreatePartFormAction,
     { dispatch: AppDispatch; state: RootState }
->('grid/loadData', async ({ part: data }, { dispatch }) => {
+>('part-editor/createForm', async ({ part: data }, { dispatch }) => {
     const formState = createFormState(data);
 
     const form: PartForm = {
         state: formState,
+        value: data as Part,
     };
 
     dispatch(setForm({ form }));

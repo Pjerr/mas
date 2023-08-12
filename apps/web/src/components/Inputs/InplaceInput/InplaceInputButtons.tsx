@@ -14,7 +14,6 @@ export function InplaceInputButtons({
                 type="submit"
                 icon={<FaRegCheckCircle />}
                 variant="borderless"
-                data-cy="inplace__save"
                 className={styles['inplace-button']}
             />
             <Button
@@ -22,7 +21,6 @@ export function InplaceInputButtons({
                 icon={<FaTimes />}
                 onClick={handleCancel}
                 variant="borderless"
-                data-cy="inplace__cancel"
                 className={styles['inplace-button']}
             />
         </div>

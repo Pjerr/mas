@@ -21,7 +21,6 @@ const config = {
         entities_1.Manufacturer,
         entities_1.Group,
         entities_1.Category,
-        entities_1.Variant,
         entities_1.OptionConfig,
     ],
     dbName: process.env.DB_NAME,

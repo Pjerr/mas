@@ -1,3 +1,4 @@
+import { CreateConfig } from '@/modules/attribute/dto/option';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum } from 'class-validator';
 import { PartStatus, PropertyType } from 'shared';
@@ -24,4 +25,6 @@ export class CreatePart {
 
   @ApiProperty()
   basePrice: number = 0;
+
+  attributeConfigs: CreateConfig[][];
 }

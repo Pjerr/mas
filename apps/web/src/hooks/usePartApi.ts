@@ -1,60 +1,123 @@
+import { useAppDispatch } from '@/store';
 import {
-    Attribute,
-    CreatePart,
+    AttributeOption,
+    CreateConfig,
     Part,
     useCreatePartMutation,
     useUpdatePartMutation,
 } from '@/store/api/endpoints';
+import { updateDefaultFormValue } from '@/store/editors/part';
+import { appendEntity, selectTable, updateEntity } from '@/store/table';
+import { EntityType } from '@/store/table/types';
+import { instanceIds } from '@/types/entity';
+import { produce } from 'immer';
+import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 export function usePartApi() {
-    const [createPart] = useCreatePartMutation();
     const [updatePart] = useUpdatePartMutation();
+    const [createPart] = useCreatePartMutation();
 
-    const handleUpdate = async (data: Part, id: string) => {
-        const { attributes, ...rest } = data;
+    const dispatch = useAppDispatch();
+    const table = useSelector(selectTable);
+
+    const generateAttributeConfigs = (
+        attributeIds: string[],
+        partId: string
+    ) => {
+        const instanceIds = attributeIds.map((id) => `${partId}-${id}`);
+
+        return instanceIds.map((instanceId) => {
+            const attributeOptions = table[instanceId];
+
+            const configs: CreateConfig[] = attributeOptions.data.map(
+                (option: Partial<AttributeOption>) => {
+                    const config =
+                        option.configs && option.configs.length > 0
+                            ? option.configs[0]
+                            : { price: 0 };
+
+                    return {
+                        ...config,
+                        option: option.id!,
+                    };
+                }
+            );
+
+            return configs;
+        });
+    };
+
+    const handleCreate = async (
+        part: Part,
+        attributeConfigs: CreateConfig[][]
+    ) => {
+        const { attributes, ...rest } = part;
+        return await createPart({
+            createPart: {
+                ...rest,
+                name: part.name,
+                attributeConfigs,
+                attributeIds: attributes.map((attribute) => attribute.id),
+            },
+        });
+    };
+
+    const handleUpdate = async (
+        part: Part,
+        attributeConfigs: CreateConfig[][]
+    ) => {
+        const { attributes, ...rest } = part;
         const response = await updatePart({
-            id,
+            id: part.id,
             updatePart: {
                 ...rest,
-                attributeIds: attributes.map(
-                    (attribute) => (attribute as Attribute).id
-                ),
-                properties: data.properties,
+                attributeIds: attributes.map((attribute) => attribute.id),
+                properties: part.properties,
+                attributeConfigs,
             },
         });
         return response;
     };
 
-    const handleCreate = async (data: Part) => {
-        const { attributes, ...rest } = data;
+    const onSavePart = async (data: Part) => {
+        const { attributes } = data;
 
-        const part: CreatePart = {
-            ...rest,
-            name: data.name,
-            attributeIds:
-                data.attributes.map(
-                    (attribute) => (attribute as Attribute).id
-                ) ?? [],
-        };
+        const attributeConfigs = generateAttributeConfigs(
+            attributes.map((a) => a.id),
+            data.id
+        );
 
-        const response = await createPart({
-            createPart: part,
-        });
-        return response;
-    };
+        const response = data.createdAt
+            ? await handleUpdate(data, attributeConfigs)
+            : await handleCreate(data, attributeConfigs);
 
-    const onSavePart = async (data: Part, id?: string) => {
-        const response = id
-            ? await handleUpdate(data, id)
-            : await handleCreate(data);
-        if (!('data' in response)) {
-            toast(`${response.error}`, { type: 'error' });
+        if ('error' in response) {
+            toast('Error while update/create part', { type: 'error' });
             return;
         }
-        toast(`Part ${id ? 'updated' : 'created'}`, {
-            type: 'success',
-        });
+
+        const part = response.data.data;
+
+        dispatch(updateDefaultFormValue({ part }));
+
+        if (data.createdAt) {
+            dispatch(
+                updateEntity({
+                    entity: part,
+                    instanceId: instanceIds[EntityType.Part],
+                })
+            );
+            toast('Updated part', { type: 'success' });
+        } else {
+            dispatch(
+                appendEntity({
+                    entity: part,
+                    instanceId: instanceIds[EntityType.Part],
+                })
+            );
+            toast('Created part', { type: 'success' });
+        }
     };
 
     return {

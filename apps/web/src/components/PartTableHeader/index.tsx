@@ -8,11 +8,11 @@ import {
     PartTableHeaderProps as PartTableHeaderProps,
     PartTableHeaderTab,
 } from './types';
-import { createProductHeaderTabs } from './createTabs';
+import { createPartHeaderTabs } from './createTabs';
 
 export default function PartTableHeader(props: PartTableHeaderProps) {
     const tabs: PartTableHeaderTab[] = React.useMemo(() => {
-        return createProductHeaderTabs(props);
+        return createPartHeaderTabs(props);
     }, []);
 
     return (

@@ -1,10 +1,13 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { UpdatePart } from './dto/requests/update-part.request';
-import { CreatePart } from './dto';
+import { CreateDraft, CreatePart } from './dto';
 import { EntityManager, EntityRepository } from '@mikro-orm/postgresql';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { Attribute, Category, Part } from '@/core/entities';
 import { FilterEntity } from '@/core/types';
+import { CreateConfig } from '../attribute/dto/option';
+import { VariantService } from './variant.service';
+import { OptionConfigService } from '../attribute/option-config.service';
 
 @Injectable()
 export class PartService {
@@ -14,27 +17,52 @@ export class PartService {
     private readonly partRepository: EntityRepository<Part>,
     @InjectRepository(Attribute)
     private readonly attributeRepository: EntityRepository<Attribute>,
-    @InjectRepository(Category)
-    private readonly categoryRepository: EntityRepository<Category>,
+    private readonly configService: OptionConfigService,
   ) {}
+
+  existOptions(attributeConfigs: CreateConfig[][]) {
+    if (attributeConfigs.length === 0 || attributeConfigs[0].length === 0)
+      return [];
+
+    return attributeConfigs;
+  }
 
   async create(payload: CreatePart) {
     const part = this.partRepository.create({
       ...payload,
+      createdAt: new Date(),
+      category: payload.categoryId,
       attributes: payload.attributeIds,
-      manufacturer: payload.manufacturerId,
     });
 
-    await this.em.persistAndFlush(part);
+    this.em.persist(part);
 
-    const createdPart = await this.partRepository.findOne(
-      {
-        id: part.id,
-      },
-      { populate: ['attributes.group'] },
-    );
+    const attributeConfigs = this.existOptions(payload.attributeConfigs);
+
+    if (attributeConfigs.length > 0) {
+      attributeConfigs.map((configs) =>
+        this.configService.create(part.id, configs),
+      );
+    }
+
+    await this.em.flush();
+
+    const createdPart = await this.partRepository.findOne(part.id, {
+      populate: ['attributes.group', 'attributes.options'],
+    });
 
     return createdPart;
+  }
+
+  async createDraft(payload: CreateDraft) {
+    const part = this.partRepository.create({
+      name: payload.name,
+      attributes: [],
+      properties: {},
+      createdAt: null,
+    });
+
+    return part;
   }
 
   async find(filters: FilterEntity<Part>) {
@@ -50,35 +78,42 @@ export class PartService {
 
   async findOne(id: string) {
     const part = await this.partRepository.findOne(id, {
-      populate: ['attributes', 'attributes.group'],
+      populate: ['attributes', 'attributes.group', 'attributes.options'],
     });
     if (!part) throw new NotFoundException('Part not found');
     return part;
   }
 
   async update(id: string, payload: UpdatePart) {
-    const part = await this.partRepository.findOne(id, {
-      populate: ['attributes', 'attributes.group'],
-    });
-
-    if (!part) throw new NotFoundException('Part not found');
-
-    if (payload.attributeIds) {
-      const attributeRefs = payload.attributeIds.map((attributeId) =>
-        this.attributeRepository.getReference(attributeId),
-      );
-      part.attributes.set(attributeRefs);
-    }
+    const part = await this.partRepository.findOne(id);
 
     part.assign(payload);
 
-    await this.em.persistAndFlush(part);
+    if (payload.attributeIds?.length > 0) {
+      const attributes = payload.attributeIds.map((id) =>
+        this.attributeRepository.getReference(id),
+      );
+      part.attributes.set(attributes);
+    }
 
-    const updatedPart = await this.partRepository.findOne(id, {
-      populate: ['attributes', 'attributes.group'],
-    });
+    const attributeConfigs = this.existOptions(payload.attributeConfigs);
 
-    return updatedPart;
+    if (attributeConfigs.length > 0) {
+      this.configService.removeMany(id);
+      attributeConfigs.map((configs) =>
+        this.configService.create(part.id, configs),
+      );
+    }
+
+    await this.em.flush();
+
+    await part.populate([
+      'attributes.group',
+      'attributes.options',
+      'attributes.options.configs',
+    ]);
+
+    return part;
   }
 
   async bulkUpdatePrice(ids: string[], payloads: number[]) {
@@ -110,7 +145,10 @@ export class PartService {
 
   async addCategory(id: string, categoryId: string) {
     const part = await this.findOne(id);
-    const category = await this.categoryRepository.findOneOrFail(categoryId);
+
+    const category = await this.em.findOne(Category, categoryId);
+
+    if (!category) throw new NotFoundException('Category does not exist');
 
     part.category = category.id;
 

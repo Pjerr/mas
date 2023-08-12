@@ -13,8 +13,8 @@ import { PartService } from './part.service';
 import { UpdatePart } from './dto/requests/update-part.request';
 import {
   BulkUpdatePrice,
+  CreateDraft,
   CreatePart,
-  MultipleUpdatePart,
   PartRelationTypes,
   PartResponse,
   PartsResponse,
@@ -22,23 +22,34 @@ import {
   UpdateAttributeRelation,
   UpdateAttributeRelations,
   UpdateCategoryRelation,
+  VariantsResponse,
 } from './dto';
 import { ApiTags } from '@nestjs/swagger';
 import { FilterQuery } from '@/core/types';
 import { QueryPipe } from '@/core/pipes/query.pipe';
 import { Part } from '@/core/entities';
 import { filterEntity } from '@/core/utils/parse-query';
+import { VariantService } from './variant.service';
 
 @ApiTags('Parts')
 @Controller('parts')
 export class PartController {
-  constructor(private readonly partService: PartService) {}
+  constructor(
+    private readonly partService: PartService,
+    private readonly variantService: VariantService,
+  ) {}
 
   @Post()
   async create(
-    @Body(ValidationPipe) payload: CreatePart,
+    @Body(ValidationPipe) request: CreatePart,
   ): Promise<PartResponse> {
-    const response = await this.partService.create(payload);
+    const part = await this.partService.create(request);
+    return { data: part };
+  }
+
+  @Post('draft')
+  async createDraft(@Body() request: CreateDraft): Promise<PartResponse> {
+    const response = await this.partService.createDraft(request);
     return { data: response };
   }
 
@@ -75,8 +86,8 @@ export class PartController {
     @Param('id') id: string,
     @Body(ValidationPipe) payload: UpdatePart,
   ): Promise<PartResponse> {
-    const response = await this.partService.update(id, payload);
-    return { data: response };
+    const part = await this.partService.update(id, payload);
+    return { data: part };
   }
 
   @Patch(':id/relationships/category')
@@ -132,5 +143,11 @@ export class PartController {
   @Delete()
   removeMany(@Query('ids') ids: string[]) {
     return this.partService.removeMany(ids);
+  }
+
+  @Get(':id/variant')
+  async findVariant(@Param('id') id: string): Promise<VariantsResponse> {
+    const response = await this.variantService.find(id);
+    return { data: response };
   }
 }

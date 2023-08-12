@@ -7,4 +7,6 @@ export * from './requests/update-category-relation.request';
 export * from './requests/multiple-create-part.request';
 export * from './requests/multiple-update-part.request';
 export * from './requests/create-variant.request';
+export * from './requests/create-draft.request';
+export * from './requests/variant.response';
 //# sourceMappingURL=index.d.ts.map

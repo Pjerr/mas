@@ -8,7 +8,6 @@ import {
   Group,
   Manufacturer,
   AttributeOption,
-  Variant,
   OptionConfig,
 } from './core/entities';
 
@@ -26,7 +25,6 @@ const config: Options = {
     Manufacturer,
     Group,
     Category,
-    Variant,
     OptionConfig,
   ],
   dbName: process.env.DB_NAME,
@@ -35,7 +33,6 @@ const config: Options = {
   password: process.env.DB_PASSWORD,
   type: 'postgresql',
   port: 5432,
-  // debug: ['query', 'query-params'],
   verbose: true,
   driver: PostgreSqlDriver,
   migrations: {

@@ -6,7 +6,13 @@ import { SidebarLayout } from '@/layouts/SidebarLayout';
 import { PartEditor } from '@/components/PartEditor';
 import { resetForm } from '@/store/editors/part';
 import { createPartForm } from '@/store/editors/part/thunks';
-import { useFindOnePartQuery } from '@/store/api/endpoints';
+import {
+    AttributeOption,
+    useFindOnePartQuery,
+    useFindPartQuery,
+} from '@/store/api/endpoints';
+import { useSelector } from 'react-redux';
+import { initTable, loadData, selectTable } from '@/store/table';
 
 export default function EditPart() {
     const router = useRouter();
@@ -14,11 +20,26 @@ export default function EditPart() {
 
     const dispatch = useAppDispatch();
 
+    const table = useSelector(selectTable);
+
     const partId = query.id as string;
 
-    const { data: response } = useFindOnePartQuery(
+    const {
+        data: response,
+        isError,
+        isLoading,
+    } = useFindPartQuery(
         {
-            id: partId,
+            query: {
+                filters: [
+                    {
+                        field: 'id',
+                        operator: '$in',
+                        value: [partId],
+                    },
+                ],
+                include: ['attributes.group', 'attributes.options.configs'],
+            },
         },
         { skip: !partId }
     );
@@ -26,7 +47,21 @@ export default function EditPart() {
     useEffect(() => {
         if (!response) return;
         dispatch(resetForm());
-        dispatch(createPartForm({ part: response.data }));
+        dispatch(createPartForm({ part: response.data[0] }));
+        response.data[0].attributes.map((attribute) => {
+            const instanceId = `${partId}-${attribute.id}`;
+            if (!table[instanceId] || table[instanceId].data.length === 0) {
+                dispatch(initTable(instanceId));
+                dispatch(
+                    loadData({
+                        data: attribute.options as AttributeOption[],
+                        isError,
+                        isLoading,
+                        instanceId,
+                    })
+                );
+            }
+        });
     }, [response]);
 
     if (!response && partId?.length)

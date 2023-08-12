@@ -1,13 +1,11 @@
-import { Attribute, Group, Part } from '@/core/entities';
+import { Attribute } from '@/core/entities';
 import { FilterEntity } from '@/core/types';
 import { CreateAttribute, UpdateAttribute } from '@/modules/attribute/dto/attribute';
 import { EntityManager, EntityRepository } from '@mikro-orm/postgresql';
 export declare class AttributeService {
     private readonly em;
     private readonly attributeRepository;
-    private readonly groupRepository;
-    private readonly productRepository;
-    constructor(em: EntityManager, attributeRepository: EntityRepository<Attribute>, groupRepository: EntityRepository<Group>, productRepository: EntityRepository<Part>);
+    constructor(em: EntityManager, attributeRepository: EntityRepository<Attribute>);
     create(payload: CreateAttribute): Promise<Attribute>;
     findOne(id: string): Promise<import("@mikro-orm/core").Loaded<Attribute, never>>;
     find(filters: FilterEntity<Attribute>): Promise<import("@mikro-orm/core").Loaded<Attribute, any>[]>;

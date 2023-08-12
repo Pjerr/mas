@@ -9,14 +9,15 @@ import {
 import { Connection } from '@mikro-orm/core/connections';
 import { IDatabaseDriver } from '@mikro-orm/core/drivers';
 import {
-  Variant,
   Attribute,
   Group,
   AttributeOption,
   Category,
   OptionConfig,
   Part,
+  Manufacturer,
 } from '@/core/entities';
+import { VariantConfig } from '@/core/entities/variant_config.entity';
 
 @Injectable()
 export class MikroOrmService implements MikroOrmOptionsFactory {
@@ -31,10 +32,11 @@ export class MikroOrmService implements MikroOrmOptionsFactory {
         Attribute,
         Group,
         Category,
-        Variant,
         Part,
         AttributeOption,
         OptionConfig,
+        Manufacturer,
+        VariantConfig,
       ],
       driver: PostgreSqlDriver,
       verbose: true,

@@ -26,7 +26,6 @@ const MultipleSelect = React.forwardRef<
             options={options}
             styles={selectStyles}
             isSearchable={false}
-            instanceId={options[0].label}
             value={selectedOptions}
             onChange={(e) => onChange(e.map((option) => option.value))}
             menuPlacement={'auto'}

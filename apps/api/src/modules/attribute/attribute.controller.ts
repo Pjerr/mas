@@ -57,11 +57,11 @@ export class AttributeController {
     return { data: response };
   }
 
-  @Get(':id/product')
-  async findByProduct(
-    @Param('id') productId: string,
+  @Get(':id/part')
+  async findByPart(
+    @Param('id') partId: string,
   ): Promise<PartialAttributesResponse> {
-    const response = await this.attributeService.findBy(productId);
+    const response = await this.attributeService.findBy(partId);
     return { data: response };
   }
 

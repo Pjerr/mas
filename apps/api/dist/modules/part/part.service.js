@@ -17,20 +17,40 @@ const common_1 = require("@nestjs/common");
 const postgresql_1 = require("@mikro-orm/postgresql");
 const nestjs_1 = require("@mikro-orm/nestjs");
 const entities_1 = require("../../core/entities");
+const option_config_service_1 = require("../attribute/option-config.service");
 let PartService = class PartService {
-    constructor(em, partRepository, attributeRepository, categoryRepository) {
+    constructor(em, partRepository, attributeRepository, configService) {
         this.em = em;
         this.partRepository = partRepository;
         this.attributeRepository = attributeRepository;
-        this.categoryRepository = categoryRepository;
+        this.configService = configService;
+    }
+    existOptions(attributeConfigs) {
+        if (attributeConfigs.length === 0 || attributeConfigs[0].length === 0)
+            return [];
+        return attributeConfigs;
     }
     async create(payload) {
-        const part = this.partRepository.create(Object.assign(Object.assign({}, payload), { attributes: payload.attributeIds, manufacturer: payload.manufacturerId }));
-        await this.em.persistAndFlush(part);
-        const createdPart = await this.partRepository.findOne({
-            id: part.id,
-        }, { populate: ['attributes.group'] });
+        const part = this.partRepository.create(Object.assign(Object.assign({}, payload), { createdAt: new Date(), category: payload.categoryId, attributes: payload.attributeIds }));
+        this.em.persist(part);
+        const attributeConfigs = this.existOptions(payload.attributeConfigs);
+        if (attributeConfigs.length > 0) {
+            attributeConfigs.map((configs) => this.configService.create(part.id, configs));
+        }
+        await this.em.flush();
+        const createdPart = await this.partRepository.findOne(part.id, {
+            populate: ['attributes.group', 'attributes.options'],
+        });
         return createdPart;
+    }
+    async createDraft(payload) {
+        const part = this.partRepository.create({
+            name: payload.name,
+            attributes: [],
+            properties: {},
+            createdAt: null,
+        });
+        return part;
     }
     async find(filters) {
         const parts = await this.partRepository.find(filters.query, filters.options);
@@ -40,28 +60,32 @@ let PartService = class PartService {
     }
     async findOne(id) {
         const part = await this.partRepository.findOne(id, {
-            populate: ['attributes', 'attributes.group'],
+            populate: ['attributes', 'attributes.group', 'attributes.options'],
         });
         if (!part)
             throw new common_1.NotFoundException('Part not found');
         return part;
     }
     async update(id, payload) {
-        const part = await this.partRepository.findOne(id, {
-            populate: ['attributes', 'attributes.group'],
-        });
-        if (!part)
-            throw new common_1.NotFoundException('Part not found');
-        if (payload.attributeIds) {
-            const attributeRefs = payload.attributeIds.map((attributeId) => this.attributeRepository.getReference(attributeId));
-            part.attributes.set(attributeRefs);
-        }
+        var _a;
+        const part = await this.partRepository.findOne(id);
         part.assign(payload);
-        await this.em.persistAndFlush(part);
-        const updatedPart = await this.partRepository.findOne(id, {
-            populate: ['attributes', 'attributes.group'],
-        });
-        return updatedPart;
+        if (((_a = payload.attributeIds) === null || _a === void 0 ? void 0 : _a.length) > 0) {
+            const attributes = payload.attributeIds.map((id) => this.attributeRepository.getReference(id));
+            part.attributes.set(attributes);
+        }
+        const attributeConfigs = this.existOptions(payload.attributeConfigs);
+        if (attributeConfigs.length > 0) {
+            this.configService.removeMany(id);
+            attributeConfigs.map((configs) => this.configService.create(part.id, configs));
+        }
+        await this.em.flush();
+        await part.populate([
+            'attributes.group',
+            'attributes.options',
+            'attributes.options.configs',
+        ]);
+        return part;
     }
     async bulkUpdatePrice(ids, payloads) {
         const parts = await this.partRepository.find({ id: { $in: ids } });
@@ -84,7 +108,9 @@ let PartService = class PartService {
     }
     async addCategory(id, categoryId) {
         const part = await this.findOne(id);
-        const category = await this.categoryRepository.findOneOrFail(categoryId);
+        const category = await this.em.findOne(entities_1.Category, categoryId);
+        if (!category)
+            throw new common_1.NotFoundException('Category does not exist');
         part.category = category.id;
         await this.em.persistAndFlush(part);
         return part;
@@ -121,11 +147,10 @@ PartService = __decorate([
     (0, common_1.Injectable)(),
     __param(1, (0, nestjs_1.InjectRepository)(entities_1.Part)),
     __param(2, (0, nestjs_1.InjectRepository)(entities_1.Attribute)),
-    __param(3, (0, nestjs_1.InjectRepository)(entities_1.Category)),
     __metadata("design:paramtypes", [postgresql_1.EntityManager,
         postgresql_1.EntityRepository,
         postgresql_1.EntityRepository,
-        postgresql_1.EntityRepository])
+        option_config_service_1.OptionConfigService])
 ], PartService);
 exports.PartService = PartService;
 //# sourceMappingURL=part.service.js.map

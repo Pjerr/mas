@@ -19,11 +19,9 @@ const nestjs_1 = require("@mikro-orm/nestjs");
 const postgresql_1 = require("@mikro-orm/postgresql");
 const common_1 = require("@nestjs/common");
 let AttributeService = class AttributeService {
-    constructor(em, attributeRepository, groupRepository, productRepository) {
+    constructor(em, attributeRepository) {
         this.em = em;
         this.attributeRepository = attributeRepository;
-        this.groupRepository = groupRepository;
-        this.productRepository = productRepository;
     }
     async create(payload) {
         const propertyKey = (0, property_key_1.generatePropertyKey)(payload.displayName);
@@ -59,14 +57,13 @@ let AttributeService = class AttributeService {
         const attribute = await this.attributeRepository.findOne(id, {
             populate: ['options'],
         });
-        const products = await this.productRepository.find({
+        const parts = await this.em.find(entities_1.Part, {
             attributes: { id: { $eq: id } },
         });
-        products.map((product) => {
-            const properties = product.properties;
-            delete properties[attribute.displayName];
-            product.assign(properties);
-            this.em.persist(product);
+        parts.forEach((part) => {
+            const properties = part.properties;
+            delete properties[attribute.propertyKey];
+            part.assign(properties);
         });
         await this.em.removeAndFlush(attribute);
     }
@@ -78,7 +75,7 @@ let AttributeService = class AttributeService {
     }
     async updateGroup(id, groupId) {
         const attribute = await this.findOne(id);
-        const group = await this.groupRepository.findOne(groupId);
+        const group = await this.em.findOne(entities_1.Group, groupId);
         if (!group)
             throw new common_1.NotFoundException('Group does not exist');
         attribute.group = group;
@@ -89,7 +86,7 @@ let AttributeService = class AttributeService {
         const attributeQb = this.attributeRepository.createQueryBuilder();
         const response = await attributeQb
             .select(['displayName', 'id', 'propertyKey'])
-            .where({ products: { id: { $eq: partId } } })
+            .where({ parts: { id: { $eq: partId } } })
             .execute('all');
         return response;
     }
@@ -97,11 +94,7 @@ let AttributeService = class AttributeService {
 AttributeService = __decorate([
     (0, common_1.Injectable)(),
     __param(1, (0, nestjs_1.InjectRepository)(entities_1.Attribute)),
-    __param(2, (0, nestjs_1.InjectRepository)(entities_1.Group)),
-    __param(3, (0, nestjs_1.InjectRepository)(entities_1.Part)),
     __metadata("design:paramtypes", [postgresql_1.EntityManager,
-        postgresql_1.EntityRepository,
-        postgresql_1.EntityRepository,
         postgresql_1.EntityRepository])
 ], AttributeService);
 exports.AttributeService = AttributeService;

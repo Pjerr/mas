@@ -39,8 +39,8 @@ let AttributeController = class AttributeController {
         const response = await this.attributeService.findOne(id);
         return { data: response };
     }
-    async findByProduct(productId) {
-        const response = await this.attributeService.findBy(productId);
+    async findByPart(partId) {
+        const response = await this.attributeService.findBy(partId);
         return { data: response };
     }
     async update(id, payload) {
@@ -77,13 +77,13 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AttributeController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Get)(':id/product'),
+    (0, common_1.Get)(':id/part'),
     openapi.ApiResponse({ status: 200, type: require("./dto/attribute/attribute.response").PartialAttributesResponse }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
-], AttributeController.prototype, "findByProduct", null);
+], AttributeController.prototype, "findByPart", null);
 __decorate([
     (0, common_1.Patch)(':id'),
     openapi.ApiResponse({ status: 200, type: require("./dto/attribute/attribute.response").AttributeResponse }),

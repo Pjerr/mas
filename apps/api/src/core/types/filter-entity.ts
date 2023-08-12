@@ -1,5 +1,5 @@
 import { FilterQuery, FindOptions } from '@mikro-orm/core';
-export type Entities = 'attribute' | 'product';
+export type Entities = 'attribute' | 'part';
 
 export type GenericFindOptions<Entity> = Omit<
   FindOptions<Entity, any>,

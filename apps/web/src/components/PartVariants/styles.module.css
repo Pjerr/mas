@@ -1,0 +1,22 @@
+.table__header-row {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.table__header {
+    font-size: var(--font-xl);
+}
+
+.table__data {
+    text-align: center;
+    padding: var(--size-4) 0;
+}
+
+.table__data-row {
+    border-top: 1px solid var(--border-color);
+}
+
+.data__button {
+    display: flex;
+    align-self: center;
+    justify-content: center;
+}

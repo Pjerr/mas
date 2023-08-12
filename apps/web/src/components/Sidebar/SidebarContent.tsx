@@ -8,10 +8,7 @@ export default function SidebarContent({
     children: React.ReactNode;
 }) {
     return (
-        <div
-            className={classNames(styles['content-container'])}
-            data-cy="cy__sidebar-content"
-        >
+        <div className={classNames(styles['content-container'])}>
             {children}
         </div>
     );

@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { EntityType, includeArgMap } from '../types';
 import { AppDispatch, RootState } from '@/store';
-import { instanceIds } from '@/types/entity';
 import { Filter, Sort } from '@/store/api/endpoints';
 import { MasApi as Api } from '@/store/api/endpoints';
 import { findNotation } from '@/store/api/types';
@@ -90,14 +89,16 @@ const loadTableDataThunk = createAsyncThunk<
             }) as any
         );
 
-        dispatch(
-            loadData({
-                data: response ? response.data : [],
-                isError,
-                isLoading,
-                instanceId,
-            })
-        );
+        if (table[instanceId].data.length === 0) {
+            dispatch(
+                loadData({
+                    data: response ? response.data : [],
+                    isError,
+                    isLoading,
+                    instanceId,
+                })
+            );
+        }
     }
 );
 

@@ -1,6 +1,7 @@
 import { TableContext } from '@/components/Table/types/table-context';
 import { useAppDispatch } from '@/store';
 import { initTable, loadTableDataThunk, removeManyThunk } from '@/store/table';
+import loadVariantsThunk from '@/store/table/thunks/loadVariants';
 import { EntityType } from '@/store/table/types';
 import { instanceIds } from '@/types/entity';
 import { useContext, useMemo } from 'react';
@@ -17,7 +18,6 @@ export const useTable = (instanceId?: string) => {
             })
         );
     }
-
     async function removeMany(ids: string[], type: EntityType) {
         if (!instanceId) return;
         await dispatch(removeManyThunk({ ids, type, instanceId }));
@@ -28,13 +28,18 @@ export const useTable = (instanceId?: string) => {
         dispatch(initTable(instanceId));
     }
 
+    async function loadVariantData(partId: string) {
+        await dispatch(loadVariantsThunk({ partId }));
+    }
+
     return useMemo(() => {
         return {
             loadTableData,
             removeMany,
             clearTableData,
+            loadVariantData,
         };
-    }, [loadTableData, removeMany, clearTableData]);
+    }, [loadTableData, removeMany, clearTableData, loadVariantData]);
 };
 
 export const useTableSelector = (instanceId: string) => {

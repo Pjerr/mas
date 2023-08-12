@@ -16,13 +16,13 @@ export function GroupChips({ activeForm }: HeaderChipsProps) {
 
     const groups: Record<string, Attribute[]> = useMemo(() => {
         if (!activePart || !activePart.attributes.length) return {};
-        return getAttributeGroups(activePart.attributes as Attribute[]);
+        return getAttributeGroups(activePart.attributes);
     }, [activeForm, activePart, activePart.attributes]);
 
     const renderOptionChip: boolean = useMemo(() => {
         if (!activePart.attributes.length) return false;
         return activePart.attributes.some((attribute) => {
-            if ((attribute as Attribute).editorType === 'options') return true;
+            if (attribute.editorType === 'options') return true;
         });
     }, [activeForm, activePart, activePart.attributes]);
 
@@ -55,7 +55,6 @@ export function GroupChips({ activeForm }: HeaderChipsProps) {
                 key={`Chip-CommonProperties`}
                 title="Common properties"
                 variant={'filled'}
-                data-cy="chip__common"
             />
             {Object.entries(groups).map(([id, attributes], index) => (
                 <Chip
@@ -63,16 +62,10 @@ export function GroupChips({ activeForm }: HeaderChipsProps) {
                     title={attributes[0].group.name ?? `Group-${index}`}
                     variant={'filled'}
                     onDelete={() => deleteFormGroup(attributes, id)}
-                    data-cy="subheader__chip"
                 />
             ))}
             {renderOptionChip && (
-                <Chip
-                    key={`Chip-Options`}
-                    title="Options"
-                    variant={'filled'}
-                    data-cy="chip__options"
-                />
+                <Chip key={`Chip-Options`} title="Options" variant={'filled'} />
             )}
         </Chips>
     );

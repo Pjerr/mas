@@ -74,6 +74,18 @@ let OptionService = class OptionService {
         await this.em.persistAndFlush(option);
         return option;
     }
+    async findPartOptions(request) {
+        const options = await this.optionRepository.find({ attribute: { $in: request.attributeIds } }, {
+            strategy: core_1.LoadStrategy.SELECT_IN,
+            populate: ['configs'],
+            populateWhere: {
+                configs: {
+                    part: { $eq: request.partId },
+                },
+            },
+        });
+        return options;
+    }
 };
 OptionService = __decorate([
     (0, common_1.Injectable)(),

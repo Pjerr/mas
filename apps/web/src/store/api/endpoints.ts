@@ -68,12 +68,12 @@ const injectedRtkApi = api
                 }),
                 invalidatesTags: ['Attributes'],
             }),
-            findByProductAttribute: build.query<
-                FindByProductAttributeApiResponse,
-                FindByProductAttributeApiArg
+            findByPartAttribute: build.query<
+                FindByPartAttributeApiResponse,
+                FindByPartAttributeApiArg
             >({
                 query: (queryArg) => ({
-                    url: `/attributes/${queryArg.id}/product`,
+                    url: `/attributes/${queryArg.id}/part`,
                 }),
                 providesTags: ['Attributes'],
             }),
@@ -105,6 +105,28 @@ const injectedRtkApi = api
                     params: { ids: queryArg.ids },
                 }),
                 invalidatesTags: ['Options'],
+            }),
+            findOneConfigOption: build.query<
+                FindOneConfigOptionApiResponse,
+                FindOneConfigOptionApiArg
+            >({
+                query: (queryArg) => ({
+                    url: `/options/${queryArg.id}/config`,
+                }),
+                providesTags: ['Options'],
+            }),
+            findPartOption: build.query<
+                FindPartOptionApiResponse,
+                FindPartOptionApiArg
+            >({
+                query: (queryArg) => ({
+                    url: `/options/config`,
+                    params: {
+                        attributeIds: queryArg.attributeIds,
+                        partId: queryArg.partId,
+                    },
+                }),
+                providesTags: ['Options'],
             }),
             removeOption: build.mutation<
                 RemoveOptionApiResponse,
@@ -141,6 +163,17 @@ const injectedRtkApi = api
                     url: `/parts`,
                     method: 'DELETE',
                     params: { ids: queryArg.ids },
+                }),
+                invalidatesTags: ['Parts'],
+            }),
+            createDraftPart: build.mutation<
+                CreateDraftPartApiResponse,
+                CreateDraftPartApiArg
+            >({
+                query: (queryArg) => ({
+                    url: `/parts/draft`,
+                    method: 'POST',
+                    body: queryArg.createDraft,
                 }),
                 invalidatesTags: ['Parts'],
             }),
@@ -224,6 +257,13 @@ const injectedRtkApi = api
                     body: queryArg.updateAttributeRelations,
                 }),
                 invalidatesTags: ['Parts'],
+            }),
+            findVariantPart: build.query<
+                FindVariantPartApiResponse,
+                FindVariantPartApiArg
+            >({
+                query: (queryArg) => ({ url: `/parts/${queryArg.id}/variant` }),
+                providesTags: ['Parts'],
             }),
             createCategory: build.mutation<
                 CreateCategoryApiResponse,
@@ -418,9 +458,9 @@ export type UpdateAttributeApiArg = {
     id: string;
     updateAttribute: UpdateAttribute;
 };
-export type FindByProductAttributeApiResponse =
+export type FindByPartAttributeApiResponse =
     /** status 200  */ PartialAttributesResponse;
-export type FindByProductAttributeApiArg = {
+export type FindByPartAttributeApiArg = {
     id: string;
 };
 export type CreateOptionApiResponse = /** status 201  */ OptionResponse;
@@ -434,6 +474,15 @@ export type FindOptionApiArg = {
 export type RemoveManyOptionApiResponse = unknown;
 export type RemoveManyOptionApiArg = {
     ids: string[];
+};
+export type FindOneConfigOptionApiResponse = /** status 200  */ OptionConfig;
+export type FindOneConfigOptionApiArg = {
+    id: string;
+};
+export type FindPartOptionApiResponse = /** status 200  */ OptionsResponse;
+export type FindPartOptionApiArg = {
+    attributeIds: string[];
+    partId: string;
 };
 export type RemoveOptionApiResponse = unknown;
 export type RemoveOptionApiArg = {
@@ -450,6 +499,10 @@ export type FindPartApiArg = {
 export type RemoveManyPartApiResponse = unknown;
 export type RemoveManyPartApiArg = {
     ids: string[];
+};
+export type CreateDraftPartApiResponse = /** status 201  */ PartResponse;
+export type CreateDraftPartApiArg = {
+    createDraft: CreateDraft;
 };
 export type FindOnePartApiResponse = /** status 200  */ PartResponse;
 export type FindOnePartApiArg = {
@@ -488,6 +541,10 @@ export type RemoveAttributesPartApiResponse = /** status 200  */ PartResponse;
 export type RemoveAttributesPartApiArg = {
     id: string;
     updateAttributeRelations: UpdateAttributeRelations;
+};
+export type FindVariantPartApiResponse = /** status 200  */ VariantsResponse;
+export type FindVariantPartApiArg = {
+    id: string;
 };
 export type CreateCategoryApiResponse = /** status 201  */ CategoryResponse;
 export type CreateCategoryApiArg = {
@@ -566,9 +623,26 @@ export type RemoveManufacturerApiResponse = unknown;
 export type RemoveManufacturerApiArg = {
     id: string;
 };
+export type OptionConfig = {
+    option: AttributeOption;
+    id: string;
+    price: number;
+    createdAt: string;
+    updatedAt: string;
+    part: string;
+};
+export type AttributeOption = {
+    configs: OptionConfig[];
+    id: string;
+    value: string;
+    displayName: string;
+    attribute: string;
+    createdAt: string;
+    updatedAt: string;
+};
 export type Part = {
-    attributes: object[];
-    variants: Variant[];
+    attributes: Attribute[];
+    configs: OptionConfig[];
     id: string;
     name: string;
     status: 'in-stock' | 'out-of-stock';
@@ -579,34 +653,11 @@ export type Part = {
     basePrice: number;
     createdAt: string;
     updatedAt: string;
-};
-export type Variant = {
-    optionsConfigs: object[];
-    price: number;
-    id: string;
-    part: Part;
-    createdAt: string;
-    updatedAt: string;
-};
-export type OptionConfig = {
-    variants: Variant[];
-    id: string;
-    price: number;
-    createdAt: string;
-    updatedAt: string;
-    option: AttributeOption;
-};
-export type AttributeOption = {
-    optionConfigs: OptionConfig[];
-    id: string;
-    value: string;
-    displayName: string;
-    attribute: string;
-    createdAt: string;
-    updatedAt: string;
+    publishStatus: 'published' | 'draft';
+    configsCount: number;
 };
 export type Group = {
-    attributes: object[];
+    attributes: Attribute[];
     id: string;
     name: string;
     searchIndex: string;
@@ -762,7 +813,12 @@ export type QueryOption = {
 };
 export type PartResponse = {
     data: Part;
+    variantConfigs: OptionConfig[][];
     links?: string[];
+};
+export type CreateConfig = {
+    price?: number;
+    option: string;
 };
 export type CreatePart = {
     status?: 'in-stock' | 'out-of-stock';
@@ -772,6 +828,7 @@ export type CreatePart = {
     attributeIds?: string[];
     properties?: object;
     basePrice: number;
+    attributeConfigs: CreateConfig[][];
 };
 export type PartsResponse = {
     data: Part[];
@@ -781,6 +838,9 @@ export type QueryPart = {
     include?: string[];
     filters?: Filter[];
     sort?: Sort;
+};
+export type CreateDraft = {
+    name: string;
 };
 export type UpdatePart = {};
 export type BulkUpdatePrice = {
@@ -794,6 +854,21 @@ export type UpdateAttributeRelation = {
 };
 export type UpdateAttributeRelations = {
     attributeIds: string[];
+};
+export type VariantConfigResponse = {
+    price: number;
+    id: string;
+    attributeName: string;
+    optionValue: string;
+};
+export type Variants = {
+    configs: VariantConfigResponse[][];
+    basePrice: number;
+    part: string;
+};
+export type VariantsResponse = {
+    data: Variants;
+    links?: string[];
 };
 export type Category = {
     childrenIds: string[];
@@ -876,14 +951,17 @@ export const {
     useRemoveManyAttributeMutation,
     useFindOneAttributeQuery,
     useUpdateAttributeMutation,
-    useFindByProductAttributeQuery,
+    useFindByPartAttributeQuery,
     useCreateOptionMutation,
     useFindOptionQuery,
     useRemoveManyOptionMutation,
+    useFindOneConfigOptionQuery,
+    useFindPartOptionQuery,
     useRemoveOptionMutation,
     useCreatePartMutation,
     useFindPartQuery,
     useRemoveManyPartMutation,
+    useCreateDraftPartMutation,
     useFindOnePartQuery,
     useUpdatePartMutation,
     useRemovePartMutation,
@@ -892,6 +970,7 @@ export const {
     useAddAttributePartMutation,
     useRemoveAttributePartMutation,
     useRemoveAttributesPartMutation,
+    useFindVariantPartQuery,
     useCreateCategoryMutation,
     useFindCategoryQuery,
     useFindOneCategoryQuery,

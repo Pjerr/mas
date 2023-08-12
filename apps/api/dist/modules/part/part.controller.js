@@ -23,12 +23,18 @@ const types_1 = require("../../core/types");
 const query_pipe_1 = require("../../core/pipes/query.pipe");
 const entities_1 = require("../../core/entities");
 const parse_query_1 = require("../../core/utils/parse-query");
+const variant_service_1 = require("./variant.service");
 let PartController = class PartController {
-    constructor(partService) {
+    constructor(partService, variantService) {
         this.partService = partService;
+        this.variantService = variantService;
     }
-    async create(payload) {
-        const response = await this.partService.create(payload);
+    async create(request) {
+        const part = await this.partService.create(request);
+        return { data: part };
+    }
+    async createDraft(request) {
+        const response = await this.partService.createDraft(request);
         return { data: response };
     }
     async find(query) {
@@ -45,8 +51,8 @@ let PartController = class PartController {
         return { data: response };
     }
     async update(id, payload) {
-        const response = await this.partService.update(id, payload);
-        return { data: response };
+        const part = await this.partService.update(id, payload);
+        return { data: part };
     }
     async addCategory(id, payload) {
         const response = await this.partService.addCategory(id, payload.categoryId);
@@ -70,6 +76,10 @@ let PartController = class PartController {
     removeMany(ids) {
         return this.partService.removeMany(ids);
     }
+    async findVariant(id) {
+        const response = await this.variantService.find(id);
+        return { data: response };
+    }
 };
 __decorate([
     (0, common_1.Post)(),
@@ -79,6 +89,14 @@ __decorate([
     __metadata("design:paramtypes", [dto_1.CreatePart]),
     __metadata("design:returntype", Promise)
 ], PartController.prototype, "create", null);
+__decorate([
+    (0, common_1.Post)('draft'),
+    openapi.ApiResponse({ status: 201, type: require("./dto/part.response").PartResponse }),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [dto_1.CreateDraft]),
+    __metadata("design:returntype", Promise)
+], PartController.prototype, "createDraft", null);
 __decorate([
     (0, common_1.Get)(),
     (0, types_1.FilterQuery)('query', dto_1.QueryPart),
@@ -166,10 +184,19 @@ __decorate([
     __metadata("design:paramtypes", [Array]),
     __metadata("design:returntype", void 0)
 ], PartController.prototype, "removeMany", null);
+__decorate([
+    (0, common_1.Get)(':id/variant'),
+    openapi.ApiResponse({ status: 200, type: require("./dto/requests/variant.response").VariantsResponse }),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], PartController.prototype, "findVariant", null);
 PartController = __decorate([
     (0, swagger_1.ApiTags)('Parts'),
     (0, common_1.Controller)('parts'),
-    __metadata("design:paramtypes", [part_service_1.PartService])
+    __metadata("design:paramtypes", [part_service_1.PartService,
+        variant_service_1.VariantService])
 ], PartController);
 exports.PartController = PartController;
 //# sourceMappingURL=part.controller.js.map

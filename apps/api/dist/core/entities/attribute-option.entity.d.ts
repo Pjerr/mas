@@ -7,6 +7,6 @@ export declare class AttributeOption extends BaseEntity<AttributeOption, 'id'> {
     attribute: string;
     createdAt: Date;
     updatedAt: Date;
-    optionConfigs: Collection<OptionConfig, object>;
+    configs: Collection<OptionConfig, object>;
 }
 //# sourceMappingURL=attribute-option.entity.d.ts.map
