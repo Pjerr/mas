@@ -8,5 +8,14 @@ export const api = createApi({
             return qs.stringify(params);
         },
     }),
+    tagTypes: [
+        'Manufacturer',
+        'Parts',
+        'Attributes',
+        'Group',
+        'Options',
+        'Categories',
+        'Variants',
+    ],
     endpoints: () => ({}),
 });

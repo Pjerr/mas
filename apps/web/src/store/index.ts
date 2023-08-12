@@ -52,10 +52,16 @@ export const enhancedApi = MasApi.enhanceEndpoints({
                     : [{ type: 'Attributes', id: 'LIST' }],
         },
         createPart: {
-            invalidatesTags: [{ type: 'Parts', id: 'LIST' }],
+            invalidatesTags: [
+                { type: 'Parts', id: 'LIST' },
+                { type: 'Variants', id: 'PART_VARIANTS' },
+            ],
         },
         updatePart: {
-            invalidatesTags: [{ type: 'Parts', id: 'LIST' }],
+            invalidatesTags: [
+                { type: 'Parts', id: 'LIST' },
+                { type: 'Variants', id: 'PART_VARIANTS' },
+            ],
         },
         createAttribute: {
             invalidatesTags: [{ type: 'Attributes', id: 'LIST' }],
@@ -71,6 +77,9 @@ export const enhancedApi = MasApi.enhanceEndpoints({
         },
         bulkUpdatePricePart: {
             invalidatesTags: [{ type: 'Parts', id: 'LIST' }],
+        },
+        findVariantPart: {
+            providesTags: [{ type: 'Variants', id: 'PART_VARIANTS' }],
         },
     },
 });
