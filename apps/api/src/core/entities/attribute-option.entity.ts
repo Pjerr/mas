@@ -37,8 +37,8 @@ export class AttributeOption extends BaseEntity<AttributeOption, 'id'> {
   @Property({ nullable: true, onUpdate: () => new Date() })
   updatedAt: Date;
 
-  @ApiProperty({ type: (type) => [OptionConfig] })
-  @OneToMany(() => OptionConfig, (optoinConfig) => optoinConfig.option, {
+  @ApiProperty({ type: () => [OptionConfig] })
+  @OneToMany(() => OptionConfig, (optionConfig) => optionConfig.option, {
     orphanRemoval: true,
   })
   configs = new Collection<OptionConfig>(this);

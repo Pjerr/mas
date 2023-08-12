@@ -60,8 +60,8 @@ __decorate([
     __metadata("design:type", Date)
 ], AttributeOption.prototype, "updatedAt", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ type: (type) => [option_config_entity_1.OptionConfig] }),
-    (0, core_1.OneToMany)(() => option_config_entity_1.OptionConfig, (optoinConfig) => optoinConfig.option, {
+    (0, swagger_1.ApiProperty)({ type: () => [option_config_entity_1.OptionConfig] }),
+    (0, core_1.OneToMany)(() => option_config_entity_1.OptionConfig, (optionConfig) => optionConfig.option, {
         orphanRemoval: true,
     }),
     __metadata("design:type", Object)

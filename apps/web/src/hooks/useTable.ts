@@ -1,7 +1,6 @@
 import { TableContext } from '@/components/Table/types/table-context';
 import { useAppDispatch } from '@/store';
 import { initTable, loadTableDataThunk, removeManyThunk } from '@/store/table';
-import loadPartOptions from '@/store/table/thunks/loadPartOption';
 import loadVariantsThunk from '@/store/table/thunks/loadVariants';
 import { EntityType } from '@/store/table/types';
 import { instanceIds } from '@/types/entity';
