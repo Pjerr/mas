@@ -49,12 +49,8 @@ function useLocalStorage<T>(
 
     useEffect(() => {
         if (typeof window === 'undefined') return;
-
-        console.log('Here');
-
         const updateLocalStorage = () => {
             if (storedValue !== undefined) {
-                console.log('here!');
                 window.localStorage.setItem(key, serializer(storedValue));
             } else {
                 window.localStorage.removeItem(key);

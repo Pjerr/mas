@@ -196,7 +196,7 @@ export const variantColumnDef: ColumnDef<VariantConfigResponse[], any>[] = [
 ];
 
 export const addVariantColumns = ({ configs, basePrice }: Variants) => {
-    variantColumnDef.splice(2, variantColumnDef.length);
+    variantColumnDef.splice(1, variantColumnDef.length);
 
     const attributeHeaders = configs[0].map(
         (configExample) => configExample.attributeName
