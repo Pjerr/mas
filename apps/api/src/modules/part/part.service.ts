@@ -107,7 +107,11 @@ export class PartService {
 
     await this.em.flush();
 
-    await part.populate(['attributes.group', 'attributes.options']);
+    await part.populate([
+      'attributes.group',
+      'attributes.options',
+      'attributes.options.configs',
+    ]);
 
     return part;
   }

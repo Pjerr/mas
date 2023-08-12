@@ -80,7 +80,11 @@ let PartService = class PartService {
             attributeConfigs.map((configs) => this.configService.create(part.id, configs));
         }
         await this.em.flush();
-        await part.populate(['attributes.group', 'attributes.options']);
+        await part.populate([
+            'attributes.group',
+            'attributes.options',
+            'attributes.options.configs',
+        ]);
         return part;
     }
     async bulkUpdatePrice(ids, payloads) {

@@ -6,7 +6,11 @@ import { SidebarLayout } from '@/layouts/SidebarLayout';
 import { PartEditor } from '@/components/PartEditor';
 import { resetForm } from '@/store/editors/part';
 import { createPartForm } from '@/store/editors/part/thunks';
-import { AttributeOption, useFindOnePartQuery } from '@/store/api/endpoints';
+import {
+    AttributeOption,
+    useFindOnePartQuery,
+    useFindPartQuery,
+} from '@/store/api/endpoints';
 import { useSelector } from 'react-redux';
 import { initTable, loadData, selectTable } from '@/store/table';
 
@@ -24,9 +28,18 @@ export default function EditPart() {
         data: response,
         isError,
         isLoading,
-    } = useFindOnePartQuery(
+    } = useFindPartQuery(
         {
-            id: partId,
+            query: {
+                filters: [
+                    {
+                        field: 'id',
+                        operator: '$in',
+                        value: [partId],
+                    },
+                ],
+                include: ['attributes.group', 'attributes.options.configs'],
+            },
         },
         { skip: !partId }
     );
@@ -34,9 +47,8 @@ export default function EditPart() {
     useEffect(() => {
         if (!response) return;
         dispatch(resetForm());
-        dispatch(createPartForm({ part: response.data }));
-        console.log(response.data);
-        response.data.attributes.map((attribute) => {
+        dispatch(createPartForm({ part: response.data[0] }));
+        response.data[0].attributes.map((attribute) => {
             const instanceId = `${partId}-${attribute.id}`;
             if (!table[instanceId] || table[instanceId].data.length === 0) {
                 dispatch(initTable(instanceId));
