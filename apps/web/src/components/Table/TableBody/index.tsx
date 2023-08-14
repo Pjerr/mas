@@ -21,6 +21,11 @@ export default function TableBody({ instanceId }: TableBodyProps) {
                             <td
                                 key={`cell-${cell.id}`}
                                 className={styles['cell']}
+                                {...{
+                                    style: {
+                                        width: `${cell.column.getSize()}%`,
+                                    },
+                                }}
                             >
                                 {flexRender(
                                     cell.column.columnDef.cell,
