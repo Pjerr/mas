@@ -1,6 +1,5 @@
 .tooltip__trigger {
     display: flex;
-    height: var(--size-full);
 }
 
 .tooltip-arrow {

@@ -10,15 +10,9 @@ import { resetForm } from '@/store/editors/part';
 import { TableProvider } from '@/components/Table/TableProvider';
 import Table from '@/components/Table';
 import { partColumnDef } from '@/components/Table/ColumnDef';
-import PartTableHeader from '@/components/PartTableHeader';
 import { createPartForm } from '@/store/editors/part/thunks';
-import { useSelector } from 'react-redux';
-import { selectSelectedRows } from '@/store/table';
-import {
-    useBulkUpdatePricePartMutation,
-    useCreateDraftPartMutation,
-} from '@/store/api/endpoints';
-import { toast } from 'react-toastify';
+import { useCreateDraftPartMutation } from '@/store/api/endpoints';
+import Toolbar from '@/components/Toolbar';
 
 const Parts: NextPageWithLayout = () => {
     const router = useRouter();
@@ -27,7 +21,6 @@ const Parts: NextPageWithLayout = () => {
     const { loadTableData } = useTable();
 
     const [createDraft] = useCreateDraftPartMutation();
-    const [bulkUpdatePrice] = useBulkUpdatePricePartMutation();
 
     const refetch = () => {
         loadTableData(EntityType.Part);
@@ -54,11 +47,6 @@ const Parts: NextPageWithLayout = () => {
         router.push('/create');
     };
 
-    const selectedIds = useSelector(
-        (state: RootState) =>
-            selectSelectedRows(state, instanceIds['Part']) as string[]
-    );
-
     const onEdit = (partIds: string[] | undefined) => {
         if (!partIds) return;
         router.push(`${partIds[0]}`);
@@ -68,38 +56,14 @@ const Parts: NextPageWithLayout = () => {
         return selected && selected.length === 1 ? false : true;
     };
 
-    const onBulkPriceEdit = async (
-        selectedIds: string[],
-        payloads: number[]
-    ) => {
-        const response = await bulkUpdatePrice({
-            ids: selectedIds,
-            bulkUpdatePrice: {
-                payloads,
-            },
-        });
-        if ('error' in response) {
-            toast('Error on bulk update', { type: 'error' });
-            return;
-        }
-
-        toast('Prices updated', { type: 'success' });
-    };
-
     return (
         <>
             <TableProvider>
-                <PartTableHeader
-                    toolbarProps={{
-                        onCreate,
-                        onEdit,
-                        onEditMode,
-                    }}
-                    bulkActionProps={{
-                        selectedIds,
-                        type: EntityType.Part,
-                        onBulkPriceEdit,
-                    }}
+                <Toolbar
+                    type={EntityType.Part}
+                    onCreate={onCreate}
+                    onEdit={onEdit}
+                    onEditMode={onEditMode}
                 />
                 <Table
                     placeholder={`Part table is empty`}

@@ -5,6 +5,7 @@
     padding: 0 var(--size-4) 0 var(--size-4);
     width: var(--size-full);
     background-color: var(--layer-1-color);
+    border: 1px solid var(--border-color);
 }
 
 .action-icons {
