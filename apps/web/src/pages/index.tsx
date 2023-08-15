@@ -13,6 +13,7 @@ import { partColumnDef } from '@/components/Table/ColumnDef';
 import { createPartForm } from '@/store/editors/part/thunks';
 import { useCreateDraftPartMutation } from '@/store/api/endpoints';
 import Toolbar from '@/components/Toolbar';
+import { Row } from '@tanstack/react-table';
 
 const Parts: NextPageWithLayout = () => {
     const router = useRouter();
@@ -56,6 +57,11 @@ const Parts: NextPageWithLayout = () => {
         return selected && selected.length === 1 ? false : true;
     };
 
+    const onRowDoubleClick = (row: Row<any>) => {
+        const partIds: string[] = [row.getAllCells()[0].getValue() as string];
+        onEdit(partIds);
+    };
+
     return (
         <>
             <TableProvider>
@@ -71,6 +77,7 @@ const Parts: NextPageWithLayout = () => {
                     instanceId={instanceIds[EntityType.Part]}
                     refetch={refetch}
                     showPagination={true}
+                    onRowDoubleClick={onRowDoubleClick}
                 ></Table>
             </TableProvider>
         </>

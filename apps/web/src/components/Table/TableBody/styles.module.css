@@ -1,4 +1,13 @@
 .cell {
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--color-secondary);
     padding: var(--size-2);
+}
+
+.table__row {
+    cursor: pointer;
+}
+
+.table__row:hover {
+    background-color: var(--layer-2-color);
+    width: 100%;
 }

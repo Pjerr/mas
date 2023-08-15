@@ -11,6 +11,7 @@ import {
     Updater,
     ColumnFiltersState,
     RowSelectionState,
+    Row,
 } from '@tanstack/react-table';
 import styles from './styles.module.css';
 import { useDispatch, useSelector } from 'react-redux';
@@ -35,6 +36,7 @@ interface TableProps {
     instanceId?: string;
     showPagination?: boolean;
     placeholder: string;
+    onRowDoubleClick?: (row: Row<any>) => void;
 }
 
 function Table({
@@ -43,6 +45,7 @@ function Table({
     instanceId = uuid4(),
     showPagination: paginate,
     placeholder,
+    onRowDoubleClick,
 }: TableProps) {
     const { refreshRefs, getInstance, addInstance } = useContext(TableContext);
     const dispatch = useDispatch<AppDispatch>();
@@ -145,7 +148,10 @@ function Table({
         <div className={styles['grid-container']}>
             <table className={styles['table']}>
                 <TableHeader instanceId={instanceId} />
-                <TableBody instanceId={instanceId} />
+                <TableBody
+                    instanceId={instanceId}
+                    onRowDoubleClick={onRowDoubleClick}
+                />
             </table>
             {paginate && <Pagination instanceId={instanceId} />}
         </div>

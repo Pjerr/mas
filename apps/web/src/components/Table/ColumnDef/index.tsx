@@ -49,6 +49,8 @@ export const attributeColumnDef: ColumnDef<Attribute, any>[] = [
         enableColumnFilter: false,
         enableGlobalFilter: false,
         enableResizing: true,
+        minSize: 2,
+        maxSize: 5,
     },
     {
         id: 'propertyKey',
@@ -57,6 +59,8 @@ export const attributeColumnDef: ColumnDef<Attribute, any>[] = [
         enableColumnFilter: true,
         enableGlobalFilter: true,
         enableResizing: true,
+        minSize: 20,
+        maxSize: 30,
     },
     {
         id: 'displayName',
@@ -65,6 +69,8 @@ export const attributeColumnDef: ColumnDef<Attribute, any>[] = [
         enableColumnFilter: true,
         enableGlobalFilter: true,
         enableResizing: true,
+        minSize: 20,
+        maxSize: 30,
     },
     {
         id: 'editorType',
@@ -73,6 +79,8 @@ export const attributeColumnDef: ColumnDef<Attribute, any>[] = [
         enableColumnFilter: false,
         enableGlobalFilter: false,
         enableResizing: true,
+        minSize: 20,
+        maxSize: 30,
     },
 ];
 
@@ -146,6 +154,8 @@ export const manufacturerColumnDef: ColumnDef<Manufacturer, any>[] = [
         enableColumnFilter: false,
         enableGlobalFilter: false,
         enableResizing: true,
+        minSize: 2,
+        maxSize: 5,
     },
     { accessorKey: 'name', header: 'Name' },
 ];

@@ -25,6 +25,7 @@ import {
 import ManufacturerEditor from '@/components/ManufacturerEditor';
 import { manufacturerColumnDef } from '@/components/Table/ColumnDef';
 import { useManufacturerApi } from '@/hooks/useManufacturerApi';
+import { Row } from '@tanstack/react-table';
 
 const Manufacturers: NextPageWithLayout = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -87,6 +88,13 @@ const Manufacturers: NextPageWithLayout = () => {
         );
     };
 
+    const onRowDoubleClick = (row: Row<any>) => {
+        const selectedId: string[] = [
+            row.getAllCells()[0].getValue() as string,
+        ];
+        onEdit(selectedId);
+    };
+
     return (
         <>
             <div className={styles['manufacturer__content']}>
@@ -109,6 +117,7 @@ const Manufacturers: NextPageWithLayout = () => {
                                 refetch={refetch}
                                 showPagination={true}
                                 placeholder="There are no manufacturers. Create one!"
+                                onRowDoubleClick={onRowDoubleClick}
                             />
                         </div>
                     </TableProvider>

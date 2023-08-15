@@ -1,22 +1,35 @@
-import { flexRender } from '@tanstack/react-table';
+import { Row, flexRender } from '@tanstack/react-table';
 import React from 'react';
 import styles from './styles.module.css';
 import { useTableSelector } from '@/hooks/useTable';
 
 interface TableBodyProps {
     instanceId: string;
+    onRowDoubleClick?: (row: Row<any>) => void;
 }
 
-export default function TableBody({ instanceId }: TableBodyProps) {
+export default function TableBody({
+    instanceId,
+    onRowDoubleClick,
+}: TableBodyProps) {
     const table = useTableSelector(instanceId);
 
     if (!table) throw new Error(`Table ${instanceId} does not exist`);
+
+    const onDoubleClick = (row: Row<any>) => {
+        if (!onRowDoubleClick) return;
+        onRowDoubleClick(row);
+    };
 
     return (
         <tbody className={styles['table__body']}>
             {table.getRowModel().rows.map((row) => (
                 <React.Fragment key={`fragment-${row.index}`}>
-                    <tr key={row.id}>
+                    <tr
+                        key={row.id}
+                        className={styles['table__row']}
+                        onDoubleClick={() => onDoubleClick(row)}
+                    >
                         {row.getVisibleCells().map((cell) => (
                             <td
                                 key={`cell-${cell.id}`}
