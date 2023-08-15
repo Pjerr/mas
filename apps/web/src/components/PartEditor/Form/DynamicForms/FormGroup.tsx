@@ -6,12 +6,15 @@ interface FormGroupProps {
     index: number;
     name: string;
     children: React.ReactNode;
+    show?: boolean;
 }
 
 const FormGroup = React.forwardRef<
     HTMLDivElement,
     HTMLProps<HTMLDivElement> & FormGroupProps
->(({ index, name, children, ...props }, ref) => {
+>(({ index, name, children, show = true, ...props }, ref) => {
+    if (!show) return <></>;
+
     return (
         <div
             {...props}

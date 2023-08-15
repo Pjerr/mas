@@ -5,6 +5,7 @@ import { useFormContext } from 'react-hook-form';
 import { getAttributeGroups } from '../../utils';
 import FormGroup from './FormGroup';
 import { createDynamicMetadata } from './createDynamicMetadata';
+import React from 'react';
 
 export default function FormGroups({ part }: { part: Part }) {
     const { control } = useFormContext();
@@ -26,9 +27,18 @@ export default function FormGroups({ part }: { part: Part }) {
                             ? attributes[0].group.name
                             : `Group-${index}`
                     }
+                    show={attributes.some(
+                        (attribute) => attribute.editorType !== 'options'
+                    )}
                 >
                     {attributes.map((attribute) => {
                         const metadata = createDynamicMetadata(attribute);
+                        if (attribute.editorType === 'options')
+                            return (
+                                <React.Fragment
+                                    key={`no-show-${attribute.id}`}
+                                ></React.Fragment>
+                            );
                         return (
                             <FormField
                                 key={`form__field-${attribute.id}`}

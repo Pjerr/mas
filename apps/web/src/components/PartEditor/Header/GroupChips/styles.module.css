@@ -1,0 +1,13 @@
+.chip__content {
+    display: flex;
+    flex-direction: column;
+    padding: var(--size-1);
+    gap: var(--size-2);
+}
+
+.chip__attribute {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 var(--size-1);
+}

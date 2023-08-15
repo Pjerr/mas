@@ -1,35 +1,36 @@
 import Chips from '@/components/Chips';
 import Chip from '@/components/Chips/Chip';
 import { useAppDispatch } from '@/store';
-import { Attribute, Part } from '@/store/api/endpoints';
+import { Attribute } from '@/store/api/endpoints';
 import { PartForm } from '@/store/editors/part/types';
 
 import { useMemo } from 'react';
 import { getAttributeGroups } from '../../utils';
 import { removeFormFields } from '@/store/editors/part';
+import { GroupChip } from './GroupChip';
 interface HeaderChipsProps {
     activeForm: PartForm;
 }
 export function GroupChips({ activeForm }: HeaderChipsProps) {
     const dispatch = useAppDispatch();
-    const activePart = activeForm.state.defaultValues as Part;
+    const activeProduct = activeForm.value;
 
     const groups: Record<string, Attribute[]> = useMemo(() => {
-        if (!activePart || !activePart.attributes.length) return {};
-        return getAttributeGroups(activePart.attributes);
-    }, [activeForm, activePart, activePart.attributes]);
+        if (!activeProduct.attributes.length) return {};
+        return getAttributeGroups(activeProduct.attributes);
+    }, [activeForm, activeProduct, activeProduct.attributes]);
 
     const renderOptionChip: boolean = useMemo(() => {
-        if (!activePart.attributes.length) return false;
-        return activePart.attributes.some((attribute) => {
+        if (!activeProduct.attributes.length) return false;
+        return activeProduct.attributes.some((attribute) => {
             if (attribute.editorType === 'options') return true;
         });
-    }, [activeForm, activePart, activePart.attributes]);
+    }, [activeForm, activeProduct, activeProduct.attributes]);
 
     const scrollToFormGroup = (groupIndex: number) => {
         const id = getGroupId(groupIndex);
         const element = document.getElementById(id);
-        if (!element) throw new Error('No element with this id found');
+        if (!element) return;
         element.scrollIntoView({
             block: 'start',
             behavior: 'smooth',
@@ -45,8 +46,8 @@ export function GroupChips({ activeForm }: HeaderChipsProps) {
         return groupIdMap[groupIndex] || `group-${groupIndex}`;
     };
 
-    const deleteFormGroup = (attributes: Attribute[], groupId: string) => {
-        dispatch(removeFormFields({ attributes, groupId }));
+    const removeAttributes = (attributes: Attribute[], groupId: string) => {
+        dispatch(removeFormFields({ attributes }));
     };
 
     return (
@@ -55,17 +56,25 @@ export function GroupChips({ activeForm }: HeaderChipsProps) {
                 key={`Chip-CommonProperties`}
                 title="Common properties"
                 variant={'filled'}
+                data-cy="chip__common"
             />
             {Object.entries(groups).map(([id, attributes], index) => (
-                <Chip
+                <GroupChip
                     key={`Chip-${index}-${id}`}
-                    title={attributes[0].group.name ?? `Group-${index}`}
-                    variant={'filled'}
-                    onDelete={() => deleteFormGroup(attributes, id)}
+                    id={id}
+                    index={index}
+                    attributes={attributes}
+                    removeAttributes={removeAttributes}
+                    title={attributes[0].group.name}
                 />
             ))}
             {renderOptionChip && (
-                <Chip key={`Chip-Options`} title="Options" variant={'filled'} />
+                <Chip
+                    key={`Chip-Options`}
+                    title="Options"
+                    variant={'filled'}
+                    data-cy="chip__options"
+                />
             )}
         </Chips>
     );

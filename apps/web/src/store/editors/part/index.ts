@@ -29,21 +29,27 @@ export const partSlice = createSlice({
             { payload }: PayloadAction<RemoveFieldsAction>
         ) => {
             if (!state.form) return;
+
             const attributePropertyKeys = payload.attributes.map(
                 (attribute) => attribute.propertyKey
             );
-            const part = state.form.value;
 
-            const updatedAttributes = part.attributes.filter(
-                (attribute) => attribute.group.id !== payload.groupId
+            const attributeIds = payload.attributes.map((a) => a.id);
+
+            const product = state.form.value;
+
+            const updatedAttributes = product.attributes.filter(
+                (attribute) => !attributeIds.includes(attribute.id)
             );
+
             const updatedProperties = Object.fromEntries(
-                Object.entries(part.properties || {}).filter(
+                Object.entries(product.properties || {}).filter(
                     ([key]) => !attributePropertyKeys.includes(key)
                 )
             );
-            part.attributes = updatedAttributes;
-            part.properties = updatedProperties;
+
+            product.attributes = updatedAttributes;
+            product.properties = updatedProperties;
         },
         setDraftForm: (
             state,

@@ -20,7 +20,6 @@ export interface SetFormGroupsAction {
 }
 
 export interface RemoveFieldsAction {
-    groupId: string;
     attributes: Attribute[];
 }
 
