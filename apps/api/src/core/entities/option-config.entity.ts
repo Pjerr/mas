@@ -32,6 +32,6 @@ export class OptionConfig extends BaseEntity<OptionConfig, 'id'> {
   @ManyToOne(() => AttributeOption, { nullable: true })
   option: AttributeOption;
 
-  @ManyToOne(() => Part, { mapToPk: true })
+  @ManyToOne(() => Part, { mapToPk: true, onDelete: 'cascade' })
   part: string;
 }

@@ -4,6 +4,7 @@ import {
     CreateConfig,
     Part,
     useCreatePartMutation,
+    useCreateVariantsPartMutation,
     useUpdatePartMutation,
 } from '@/store/api/endpoints';
 import { updateDefaultFormValue } from '@/store/editors/part';
@@ -17,6 +18,7 @@ import { toast } from 'react-toastify';
 export function usePartApi() {
     const [updatePart] = useUpdatePartMutation();
     const [createPart] = useCreatePartMutation();
+    const [createVariants] = useCreateVariantsPartMutation();
 
     const dispatch = useAppDispatch();
     const table = useSelector(selectTable);
@@ -110,13 +112,14 @@ export function usePartApi() {
             );
             toast('Updated part', { type: 'success' });
         } else {
+            createVariants({ createVariant: { partId: data.id } });
             dispatch(
                 appendEntity({
                     entity: part,
                     instanceId: instanceIds[EntityType.Part],
                 })
             );
-            toast('Created part', { type: 'success' });
+            toast('Created part and variants', { type: 'success' });
         }
     };
 

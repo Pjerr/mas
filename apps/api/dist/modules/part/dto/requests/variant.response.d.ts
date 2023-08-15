@@ -1,3 +1,4 @@
+import { Variant } from '@/core/entities/variant.entity';
 import { VariantConfigResponse } from '@/modules/attribute/dto/option';
 export declare class Variants {
     configs: VariantConfigResponse[][];
@@ -5,7 +6,7 @@ export declare class Variants {
     part: string;
 }
 export declare class VariantsResponse {
-    data: Variants;
+    data: Variant[];
     links?: string[];
 }
 //# sourceMappingURL=variant.response.d.ts.map

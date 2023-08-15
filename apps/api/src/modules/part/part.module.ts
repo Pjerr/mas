@@ -11,6 +11,7 @@ import {
 } from '@/core/entities';
 import { VariantService } from './variant.service';
 import { OptionConfigService } from '../attribute/option-config.service';
+import { Variant } from '@/core/entities/variant.entity';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { OptionConfigService } from '../attribute/option-config.service';
       Attribute,
       AttributeOption,
       OptionConfig,
+      Variant,
     ]),
   ],
   controllers: [PartController],

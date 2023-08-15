@@ -4,8 +4,7 @@ import {
     AttributeOption,
     Manufacturer,
     Part,
-    VariantConfigResponse,
-    Variants,
+    Variant,
 } from '@/store/api/endpoints';
 import { ColumnDef } from '@tanstack/react-table';
 import { Cell } from '../Cell';
@@ -190,7 +189,7 @@ export const partOptionColumnDef: ColumnDef<AttributeOption, any>[] = [
     },
 ];
 
-export const variantColumnDef: ColumnDef<VariantConfigResponse[], any>[] = [
+export const variantColumnDef: ColumnDef<Variant, any>[] = [
     {
         id: 'select',
         header: ({ table }) => (
@@ -211,36 +210,44 @@ export const variantColumnDef: ColumnDef<VariantConfigResponse[], any>[] = [
         minSize: 2,
         maxSize: 5,
     },
+    {
+        header: 'Total price',
+        accessorKey: 'price',
+        enableSorting: true,
+        enableColumnFilter: false,
+        enableGlobalFilter: false,
+        enableResizing: true,
+    },
 ];
 
-export const addVariantColumns = ({ configs, basePrice }: Variants) => {
-    variantColumnDef.splice(1, variantColumnDef.length);
+// export const addVariantColumns = ({ configs, basePrice }: Variants) => {
+//     variantColumnDef.splice(1, variantColumnDef.length);
 
-    const attributeHeaders = configs[0].map(
-        (configExample) => configExample.attributeName
-    );
+//     const attributeHeaders = configs[0].map(
+//         (configExample) => configExample.attributeName
+//     );
 
-    variantColumnDef.push(
-        ...attributeHeaders.map((header, index) => {
-            return {
-                id: header,
-                header: () => header,
-                accessorFn: (variant: VariantConfigResponse[]) =>
-                    variant[index]?.optionValue,
-                minSize: 20,
-                maxSize: 50,
-            };
-        })
-    );
-    variantColumnDef.push({
-        id: 'price',
-        header: 'Price',
-        accessorFn: (variant: VariantConfigResponse[]) =>
-            variant.reduce((acc, current) => acc + current.price, basePrice),
-        minSize: 2,
-        maxSize: 5,
-    });
-};
+//     variantColumnDef.push(
+//         ...attributeHeaders.map((header, index) => {
+//             return {
+//                 id: header,
+//                 header: () => header,
+//                 accessorFn: (variant: VariantConfigResponse[]) =>
+//                     variant[index]?.optionValue,
+//                 minSize: 20,
+//                 maxSize: 50,
+//             };
+//         })
+//     );
+//     variantColumnDef.push({
+//         id: 'price',
+//         header: 'Price',
+//         accessorFn: (variant: VariantConfigResponse[]) =>
+//             variant.reduce((acc, current) => acc + current.price, basePrice),
+//         minSize: 2,
+//         maxSize: 5,
+//     });
+// };
 
 export const extractColumnDef: Record<EntityType, ColumnDef<any, any>[]> = {
     [EntityType.Attribute]: attributeColumnDef,

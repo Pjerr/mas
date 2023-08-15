@@ -10,7 +10,7 @@ class Variants {
 exports.Variants = Variants;
 class VariantsResponse {
     static _OPENAPI_METADATA_FACTORY() {
-        return { data: { required: true, type: () => require("./variant.response").Variants }, links: { required: false, type: () => [String] } };
+        return { data: { required: true, type: () => [require("../../../../core/entities/variant.entity").Variant] }, links: { required: false, type: () => [String] } };
     }
 }
 exports.VariantsResponse = VariantsResponse;

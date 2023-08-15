@@ -15,6 +15,7 @@ import {
   BulkUpdatePrice,
   CreateDraft,
   CreatePart,
+  CreateVariant,
   PartRelationTypes,
   PartResponse,
   PartsResponse,
@@ -30,6 +31,11 @@ import { QueryPipe } from '@/core/pipes/query.pipe';
 import { Part } from '@/core/entities';
 import { filterEntity } from '@/core/utils/parse-query';
 import { VariantService } from './variant.service';
+import {
+  FilterRelationTypes,
+  QueryVariant,
+} from './dto/requests/filter-variants.request';
+import { Variant } from '@/core/entities/variant.entity';
 
 @ApiTags('Parts')
 @Controller('parts')
@@ -145,9 +151,20 @@ export class PartController {
     return this.partService.removeMany(ids);
   }
 
-  @Get(':id/variant')
-  async findVariant(@Param('id') id: string): Promise<VariantsResponse> {
-    const response = await this.variantService.find(id);
+  @Get('findPartVariants')
+  @FilterQuery('query', QueryVariant)
+  async findVariants(
+    @Query('query', QueryPipe<FilterRelationTypes, Variant>)
+    query: QueryVariant,
+  ): Promise<VariantsResponse> {
+    const filter = filterEntity<FilterRelationTypes, Variant>(query, Variant);
+    const response = await this.variantService.find(filter);
+    return { data: response };
+  }
+
+  @Post('createVariants')
+  async createVariants(@Body() payload: CreateVariant) {
+    const response = await this.variantService.create(payload.partId);
     return { data: response };
   }
 }

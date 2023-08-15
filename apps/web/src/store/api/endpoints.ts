@@ -258,12 +258,26 @@ const injectedRtkApi = api
                 }),
                 invalidatesTags: ['Parts'],
             }),
-            findVariantPart: build.query<
-                FindVariantPartApiResponse,
-                FindVariantPartApiArg
+            findVariantsPart: build.query<
+                FindVariantsPartApiResponse,
+                FindVariantsPartApiArg
             >({
-                query: (queryArg) => ({ url: `/parts/${queryArg.id}/variant` }),
+                query: (queryArg) => ({
+                    url: `/parts/findPartVariants`,
+                    params: { query: queryArg.query },
+                }),
                 providesTags: ['Parts'],
+            }),
+            createVariantsPart: build.mutation<
+                CreateVariantsPartApiResponse,
+                CreateVariantsPartApiArg
+            >({
+                query: (queryArg) => ({
+                    url: `/parts/createVariants`,
+                    method: 'POST',
+                    body: queryArg.createVariant,
+                }),
+                invalidatesTags: ['Parts'],
             }),
             createCategory: build.mutation<
                 CreateCategoryApiResponse,
@@ -542,9 +556,13 @@ export type RemoveAttributesPartApiArg = {
     id: string;
     updateAttributeRelations: UpdateAttributeRelations;
 };
-export type FindVariantPartApiResponse = /** status 200  */ VariantsResponse;
-export type FindVariantPartApiArg = {
-    id: string;
+export type FindVariantsPartApiResponse = /** status 200  */ VariantsResponse;
+export type FindVariantsPartApiArg = {
+    query?: QueryVariant;
+};
+export type CreateVariantsPartApiResponse = unknown;
+export type CreateVariantsPartApiArg = {
+    createVariant: CreateVariant;
 };
 export type CreateCategoryApiResponse = /** status 201  */ CategoryResponse;
 export type CreateCategoryApiArg = {
@@ -855,20 +873,25 @@ export type UpdateAttributeRelation = {
 export type UpdateAttributeRelations = {
     attributeIds: string[];
 };
-export type VariantConfigResponse = {
-    price: number;
+export type Variant = {
     id: string;
-    attributeName: string;
-    optionValue: string;
-};
-export type Variants = {
-    configs: VariantConfigResponse[][];
-    basePrice: number;
+    price: number;
+    disabled: boolean;
+    properties: object;
     part: string;
+    createdAt: string;
 };
 export type VariantsResponse = {
-    data: Variants;
+    data: Variant[];
     links?: string[];
+};
+export type QueryVariant = {
+    include?: object[];
+    filters?: Filter[];
+    sort?: Sort;
+};
+export type CreateVariant = {
+    partId: string;
 };
 export type Category = {
     childrenIds: string[];
@@ -970,7 +993,8 @@ export const {
     useAddAttributePartMutation,
     useRemoveAttributePartMutation,
     useRemoveAttributesPartMutation,
-    useFindVariantPartQuery,
+    useFindVariantsPartQuery,
+    useCreateVariantsPartMutation,
     useCreateCategoryMutation,
     useFindCategoryQuery,
     useFindOneCategoryQuery,

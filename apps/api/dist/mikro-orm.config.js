@@ -7,6 +7,7 @@ const postgresql_1 = require("@mikro-orm/postgresql");
 const dotenv_1 = __importDefault(require("dotenv"));
 const path_1 = __importDefault(require("path"));
 const entities_1 = require("./core/entities");
+const variant_entity_1 = require("./core/entities/variant.entity");
 const dotenvConfig = dotenv_1.default.config({
     path: path_1.default.resolve(__dirname, '../.env'),
 });
@@ -22,6 +23,7 @@ const config = {
         entities_1.Group,
         entities_1.Category,
         entities_1.OptionConfig,
+        variant_entity_1.Variant,
     ],
     dbName: process.env.DB_NAME,
     host: process.env.DB_HOST,

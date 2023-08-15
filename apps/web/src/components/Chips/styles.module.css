@@ -31,7 +31,7 @@
 }
 
 .chip__title {
-    padding: 0px var(--size-2);
+    padding: 0px var(--size-1);
 }
 .chip__delete {
     border-radius: var(--rounded-xl);

@@ -10,6 +10,7 @@ import {
   AttributeOption,
   OptionConfig,
 } from './core/entities';
+import { Variant } from './core/entities/variant.entity';
 
 const dotenvConfig: DotenvConfigOutput = dotenv.config({
   path: path.resolve(__dirname, '../.env'),
@@ -26,6 +27,7 @@ const config: Options = {
     Group,
     Category,
     OptionConfig,
+    Variant,
   ],
   dbName: process.env.DB_NAME,
   host: process.env.DB_HOST,

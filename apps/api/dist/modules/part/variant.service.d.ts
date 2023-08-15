@@ -1,13 +1,13 @@
-import { EntityManager } from '@mikro-orm/postgresql';
+import { EntityManager, EntityRepository } from '@mikro-orm/postgresql';
 import { VariantConfigResponse } from '../attribute/dto/option/requests/config.response';
+import { Variant } from '@/core/entities/variant.entity';
+import { FilterEntity } from '@/core/types';
 export declare class VariantService {
     private readonly em;
-    constructor(em: EntityManager);
+    private readonly variantsRepository;
+    constructor(em: EntityManager, variantsRepository: EntityRepository<Variant>);
     cartesianPart(data: VariantConfigResponse[][]): VariantConfigResponse[][];
-    find(id: string): Promise<{
-        configs: VariantConfigResponse[][];
-        basePrice: number;
-        part: string;
-    }>;
+    find(filters: FilterEntity<Variant>): Promise<import("@mikro-orm/core").Loaded<Variant, any>[]>;
+    create(id: string): Promise<Variant[]>;
 }
 //# sourceMappingURL=variant.service.d.ts.map

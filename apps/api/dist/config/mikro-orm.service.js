@@ -15,6 +15,7 @@ const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
 const entities_1 = require("../core/entities");
 const variant_config_entity_1 = require("../core/entities/variant_config.entity");
+const variant_entity_1 = require("../core/entities/variant.entity");
 let MikroOrmService = class MikroOrmService {
     constructor(configService) {
         this.configService = configService;
@@ -29,6 +30,7 @@ let MikroOrmService = class MikroOrmService {
                 entities_1.OptionConfig,
                 entities_1.Manufacturer,
                 variant_config_entity_1.VariantConfig,
+                variant_entity_1.Variant,
             ], driver: postgresql_1.PostgreSqlDriver, verbose: true, type: 'postgresql', debug: true }, this.configService.get('database'));
     }
 };

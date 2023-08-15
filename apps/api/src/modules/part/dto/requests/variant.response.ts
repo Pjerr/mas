@@ -1,3 +1,4 @@
+import { Variant } from '@/core/entities/variant.entity';
 import { VariantConfigResponse } from '@/modules/attribute/dto/option';
 
 export class Variants {
@@ -9,6 +10,6 @@ export class Variants {
 }
 
 export class VariantsResponse {
-  data: Variants;
+  data: Variant[];
   links?: string[];
 }

@@ -1,1 +1,1 @@
-{"version":3,"file":"create-variant.request.d.ts","sourceRoot":"","sources":["../../../../../src/modules/part/dto/requests/create-variant.request.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,YAAY,EAAE,MAAM,iBAAiB,CAAC;AAE/C,qBAAa,aAAa;IACxB,MAAM,EAAE,MAAM,CAAC;IACf,cAAc,EAAE,YAAY,EAAE,EAAE,CAAC;CAClC"}
+{"version":3,"file":"create-variant.request.d.ts","sourceRoot":"","sources":["../../../../../src/modules/part/dto/requests/create-variant.request.ts"],"names":[],"mappings":"AAAA,qBAAa,aAAa;IACxB,MAAM,EAAE,MAAM,CAAC;CAChB"}

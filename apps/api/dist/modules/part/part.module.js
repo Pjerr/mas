@@ -14,6 +14,7 @@ const nestjs_1 = require("@mikro-orm/nestjs");
 const entities_1 = require("../../core/entities");
 const variant_service_1 = require("./variant.service");
 const option_config_service_1 = require("../attribute/option-config.service");
+const variant_entity_1 = require("../../core/entities/variant.entity");
 let PartModule = class PartModule {
 };
 PartModule = __decorate([
@@ -25,6 +26,7 @@ PartModule = __decorate([
                 entities_1.Attribute,
                 entities_1.AttributeOption,
                 entities_1.OptionConfig,
+                variant_entity_1.Variant,
             ]),
         ],
         controllers: [part_controller_1.PartController],

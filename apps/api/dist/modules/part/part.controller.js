@@ -24,6 +24,8 @@ const query_pipe_1 = require("../../core/pipes/query.pipe");
 const entities_1 = require("../../core/entities");
 const parse_query_1 = require("../../core/utils/parse-query");
 const variant_service_1 = require("./variant.service");
+const filter_variants_request_1 = require("./dto/requests/filter-variants.request");
+const variant_entity_1 = require("../../core/entities/variant.entity");
 let PartController = class PartController {
     constructor(partService, variantService) {
         this.partService = partService;
@@ -76,8 +78,13 @@ let PartController = class PartController {
     removeMany(ids) {
         return this.partService.removeMany(ids);
     }
-    async findVariant(id) {
-        const response = await this.variantService.find(id);
+    async findVariants(query) {
+        const filter = (0, parse_query_1.filterEntity)(query, variant_entity_1.Variant);
+        const response = await this.variantService.find(filter);
+        return { data: response };
+    }
+    async createVariants(payload) {
+        const response = await this.variantService.create(payload.partId);
         return { data: response };
     }
 };
@@ -185,13 +192,22 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], PartController.prototype, "removeMany", null);
 __decorate([
-    (0, common_1.Get)(':id/variant'),
+    (0, common_1.Get)('findPartVariants'),
+    (0, types_1.FilterQuery)('query', filter_variants_request_1.QueryVariant),
     openapi.ApiResponse({ status: 200, type: require("./dto/requests/variant.response").VariantsResponse }),
-    __param(0, (0, common_1.Param)('id')),
+    __param(0, (0, common_1.Query)('query', (query_pipe_1.QueryPipe))),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [filter_variants_request_1.QueryVariant]),
     __metadata("design:returntype", Promise)
-], PartController.prototype, "findVariant", null);
+], PartController.prototype, "findVariants", null);
+__decorate([
+    (0, common_1.Post)('createVariants'),
+    openapi.ApiResponse({ status: 201 }),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [dto_1.CreateVariant]),
+    __metadata("design:returntype", Promise)
+], PartController.prototype, "createVariants", null);
 PartController = __decorate([
     (0, swagger_1.ApiTags)('Parts'),
     (0, common_1.Controller)('parts'),
