@@ -32,7 +32,7 @@ export function Header() {
             <nav className={styles['header-container__nav']}>
                 <div className={styles['nav__brand-container']}>
                     <div className={styles['brand-container__brand']}>
-                        <Link href={'/'}>AMS</Link>
+                        <Link href={'/'}>VMS</Link>
                     </div>
                 </div>
                 <ul className={styles.nav__links}>
