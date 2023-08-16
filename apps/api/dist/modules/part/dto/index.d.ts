@@ -9,4 +9,7 @@ export * from './requests/multiple-update-part.request';
 export * from './requests/create-variant.request';
 export * from './requests/create-draft.request';
 export * from './requests/variant.response';
+export * from './requests/create-variant.request';
+export * from './requests/update-variant.request';
+export * from './requests/toggle-variant.request';
 //# sourceMappingURL=index.d.ts.map

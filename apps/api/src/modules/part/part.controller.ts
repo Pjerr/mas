@@ -24,6 +24,7 @@ import {
   UpdateAttributeRelation,
   UpdateAttributeRelations,
   UpdateCategoryRelation,
+  UpdateVariant,
   VariantsResponse,
 } from './dto';
 import { ApiTags } from '@nestjs/swagger';
@@ -178,6 +179,14 @@ export class PartController {
     @Body() payload: ToggleVariants,
   ): Promise<VariantsResponse> {
     const response = await this.variantService.toggle(payload.ids);
+    return { data: response };
+  }
+
+  @Put('updateVariants')
+  async updateVariants(
+    @Body() payload: UpdateVariant,
+  ): Promise<VariantsResponse> {
+    const response = await this.variantService.update(payload.partId);
     return { data: response };
   }
 }

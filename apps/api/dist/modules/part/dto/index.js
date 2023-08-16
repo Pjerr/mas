@@ -25,4 +25,7 @@ __exportStar(require("./requests/multiple-update-part.request"), exports);
 __exportStar(require("./requests/create-variant.request"), exports);
 __exportStar(require("./requests/create-draft.request"), exports);
 __exportStar(require("./requests/variant.response"), exports);
+__exportStar(require("./requests/create-variant.request"), exports);
+__exportStar(require("./requests/update-variant.request"), exports);
+__exportStar(require("./requests/toggle-variant.request"), exports);
 //# sourceMappingURL=index.js.map

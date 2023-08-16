@@ -9,7 +9,7 @@ export declare class VariantService {
     cartesianPart(data: VariantConfigResponse[][]): VariantConfigResponse[][];
     find(filters: FilterEntity<Variant>): Promise<import("@mikro-orm/core").Loaded<Variant, any>[]>;
     create(partId: string): Promise<Variant[]>;
-    update(partId: string): Promise<void>;
+    update(partId: string): Promise<Variant[]>;
     toggle(ids: string[]): Promise<Variant[]>;
 }
 //# sourceMappingURL=variant.service.d.ts.map

@@ -93,6 +93,10 @@ let PartController = class PartController {
         const response = await this.variantService.toggle(payload.ids);
         return { data: response };
     }
+    async updateVariants(payload) {
+        const response = await this.variantService.update(payload.partId);
+        return { data: response };
+    }
 };
 __decorate([
     (0, common_1.Post)(),
@@ -222,6 +226,14 @@ __decorate([
     __metadata("design:paramtypes", [toggle_variant_request_1.ToggleVariant]),
     __metadata("design:returntype", Promise)
 ], PartController.prototype, "toggleVariants", null);
+__decorate([
+    (0, common_1.Put)('updateVariants'),
+    openapi.ApiResponse({ status: 200, type: require("./dto/requests/variant.response").VariantsResponse }),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [dto_1.UpdateVariant]),
+    __metadata("design:returntype", Promise)
+], PartController.prototype, "updateVariants", null);
 PartController = __decorate([
     (0, swagger_1.ApiTags)('Parts'),
     (0, common_1.Controller)('parts'),

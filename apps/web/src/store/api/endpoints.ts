@@ -290,6 +290,17 @@ const injectedRtkApi = api
                 }),
                 invalidatesTags: ['Parts'],
             }),
+            updateVariantsPart: build.mutation<
+                UpdateVariantsPartApiResponse,
+                UpdateVariantsPartApiArg
+            >({
+                query: (queryArg) => ({
+                    url: `/parts/updateVariants`,
+                    method: 'PUT',
+                    body: queryArg.updateVariant,
+                }),
+                invalidatesTags: ['Parts'],
+            }),
             createCategory: build.mutation<
                 CreateCategoryApiResponse,
                 CreateCategoryApiArg
@@ -578,6 +589,10 @@ export type CreateVariantsPartApiArg = {
 export type ToggleVariantsPartApiResponse = /** status 200  */ VariantsResponse;
 export type ToggleVariantsPartApiArg = {
     toggleVariant: ToggleVariant;
+};
+export type UpdateVariantsPartApiResponse = /** status 200  */ VariantsResponse;
+export type UpdateVariantsPartApiArg = {
+    updateVariant: UpdateVariant;
 };
 export type CreateCategoryApiResponse = /** status 201  */ CategoryResponse;
 export type CreateCategoryApiArg = {
@@ -911,6 +926,9 @@ export type CreateVariant = {
 export type ToggleVariant = {
     ids: string[];
 };
+export type UpdateVariant = {
+    partId: string;
+};
 export type Category = {
     childrenIds: string[];
     id: string;
@@ -1014,6 +1032,7 @@ export const {
     useRemoveAttributesPartMutation,
     useCreateVariantsPartMutation,
     useToggleVariantsPartMutation,
+    useUpdateVariantsPartMutation,
     useCreateCategoryMutation,
     useFindCategoryQuery,
     useFindOneCategoryQuery,

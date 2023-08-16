@@ -73,7 +73,11 @@ let VariantService = class VariantService {
         this.em.flush();
         return variants;
     }
-    async update(partId) { }
+    async update(partId) {
+        const variants = await this.em.find(variant_entity_1.Variant, { part: partId });
+        await this.em.removeAndFlush(variants);
+        return this.create(partId);
+    }
     async toggle(ids) {
         const variants = await this.em.find(variant_entity_1.Variant, {
             id: { $in: ids },

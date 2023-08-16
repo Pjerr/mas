@@ -88,7 +88,11 @@ export class VariantService {
     return variants;
   }
 
-  async update(partId: string) {}
+  async update(partId: string) {
+    const variants = await this.em.find(Variant, { part: partId });
+    await this.em.removeAndFlush(variants);
+    return this.create(partId);
+  }
 
   async toggle(ids: string[]) {
     const variants: Variant[] = await this.em.find(Variant, {

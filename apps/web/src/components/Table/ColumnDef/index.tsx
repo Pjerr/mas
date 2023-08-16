@@ -212,8 +212,10 @@ export const variantColumnDef: ColumnDef<Variant, any>[] = [
     },
 ];
 
-export const addVariantColumns = (variant: Variant) => {
+export const addVariantColumns = (variants: Variant[]) => {
     variantColumnDef.splice(1, variantColumnDef.length);
+
+    const variant = variants[0];
 
     variantColumnDef.push(
         ...Object.values(variant.properties).map((vartiantConfig, index) => {

@@ -6,6 +6,7 @@ import {
     useCreatePartMutation,
     useCreateVariantsPartMutation,
     useUpdatePartMutation,
+    useUpdateVariantsPartMutation,
 } from '@/store/api/endpoints';
 import { updateDefaultFormValue } from '@/store/editors/part';
 import { appendEntity, selectTable, updateEntity } from '@/store/table';
@@ -19,6 +20,7 @@ export function usePartApi() {
     const [updatePart] = useUpdatePartMutation();
     const [createPart] = useCreatePartMutation();
     const [createVariants] = useCreateVariantsPartMutation();
+    const [updateVariants] = useUpdateVariantsPartMutation();
 
     const dispatch = useAppDispatch();
     const table = useSelector(selectTable);
@@ -104,6 +106,7 @@ export function usePartApi() {
         dispatch(updateDefaultFormValue({ part }));
 
         if (data.createdAt) {
+            updateVariants({ updateVariant: { partId: data.id } });
             dispatch(
                 updateEntity({
                     entity: part,

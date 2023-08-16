@@ -35,7 +35,7 @@ const loadVariantsThunk = createAsyncThunk<
     );
 
     if (response?.data) {
-        addVariantColumns(response.data[0]);
+        addVariantColumns(response.data);
         dispatch(
             loadData({
                 data: response.data ? response.data : [],
