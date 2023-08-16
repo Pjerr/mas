@@ -8,6 +8,7 @@ import {
   Delete,
   ValidationPipe,
   Query,
+  Put,
 } from '@nestjs/common';
 import { PartService } from './part.service';
 import { UpdatePart } from './dto/requests/update-part.request';
@@ -36,6 +37,7 @@ import {
   QueryVariant,
 } from './dto/requests/filter-variants.request';
 import { Variant } from '@/core/entities/variant.entity';
+import { ToggleVariant as ToggleVariants } from './dto/requests/toggle-variant.request';
 
 @ApiTags('Parts')
 @Controller('parts')
@@ -164,8 +166,18 @@ export class PartController {
   }
 
   @Post('createVariants')
-  async createVariants(@Body() payload: CreateVariant) {
+  async createVariants(
+    @Body() payload: CreateVariant,
+  ): Promise<VariantsResponse> {
     const response = await this.variantService.create(payload.partId);
+    return { data: response };
+  }
+
+  @Put('toggleVariants')
+  async toggleVariants(
+    @Body() payload: ToggleVariants,
+  ): Promise<VariantsResponse> {
+    const response = await this.variantService.toggle(payload.ids);
     return { data: response };
   }
 }

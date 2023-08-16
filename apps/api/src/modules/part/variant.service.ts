@@ -37,13 +37,13 @@ export class VariantService {
     return variants;
   }
 
-  async create(id: string) {
-    const part = await this.em.findOne(Part, { id });
+  async create(partId: string) {
+    const part = await this.em.findOne(Part, { id: partId });
 
     if (!part) throw new NotFoundException('Part does not exist');
 
     const response = await this.em.find(VariantConfig, {
-      part: id,
+      part: partId,
     });
 
     const configs: Record<string, VariantConfigResponse[]> = {};
@@ -73,7 +73,7 @@ export class VariantService {
       );
 
       const variant = this.em.create(Variant, {
-        part: id,
+        part: partId,
         properties,
         price: part.basePrice + variantPrice,
       });
@@ -88,5 +88,19 @@ export class VariantService {
     return variants;
   }
 
-  async update(id: string) {}
+  async update(partId: string) {}
+
+  async toggle(ids: string[]) {
+    const variants: Variant[] = await this.em.find(Variant, {
+      id: { $in: ids },
+    });
+
+    variants.forEach((variant) => {
+      variant.disabled = !variant.disabled;
+    });
+
+    await this.em.flush();
+
+    return variants;
+  }
 }

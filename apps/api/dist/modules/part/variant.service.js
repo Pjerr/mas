@@ -37,12 +37,12 @@ let VariantService = class VariantService {
             throw new common_1.NotFoundException('Variants not found');
         return variants;
     }
-    async create(id) {
-        const part = await this.em.findOne(entities_1.Part, { id });
+    async create(partId) {
+        const part = await this.em.findOne(entities_1.Part, { id: partId });
         if (!part)
             throw new common_1.NotFoundException('Part does not exist');
         const response = await this.em.find(variant_config_entity_1.VariantConfig, {
-            part: id,
+            part: partId,
         });
         const configs = {};
         response.forEach((config) => {
@@ -63,7 +63,7 @@ let VariantService = class VariantService {
             }));
             const variantPrice = config.reduce((total, config) => total + config.price, 0);
             const variant = this.em.create(variant_entity_1.Variant, {
-                part: id,
+                part: partId,
                 properties,
                 price: part.basePrice + variantPrice,
             });
@@ -73,7 +73,17 @@ let VariantService = class VariantService {
         this.em.flush();
         return variants;
     }
-    async update(id) { }
+    async update(partId) { }
+    async toggle(ids) {
+        const variants = await this.em.find(variant_entity_1.Variant, {
+            id: { $in: ids },
+        });
+        variants.forEach((variant) => {
+            variant.disabled = !variant.disabled;
+        });
+        await this.em.flush();
+        return variants;
+    }
 };
 VariantService = __decorate([
     (0, common_1.Injectable)(),

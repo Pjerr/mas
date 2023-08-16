@@ -19,7 +19,7 @@ export class Variant extends BaseEntity<Variant, 'id'> {
   @Filterable()
   price: number;
 
-  @Property()
+  @Property({ type: 'boolean' })
   disabled: boolean = false;
 
   @Property({ type: 'jsonb', nullable: true })

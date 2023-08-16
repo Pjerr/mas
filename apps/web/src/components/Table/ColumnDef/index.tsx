@@ -242,6 +242,17 @@ export const addVariantColumns = (variant: Variant) => {
         minSize: 20,
         maxSize: 30,
     });
+
+    variantColumnDef.push({
+        header: 'Disabled',
+        accessorKey: 'disabled',
+        enableSorting: true,
+        enableColumnFilter: false,
+        enableGlobalFilter: false,
+        enableResizing: true,
+        minSize: 20,
+        maxSize: 30,
+    });
 };
 
 export const extractColumnDef: Record<EntityType, ColumnDef<any, any>[]> = {

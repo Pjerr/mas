@@ -26,6 +26,7 @@ const parse_query_1 = require("../../core/utils/parse-query");
 const variant_service_1 = require("./variant.service");
 const filter_variants_request_1 = require("./dto/requests/filter-variants.request");
 const variant_entity_1 = require("../../core/entities/variant.entity");
+const toggle_variant_request_1 = require("./dto/requests/toggle-variant.request");
 let PartController = class PartController {
     constructor(partService, variantService) {
         this.partService = partService;
@@ -86,6 +87,10 @@ let PartController = class PartController {
     }
     async createVariants(payload) {
         const response = await this.variantService.create(payload.partId);
+        return { data: response };
+    }
+    async toggleVariants(payload) {
+        const response = await this.variantService.toggle(payload.ids);
         return { data: response };
     }
 };
@@ -203,12 +208,20 @@ __decorate([
 ], PartController.prototype, "removeMany", null);
 __decorate([
     (0, common_1.Post)('createVariants'),
-    openapi.ApiResponse({ status: 201 }),
+    openapi.ApiResponse({ status: 201, type: require("./dto/requests/variant.response").VariantsResponse }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [dto_1.CreateVariant]),
     __metadata("design:returntype", Promise)
 ], PartController.prototype, "createVariants", null);
+__decorate([
+    (0, common_1.Put)('toggleVariants'),
+    openapi.ApiResponse({ status: 200, type: require("./dto/requests/variant.response").VariantsResponse }),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [toggle_variant_request_1.ToggleVariant]),
+    __metadata("design:returntype", Promise)
+], PartController.prototype, "toggleVariants", null);
 PartController = __decorate([
     (0, swagger_1.ApiTags)('Parts'),
     (0, common_1.Controller)('parts'),

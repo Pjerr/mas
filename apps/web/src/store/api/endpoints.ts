@@ -177,6 +177,16 @@ const injectedRtkApi = api
                 }),
                 invalidatesTags: ['Parts'],
             }),
+            findVariantsPart: build.query<
+                FindVariantsPartApiResponse,
+                FindVariantsPartApiArg
+            >({
+                query: (queryArg) => ({
+                    url: `/parts/findPartVariants`,
+                    params: { query: queryArg.query },
+                }),
+                providesTags: ['Parts'],
+            }),
             findOnePart: build.query<FindOnePartApiResponse, FindOnePartApiArg>(
                 {
                     query: (queryArg) => ({ url: `/parts/${queryArg.id}` }),
@@ -258,16 +268,6 @@ const injectedRtkApi = api
                 }),
                 invalidatesTags: ['Parts'],
             }),
-            findVariantsPart: build.query<
-                FindVariantsPartApiResponse,
-                FindVariantsPartApiArg
-            >({
-                query: (queryArg) => ({
-                    url: `/parts/findPartVariants`,
-                    params: { query: queryArg.query },
-                }),
-                providesTags: ['Parts'],
-            }),
             createVariantsPart: build.mutation<
                 CreateVariantsPartApiResponse,
                 CreateVariantsPartApiArg
@@ -276,6 +276,17 @@ const injectedRtkApi = api
                     url: `/parts/createVariants`,
                     method: 'POST',
                     body: queryArg.createVariant,
+                }),
+                invalidatesTags: ['Parts'],
+            }),
+            toggleVariantsPart: build.mutation<
+                ToggleVariantsPartApiResponse,
+                ToggleVariantsPartApiArg
+            >({
+                query: (queryArg) => ({
+                    url: `/parts/toggleVariants`,
+                    method: 'PUT',
+                    body: queryArg.toggleVariant,
                 }),
                 invalidatesTags: ['Parts'],
             }),
@@ -518,6 +529,10 @@ export type CreateDraftPartApiResponse = /** status 201  */ PartResponse;
 export type CreateDraftPartApiArg = {
     createDraft: CreateDraft;
 };
+export type FindVariantsPartApiResponse = /** status 200  */ VariantsResponse;
+export type FindVariantsPartApiArg = {
+    query?: QueryVariant;
+};
 export type FindOnePartApiResponse = /** status 200  */ PartResponse;
 export type FindOnePartApiArg = {
     id: string;
@@ -556,13 +571,13 @@ export type RemoveAttributesPartApiArg = {
     id: string;
     updateAttributeRelations: UpdateAttributeRelations;
 };
-export type FindVariantsPartApiResponse = /** status 200  */ VariantsResponse;
-export type FindVariantsPartApiArg = {
-    query?: QueryVariant;
-};
-export type CreateVariantsPartApiResponse = unknown;
+export type CreateVariantsPartApiResponse = /** status 201  */ VariantsResponse;
 export type CreateVariantsPartApiArg = {
     createVariant: CreateVariant;
+};
+export type ToggleVariantsPartApiResponse = /** status 200  */ VariantsResponse;
+export type ToggleVariantsPartApiArg = {
+    toggleVariant: ToggleVariant;
 };
 export type CreateCategoryApiResponse = /** status 201  */ CategoryResponse;
 export type CreateCategoryApiArg = {
@@ -860,19 +875,6 @@ export type QueryPart = {
 export type CreateDraft = {
     name: string;
 };
-export type UpdatePart = {};
-export type BulkUpdatePrice = {
-    payloads: number[];
-};
-export type UpdateCategoryRelation = {
-    categoryId: string;
-};
-export type UpdateAttributeRelation = {
-    attributeId: string;
-};
-export type UpdateAttributeRelations = {
-    attributeIds: string[];
-};
 export type Variant = {
     id: string;
     price: number;
@@ -890,8 +892,24 @@ export type QueryVariant = {
     filters?: Filter[];
     sort?: Sort;
 };
+export type UpdatePart = {};
+export type BulkUpdatePrice = {
+    payloads: number[];
+};
+export type UpdateCategoryRelation = {
+    categoryId: string;
+};
+export type UpdateAttributeRelation = {
+    attributeId: string;
+};
+export type UpdateAttributeRelations = {
+    attributeIds: string[];
+};
 export type CreateVariant = {
     partId: string;
+};
+export type ToggleVariant = {
+    ids: string[];
 };
 export type Category = {
     childrenIds: string[];
@@ -985,6 +1003,7 @@ export const {
     useFindPartQuery,
     useRemoveManyPartMutation,
     useCreateDraftPartMutation,
+    useFindVariantsPartQuery,
     useFindOnePartQuery,
     useUpdatePartMutation,
     useRemovePartMutation,
@@ -993,8 +1012,8 @@ export const {
     useAddAttributePartMutation,
     useRemoveAttributePartMutation,
     useRemoveAttributesPartMutation,
-    useFindVariantsPartQuery,
     useCreateVariantsPartMutation,
+    useToggleVariantsPartMutation,
     useCreateCategoryMutation,
     useFindCategoryQuery,
     useFindOneCategoryQuery,

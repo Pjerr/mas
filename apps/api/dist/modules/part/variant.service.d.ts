@@ -8,7 +8,8 @@ export declare class VariantService {
     constructor(em: EntityManager, variantsRepository: EntityRepository<Variant>);
     cartesianPart(data: VariantConfigResponse[][]): VariantConfigResponse[][];
     find(filters: FilterEntity<Variant>): Promise<import("@mikro-orm/core").Loaded<Variant, any>[]>;
-    create(id: string): Promise<Variant[]>;
-    update(id: string): Promise<void>;
+    create(partId: string): Promise<Variant[]>;
+    update(partId: string): Promise<void>;
+    toggle(ids: string[]): Promise<Variant[]>;
 }
 //# sourceMappingURL=variant.service.d.ts.map

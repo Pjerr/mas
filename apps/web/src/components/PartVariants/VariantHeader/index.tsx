@@ -1,15 +1,16 @@
-import { useState } from 'react';
 import styles from './styles.module.css';
 import { BsEyeSlashFill } from 'react-icons/bs';
 import { IoIosArrowBack } from 'react-icons/io';
 import { useSelector } from 'react-redux';
-import { RootState } from '@/store';
+import { RootState, useAppDispatch } from '@/store';
 import { useRouter } from 'next/router';
 import { LS_PREVIOUS_PAGE } from '@/utils/constants';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { useTableSelector } from '@/hooks/useTable';
 import Button from '@/components/Button';
-import { selectSelectedRows } from '@/store/table';
+import { selectSelectedRows, updateEntity } from '@/store/table';
+import { useToggleVariantsPartMutation } from '@/store/api/endpoints';
+import { toast } from 'react-toastify';
 
 export interface VariantHeaderProps {
     instanceId: string;
@@ -17,6 +18,10 @@ export interface VariantHeaderProps {
 export const VariantHeader = ({ instanceId }: VariantHeaderProps) => {
     const router = useRouter();
     const [value] = useLocalStorage(LS_PREVIOUS_PAGE, router.query.value);
+
+    const dispatch = useAppDispatch();
+
+    const [toggleVariants] = useToggleVariantsPartMutation();
 
     const table = useTableSelector(instanceId);
 
@@ -28,8 +33,22 @@ export const VariantHeader = ({ instanceId }: VariantHeaderProps) => {
         return <></>;
     }
 
-    const onDisable = () => {
-        console.log(selected);
+    const onDisable = async () => {
+        const response = await toggleVariants({
+            toggleVariant: {
+                ids: selected,
+            },
+        });
+
+        if ('error' in response) {
+            toast('Something went wrong!', { type: 'error' });
+            return;
+        }
+
+        toast('Variants toggled', { type: 'success' });
+        response.data.data.forEach((variant) => {
+            dispatch(updateEntity({ instanceId, entity: variant }));
+        });
     };
 
     return (

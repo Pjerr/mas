@@ -40,7 +40,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Variant.prototype, "price", void 0);
 __decorate([
-    (0, core_1.Property)(),
+    (0, core_1.Property)({ type: 'boolean' }),
     __metadata("design:type", Boolean)
 ], Variant.prototype, "disabled", void 0);
 __decorate([

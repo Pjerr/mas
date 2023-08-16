@@ -3,7 +3,7 @@ import { UpdatePart } from './dto/requests/update-part.request';
 import { BulkUpdatePrice, CreateDraft, CreatePart, CreateVariant, PartResponse, PartsResponse, QueryPart, UpdateAttributeRelation, UpdateAttributeRelations, UpdateCategoryRelation, VariantsResponse } from './dto';
 import { VariantService } from './variant.service';
 import { QueryVariant } from './dto/requests/filter-variants.request';
-import { Variant } from '@/core/entities/variant.entity';
+import { ToggleVariant as ToggleVariants } from './dto/requests/toggle-variant.request';
 export declare class PartController {
     private readonly partService;
     private readonly variantService;
@@ -21,8 +21,7 @@ export declare class PartController {
     removeAttributes(id: string, payload: UpdateAttributeRelations): Promise<PartResponse>;
     remove(id: string): Promise<void>;
     removeMany(ids: string[]): Promise<void>;
-    createVariants(payload: CreateVariant): Promise<{
-        data: Variant[];
-    }>;
+    createVariants(payload: CreateVariant): Promise<VariantsResponse>;
+    toggleVariants(payload: ToggleVariants): Promise<VariantsResponse>;
 }
 //# sourceMappingURL=part.controller.d.ts.map
