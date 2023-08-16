@@ -210,44 +210,39 @@ export const variantColumnDef: ColumnDef<Variant, any>[] = [
         minSize: 2,
         maxSize: 5,
     },
-    {
+];
+
+export const addVariantColumns = (variant: Variant) => {
+    variantColumnDef.splice(1, variantColumnDef.length);
+
+    variantColumnDef.push(
+        ...Object.values(variant.properties).map((vartiantConfig, index) => {
+            const result = Object.keys(vartiantConfig).map((key) => ({
+                key,
+                value: vartiantConfig[key],
+            }))[0];
+
+            return {
+                id: result.key,
+                header: () => result.key,
+                accessorFn: () => result.value,
+                minSize: 20,
+                maxSize: 30,
+            };
+        })
+    );
+
+    variantColumnDef.push({
         header: 'Total price',
         accessorKey: 'price',
         enableSorting: true,
         enableColumnFilter: false,
         enableGlobalFilter: false,
         enableResizing: true,
-    },
-];
-
-// export const addVariantColumns = ({ configs, basePrice }: Variants) => {
-//     variantColumnDef.splice(1, variantColumnDef.length);
-
-//     const attributeHeaders = configs[0].map(
-//         (configExample) => configExample.attributeName
-//     );
-
-//     variantColumnDef.push(
-//         ...attributeHeaders.map((header, index) => {
-//             return {
-//                 id: header,
-//                 header: () => header,
-//                 accessorFn: (variant: VariantConfigResponse[]) =>
-//                     variant[index]?.optionValue,
-//                 minSize: 20,
-//                 maxSize: 50,
-//             };
-//         })
-//     );
-//     variantColumnDef.push({
-//         id: 'price',
-//         header: 'Price',
-//         accessorFn: (variant: VariantConfigResponse[]) =>
-//             variant.reduce((acc, current) => acc + current.price, basePrice),
-//         minSize: 2,
-//         maxSize: 5,
-//     });
-// };
+        minSize: 20,
+        maxSize: 30,
+    });
+};
 
 export const extractColumnDef: Record<EntityType, ColumnDef<any, any>[]> = {
     [EntityType.Attribute]: attributeColumnDef,

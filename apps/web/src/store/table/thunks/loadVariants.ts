@@ -1,6 +1,7 @@
 import { AppDispatch, RootState, enhancedApi } from '@/store';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { loadData } from '..';
+import { addVariantColumns } from '@/components/Table/ColumnDef';
 
 interface LoadVariantsProps {
     partId: string;
@@ -34,6 +35,7 @@ const loadVariantsThunk = createAsyncThunk<
     );
 
     if (response?.data) {
+        addVariantColumns(response.data[0]);
         dispatch(
             loadData({
                 data: response.data ? response.data : [],
