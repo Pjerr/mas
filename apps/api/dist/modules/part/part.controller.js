@@ -39,7 +39,13 @@ let PartController = class PartController {
         const response = await this.partService.createDraft(request);
         return { data: response };
     }
+    async findVariants(query) {
+        const filter = (0, parse_query_1.filterEntity)(query, variant_entity_1.Variant);
+        const response = await this.variantService.find(filter);
+        return { data: response };
+    }
     async find(query) {
+        console.log('ALO');
         const filter = (0, parse_query_1.filterEntity)(query, entities_1.Part);
         const response = await this.partService.find(filter);
         return { data: response };
@@ -78,11 +84,6 @@ let PartController = class PartController {
     removeMany(ids) {
         return this.partService.removeMany(ids);
     }
-    async findVariants(query) {
-        const filter = (0, parse_query_1.filterEntity)(query, variant_entity_1.Variant);
-        const response = await this.variantService.find(filter);
-        return { data: response };
-    }
     async createVariants(payload) {
         const response = await this.variantService.create(payload.partId);
         return { data: response };
@@ -104,6 +105,15 @@ __decorate([
     __metadata("design:paramtypes", [dto_1.CreateDraft]),
     __metadata("design:returntype", Promise)
 ], PartController.prototype, "createDraft", null);
+__decorate([
+    (0, common_1.Get)('findPartVariants'),
+    (0, types_1.FilterQuery)('query', filter_variants_request_1.QueryVariant),
+    openapi.ApiResponse({ status: 200, type: require("./dto/requests/variant.response").VariantsResponse }),
+    __param(0, (0, common_1.Query)('query', (query_pipe_1.QueryPipe))),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [filter_variants_request_1.QueryVariant]),
+    __metadata("design:returntype", Promise)
+], PartController.prototype, "findVariants", null);
 __decorate([
     (0, common_1.Get)(),
     (0, types_1.FilterQuery)('query', dto_1.QueryPart),
@@ -191,15 +201,6 @@ __decorate([
     __metadata("design:paramtypes", [Array]),
     __metadata("design:returntype", void 0)
 ], PartController.prototype, "removeMany", null);
-__decorate([
-    (0, common_1.Get)('findPartVariants'),
-    (0, types_1.FilterQuery)('query', filter_variants_request_1.QueryVariant),
-    openapi.ApiResponse({ status: 200, type: require("./dto/requests/variant.response").VariantsResponse }),
-    __param(0, (0, common_1.Query)('query', (query_pipe_1.QueryPipe))),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [filter_variants_request_1.QueryVariant]),
-    __metadata("design:returntype", Promise)
-], PartController.prototype, "findVariants", null);
 __decorate([
     (0, common_1.Post)('createVariants'),
     openapi.ApiResponse({ status: 201 }),

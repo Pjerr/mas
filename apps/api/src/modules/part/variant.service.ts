@@ -87,4 +87,6 @@ export class VariantService {
 
     return variants;
   }
+
+  async update(id: string) {}
 }

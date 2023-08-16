@@ -73,6 +73,7 @@ let VariantService = class VariantService {
         this.em.flush();
         return variants;
     }
+    async update(id) { }
 };
 VariantService = __decorate([
     (0, common_1.Injectable)(),

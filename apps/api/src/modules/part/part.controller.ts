@@ -59,11 +59,23 @@ export class PartController {
     return { data: response };
   }
 
+  @Get('findPartVariants')
+  @FilterQuery('query', QueryVariant)
+  async findVariants(
+    @Query('query', QueryPipe<FilterRelationTypes, Variant>)
+    query: QueryVariant,
+  ): Promise<VariantsResponse> {
+    const filter = filterEntity<FilterRelationTypes, Variant>(query, Variant);
+    const response = await this.variantService.find(filter);
+    return { data: response };
+  }
+
   @Get()
   @FilterQuery('query', QueryPart)
   async find(
     @Query('query', QueryPipe<PartRelationTypes, Part>) query: QueryPart,
   ): Promise<PartsResponse> {
+    console.log('ALO');
     const filter = filterEntity<PartRelationTypes, Part>(query, Part);
     const response = await this.partService.find(filter);
     return { data: response };
@@ -149,17 +161,6 @@ export class PartController {
   @Delete()
   removeMany(@Query('ids') ids: string[]) {
     return this.partService.removeMany(ids);
-  }
-
-  @Get('findPartVariants')
-  @FilterQuery('query', QueryVariant)
-  async findVariants(
-    @Query('query', QueryPipe<FilterRelationTypes, Variant>)
-    query: QueryVariant,
-  ): Promise<VariantsResponse> {
-    const filter = filterEntity<FilterRelationTypes, Variant>(query, Variant);
-    const response = await this.variantService.find(filter);
-    return { data: response };
   }
 
   @Post('createVariants')

@@ -10,6 +10,7 @@ export declare class PartController {
     constructor(partService: PartService, variantService: VariantService);
     create(request: CreatePart): Promise<PartResponse>;
     createDraft(request: CreateDraft): Promise<PartResponse>;
+    findVariants(query: QueryVariant): Promise<VariantsResponse>;
     find(query: QueryPart): Promise<PartsResponse>;
     findOne(id: string): Promise<PartResponse>;
     bulkUpdatePrice(ids: string[], request: BulkUpdatePrice): Promise<PartsResponse>;
@@ -20,7 +21,6 @@ export declare class PartController {
     removeAttributes(id: string, payload: UpdateAttributeRelations): Promise<PartResponse>;
     remove(id: string): Promise<void>;
     removeMany(ids: string[]): Promise<void>;
-    findVariants(query: QueryVariant): Promise<VariantsResponse>;
     createVariants(payload: CreateVariant): Promise<{
         data: Variant[];
     }>;
