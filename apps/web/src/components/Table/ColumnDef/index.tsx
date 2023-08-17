@@ -212,22 +212,41 @@ export const variantColumnDef: ColumnDef<Variant, any>[] = [
     },
 ];
 
+interface VariantConfig {
+    optionValue: string;
+    attributeName: string;
+}
+
 export const addVariantColumns = (variants: Variant[]) => {
     variantColumnDef.splice(1, variantColumnDef.length);
 
-    const variant = variants[0];
-
-    variantColumnDef.push(
-        ...Object.values(variant.properties).map((vartiantConfig, index) => {
-            const result = Object.keys(vartiantConfig).map((key) => ({
+    const configs: VariantConfig[][] = variants.map((variant) => {
+        const variantConfigs: VariantConfig[] = Object.values(
+            variant.properties
+        ).map((config) => {
+            const result = Object.keys(config).map((key) => ({
                 key,
-                value: vartiantConfig[key],
+                value: config[key],
             }))[0];
 
             return {
-                id: result.key,
-                header: () => result.key,
-                accessorFn: () => result.value,
+                attributeName: result.key,
+                optionValue: result.value,
+            };
+        });
+        return variantConfigs;
+    });
+
+    const attributeHeaders = configs[0].map((config) => config.attributeName);
+
+    variantColumnDef.push(
+        ...attributeHeaders.map((header, index) => {
+            return {
+                id: header,
+                header: () => header,
+                accessorFn: (variant: Variant) => {
+                    return (variant.properties as [])[index][header];
+                },
                 minSize: 20,
                 maxSize: 30,
             };
