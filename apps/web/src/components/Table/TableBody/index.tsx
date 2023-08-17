@@ -2,6 +2,7 @@ import { Row, flexRender } from '@tanstack/react-table';
 import React from 'react';
 import styles from './styles.module.css';
 import { useTableSelector } from '@/hooks/useTable';
+import classNames from 'classnames';
 
 interface TableBodyProps {
     instanceId: string;
@@ -27,7 +28,10 @@ export default function TableBody({
                 <React.Fragment key={`fragment-${row.index}`}>
                     <tr
                         key={row.id}
-                        className={styles['table__row']}
+                        className={classNames(styles['table__row'], {
+                            [styles['table__row--disabled']]:
+                                row.original.disabled,
+                        })}
                         onDoubleClick={() => onDoubleClick(row)}
                     >
                         {row.getVisibleCells().map((cell) => (

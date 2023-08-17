@@ -32,6 +32,8 @@
     --border-color: #6c757d;
 
     --select-color: #999999;
+
+    --disabled-color: #565656;
 }
 
 [data-theme='light'] {
