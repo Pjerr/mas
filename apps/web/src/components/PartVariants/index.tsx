@@ -9,6 +9,9 @@ interface VariantsProps {
 }
 export default function PartVariants({ partId }: VariantsProps) {
     const instanceId = variantInstaceId(partId);
+
+    if (!partId) return <></>;
+
     return (
         <TableProvider>
             <VariantHeader instanceId={instanceId}></VariantHeader>
