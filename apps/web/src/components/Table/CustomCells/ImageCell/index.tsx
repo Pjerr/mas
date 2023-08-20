@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import { useAppDispatch } from '@/store';
 import { updateEntity } from '@/store/table';
 import { FaTimes } from 'react-icons/fa';
+import { AiOutlineUpload } from 'react-icons/ai';
 
 export function ImageCell({ row }: CellContext<Variant, any>) {
     const [updateImageUploaded] = useUpdateVariantImagePartMutation();
@@ -77,9 +78,12 @@ export function ImageCell({ row }: CellContext<Variant, any>) {
                     };
 
                     return (
-                        <Button variant={'primary'} onClick={handleOpen}>
-                            Upload an Image
-                        </Button>
+                        <Button
+                            variant={'primary'}
+                            icon={<AiOutlineUpload />}
+                            onClick={handleOpen}
+                            tooltipText="upload an image"
+                        />
                     );
                 }}
             </CldUploadWidget>
