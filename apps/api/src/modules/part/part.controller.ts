@@ -41,6 +41,8 @@ import {
 } from './dto/requests/filter-variants.request';
 import { Variant } from '@/core/entities/variant.entity';
 import { ToggleVariant as ToggleVariants } from './dto/requests/toggle-variant.request';
+import { CloudinaryService } from 'nestjs-cloudinary';
+import cloudinary from 'cloudinary';
 
 @ApiTags('Parts')
 @Controller('parts')
@@ -48,6 +50,7 @@ export class PartController {
   constructor(
     private readonly partService: PartService,
     private readonly variantService: VariantService,
+    private readonly cloudinaryService: CloudinaryService,
   ) {}
 
   @Post()
@@ -101,6 +104,29 @@ export class PartController {
       request.payloads,
     );
     return { data: response };
+  }
+
+  @Delete('deleteVariantImage:publicId')
+  async deleteVariantImage(
+    @Param('publicId') publicId: string,
+  ): Promise<VariantResponse> {
+    try {
+      const response = await cloudinary.v2.uploader.destroy(
+        `variants/${publicId}`,
+        {
+          resource_type: 'image',
+        },
+      );
+
+      if (response.result === 'ok') {
+        const variantResponse = await this.updateVariantImage({
+          id: publicId,
+        });
+        return { data: variantResponse.data };
+      } else return { data: undefined };
+    } catch (error) {
+      return { data: undefined };
+    }
   }
 
   @Patch(':id')

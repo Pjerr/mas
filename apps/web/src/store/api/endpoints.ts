@@ -224,6 +224,16 @@ const injectedRtkApi = api
                 }),
                 invalidatesTags: ['Parts'],
             }),
+            deleteVariantImagePart: build.mutation<
+                DeleteVariantImagePartApiResponse,
+                DeleteVariantImagePartApiArg
+            >({
+                query: (queryArg) => ({
+                    url: `/parts/deleteVariantImage${queryArg.publicId}`,
+                    method: 'DELETE',
+                }),
+                invalidatesTags: ['Parts'],
+            }),
             addCategoryPart: build.mutation<
                 AddCategoryPartApiResponse,
                 AddCategoryPartApiArg
@@ -573,6 +583,11 @@ export type BulkUpdatePricePartApiArg = {
     ids: string[];
     bulkUpdatePrice: BulkUpdatePrice;
 };
+export type DeleteVariantImagePartApiResponse =
+    /** status 200  */ VariantResponse;
+export type DeleteVariantImagePartApiArg = {
+    publicId: string;
+};
 export type AddCategoryPartApiResponse = /** status 200  */ PartResponse;
 export type AddCategoryPartApiArg = {
     id: string;
@@ -920,6 +935,9 @@ export type UpdatePart = {};
 export type BulkUpdatePrice = {
     payloads: number[];
 };
+export type VariantResponse = {
+    data: Variant;
+};
 export type UpdateCategoryRelation = {
     categoryId: string;
 };
@@ -937,9 +955,6 @@ export type ToggleVariant = {
 };
 export type UpdateVariant = {
     partId: string;
-};
-export type VariantResponse = {
-    data: Variant;
 };
 export type UpdateVariantImage = {
     id: string;
@@ -1035,6 +1050,7 @@ export const {
     useUpdatePartMutation,
     useRemovePartMutation,
     useBulkUpdatePricePartMutation,
+    useDeleteVariantImagePartMutation,
     useAddCategoryPartMutation,
     useAddAttributePartMutation,
     useRemoveAttributePartMutation,

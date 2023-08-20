@@ -22,6 +22,7 @@ const configuration_1 = __importDefault(require("./config/configuration"));
 const mikro_orm_service_1 = require("./config/mikro-orm.service");
 const manufacturer_module_1 = require("./modules/manufacturer/manufacturer.module");
 const part_module_1 = require("./modules/part/part.module");
+const nestjs_cloudinary_1 = require("nestjs-cloudinary");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -30,6 +31,11 @@ AppModule = __decorate([
             config_1.ConfigModule.forRoot({
                 load: [configuration_1.default],
                 isGlobal: true,
+            }),
+            nestjs_cloudinary_1.CloudinaryModule.forRoot({
+                cloud_name: 'ditj6iih5',
+                api_key: '286355945697816',
+                api_secret: 'VpWzN1Ah7JlvbG8qq3iY1km2c6w',
             }),
             nestjs_1.MikroOrmModule.forRootAsync({
                 inject: [config_1.ConfigService],

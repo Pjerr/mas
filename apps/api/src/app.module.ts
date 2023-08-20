@@ -10,12 +10,18 @@ import configuration from './config/configuration';
 import { MikroOrmService } from './config/mikro-orm.service';
 import { ManufacturerModule } from './modules/manufacturer/manufacturer.module';
 import { PartModule } from './modules/part/part.module';
+import { CloudinaryModule } from 'nestjs-cloudinary';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       load: [configuration],
       isGlobal: true,
+    }),
+    CloudinaryModule.forRoot({
+      cloud_name: 'ditj6iih5',
+      api_key: '286355945697816',
+      api_secret: 'VpWzN1Ah7JlvbG8qq3iY1km2c6w',
     }),
     MikroOrmModule.forRootAsync({
       inject: [ConfigService],

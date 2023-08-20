@@ -11,6 +11,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PartController = void 0;
 const openapi = require("@nestjs/swagger");
@@ -27,10 +30,13 @@ const variant_service_1 = require("./variant.service");
 const filter_variants_request_1 = require("./dto/requests/filter-variants.request");
 const variant_entity_1 = require("../../core/entities/variant.entity");
 const toggle_variant_request_1 = require("./dto/requests/toggle-variant.request");
+const nestjs_cloudinary_1 = require("nestjs-cloudinary");
+const cloudinary_1 = __importDefault(require("cloudinary"));
 let PartController = class PartController {
-    constructor(partService, variantService) {
+    constructor(partService, variantService, cloudinaryService) {
         this.partService = partService;
         this.variantService = variantService;
+        this.cloudinaryService = cloudinaryService;
     }
     async create(request) {
         const part = await this.partService.create(request);
@@ -57,6 +63,24 @@ let PartController = class PartController {
     async bulkUpdatePrice(ids, request) {
         const response = await this.partService.bulkUpdatePrice(ids, request.payloads);
         return { data: response };
+    }
+    async deleteVariantImage(publicId) {
+        try {
+            const response = await cloudinary_1.default.v2.uploader.destroy(`variants/${publicId}`, {
+                resource_type: 'image',
+            });
+            if (response.result === 'ok') {
+                const variantResponse = await this.updateVariantImage({
+                    id: publicId,
+                });
+                return { data: variantResponse.data };
+            }
+            else
+                return { data: undefined };
+        }
+        catch (error) {
+            return { data: undefined };
+        }
     }
     async update(id, payload) {
         const part = await this.partService.update(id, payload);
@@ -152,6 +176,14 @@ __decorate([
     __metadata("design:paramtypes", [Array, dto_1.BulkUpdatePrice]),
     __metadata("design:returntype", Promise)
 ], PartController.prototype, "bulkUpdatePrice", null);
+__decorate([
+    (0, common_1.Delete)('deleteVariantImage:publicId'),
+    openapi.ApiResponse({ status: 200, type: require("./dto/requests/variant.response").VariantResponse }),
+    __param(0, (0, common_1.Param)('publicId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], PartController.prototype, "deleteVariantImage", null);
 __decorate([
     (0, common_1.Patch)(':id'),
     openapi.ApiResponse({ status: 200, type: require("./dto/part.response").PartResponse }),
@@ -249,7 +281,8 @@ PartController = __decorate([
     (0, swagger_1.ApiTags)('Parts'),
     (0, common_1.Controller)('parts'),
     __metadata("design:paramtypes", [part_service_1.PartService,
-        variant_service_1.VariantService])
+        variant_service_1.VariantService,
+        nestjs_cloudinary_1.CloudinaryService])
 ], PartController);
 exports.PartController = PartController;
 //# sourceMappingURL=part.controller.js.map

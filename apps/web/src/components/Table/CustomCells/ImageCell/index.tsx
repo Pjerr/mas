@@ -3,6 +3,7 @@ import { CldImage, CldUploadWidget } from 'next-cloudinary';
 import { CellContext } from '@tanstack/react-table';
 import {
     Variant,
+    useDeleteVariantImagePartMutation,
     useUpdateVariantImagePartMutation,
 } from '@/store/api/endpoints';
 import { MouseEvent } from 'react';
@@ -15,12 +16,28 @@ import { AiOutlineUpload } from 'react-icons/ai';
 
 export function ImageCell({ row }: CellContext<Variant, any>) {
     const [updateImageUploaded] = useUpdateVariantImagePartMutation();
-
+    const [deleteVariantImage] = useDeleteVariantImagePartMutation();
     const dispatch = useAppDispatch();
 
-    const handleImageDelete = () => {
-        console.log('i should delete the image with');
-        console.log(row.original.id);
+    const handleImageDelete = async () => {
+        const response = await deleteVariantImage({
+            publicId: row.original.id,
+        });
+        if ('error' in response) {
+            toast('An error occured while trying to delete image', {
+                type: 'error',
+            });
+            return;
+        }
+
+        dispatch(
+            updateEntity({
+                entity: response.data.data,
+                instanceId: `variants-table-${row.original.part}`,
+            })
+        );
+
+        toast('Image deleted successfully', { type: 'success' });
     };
 
     if (row.original.imageUploaded)

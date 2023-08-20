@@ -4,16 +4,19 @@ import { BulkUpdatePrice, CreateDraft, CreatePart, CreateVariant, PartResponse, 
 import { VariantService } from './variant.service';
 import { QueryVariant } from './dto/requests/filter-variants.request';
 import { ToggleVariant as ToggleVariants } from './dto/requests/toggle-variant.request';
+import { CloudinaryService } from 'nestjs-cloudinary';
 export declare class PartController {
     private readonly partService;
     private readonly variantService;
-    constructor(partService: PartService, variantService: VariantService);
+    private readonly cloudinaryService;
+    constructor(partService: PartService, variantService: VariantService, cloudinaryService: CloudinaryService);
     create(request: CreatePart): Promise<PartResponse>;
     createDraft(request: CreateDraft): Promise<PartResponse>;
     findVariants(query: QueryVariant): Promise<VariantsResponse>;
     find(query: QueryPart): Promise<PartsResponse>;
     findOne(id: string): Promise<PartResponse>;
     bulkUpdatePrice(ids: string[], request: BulkUpdatePrice): Promise<PartsResponse>;
+    deleteVariantImage(publicId: string): Promise<VariantResponse>;
     update(id: string, payload: UpdatePart): Promise<PartResponse>;
     addCategory(id: string, payload: UpdateCategoryRelation): Promise<PartResponse>;
     addAttribute(id: string, payload: UpdateAttributeRelation): Promise<PartResponse>;
