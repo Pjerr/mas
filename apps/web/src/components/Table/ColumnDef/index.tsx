@@ -286,11 +286,6 @@ export const addVariantColumns = (variants: Variant[]) => {
         minSize: 20,
         maxSize: 30,
     });
-
-    variantColumnDef.push({
-        header: 'Has image',
-        accessorKey: 'imageUploaded',
-    });
 };
 
 export const extractColumnDef: Record<EntityType, ColumnDef<any, any>[]> = {

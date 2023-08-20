@@ -10,11 +10,17 @@ import Button from '@/components/Button';
 import { toast } from 'react-toastify';
 import { useAppDispatch } from '@/store';
 import { updateEntity } from '@/store/table';
+import { FaTimes } from 'react-icons/fa';
 
 export function ImageCell({ row }: CellContext<Variant, any>) {
     const [updateImageUploaded] = useUpdateVariantImagePartMutation();
 
     const dispatch = useAppDispatch();
+
+    const handleImageDelete = () => {
+        console.log('i should delete the image with');
+        console.log(row.original.id);
+    };
 
     if (row.original.imageUploaded)
         return (
@@ -24,6 +30,11 @@ export function ImageCell({ row }: CellContext<Variant, any>) {
                     height={100}
                     src={`variants/${row.original.id}`}
                     alt="variant"
+                />
+                <Button
+                    icon={<FaTimes />}
+                    onClick={handleImageDelete}
+                    className={styles['image__delete-control']}
                 />
             </div>
         );
