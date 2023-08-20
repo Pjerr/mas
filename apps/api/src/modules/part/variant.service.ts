@@ -107,4 +107,11 @@ export class VariantService {
 
     return variants;
   }
+
+  async updateUploadedImage(id: string) {
+    const variant = await this.em.findOne(Variant, { id });
+    variant.imageUploaded = !variant.imageUploaded;
+    await this.em.flush();
+    return variant;
+  }
 }

@@ -4,13 +4,13 @@ exports.PartialAttributesResponse = exports.AttributesResponse = exports.Attribu
 const openapi = require("@nestjs/swagger");
 class AttributeResponse {
     static _OPENAPI_METADATA_FACTORY() {
-        return { data: { required: true, type: () => require("../../../../core/entities/attribute.entity").Attribute }, links: { required: false, type: () => [String] } };
+        return { data: { required: true, type: () => require("../../../../core/entities/attribute.entity").Attribute } };
     }
 }
 exports.AttributeResponse = AttributeResponse;
 class AttributesResponse {
     static _OPENAPI_METADATA_FACTORY() {
-        return { data: { required: true, type: () => [require("../../../../core/entities/attribute.entity").Attribute] }, links: { required: false, type: () => [String] } };
+        return { data: { required: true, type: () => [require("../../../../core/entities/attribute.entity").Attribute] } };
     }
 }
 exports.AttributesResponse = AttributesResponse;
@@ -21,7 +21,7 @@ class AttributeByPart {
 }
 class PartialAttributesResponse {
     static _OPENAPI_METADATA_FACTORY() {
-        return { data: { required: true, type: () => [AttributeByPart] }, links: { required: false, type: () => [String] } };
+        return { data: { required: true, type: () => [AttributeByPart] } };
     }
 }
 exports.PartialAttributesResponse = PartialAttributesResponse;

@@ -11,5 +11,8 @@ export class Variants {
 
 export class VariantsResponse {
   data: Variant[];
-  links?: string[];
+}
+
+export class VariantResponse {
+  data: Variant;
 }

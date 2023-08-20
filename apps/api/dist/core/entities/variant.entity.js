@@ -23,10 +23,11 @@ let Variant = class Variant extends core_1.BaseEntity {
         super(...arguments);
         this.id = (0, uuid4_1.default)();
         this.disabled = false;
+        this.imageUploaded = false;
         this.createdAt = new Date();
     }
     static _OPENAPI_METADATA_FACTORY() {
-        return { id: { required: true, type: () => String, default: (0, uuid4_1.default)() }, price: { required: true, type: () => Number }, disabled: { required: true, type: () => Boolean, default: false }, properties: { required: true, type: () => Object }, part: { required: true, type: () => String }, createdAt: { required: true, type: () => Date, default: new Date() } };
+        return { id: { required: true, type: () => String, default: (0, uuid4_1.default)() }, price: { required: true, type: () => Number }, disabled: { required: true, type: () => Boolean, default: false }, imageUploaded: { required: true, type: () => Boolean, default: false }, properties: { required: true, type: () => Object }, part: { required: true, type: () => String }, createdAt: { required: true, type: () => Date, default: new Date() } };
     }
 };
 __decorate([
@@ -43,6 +44,10 @@ __decorate([
     (0, core_1.Property)({ type: 'boolean' }),
     __metadata("design:type", Boolean)
 ], Variant.prototype, "disabled", void 0);
+__decorate([
+    (0, core_1.Property)({ type: 'boolean' }),
+    __metadata("design:type", Boolean)
+], Variant.prototype, "imageUploaded", void 0);
 __decorate([
     (0, core_1.Property)({ type: 'jsonb', nullable: true }),
     __metadata("design:type", Object)

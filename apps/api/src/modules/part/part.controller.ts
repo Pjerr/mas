@@ -25,6 +25,8 @@ import {
   UpdateAttributeRelations,
   UpdateCategoryRelation,
   UpdateVariant,
+  UpdateVariantImage,
+  VariantResponse,
   VariantsResponse,
 } from './dto';
 import { ApiTags } from '@nestjs/swagger';
@@ -78,7 +80,6 @@ export class PartController {
   async find(
     @Query('query', QueryPipe<PartRelationTypes, Part>) query: QueryPart,
   ): Promise<PartsResponse> {
-    console.log('ALO');
     const filter = filterEntity<PartRelationTypes, Part>(query, Part);
     const response = await this.partService.find(filter);
     return { data: response };
@@ -187,6 +188,14 @@ export class PartController {
     @Body() payload: UpdateVariant,
   ): Promise<VariantsResponse> {
     const response = await this.variantService.update(payload.partId);
+    return { data: response };
+  }
+
+  @Put('updateVariantImage')
+  async updateVariantImage(
+    @Body() payload: UpdateVariantImage,
+  ): Promise<VariantResponse> {
+    const response = await this.variantService.updateUploadedImage(payload.id);
     return { data: response };
   }
 }

@@ -46,7 +46,6 @@ let PartController = class PartController {
         return { data: response };
     }
     async find(query) {
-        console.log('ALO');
         const filter = (0, parse_query_1.filterEntity)(query, entities_1.Part);
         const response = await this.partService.find(filter);
         return { data: response };
@@ -95,6 +94,10 @@ let PartController = class PartController {
     }
     async updateVariants(payload) {
         const response = await this.variantService.update(payload.partId);
+        return { data: response };
+    }
+    async updateVariantImage(payload) {
+        const response = await this.variantService.updateUploadedImage(payload.id);
         return { data: response };
     }
 };
@@ -234,6 +237,14 @@ __decorate([
     __metadata("design:paramtypes", [dto_1.UpdateVariant]),
     __metadata("design:returntype", Promise)
 ], PartController.prototype, "updateVariants", null);
+__decorate([
+    (0, common_1.Put)('updateVariantImage'),
+    openapi.ApiResponse({ status: 200, type: require("./dto/requests/variant.response").VariantResponse }),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [dto_1.UpdateVariantImage]),
+    __metadata("design:returntype", Promise)
+], PartController.prototype, "updateVariantImage", null);
 PartController = __decorate([
     (0, swagger_1.ApiTags)('Parts'),
     (0, common_1.Controller)('parts'),

@@ -70,10 +70,12 @@ export const tableSlice = createSlice({
         updateEntity: (state, { payload }: PayloadAction<EntityAction>) => {
             const instanceId = payload.instanceId;
             if (payload.entity && state[instanceId]?.data) {
+                // console.log(payload.entity.id);
+                // console.log(state[instanceId].data);
                 const index = state[instanceId].data.findIndex(
                     (entity) => entity.id === payload.entity.id
                 );
-                if (state[instanceId].data && index !== undefined) {
+                if (state[instanceId].data && index >= 0) {
                     state[instanceId].data[index] = payload.entity;
                 }
             }

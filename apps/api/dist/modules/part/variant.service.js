@@ -88,6 +88,12 @@ let VariantService = class VariantService {
         await this.em.flush();
         return variants;
     }
+    async updateUploadedImage(id) {
+        const variant = await this.em.findOne(variant_entity_1.Variant, { id });
+        variant.imageUploaded = !variant.imageUploaded;
+        await this.em.flush();
+        return variant;
+    }
 };
 VariantService = __decorate([
     (0, common_1.Injectable)(),

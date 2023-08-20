@@ -78,8 +78,8 @@ export const enhancedApi = MasApi.enhanceEndpoints({
         bulkUpdatePricePart: {
             invalidatesTags: [{ type: 'Parts', id: 'LIST' }],
         },
-        findVariantPart: {
-            providesTags: [{ type: 'Variants', id: 'PART_VARIANTS' }],
+        updateVariantImagePart: {
+            invalidatesTags: [{ type: 'Variants', id: 'PART_VARIANTS' }],
         },
     },
 });

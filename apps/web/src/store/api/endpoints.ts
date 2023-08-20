@@ -301,6 +301,17 @@ const injectedRtkApi = api
                 }),
                 invalidatesTags: ['Parts'],
             }),
+            updateVariantImagePart: build.mutation<
+                UpdateVariantImagePartApiResponse,
+                UpdateVariantImagePartApiArg
+            >({
+                query: (queryArg) => ({
+                    url: `/parts/updateVariantImage`,
+                    method: 'PUT',
+                    body: queryArg.updateVariantImage,
+                }),
+                invalidatesTags: ['Parts'],
+            }),
             createCategory: build.mutation<
                 CreateCategoryApiResponse,
                 CreateCategoryApiArg
@@ -594,6 +605,11 @@ export type UpdateVariantsPartApiResponse = /** status 200  */ VariantsResponse;
 export type UpdateVariantsPartApiArg = {
     updateVariant: UpdateVariant;
 };
+export type UpdateVariantImagePartApiResponse =
+    /** status 200  */ VariantResponse;
+export type UpdateVariantImagePartApiArg = {
+    updateVariantImage: UpdateVariantImage;
+};
 export type CreateCategoryApiResponse = /** status 201  */ CategoryResponse;
 export type CreateCategoryApiArg = {
     createCategory: CreateCategory;
@@ -747,7 +763,6 @@ export type Attribute = {
 };
 export type AttributeResponse = {
     data: Attribute;
-    links?: string[];
 };
 export type CreateAttribute = {
     propertyKey?: string;
@@ -777,7 +792,6 @@ export type CreateAttribute = {
 };
 export type AttributesResponse = {
     data: Attribute[];
-    links?: string[];
 };
 export type Filter = {
     field: string;
@@ -838,11 +852,9 @@ export type AttributeByPart = {
 };
 export type PartialAttributesResponse = {
     data: AttributeByPart[];
-    links?: string[];
 };
 export type OptionResponse = {
     data: AttributeOption;
-    links?: string[];
 };
 export type CreateOption = {
     value: string;
@@ -852,7 +864,6 @@ export type CreateOption = {
 };
 export type OptionsResponse = {
     data: AttributeOption[];
-    links?: string[];
 };
 export type QueryOption = {
     include?: string[];
@@ -862,7 +873,6 @@ export type QueryOption = {
 export type PartResponse = {
     data: Part;
     variantConfigs: OptionConfig[][];
-    links?: string[];
 };
 export type CreateConfig = {
     price?: number;
@@ -880,7 +890,6 @@ export type CreatePart = {
 };
 export type PartsResponse = {
     data: Part[];
-    links?: string[];
 };
 export type QueryPart = {
     include?: string[];
@@ -894,13 +903,13 @@ export type Variant = {
     id: string;
     price: number;
     disabled: boolean;
+    imageUploaded: boolean;
     properties: object;
     part: string;
     createdAt: string;
 };
 export type VariantsResponse = {
     data: Variant[];
-    links?: string[];
 };
 export type QueryVariant = {
     include?: object[];
@@ -929,6 +938,12 @@ export type ToggleVariant = {
 export type UpdateVariant = {
     partId: string;
 };
+export type VariantResponse = {
+    data: Variant;
+};
+export type UpdateVariantImage = {
+    id: string;
+};
 export type Category = {
     childrenIds: string[];
     id: string;
@@ -940,7 +955,6 @@ export type Category = {
 };
 export type CategoryResponse = {
     data: Category;
-    links?: string[];
 };
 export type CreateCategory = {
     name: string;
@@ -949,7 +963,6 @@ export type CreateCategory = {
 };
 export type CategoriesResponse = {
     data: Category[];
-    links?: string[];
 };
 export type QueryCategory = {
     include?: string[];
@@ -963,14 +976,12 @@ export type UpdateRelation = {
 };
 export type GroupResponse = {
     data: Group;
-    links?: string[];
 };
 export type CreateGroup = {
     name: string;
 };
 export type GroupsResponse = {
     data: Group[];
-    links?: string[];
 };
 export type QueryGroup = {
     include?: string[];
@@ -988,14 +999,12 @@ export type Manufacturer = {
 };
 export type ManufacturerResponse = {
     data: Manufacturer;
-    links?: string[];
 };
 export type CreateManufacturer = {
     name: string;
 };
 export type ManufacturersResponse = {
     data: Manufacturer[];
-    links?: string[];
 };
 export type QueryManufacturer = {
     include?: string[];
@@ -1033,6 +1042,7 @@ export const {
     useCreateVariantsPartMutation,
     useToggleVariantsPartMutation,
     useUpdateVariantsPartMutation,
+    useUpdateVariantImagePartMutation,
     useCreateCategoryMutation,
     useFindCategoryQuery,
     useFindOneCategoryQuery,

@@ -3,6 +3,7 @@ export declare class Variant extends BaseEntity<Variant, 'id'> {
     id: string;
     price: number;
     disabled: boolean;
+    imageUploaded: boolean;
     properties: Record<string, any>;
     part: string;
     createdAt: Date;

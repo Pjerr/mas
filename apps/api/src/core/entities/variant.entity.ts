@@ -22,6 +22,9 @@ export class Variant extends BaseEntity<Variant, 'id'> {
   @Property({ type: 'boolean' })
   disabled: boolean = false;
 
+  @Property({ type: 'boolean' })
+  imageUploaded: boolean = false;
+
   @Property({ type: 'jsonb', nullable: true })
   properties: Record<string, any>;
 

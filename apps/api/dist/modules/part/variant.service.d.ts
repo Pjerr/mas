@@ -11,5 +11,6 @@ export declare class VariantService {
     create(partId: string): Promise<Variant[]>;
     update(partId: string): Promise<Variant[]>;
     toggle(ids: string[]): Promise<Variant[]>;
+    updateUploadedImage(id: string): Promise<import("@mikro-orm/core").Loaded<Variant, never>>;
 }
 //# sourceMappingURL=variant.service.d.ts.map

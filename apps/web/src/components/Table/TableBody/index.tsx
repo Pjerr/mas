@@ -28,16 +28,16 @@ export default function TableBody({
                 <React.Fragment key={`fragment-${row.index}`}>
                     <tr
                         key={row.id}
-                        className={classNames(styles['table__row'], {
-                            [styles['table__row--disabled']]:
-                                row.original.disabled,
-                        })}
+                        className={classNames(styles['table__row'])}
                         onDoubleClick={() => onDoubleClick(row)}
                     >
-                        {row.getVisibleCells().map((cell) => (
+                        {row.getVisibleCells().map((cell, index) => (
                             <td
                                 key={`cell-${cell.id}`}
-                                className={styles['cell']}
+                                className={classNames(styles['cell'], {
+                                    [styles['table__cell--disabled']]:
+                                        row.original.disabled && index > 1,
+                                })}
                                 {...{
                                     style: {
                                         width: `${cell.column.getSize()}%`,

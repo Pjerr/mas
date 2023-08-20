@@ -12,3 +12,4 @@ export * from './requests/variant.response';
 export * from './requests/create-variant.request';
 export * from './requests/update-variant.request';
 export * from './requests/toggle-variant.request';
+export * from './requests/update-variantImage.request';

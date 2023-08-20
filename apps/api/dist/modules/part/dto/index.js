@@ -28,4 +28,5 @@ __exportStar(require("./requests/variant.response"), exports);
 __exportStar(require("./requests/create-variant.request"), exports);
 __exportStar(require("./requests/update-variant.request"), exports);
 __exportStar(require("./requests/toggle-variant.request"), exports);
+__exportStar(require("./requests/update-variantImage.request"), exports);
 //# sourceMappingURL=index.js.map

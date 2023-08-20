@@ -7,9 +7,10 @@ import {
     Variant,
 } from '@/store/api/endpoints';
 import { ColumnDef } from '@tanstack/react-table';
-import { Cell } from '../Cell';
+import { SelectCell } from '../CustomCells/SelectCell';
 import { EntityType } from '@/store/table/types';
 import { EditableCell } from '../EditableCell';
+import { ImageCell } from '../CustomCells/ImageCell';
 
 export const optionColumnDef: ColumnDef<AttributeOption, any>[] = [
     {
@@ -41,7 +42,7 @@ export const attributeColumnDef: ColumnDef<Attribute, any>[] = [
                 }}
             />
         ),
-        cell: ({ row }) => <Cell {...{ canExpand: false, row }} />,
+        cell: ({ row }) => <SelectCell {...{ canExpand: false, row }} />,
 
         accessorKey: 'id',
         enableSorting: false,
@@ -95,7 +96,7 @@ export const partColumnDef: ColumnDef<Part, any>[] = [
                 }}
             />
         ),
-        cell: ({ row }) => <Cell {...{ canExpand: true, row: row }} />,
+        cell: ({ row }) => <SelectCell {...{ canExpand: true, row: row }} />,
         accessorKey: 'id',
         enableSorting: false,
         enableColumnFilter: false,
@@ -147,7 +148,7 @@ export const manufacturerColumnDef: ColumnDef<Manufacturer, any>[] = [
                 }}
             />
         ),
-        cell: ({ row }) => <Cell {...{ canExpand: true, row: row }} />,
+        cell: ({ row }) => <SelectCell {...{ canExpand: true, row: row }} />,
         accessorKey: 'id',
         enableSorting: false,
         enableColumnFilter: false,
@@ -201,14 +202,25 @@ export const variantColumnDef: ColumnDef<Variant, any>[] = [
                 }}
             />
         ),
-        cell: ({ row }) => <Cell {...{ canExpand: false, row }} />,
+        cell: ({ row }) => <SelectCell {...{ canExpand: false, row }} />,
         accessorKey: 'id',
         enableSorting: false,
         enableColumnFilter: false,
         enableGlobalFilter: false,
-        enableResizing: true,
+        enableResizing: false,
         minSize: 2,
         maxSize: 5,
+    },
+    {
+        id: 'image',
+        header: 'Image',
+        cell: ImageCell,
+        enableSorting: false,
+        enableColumnFilter: false,
+        enableGlobalFilter: false,
+        enableResizing: false,
+        minSize: 10,
+        maxSize: 30,
     },
 ];
 
@@ -218,7 +230,7 @@ interface VariantConfig {
 }
 
 export const addVariantColumns = (variants: Variant[]) => {
-    variantColumnDef.splice(1, variantColumnDef.length);
+    variantColumnDef.splice(2, variantColumnDef.length);
 
     const configs: VariantConfig[][] = variants.map((variant) => {
         const variantConfigs: VariantConfig[] = Object.values(
@@ -273,6 +285,11 @@ export const addVariantColumns = (variants: Variant[]) => {
         enableResizing: true,
         minSize: 20,
         maxSize: 30,
+    });
+
+    variantColumnDef.push({
+        header: 'Has image',
+        accessorKey: 'imageUploaded',
     });
 };
 

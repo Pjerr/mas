@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.VariantsResponse = exports.Variants = void 0;
+exports.VariantResponse = exports.VariantsResponse = exports.Variants = void 0;
 const openapi = require("@nestjs/swagger");
 class Variants {
     static _OPENAPI_METADATA_FACTORY() {
@@ -10,8 +10,14 @@ class Variants {
 exports.Variants = Variants;
 class VariantsResponse {
     static _OPENAPI_METADATA_FACTORY() {
-        return { data: { required: true, type: () => [require("../../../../core/entities/variant.entity").Variant] }, links: { required: false, type: () => [String] } };
+        return { data: { required: true, type: () => [require("../../../../core/entities/variant.entity").Variant] } };
     }
 }
 exports.VariantsResponse = VariantsResponse;
+class VariantResponse {
+    static _OPENAPI_METADATA_FACTORY() {
+        return { data: { required: true, type: () => require("../../../../core/entities/variant.entity").Variant } };
+    }
+}
+exports.VariantResponse = VariantResponse;
 //# sourceMappingURL=variant.response.js.map

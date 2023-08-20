@@ -882,6 +882,16 @@
           "default": "false",
           "mappedType": "boolean"
         },
+        "image_uploaded": {
+          "name": "image_uploaded",
+          "type": "boolean",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "false",
+          "mappedType": "boolean"
+        },
         "properties": {
           "name": "properties",
           "type": "jsonb",

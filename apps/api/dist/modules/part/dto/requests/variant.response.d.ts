@@ -7,6 +7,8 @@ export declare class Variants {
 }
 export declare class VariantsResponse {
     data: Variant[];
-    links?: string[];
+}
+export declare class VariantResponse {
+    data: Variant;
 }
 //# sourceMappingURL=variant.response.d.ts.map

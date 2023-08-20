@@ -6,7 +6,7 @@ interface CellProps {
     row: Row<any>;
 }
 
-export function Cell({ row }: CellProps) {
+export function SelectCell({ row }: CellProps) {
     return (
         <div className={styles['controls-column']}>
             <Checkbox
