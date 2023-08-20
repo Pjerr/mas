@@ -81,5 +81,29 @@ export const enhancedApi = MasApi.enhanceEndpoints({
         updateVariantImagePart: {
             invalidatesTags: [{ type: 'Variants', id: 'PART_VARIANTS' }],
         },
+        updateGroup: {
+            invalidatesTags: [
+                { type: 'Groups', id: 'LIST' },
+                { type: 'Parts', id: 'LIST' },
+            ],
+        },
+        createGroup: {
+            invalidatesTags: [
+                { type: 'Groups', id: 'LIST' },
+                { type: 'Parts', id: 'LIST' },
+            ],
+        },
+        findVariantsPart: {
+            providesTags: (result) =>
+                result
+                    ? [
+                          ...result.data.map(({ id }) => ({
+                              type: 'Variants' as const,
+                              id,
+                          })),
+                          { type: 'Variants', id: 'PART_VARIANTS' },
+                      ]
+                    : [{ type: 'Variants', id: 'PART_VARIANTS' }],
+        },
     },
 });

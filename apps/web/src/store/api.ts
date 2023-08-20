@@ -12,7 +12,7 @@ export const api = createApi({
         'Manufacturer',
         'Parts',
         'Attributes',
-        'Group',
+        'Groups',
         'Options',
         'Categories',
         'Variants',
