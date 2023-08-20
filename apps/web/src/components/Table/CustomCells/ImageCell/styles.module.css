@@ -1,12 +1,6 @@
 .image__container {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     position: relative;
-}
-
-.image__delete-control {
-    position: absolute;
-    top: -10px;
-    left: 150px;
 }
