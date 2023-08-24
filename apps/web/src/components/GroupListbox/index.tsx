@@ -1,26 +1,21 @@
-import {
-    Group,
-    useCreateGroupMutation,
-    useFindGroupQuery,
-    useRemoveGroupMutation,
-    useUpdateGroupMutation,
-} from '@/store/api/endpoints';
+import { Group, useFindGroupQuery } from '@/store/api/endpoints';
 import { useEffect, useState } from 'react';
 import { Optional } from '@/types/utils';
 import GroupListboxButtons from '@/components/GroupListbox/GroupListboxButtons';
 import Listbox from '@/components/Listbox';
 import ListItem from '@/components/Listbox/ListItem';
-import classNames from 'classnames';
 import { FaPlusCircle } from 'react-icons/fa';
-import styles from './styles.module.css';
 import { useDispatch } from 'react-redux';
+import classNames from 'classnames';
+import styles from './styles.module.css';
 import { PartialGroup } from '@/store/editors/attribute/types';
+import { useGroupApi } from '@/hooks/useGroupApi';
 import { refreshState } from '@/store/table';
 import { instanceIds } from '@/types/entity';
+import { EntityType } from '@/store/table/types';
 import SearchInput from '../Inputs/SearchInput';
 import InplaceInput from '../Inputs/InplaceInput';
 import Button from '../Button';
-import { EntityType } from '@/store/table/types';
 
 interface GroupListProps {
     setActiveGroup: React.Dispatch<React.SetStateAction<PartialGroup | null>>;
@@ -28,11 +23,10 @@ interface GroupListProps {
 
 export default function GroupListbox({ setActiveGroup }: GroupListProps) {
     const [listboxEditMode, setListboxEditMode] = useState<boolean>(false);
+    const [activeIndex, setActiveIndex] = useState<number>(0);
 
     const dispatch = useDispatch();
-    const [createGroup] = useCreateGroupMutation();
-    const [updateGroup] = useUpdateGroupMutation();
-    const [removeGroup] = useRemoveGroupMutation();
+    const { onSaveGroup, onRemoveGroup } = useGroupApi();
 
     const { data: response } = useFindGroupQuery({
         query: {
@@ -43,7 +37,6 @@ export default function GroupListbox({ setActiveGroup }: GroupListProps) {
     const [groups, setGroups] = useState<
         Optional<Group, keyof Omit<Group, 'name'>>[]
     >([]);
-    const [activeIndex, setActiveIndex] = useState<number>(0);
 
     useEffect(() => {
         if (!response || !response.data.length) return;
@@ -51,7 +44,9 @@ export default function GroupListbox({ setActiveGroup }: GroupListProps) {
         resetActiveGroup(activeIndex);
     }, [response]);
 
-    const handleSearch = (value: string) => {};
+    const handleSearch = (value: string) => {
+        // console.log(value);
+    };
 
     const resetActiveGroup = (index: number) => {
         if (!response || !response.data.length) return;
@@ -61,34 +56,30 @@ export default function GroupListbox({ setActiveGroup }: GroupListProps) {
     };
 
     const handleGroupChange = (index: number) => {
-        if (!groups[index]) return;
-        setActiveGroup(groups[index] ?? null);
+        if (!groups[index] || !groups[index].id) return;
+        setActiveGroup(groups[index]);
+        setActiveIndex(index);
     };
 
-    const handleSave = (
+    const hasChanges = (changes: string, index: number) => {
+        if (groups[index].id && groups[index].name === changes) return false;
+        return true;
+    };
+
+    const handleSave = async (
         id: string | undefined,
         changes: string,
         index: number
     ) => {
         setListboxEditMode(false);
-        if (groups[index].id && groups[index].name === changes) {
-            return;
-        }
-        if (id)
-            updateGroup({
-                id,
-                updateGroup: {
-                    name: changes,
-                },
-            });
-        else {
-            createGroup({
-                createGroup: {
-                    name: changes,
-                },
-            });
-        }
-        setActiveGroup(groups[index] ?? null);
+        if (!hasChanges(changes, index)) return;
+        const changedGroup = await onSaveGroup(id, changes);
+        if (!changedGroup) return;
+        const newGroups = [...groups];
+        newGroups.splice(index, 1, changedGroup);
+        setActiveIndex(index);
+        setActiveGroup(newGroups[index] ?? null);
+        setGroups(newGroups);
     };
 
     const handleEditMode = (
@@ -100,32 +91,44 @@ export default function GroupListbox({ setActiveGroup }: GroupListProps) {
 
     const handleDeleteGroup = (index: number) => {
         const group = groups[index];
-        if (group.id) {
-            removeGroup({ id: group.id });
-            dispatch(
-                refreshState({ instanceId: instanceIds[EntityType.Attribute] })
-            );
-        }
+        if (!group.id) return;
+
+        onRemoveGroup(group.id);
+        dispatch(
+            refreshState({ instanceId: instanceIds[EntityType.Attribute] })
+        );
         if (groups.length === 1) {
             setGroups([]);
             return;
         }
+        const newGroups = [...groups];
+        newGroups.splice(index, 1);
+        setGroups(newGroups);
+        setActiveGroup(newGroups[index - 1]);
+        setActiveIndex(index - 1);
     };
 
-    const handleAddGroup = () => {
+    const handleAddDraftGroup = (
+        e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) => {
+        e.stopPropagation();
+        dispatch(
+            refreshState({ instanceId: instanceIds[EntityType.Attribute] })
+        );
         setActiveIndex(groups.length);
         setActiveGroup(null);
-        const newGroup: Optional<Group, keyof Omit<Group, 'name'>> = {
-            name: `Untitled group ${groups.length + 1}`,
-        };
-        setGroups([...groups, newGroup]);
         setListboxEditMode(true);
+        setGroups([...groups, { name: `Untitled group ${groups.length + 1}` }]);
     };
 
     const handleCancel = (index: number) => {
         setListboxEditMode(false);
         if (groups[index].id) return;
-        setGroups(groups.filter((group) => group.name !== groups[index].name));
+        const newGroups = groups.filter(
+            (group) => group.name !== groups[index].name
+        );
+        setActiveIndex(newGroups.length - 1);
+        setGroups(newGroups);
     };
 
     const handleBlur = (
@@ -176,7 +179,7 @@ export default function GroupListbox({ setActiveGroup }: GroupListProps) {
                 ))}
             </Listbox>
             <div className={styles['add-group__container']}>
-                <Button icon={<FaPlusCircle />} onClick={handleAddGroup} />
+                <Button icon={<FaPlusCircle />} onClick={handleAddDraftGroup} />
             </div>
         </div>
     );

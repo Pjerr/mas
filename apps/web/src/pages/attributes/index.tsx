@@ -19,7 +19,7 @@ import {
     selectAttributeEditorMode,
     setAttributeEditorState,
 } from '@/store/editors/attribute';
-import { selectTableData } from '@/store/table';
+import { selectTableState } from '@/store/table';
 import { EditorMode } from '@/store/editors/enums';
 import { TableProvider } from '@/components/Table/TableProvider';
 import Toolbar from '@/components/Toolbar';
@@ -30,7 +30,7 @@ import { Row } from '@tanstack/react-table';
 
 const Attributes: NextPageWithLayout = () => {
     const dispatch = useDispatch<AppDispatch>();
-    const { loadTableData, clearTableData } = useTable();
+    const { loadTableData } = useTable();
 
     const { updateAttribute: update, createAttribute: create } =
         useAttributeApi();
@@ -45,22 +45,19 @@ const Attributes: NextPageWithLayout = () => {
         setActiveIndex(0);
     }, []);
 
-    const gridData = useSelector((state: RootState) =>
-        selectTableData(state, instanceIds[EntityType.Attribute])
+    const { data: tableData, isLoading } = useSelector(
+        (state: RootState) =>
+            selectTableState(state, instanceIds[EntityType.Attribute]) || {}
     );
 
     useEffect(() => {
-        if (!activeGroup) {
-            clearTableData();
-            return;
-        }
+        if (!activeGroup) return;
         loadTableData(EntityType.Attribute, activeGroup.id);
     }, [activeGroup]);
 
-    const refetch = () => {
-        if (!activeGroup) return;
-        loadTableData(EntityType.Attribute, activeGroup.id);
-    };
+    if (isLoading) return <></>;
+
+    const refetch = () => {};
 
     const updateAttribute = (data: Attribute, attributeId: string) => {
         if (!activeGroup?.id) return;
@@ -86,7 +83,9 @@ const Attributes: NextPageWithLayout = () => {
 
     const onEdit = (selectedIds: string[] | undefined) => {
         if (!selectedIds) return;
-        const entity = gridData?.find((entity) => entity.id === selectedIds[0]);
+        const entity = tableData?.find(
+            (entity) => entity.id === selectedIds[0]
+        );
         dispatch(
             setAttributeEditorState({
                 attribute: entity as Attribute,

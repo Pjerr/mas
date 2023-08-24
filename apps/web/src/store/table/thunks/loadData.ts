@@ -89,16 +89,14 @@ const loadTableDataThunk = createAsyncThunk<
             }) as any
         );
 
-        if (table[instanceId].data.length === 0) {
-            dispatch(
-                loadData({
-                    data: response ? response.data : [],
-                    isError,
-                    isLoading,
-                    instanceId,
-                })
-            );
-        }
+        dispatch(
+            loadData({
+                data: response ? response.data : [],
+                isError,
+                isLoading,
+                instanceId,
+            })
+        );
     }
 );
 
