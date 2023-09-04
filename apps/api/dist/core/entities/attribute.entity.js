@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Attribute = void 0;
 const openapi = require("@nestjs/swagger");
 const core_1 = require("@mikro-orm/core");
-const postgresql_1 = require("@mikro-orm/postgresql");
 const uuid4_1 = __importDefault(require("uuid4"));
 const shared_1 = require("shared");
 const group_entity_1 = require("./group.entity");
@@ -35,7 +34,7 @@ let Attribute = class Attribute extends core_1.BaseEntity {
         this.createdAt = new Date();
     }
     static _OPENAPI_METADATA_FACTORY() {
-        return { id: { required: true, type: () => String, default: (0, uuid4_1.default)() }, propertyKey: { required: true, type: () => String }, displayName: { required: true, type: () => String }, searchIndex: { required: true, type: () => String }, editorType: { required: true, type: () => Object, default: shared_1.EditorType.Text, enum: require("../../../../../packages/shared/dist/types/enums").EditorType }, editorValidation: { required: true, type: () => Object, default: shared_1.EditorValidation.None, enum: require("../../../../../packages/shared/dist/types/enums").EditorValidation }, group: { required: true, type: () => require("./group.entity").Group }, options: { required: true, type: () => Object, default: new core_1.Collection(this) }, parts: { required: true, type: () => Object, default: new core_1.Collection(this) }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date }, additionalMetadata: { required: false, type: () => require("../types/additional-metadata").default } };
+        return { id: { required: true, type: () => String, default: (0, uuid4_1.default)() }, propertyKey: { required: true, type: () => String }, displayName: { required: true, type: () => String }, editorType: { required: true, type: () => Object, default: shared_1.EditorType.Text, enum: require("../../../../../packages/shared/dist/types/enums").EditorType }, editorValidation: { required: true, type: () => Object, default: shared_1.EditorValidation.None, enum: require("../../../../../packages/shared/dist/types/enums").EditorValidation }, group: { required: true, type: () => require("./group.entity").Group }, options: { required: true, type: () => Object, default: new core_1.Collection(this) }, parts: { required: true, type: () => Object, default: new core_1.Collection(this) }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date }, additionalMetadata: { required: false, type: () => require("../types/additional-metadata").default } };
     }
 };
 __decorate([
@@ -54,16 +53,6 @@ __decorate([
     (0, filter_decorator_1.Filterable)(),
     __metadata("design:type", String)
 ], Attribute.prototype, "displayName", void 0);
-__decorate([
-    (0, core_1.Index)({ type: 'fulltext' }),
-    (0, core_1.Property)({
-        type: postgresql_1.FullTextType,
-        onUpdate: (attribute) => attribute.displayName,
-        onCreate: (attribute) => attribute.displayName,
-    }),
-    (0, filter_decorator_1.Filterable)(),
-    __metadata("design:type", String)
-], Attribute.prototype, "searchIndex", void 0);
 __decorate([
     (0, core_1.Enum)(() => shared_1.EditorType),
     __metadata("design:type", Object)

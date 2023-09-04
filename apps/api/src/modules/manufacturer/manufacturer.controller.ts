@@ -23,8 +23,8 @@ import { Manufacturer } from '@/core/entities';
 import { QueryPipe } from '@/core/pipes/query.pipe';
 import { filterEntity } from '@/core/utils/parse-query';
 
-@ApiTags('Manufacturer')
-@Controller('manufacturer')
+@ApiTags('Manufacturers')
+@Controller('manufacturers')
 export class ManufacturerController {
   constructor(private readonly manufacturerService: ManufacturerService) {}
 

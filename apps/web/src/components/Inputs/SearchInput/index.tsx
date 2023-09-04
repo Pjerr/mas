@@ -6,6 +6,7 @@ import TooltipContent from '@/components/Tooltip/TooltipContent';
 import TooltipTrigger from '@/components/Tooltip/TooltipTrigger';
 import useDebounce from '@/hooks/useDebounce';
 import TextInput from '../TextInput';
+import classNames from 'classnames';
 
 interface SearchProps {
     onChange: (value: string) => void;
@@ -29,25 +30,15 @@ const SearchInput = React.forwardRef<
     }, [debouncedValue]);
 
     return (
-        <Tooltip>
-            <TooltipTrigger>
-                <TextInput
-                    ref={ref}
-                    {...props}
-                    value={value}
-                    variant={'underline'}
-                    icon={<FaSearch />}
-                    iconPosition={'right'}
-                    onChange={handleChange}
-                    className={styles['search-input']}
-                />
-            </TooltipTrigger>
-            {tooltipText && (
-                <TooltipContent className={styles['tooltip']}>
-                    {tooltipText}
-                </TooltipContent>
-            )}
-        </Tooltip>
+        <TextInput
+            ref={ref}
+            {...props}
+            value={value}
+            variant={'underline'}
+            icon={<FaSearch cursor={'pointer'} />}
+            onChange={handleChange}
+            className={classNames(styles['search-input'], props.className)}
+        />
     );
 });
 

@@ -8,6 +8,8 @@ import {
 } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
+declare const module: any;
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
@@ -28,14 +30,28 @@ async function bootstrap() {
 
   SwaggerModule.setup('docs', app, document);
 
-  await app.get(MikroORM).getSchemaGenerator().ensureDatabase();
-  await app.get(MikroORM).getSchemaGenerator().updateSchema();
+  await app.get(MikroORM).getMigrator().up();
+
+  app.setGlobalPrefix('api');
 
   app.enableCors({
     origin: ['http://localhost:3000'],
-    methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS'],
+    methods: [
+      'GET',
+      'POST',
+      'PATCH',
+      'PUT',
+      'DELETE',
+      'OPTIONS',
+      'content-type',
+    ],
   });
 
   await app.listen(4000);
+
+  if (module.hot) {
+    module.hot.accept();
+    module.hot.dispose(() => app.close());
+  }
 }
 bootstrap();

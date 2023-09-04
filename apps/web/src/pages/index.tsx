@@ -72,7 +72,7 @@ const Parts: NextPageWithLayout = () => {
                     onEditMode={onEditMode}
                 />
                 <Table
-                    placeholder={`Part table is empty`}
+                    placeholder={`Part configuration table is empty`}
                     view={partColumnDef}
                     instanceId={instanceIds[EntityType.Part]}
                     refetch={refetch}

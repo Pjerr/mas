@@ -14,24 +14,24 @@ const TextInput = React.forwardRef<
 >(({ icon, iconPosition, variant, label, ...props }, ref) => {
     return (
         <>
-            {label && <label>{label}:</label>}
+            {label && <label data-cy="input-label">{label}</label>}
             <div
                 className={classNames(
                     styles['input-field'],
                     styles[`input-field-${iconPosition}`],
                     {
                         [styles[`input-field-${variant}`]]: variant,
-                    }
+                    },
+                    props.className
                 )}
             >
                 <input
                     ref={ref}
                     {...props}
-                    className={classNames(styles[`input`], props.className)}
+                    value={props.value ?? ''}
+                    className={classNames(styles[`input`])}
                 />
-                {icon && (
-                    <div className={classNames(styles['icon'])}>{icon}</div>
-                )}
+                <div className={classNames(styles['icon'])}>{icon}</div>
             </div>
         </>
     );

@@ -18,7 +18,6 @@ const core_1 = require("@mikro-orm/core");
 const part_entity_1 = require("./part.entity");
 const uuid4_1 = __importDefault(require("uuid4"));
 const filter_decorator_1 = require("../meta/decorators/filter.decorator");
-const postgresql_1 = require("@mikro-orm/postgresql");
 let Manufacturer = class Manufacturer extends core_1.BaseEntity {
     constructor() {
         super(...arguments);
@@ -27,7 +26,7 @@ let Manufacturer = class Manufacturer extends core_1.BaseEntity {
         this.createdAt = new Date();
     }
     static _OPENAPI_METADATA_FACTORY() {
-        return { id: { required: true, type: () => String, default: (0, uuid4_1.default)() }, name: { required: true, type: () => String }, searchIndex: { required: true, type: () => String }, parts: { required: true, type: () => Object, default: new core_1.Collection(this) }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date } };
+        return { id: { required: true, type: () => String, default: (0, uuid4_1.default)() }, name: { required: true, type: () => String }, parts: { required: true, type: () => Object, default: new core_1.Collection(this) }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date } };
     }
 };
 __decorate([
@@ -39,16 +38,6 @@ __decorate([
     (0, core_1.Property)(),
     __metadata("design:type", String)
 ], Manufacturer.prototype, "name", void 0);
-__decorate([
-    (0, core_1.Index)({ type: 'fulltext' }),
-    (0, core_1.Property)({
-        type: postgresql_1.FullTextType,
-        onCreate: (manu) => manu.name,
-        onUpdate: (manu) => manu.name,
-    }),
-    (0, filter_decorator_1.Filterable)(),
-    __metadata("design:type", String)
-], Manufacturer.prototype, "searchIndex", void 0);
 __decorate([
     (0, core_1.OneToMany)(() => part_entity_1.Part, (part) => part.manufacturer, {
         nullable: true,

@@ -15,6 +15,7 @@ import { ApiTags } from '@nestjs/swagger';
 import {
   GroupRelationTypes,
   GroupResponse,
+  GroupSearch,
   GroupsResponse,
   QueryGroup,
 } from './dto';
@@ -23,14 +24,20 @@ import { QueryPipe } from '@/core/pipes/query.pipe';
 import { Group } from '@/core/entities';
 import { filterEntity } from '@/core/utils/parse-query';
 
-@ApiTags('Group')
-@Controller('group')
+@ApiTags('Groups')
+@Controller('groups')
 export class GroupController {
   constructor(private readonly groupService: GroupService) {}
 
   @Post()
   async create(@Body() payload: CreateGroup): Promise<GroupResponse> {
     const response = await this.groupService.create(payload);
+    return { data: response };
+  }
+
+  @Get(':search/meili')
+  async search(@Param('search') search: string): Promise<GroupSearch> {
+    const response = await this.groupService.groupSearch(search);
     return { data: response };
   }
 

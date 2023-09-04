@@ -1,0 +1,1 @@
+{"version":3,"file":"inject-meilisearch.decorator.js","sourceRoot":"","sources":["../../../src/providers/meilisearch/inject-meilisearch.decorator.ts"],"names":[],"mappings":";;;AAAA,0DAAsD;AACtD,2CAAwC;AAExC,SAAgB,iBAAiB;IAC/B,OAAO,IAAA,eAAM,EAAC,wBAAY,CAAC,CAAC;AAC9B,CAAC;AAFD,8CAEC"}

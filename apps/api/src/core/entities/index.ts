@@ -5,3 +5,4 @@ export * from './group.entity';
 export * from './option-config.entity';
 export * from './part.entity';
 export * from './manufacturer.entity';
+export * from './group-document.entity';

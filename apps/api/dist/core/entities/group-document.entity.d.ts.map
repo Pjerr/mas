@@ -1,0 +1,1 @@
+{"version":3,"file":"group-document.entity.d.ts","sourceRoot":"","sources":["../../../src/core/entities/group-document.entity.ts"],"names":[],"mappings":"AAIA,qBAiBa,aAAa;IAExB,EAAE,EAAE,MAAM,CAAC;IAGX,IAAI,EAAE,MAAM,CAAC;IAGb,UAAU,CAAC,EAAE,iBAAiB,EAAE,CAAC;CAClC;AAED,qBAAa,iBAAiB;IAE5B,EAAE,EAAE,MAAM,CAAC;IAGX,WAAW,EAAE,MAAM,CAAC;CACrB"}

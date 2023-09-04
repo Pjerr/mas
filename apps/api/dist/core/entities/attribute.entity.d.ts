@@ -8,7 +8,6 @@ export declare class Attribute extends BaseEntity<Attribute, 'id'> {
     id: string;
     propertyKey: string;
     displayName: string;
-    searchIndex: string;
     editorType: EditorType;
     editorValidation: EditorValidation;
     group: Group;

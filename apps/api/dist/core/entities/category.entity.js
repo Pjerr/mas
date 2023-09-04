@@ -16,7 +16,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Category = void 0;
 const openapi = require("@nestjs/swagger");
 const core_1 = require("@mikro-orm/core");
-const postgresql_1 = require("@mikro-orm/postgresql");
 const swagger_1 = require("@nestjs/swagger");
 const uuid4_1 = __importDefault(require("uuid4"));
 const filter_decorator_1 = require("../meta/decorators/filter.decorator");
@@ -31,7 +30,7 @@ let Category = Category_1 = class Category extends core_1.BaseEntity {
         return this.children.isInitialized() ? this.children.getIdentifiers() : [];
     }
     static _OPENAPI_METADATA_FACTORY() {
-        return { id: { required: true, type: () => String, default: (0, uuid4_1.default)() }, name: { required: true, type: () => String }, searchIndex: { required: true, type: () => String }, parentId: { required: true, type: () => String }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date } };
+        return { id: { required: true, type: () => String, default: (0, uuid4_1.default)() }, name: { required: true, type: () => String }, parentId: { required: true, type: () => String }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date } };
     }
 };
 __decorate([
@@ -43,16 +42,6 @@ __decorate([
     (0, core_1.Property)(),
     __metadata("design:type", String)
 ], Category.prototype, "name", void 0);
-__decorate([
-    (0, core_1.Index)({ type: 'fulltext' }),
-    (0, core_1.Property)({
-        type: postgresql_1.FullTextType,
-        onCreate: (category) => category.name,
-        onUpdate: (category) => category.name,
-    }),
-    (0, filter_decorator_1.Filterable)(),
-    __metadata("design:type", String)
-], Category.prototype, "searchIndex", void 0);
 __decorate([
     (0, core_1.ManyToOne)(() => Category_1, { nullable: true, mapToPk: true }),
     (0, filter_decorator_1.Filterable)(),

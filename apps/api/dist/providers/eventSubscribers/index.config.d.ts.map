@@ -1,0 +1,1 @@
+{"version":3,"file":"index.config.d.ts","sourceRoot":"","sources":["../../../src/providers/eventSubscribers/index.config.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,KAAK,EAAE,aAAa,EAAE,MAAM,iBAAiB,CAAC;AACvD,OAAO,EAAE,QAAQ,EAAE,MAAM,aAAa,CAAC;AAEvC,eAAO,MAAM,eAAe,WAAW,CAAC;AACxC,eAAO,MAAM,mBAAmB,EAAE,QAkBjC,CAAC;AAEF,eAAO,MAAM,qBAAqB,UAAW,KAAK,KAAG,aAWpD,CAAC"}

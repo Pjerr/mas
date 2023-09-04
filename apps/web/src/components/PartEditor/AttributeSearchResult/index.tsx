@@ -1,46 +1,37 @@
-import { Attribute, useFindGroupQuery } from '@/store/api/endpoints';
+import { GroupDocument } from '@/store/api/endpoints';
 import styles from './styles.module.css';
 import React, { HTMLProps } from 'react';
-import Groups from './Groups';
+import ResultGroups from './ResultGroups';
+import { ResultGroupSkeleton } from './ResultGroupSkeleton';
 
 interface AttributeSearchResultProps {
-    attributes: Attribute[];
+    groupDocuments: GroupDocument[];
+    isLoading: boolean;
 }
 const AttributeSearchResult = React.forwardRef<
     HTMLDivElement,
-    HTMLProps<HTMLDivElement> & AttributeSearchResultProps
->(({ attributes }, ref) => {
-    const groupIds = attributes.map((attribute) => attribute.group.id);
-    const { data: groupsResponse } = useFindGroupQuery(
-        {
-            query: {
-                sort: { field: 'id', order: 'ASC' },
-                include: ['attributes.group'],
-                filters: [
-                    {
-                        field: 'id',
-                        operator: '$in',
-                        value: groupIds,
-                    },
-                ],
-            },
-        },
-        { skip: !groupIds.length }
-    );
-
+    Omit<HTMLProps<HTMLDivElement>, 'onClick'> & AttributeSearchResultProps
+>(({ groupDocuments, isLoading }, ref) => {
     return (
         <div className={styles['search__container']} ref={ref}>
-            <div className={styles['attribute-renderer__container']}>
-                {groupsResponse &&
-                    groupsResponse.data.map((group) => {
+            <div
+                className={styles['attribute-renderer__container']}
+                data-cy="product-editor__search-results"
+            >
+                {isLoading && <ResultGroupSkeleton />}
+                {!isLoading &&
+                    groupDocuments.length > 0 &&
+                    groupDocuments.map((group) => {
                         return (
-                            <Groups
+                            <ResultGroups
                                 key={`rendered-group__${group.id}`}
                                 group={group}
                             />
                         );
                     })}
-                {!groupsResponse && <>No attributes found!</>}
+                {!isLoading && !groupDocuments.length && (
+                    <>No attributes found</>
+                )}
             </div>
         </div>
     );

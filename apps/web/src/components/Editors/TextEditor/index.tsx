@@ -1,9 +1,9 @@
-import TextInput from '@/components/Inputs/TextInput';
 import { EditorProps } from '@/types/editors';
 import { useFormContext } from 'react-hook-form';
 import React from 'react';
 import styles from '../styles.module.css';
 import { ErrorMessage } from '@hookform/error-message';
+import TextInput from '@/components/Inputs/TextInput';
 
 export default function TextEditor({
     field,
@@ -21,6 +21,7 @@ export default function TextEditor({
                 {...register(metadata.propertyKey)}
                 {...field}
                 variant="border"
+                className={styles['editor__field']}
             />
             <ErrorMessage
                 errors={formState.errors}

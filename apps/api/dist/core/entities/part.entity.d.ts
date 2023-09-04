@@ -6,7 +6,6 @@ export declare class Part extends BaseEntity<Part, 'id'> {
     id: string;
     name: string;
     status: PartStatus;
-    searchIndex: string;
     properties: Record<string, PropertyType>;
     manufacturer: string;
     category: string;

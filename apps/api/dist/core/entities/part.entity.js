@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Part = void 0;
 const openapi = require("@nestjs/swagger");
 const core_1 = require("@mikro-orm/core");
-const postgresql_1 = require("@mikro-orm/postgresql");
 const manufacturer_entity_1 = require("./manufacturer.entity");
 const category_entity_1 = require("./category.entity");
 const attribute_entity_1 = require("./attribute.entity");
@@ -36,7 +35,7 @@ let Part = class Part extends core_1.BaseEntity {
         this.publishStatus = shared_1.PublishStatus.Draft;
     }
     static _OPENAPI_METADATA_FACTORY() {
-        return { id: { required: true, type: () => String, default: (0, uuid4_1.default)() }, name: { required: true, type: () => String }, status: { required: true, default: shared_1.PartStatus.InStock, enum: require("../../../../../packages/shared/dist/types/enums").PartStatus }, searchIndex: { required: true, type: () => String }, properties: { required: true, type: () => Object }, manufacturer: { required: true, type: () => String }, category: { required: true, type: () => String }, attributes: { required: true, type: () => Object, default: new core_1.Collection(this) }, basePrice: { required: true, type: () => Number, default: 0 }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date }, configs: { required: true, type: () => Object, default: new core_1.Collection(this) }, publishStatus: { required: true, default: shared_1.PublishStatus.Draft, enum: require("../../../../../packages/shared/dist/types/enums").PublishStatus }, configsCount: { required: true, type: () => Number } };
+        return { id: { required: true, type: () => String, default: (0, uuid4_1.default)() }, name: { required: true, type: () => String }, status: { required: true, default: shared_1.PartStatus.InStock, enum: require("../../../../../packages/shared/dist/types/enums").PartStatus }, properties: { required: true, type: () => Object }, manufacturer: { required: true, type: () => String }, category: { required: true, type: () => String }, attributes: { required: true, type: () => Object, default: new core_1.Collection(this) }, basePrice: { required: true, type: () => Number, default: 0 }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date }, configs: { required: true, type: () => Object, default: new core_1.Collection(this) }, publishStatus: { required: true, default: shared_1.PublishStatus.Draft, enum: require("../../../../../packages/shared/dist/types/enums").PublishStatus }, configsCount: { required: true, type: () => Number } };
     }
 };
 __decorate([
@@ -52,16 +51,6 @@ __decorate([
     (0, core_1.Enum)(() => shared_1.PartStatus),
     __metadata("design:type", String)
 ], Part.prototype, "status", void 0);
-__decorate([
-    (0, core_1.Index)({ type: 'fulltext' }),
-    (0, core_1.Property)({
-        type: postgresql_1.FullTextType,
-        onCreate: (part) => part.name,
-        onUpdate: (part) => part.name,
-    }),
-    (0, filter_decorator_1.Filterable)(),
-    __metadata("design:type", String)
-], Part.prototype, "searchIndex", void 0);
 __decorate([
     (0, core_1.Property)({ type: 'jsonb', nullable: true }),
     __metadata("design:type", Object)

@@ -107,3 +107,13 @@ export const enhancedApi = MasApi.enhanceEndpoints({
         },
     },
 });
+
+export const {
+    useCreatePartMutation,
+    useUpdatePartMutation,
+    useFindAttributeQuery,
+    useFindPartQuery,
+    useRemoveManyAttributeMutation,
+    useCreateAttributeMutation,
+    useUpdateAttributeMutation,
+} = enhancedApi;

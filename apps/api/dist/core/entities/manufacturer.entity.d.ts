@@ -3,7 +3,6 @@ import { Part } from './part.entity';
 export declare class Manufacturer extends BaseEntity<Manufacturer, 'id'> {
     id: string;
     name: string;
-    searchIndex: string;
     parts: Collection<Part, object>;
     createdAt: Date;
     updatedAt: Date;

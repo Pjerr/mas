@@ -34,15 +34,6 @@ export class Part extends BaseEntity<Part, 'id'> {
   @Enum(() => PartStatus)
   status: PartStatus = PartStatus.InStock;
 
-  @Index({ type: 'fulltext' })
-  @Property({
-    type: FullTextType,
-    onCreate: (part: Part) => part.name,
-    onUpdate: (part: Part) => part.name,
-  })
-  @Filterable()
-  searchIndex: string;
-
   @Property({ type: 'jsonb', nullable: true })
   properties: Record<string, PropertyType>;
 

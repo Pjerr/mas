@@ -21,15 +21,6 @@ export class Manufacturer extends BaseEntity<Manufacturer, 'id'> {
   @Property()
   name: string;
 
-  @Index({ type: 'fulltext' })
-  @Property({
-    type: FullTextType,
-    onCreate: (manu: Manufacturer) => manu.name,
-    onUpdate: (manu: Manufacturer) => manu.name,
-  })
-  @Filterable()
-  searchIndex: string;
-
   @OneToMany(() => Part, (part) => part.manufacturer, {
     nullable: true,
     orphanRemoval: true,

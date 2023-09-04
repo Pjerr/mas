@@ -35,6 +35,7 @@ export const tableSlice = createSlice({
             state,
             { payload }: PayloadAction<RefreshStateAction>
         ) => {
+            if (!state[payload.instanceId]) return;
             state[payload.instanceId].data = [];
         },
         removeMany: (state, { payload }: PayloadAction<RemoveManyAction>) => {

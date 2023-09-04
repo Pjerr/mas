@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+    db:
+        image: postgres
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: Albis123
+        ports:
+            - '5432:5432'
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+        networks:
+            - app_network
+    meilisearch:
+        image: getmeili/meilisearch:v1.3
+        environment:
+            MS_MASTER_KEY: x-VxfGP2HWhcFZkWgGzFFHXzZd3ICjyQq8cjMZXvuHM
+            MS_HOST: http://127.0.0.1:7700
+            MS_API_KEY: x-VxfGP2HWhcFZkWgGzFFHXzZd3ICjyQq8cjMZXvuHM
+        ports:
+            - '7700:7700'
+        volumes:
+            - meilisearch_data:/data.ms
+        networks:
+            - app_network
+
+# # Define a network, which allows containers to communicate
+# # with each other, by using their container name.dkr.ecr.eu-north-1.amazonaws.com/pims-api:latest as a hostname
+networks:
+    app_network:
+volumes:
+    postgres_data:
+        driver: local
+    meilisearch_data:
+        driver: local

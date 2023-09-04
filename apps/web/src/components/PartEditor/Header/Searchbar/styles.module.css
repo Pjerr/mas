@@ -11,3 +11,8 @@
     display: flex;
     gap: var(--size-2);
 }
+
+.toggle__button {
+    background-color: var(--layer-2-color);
+    border-radius: var(--rounded-xl);
+}

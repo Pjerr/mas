@@ -40,28 +40,33 @@ export default function Header() {
     return (
         <React.Fragment>
             {activeForm && (
-                <div className={styles['edit__subheader']}>
-                    {hasVariants && (
-                        <div className={styles['variants__link']}>
-                            <Button
-                                variant="secondary"
-                                className={styles['link']}
-                                onClick={onShowVariants}
-                            >
-                                Show variants
-                            </Button>
-                        </div>
-                    )}
-                    <GroupChips activeForm={activeForm} />
-                    <Searchbar
-                        ref={onClickOutsideRef}
-                        activeForm={activeForm}
-                        searchParam={searchParam}
-                        displaySearch={displaySearch}
-                        setSearchParam={setSearchParam}
-                        setDisplaySearch={setDisplaySearch}
-                    />
-                </div>
+                <>
+                    <h1 className={styles['edit__header']}>
+                        Part Configuration
+                    </h1>
+                    <div className={styles['edit__subheader']}>
+                        {hasVariants && (
+                            <div className={styles['variants__link']}>
+                                <Button
+                                    variant="secondary"
+                                    className={styles['link']}
+                                    onClick={onShowVariants}
+                                >
+                                    Show variants
+                                </Button>
+                            </div>
+                        )}
+                        <GroupChips activeForm={activeForm} />
+                        <Searchbar
+                            ref={onClickOutsideRef}
+                            activeForm={activeForm}
+                            searchParam={searchParam}
+                            displaySearch={displaySearch}
+                            setSearchParam={setSearchParam}
+                            setDisplaySearch={setDisplaySearch}
+                        />
+                    </div>
+                </>
             )}
         </React.Fragment>
     );

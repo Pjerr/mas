@@ -2,9 +2,12 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateGroup } from './dto/requests/create-group.request';
 import { UpdateGroup } from './dto/requests/update-group.request';
 import { EntityManager, EntityRepository } from '@mikro-orm/postgresql';
-import { Group } from '@/core/entities';
+import { Group, GroupDocument } from '@/core/entities';
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { FilterEntity } from '@/core/types';
+import { InjectMeiliSearch } from '@/providers/meilisearch/inject-meilisearch.decorator';
+import MeiliSearch, { SearchResponse } from 'meilisearch';
+import { index_key_group } from '@/providers/eventSubscribers/index.config';
 
 @Injectable()
 export class GroupService {
@@ -12,6 +15,8 @@ export class GroupService {
     private readonly em: EntityManager,
     @InjectRepository(Group)
     private readonly groupRepository: EntityRepository<Group>,
+    @InjectMeiliSearch()
+    private readonly meiliSearchClient: MeiliSearch,
   ) {}
 
   async create(payload: CreateGroup) {
@@ -52,5 +57,12 @@ export class GroupService {
     if (!group) throw new NotFoundException('Group does not exist');
 
     await this.em.removeAndFlush(group);
+  }
+
+  async groupSearch(search: string) {
+    const result: SearchResponse = await this.meiliSearchClient
+      .index(index_key_group)
+      .search(search);
+    return result.hits as GroupDocument[];
   }
 }

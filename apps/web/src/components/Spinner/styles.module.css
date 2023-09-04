@@ -1,0 +1,42 @@
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner {
+    border: var(--size-1) solid var(--border-color);
+    border-top: var(--size-1) solid var(--color-primary);
+    border-radius: 50%;
+    width: var(--size-5);
+    height: var(--size-5);
+    animation: spin 1s linear infinite;
+}
+
+.spinner--sm {
+    height: var(--size-5);
+    width: var(--size-5);
+}
+
+.spinner--md {
+    height: var(--size-14);
+    width: var(--size-14);
+}
+
+.spinner--l {
+    height: var(--size-20);
+    width: var(--size-20);
+}
+
+.spinner--xl {
+    height: var(--size-40);
+    width: var(--size-40);
+}
+
+.spinner--xxl {
+    height: var(--size-80);
+    width: var(--size-80);
+}

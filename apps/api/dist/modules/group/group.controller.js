@@ -32,6 +32,10 @@ let GroupController = class GroupController {
         const response = await this.groupService.create(payload);
         return { data: response };
     }
+    async search(search) {
+        const response = await this.groupService.groupSearch(search);
+        return { data: response };
+    }
     async find(query) {
         const filter = (0, parse_query_1.filterEntity)(query, entities_1.Group);
         const response = await this.groupService.find(filter);
@@ -57,6 +61,14 @@ __decorate([
     __metadata("design:paramtypes", [create_group_request_1.CreateGroup]),
     __metadata("design:returntype", Promise)
 ], GroupController.prototype, "create", null);
+__decorate([
+    (0, common_1.Get)(':search/meili'),
+    openapi.ApiResponse({ status: 200, type: require("./dto/group.response").GroupSearch }),
+    __param(0, (0, common_1.Param)('search')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], GroupController.prototype, "search", null);
 __decorate([
     (0, common_1.Get)(),
     (0, types_1.FilterQuery)('query', dto_1.QueryGroup),
@@ -92,8 +104,8 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], GroupController.prototype, "remove", null);
 GroupController = __decorate([
-    (0, swagger_1.ApiTags)('Group'),
-    (0, common_1.Controller)('group'),
+    (0, swagger_1.ApiTags)('Groups'),
+    (0, common_1.Controller)('groups'),
     __metadata("design:paramtypes", [group_service_1.GroupService])
 ], GroupController);
 exports.GroupController = GroupController;

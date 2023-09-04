@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, OnModuleInit } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
@@ -11,6 +11,9 @@ import { MikroOrmService } from './config/mikro-orm.service';
 import { ManufacturerModule } from './modules/manufacturer/manufacturer.module';
 import { PartModule } from './modules/part/part.module';
 import { CloudinaryModule } from 'nestjs-cloudinary';
+import { MeiliSearchModule } from './providers/meilisearch/meilisearch.module';
+import { GroupSubscriber } from './providers/eventSubscribers/group.subscriber';
+import { AttributeSubscriber } from './providers/eventSubscribers/attribute.subscriber';
 
 @Module({
   imports: [
@@ -27,6 +30,12 @@ import { CloudinaryModule } from 'nestjs-cloudinary';
       inject: [ConfigService],
       useClass: MikroOrmService,
     }),
+    MeiliSearchModule.forRootAsync({
+      useFactory: () => ({
+        host: process.env.MS_HOST,
+        apiKey: process.env.MS_API_KEY,
+      }),
+    }),
     AttributeModule,
     PartModule,
     CategoryModule,
@@ -34,6 +43,12 @@ import { CloudinaryModule } from 'nestjs-cloudinary';
     ManufacturerModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, GroupSubscriber, AttributeSubscriber],
 })
-export class AppModule {}
+export class AppModule implements OnModuleInit {
+  constructor(private readonly groupSubscriber: GroupSubscriber) {}
+
+  async onModuleInit() {
+    await this.groupSubscriber.initializeIndex();
+  }
+}

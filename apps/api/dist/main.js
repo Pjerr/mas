@@ -20,13 +20,25 @@ async function bootstrap() {
     };
     const document = swagger_1.SwaggerModule.createDocument(app, config, options);
     swagger_1.SwaggerModule.setup('docs', app, document);
-    await app.get(core_1.MikroORM).getSchemaGenerator().ensureDatabase();
-    await app.get(core_1.MikroORM).getSchemaGenerator().updateSchema();
+    await app.get(core_1.MikroORM).getMigrator().up();
+    app.setGlobalPrefix('api');
     app.enableCors({
         origin: ['http://localhost:3000'],
-        methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS'],
+        methods: [
+            'GET',
+            'POST',
+            'PATCH',
+            'PUT',
+            'DELETE',
+            'OPTIONS',
+            'content-type',
+        ],
     });
     await app.listen(4000);
+    if (module.hot) {
+        module.hot.accept();
+        module.hot.dispose(() => app.close());
+    }
 }
 bootstrap();
 //# sourceMappingURL=main.js.map

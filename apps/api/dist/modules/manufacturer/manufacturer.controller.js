@@ -103,8 +103,8 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ManufacturerController.prototype, "removeMany", null);
 ManufacturerController = __decorate([
-    (0, swagger_1.ApiTags)('Manufacturer'),
-    (0, common_1.Controller)('manufacturer'),
+    (0, swagger_1.ApiTags)('Manufacturers'),
+    (0, common_1.Controller)('manufacturers'),
     __metadata("design:paramtypes", [manufacturer_service_1.ManufacturerService])
 ], ManufacturerController);
 exports.ManufacturerController = ManufacturerController;

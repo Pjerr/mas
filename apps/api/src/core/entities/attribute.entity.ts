@@ -36,15 +36,6 @@ export class Attribute extends BaseEntity<Attribute, 'id'> {
   @Filterable()
   displayName: string;
 
-  @Index({ type: 'fulltext' })
-  @Property({
-    type: FullTextType,
-    onUpdate: (attribute: Attribute) => attribute.displayName,
-    onCreate: (attribute: Attribute) => attribute.displayName,
-  })
-  @Filterable()
-  searchIndex: string;
-
   @Enum(() => EditorType)
   editorType = EditorType.Text;
 

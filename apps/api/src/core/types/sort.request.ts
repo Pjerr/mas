@@ -4,6 +4,5 @@ export enum SortOrder {
 }
 export class Sort {
   field?: string;
-
   order?: SortOrder;
 }

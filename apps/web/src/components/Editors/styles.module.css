@@ -7,8 +7,19 @@
     display: flex;
     max-width: var(--size-64);
     flex-direction: column;
+    position: relative;
+}
+
+.editor__field {
+    height: var(--size-10);
 }
 
 .error-message {
     color: var(--color-danger);
+    position: absolute;
+    top: calc(var(--size-16) * 1.04);
+}
+
+.editor__container--hidden {
+    display: none;
 }

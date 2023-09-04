@@ -23,16 +23,6 @@ export class Group extends BaseEntity<Group, 'id'> {
   @Property()
   name: string;
 
-  @Index({ type: 'fulltext' })
-  @Property({
-    type: FullTextType,
-    onCreate: (group: Group) => group.name,
-    onUpdate: (group: Group) => group.name,
-    nullable: true,
-  })
-  @Filterable()
-  searchIndex: string;
-
   @ApiResponseProperty({ type: (type) => [Attribute] })
   @OneToMany(() => Attribute, (attribute) => attribute.group, {
     nullable: true,

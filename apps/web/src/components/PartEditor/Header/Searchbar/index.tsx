@@ -1,4 +1,4 @@
-import { useFindAttributeQuery } from '@/store/api/endpoints';
+import { useSearchGroupQuery } from '@/store/api/endpoints';
 import classNames from 'classnames';
 import { FaPlusCircle, FaTimesCircle } from 'react-icons/fa';
 import styles from './styles.module.css';
@@ -31,20 +31,9 @@ const Searchbar = React.forwardRef<
         },
         ref
     ) => {
-        const { data: responseAttributes } = useFindAttributeQuery(
-            {
-                query: {
-                    sort: { field: 'createdAt', order: 'ASC' },
-                    filters: [
-                        {
-                            field: 'searchIndex',
-                            operator: '$fulltext',
-                            value: [`%${searchParam}%`],
-                        },
-                    ],
-                },
-            },
-            { skip: !searchParam }
+        const { data: searchResponse, isLoading } = useSearchGroupQuery(
+            { search: searchParam! },
+            { skip: !searchParam || searchParam?.length < 3 }
         );
 
         return (
@@ -60,13 +49,20 @@ const Searchbar = React.forwardRef<
                             styles['label'],
                             styles['toggle__button']
                         )}
-                    />
+                        data-cy="product-editor__search-button"
+                    >
+                        Add attributes to config
+                    </Button>
                 )}
                 {displaySearch && (
-                    <div className={classNames(styles['search-input'])}>
+                    <div
+                        className={classNames(styles['search-input'])}
+                        data-cy="product-header__search-bar"
+                    >
                         <SearchInput
                             onChange={setSearchParam}
-                            tooltipText="Enter attribute name"
+                            placeholder="Enter attribute name"
+                            data-cy="product-editor__search-input"
                         />
                         <Button
                             onClick={() => setDisplaySearch(false)}
@@ -78,10 +74,11 @@ const Searchbar = React.forwardRef<
                         />
                     </div>
                 )}
-                {responseAttributes && displaySearch && (
+                {searchResponse?.data && displaySearch && (
                     <AttributeSearchResult
                         key={`attribute-renderer__${activeForm.value.id}`}
-                        attributes={responseAttributes.data}
+                        isLoading={isLoading}
+                        groupDocuments={searchResponse.data}
                     />
                 )}
             </div>

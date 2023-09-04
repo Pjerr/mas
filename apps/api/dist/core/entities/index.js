@@ -21,4 +21,5 @@ __exportStar(require("./group.entity"), exports);
 __exportStar(require("./option-config.entity"), exports);
 __exportStar(require("./part.entity"), exports);
 __exportStar(require("./manufacturer.entity"), exports);
+__exportStar(require("./group-document.entity"), exports);
 //# sourceMappingURL=index.js.map

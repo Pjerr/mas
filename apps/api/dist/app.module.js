@@ -5,6 +5,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -23,7 +26,16 @@ const mikro_orm_service_1 = require("./config/mikro-orm.service");
 const manufacturer_module_1 = require("./modules/manufacturer/manufacturer.module");
 const part_module_1 = require("./modules/part/part.module");
 const nestjs_cloudinary_1 = require("nestjs-cloudinary");
+const meilisearch_module_1 = require("./providers/meilisearch/meilisearch.module");
+const group_subscriber_1 = require("./providers/eventSubscribers/group.subscriber");
+const attribute_subscriber_1 = require("./providers/eventSubscribers/attribute.subscriber");
 let AppModule = class AppModule {
+    constructor(groupSubscriber) {
+        this.groupSubscriber = groupSubscriber;
+    }
+    async onModuleInit() {
+        await this.groupSubscriber.initializeIndex();
+    }
 };
 AppModule = __decorate([
     (0, common_1.Module)({
@@ -41,6 +53,12 @@ AppModule = __decorate([
                 inject: [config_1.ConfigService],
                 useClass: mikro_orm_service_1.MikroOrmService,
             }),
+            meilisearch_module_1.MeiliSearchModule.forRootAsync({
+                useFactory: () => ({
+                    host: process.env.MS_HOST,
+                    apiKey: process.env.MS_API_KEY,
+                }),
+            }),
             attribute_module_1.AttributeModule,
             part_module_1.PartModule,
             category_module_1.CategoryModule,
@@ -48,8 +66,9 @@ AppModule = __decorate([
             manufacturer_module_1.ManufacturerModule,
         ],
         controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService],
-    })
+        providers: [app_service_1.AppService, group_subscriber_1.GroupSubscriber, attribute_subscriber_1.AttributeSubscriber],
+    }),
+    __metadata("design:paramtypes", [group_subscriber_1.GroupSubscriber])
 ], AppModule);
 exports.AppModule = AppModule;
 //# sourceMappingURL=app.module.js.map

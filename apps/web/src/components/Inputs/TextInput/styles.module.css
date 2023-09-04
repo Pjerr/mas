@@ -8,8 +8,6 @@
     color: var(--text-primary);
     background-color: transparent;
     text-indent: var(--size-2);
-    height: var(--size-10);
-    width: 100%;
 }
 
 .input-field-border {
@@ -45,4 +43,8 @@
     white-space: nowrap;
     border-radius: var(--rounded-sm);
     background-color: var(--color-secondary--hover);
+}
+
+.input::placeholder {
+    color: var(--placeholder-color);
 }

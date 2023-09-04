@@ -23,15 +23,6 @@ export class Category extends BaseEntity<Category, 'id'> {
   @Property()
   name: string;
 
-  @Index({ type: 'fulltext' })
-  @Property({
-    type: FullTextType,
-    onCreate: (category: Category) => category.name,
-    onUpdate: (category: Category) => category.name,
-  })
-  @Filterable()
-  searchIndex: string;
-
   @ManyToOne(() => Category, { nullable: true, mapToPk: true })
   @Filterable()
   parentId: string;

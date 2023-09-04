@@ -4,8 +4,8 @@ export const addTagTypes = [
     'Options',
     'Parts',
     'Categories',
-    'Group',
-    'Manufacturer',
+    'Groups',
+    'Manufacturers',
 ] as const;
 const injectedRtkApi = api
     .enhanceEndpoints({
@@ -387,106 +387,114 @@ const injectedRtkApi = api
                 CreateGroupApiArg
             >({
                 query: (queryArg) => ({
-                    url: `/group`,
+                    url: `/groups`,
                     method: 'POST',
                     body: queryArg.createGroup,
                 }),
-                invalidatesTags: ['Group'],
+                invalidatesTags: ['Groups'],
             }),
             findGroup: build.query<FindGroupApiResponse, FindGroupApiArg>({
                 query: (queryArg) => ({
-                    url: `/group`,
+                    url: `/groups`,
                     params: { query: queryArg.query },
                 }),
-                providesTags: ['Group'],
+                providesTags: ['Groups'],
             }),
+            searchGroup: build.query<SearchGroupApiResponse, SearchGroupApiArg>(
+                {
+                    query: (queryArg) => ({
+                        url: `/groups/${queryArg.search}/meili`,
+                    }),
+                    providesTags: ['Groups'],
+                }
+            ),
             findOneGroup: build.query<
                 FindOneGroupApiResponse,
                 FindOneGroupApiArg
             >({
-                query: (queryArg) => ({ url: `/group/${queryArg.id}` }),
-                providesTags: ['Group'],
+                query: (queryArg) => ({ url: `/groups/${queryArg.id}` }),
+                providesTags: ['Groups'],
             }),
             updateGroup: build.mutation<
                 UpdateGroupApiResponse,
                 UpdateGroupApiArg
             >({
                 query: (queryArg) => ({
-                    url: `/group/${queryArg.id}`,
+                    url: `/groups/${queryArg.id}`,
                     method: 'PATCH',
                     body: queryArg.updateGroup,
                 }),
-                invalidatesTags: ['Group'],
+                invalidatesTags: ['Groups'],
             }),
             removeGroup: build.mutation<
                 RemoveGroupApiResponse,
                 RemoveGroupApiArg
             >({
                 query: (queryArg) => ({
-                    url: `/group/${queryArg.id}`,
+                    url: `/groups/${queryArg.id}`,
                     method: 'DELETE',
                 }),
-                invalidatesTags: ['Group'],
+                invalidatesTags: ['Groups'],
             }),
             createManufacturer: build.mutation<
                 CreateManufacturerApiResponse,
                 CreateManufacturerApiArg
             >({
                 query: (queryArg) => ({
-                    url: `/manufacturer`,
+                    url: `/manufacturers`,
                     method: 'POST',
                     body: queryArg.createManufacturer,
                 }),
-                invalidatesTags: ['Manufacturer'],
+                invalidatesTags: ['Manufacturers'],
             }),
             findManufacturer: build.query<
                 FindManufacturerApiResponse,
                 FindManufacturerApiArg
             >({
                 query: (queryArg) => ({
-                    url: `/manufacturer`,
+                    url: `/manufacturers`,
                     params: { query: queryArg.query },
                 }),
-                providesTags: ['Manufacturer'],
+                providesTags: ['Manufacturers'],
             }),
             removeManyManufacturer: build.mutation<
                 RemoveManyManufacturerApiResponse,
                 RemoveManyManufacturerApiArg
             >({
                 query: (queryArg) => ({
-                    url: `/manufacturer`,
+                    url: `/manufacturers`,
                     method: 'DELETE',
                     params: { ids: queryArg.ids },
                 }),
-                invalidatesTags: ['Manufacturer'],
+                invalidatesTags: ['Manufacturers'],
             }),
             findOneManufacturer: build.query<
                 FindOneManufacturerApiResponse,
                 FindOneManufacturerApiArg
             >({
-                query: (queryArg) => ({ url: `/manufacturer/${queryArg.id}` }),
-                providesTags: ['Manufacturer'],
+                query: (queryArg) => ({ url: `/manufacturers/${queryArg.id}` }),
+                providesTags: ['Manufacturers'],
             }),
             updateManufacturer: build.mutation<
                 UpdateManufacturerApiResponse,
                 UpdateManufacturerApiArg
             >({
                 query: (queryArg) => ({
-                    url: `/manufacturer/${queryArg.id}`,
+                    url: `/manufacturers/${queryArg.id}`,
                     method: 'PATCH',
                     body: queryArg.updateManufacturer,
                 }),
-                invalidatesTags: ['Manufacturer'],
+                invalidatesTags: ['Manufacturers'],
             }),
             removeManufacturer: build.mutation<
                 RemoveManufacturerApiResponse,
                 RemoveManufacturerApiArg
             >({
                 query: (queryArg) => ({
-                    url: `/manufacturer/${queryArg.id}`,
+                    url: `/manufacturers/${queryArg.id}`,
                     method: 'DELETE',
                 }),
-                invalidatesTags: ['Manufacturer'],
+                invalidatesTags: ['Manufacturers'],
             }),
         }),
         overrideExisting: false,
@@ -660,6 +668,10 @@ export type FindGroupApiResponse = /** status 200  */ GroupsResponse;
 export type FindGroupApiArg = {
     query?: QueryGroup;
 };
+export type SearchGroupApiResponse = /** status 200  */ GroupSearch;
+export type SearchGroupApiArg = {
+    search: string;
+};
 export type FindOneGroupApiResponse = /** status 200  */ GroupResponse;
 export type FindOneGroupApiArg = {
     id: string;
@@ -725,7 +737,6 @@ export type Part = {
     id: string;
     name: string;
     status: 'in-stock' | 'out-of-stock';
-    searchIndex: string;
     properties: object;
     manufacturer: string;
     category: string;
@@ -739,7 +750,6 @@ export type Group = {
     attributes: Attribute[];
     id: string;
     name: string;
-    searchIndex: string;
     createdAt: string;
     updatedAt: string;
 };
@@ -750,7 +760,6 @@ export type Attribute = {
     id: string;
     propertyKey: string;
     displayName: string;
-    searchIndex: string;
     editorType:
         | 'checkbox'
         | 'text-input'
@@ -963,7 +972,6 @@ export type Category = {
     childrenIds: string[];
     id: string;
     name: string;
-    searchIndex: string;
     parentId: string;
     createdAt: string;
     updatedAt: string;
@@ -1003,11 +1011,22 @@ export type QueryGroup = {
     filters?: Filter[];
     sort?: Sort;
 };
+export type AttributeDocument = {
+    id: string;
+    displayName: string;
+};
+export type GroupDocument = {
+    id: string;
+    name: string;
+    attributes?: AttributeDocument[];
+};
+export type GroupSearch = {
+    data: GroupDocument[];
+};
 export type UpdateGroup = {};
 export type Manufacturer = {
     id: string;
     name: string;
-    searchIndex: string;
     parts: object;
     createdAt: string;
     updatedAt: string;
@@ -1067,6 +1086,7 @@ export const {
     useUpdateRelationCategoryMutation,
     useCreateGroupMutation,
     useFindGroupQuery,
+    useSearchGroupQuery,
     useFindOneGroupQuery,
     useUpdateGroupMutation,
     useRemoveGroupMutation,
