@@ -8,7 +8,6 @@ import { FaPlusCircle } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import classNames from 'classnames';
 import styles from './styles.module.css';
-import { PartialGroup } from '@/store/editors/attribute/types';
 import { useGroupApi } from '@/hooks/useGroupApi';
 import { refreshState } from '@/store/table';
 import { instanceIds } from '@/types/entity';
@@ -16,6 +15,8 @@ import { EntityType } from '@/store/table/types';
 import SearchInput from '../Inputs/SearchInput';
 import InplaceInput from '../Inputs/InplaceInput';
 import Button from '../Button';
+
+type PartialGroup = Optional<Group, keyof Omit<Group, 'name'>>;
 
 interface GroupListProps {
     setActiveGroup: React.Dispatch<React.SetStateAction<PartialGroup | null>>;
