@@ -7,7 +7,7 @@ const swagger_1 = require("@nestjs/swagger");
 const app_module_1 = require("./app.module");
 async function bootstrap() {
     const app = await core_2.NestFactory.create(app_module_1.AppModule);
-    app.useGlobalPipes(new common_1.ValidationPipe());
+    app.useGlobalPipes(new common_1.ValidationPipe({ transform: true }));
     const config = new swagger_1.DocumentBuilder()
         .setTitle('MAS Api')
         .setVersion('1.0')
@@ -34,6 +34,7 @@ async function bootstrap() {
             'content-type',
         ],
     });
+    app.enableShutdownHooks();
     await app.listen(4000);
     if (module.hot) {
         module.hot.accept();

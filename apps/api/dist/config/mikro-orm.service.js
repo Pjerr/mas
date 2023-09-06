@@ -22,14 +22,15 @@ let MikroOrmService = class MikroOrmService {
     }
     createMikroOrmOptions(contextName) {
         return Object.assign({ entities: [
+                entities_1.AttributeOption,
                 entities_1.Attribute,
                 entities_1.Group,
                 entities_1.Category,
-                entities_1.Part,
-                entities_1.AttributeOption,
-                entities_1.OptionConfig,
-                entities_1.Manufacturer,
                 variant_config_entity_1.VariantConfig,
+                entities_1.GroupDocument,
+                entities_1.OptionConfig,
+                entities_1.Part,
+                entities_1.Manufacturer,
                 variant_entity_1.Variant,
             ], driver: postgresql_1.PostgreSqlDriver, verbose: true, type: 'postgresql', debug: true }, this.configService.get('database'));
     }

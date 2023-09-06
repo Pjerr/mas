@@ -9,8 +9,10 @@ import {
   Manufacturer,
   AttributeOption,
   OptionConfig,
+  GroupDocument,
 } from './core/entities';
 import { Variant } from './core/entities/variant.entity';
+import { VariantConfig } from './core/entities/variant_config.entity';
 
 const dotenvConfig: DotenvConfigOutput = dotenv.config({
   path: path.resolve(__dirname, '../.env'),
@@ -20,13 +22,15 @@ if (dotenvConfig.error) {
 }
 const config: Options = {
   entities: [
-    Attribute,
     AttributeOption,
-    Part,
-    Manufacturer,
+    Attribute,
     Group,
     Category,
+    VariantConfig,
+    GroupDocument,
     OptionConfig,
+    Part,
+    Manufacturer,
     Variant,
   ],
   dbName: process.env.DB_NAME,

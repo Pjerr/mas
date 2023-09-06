@@ -16,6 +16,7 @@ import {
   OptionConfig,
   Part,
   Manufacturer,
+  GroupDocument,
 } from '@/core/entities';
 import { VariantConfig } from '@/core/entities/variant_config.entity';
 import { Variant } from '@/core/entities/variant.entity';
@@ -30,14 +31,15 @@ export class MikroOrmService implements MikroOrmOptionsFactory {
     | Promise<MikroOrmModuleOptions<IDatabaseDriver<Connection>>> {
     return {
       entities: [
+        AttributeOption,
         Attribute,
         Group,
         Category,
-        Part,
-        AttributeOption,
-        OptionConfig,
-        Manufacturer,
         VariantConfig,
+        GroupDocument,
+        OptionConfig,
+        Part,
+        Manufacturer,
         Variant,
       ],
       driver: PostgreSqlDriver,

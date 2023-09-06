@@ -8,6 +8,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const path_1 = __importDefault(require("path"));
 const entities_1 = require("./core/entities");
 const variant_entity_1 = require("./core/entities/variant.entity");
+const variant_config_entity_1 = require("./core/entities/variant_config.entity");
 const dotenvConfig = dotenv_1.default.config({
     path: path_1.default.resolve(__dirname, '../.env'),
 });
@@ -16,13 +17,15 @@ if (dotenvConfig.error) {
 }
 const config = {
     entities: [
-        entities_1.Attribute,
         entities_1.AttributeOption,
-        entities_1.Part,
-        entities_1.Manufacturer,
+        entities_1.Attribute,
         entities_1.Group,
         entities_1.Category,
+        variant_config_entity_1.VariantConfig,
+        entities_1.GroupDocument,
         entities_1.OptionConfig,
+        entities_1.Part,
+        entities_1.Manufacturer,
         variant_entity_1.Variant,
     ],
     dbName: process.env.DB_NAME,

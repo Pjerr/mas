@@ -13,7 +13,7 @@ declare const module: any;
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(new ValidationPipe({ transform: true }));
   const config = new DocumentBuilder()
     .setTitle('MAS Api')
     .setVersion('1.0')
@@ -46,6 +46,8 @@ async function bootstrap() {
       'content-type',
     ],
   });
+
+  app.enableShutdownHooks();
 
   await app.listen(4000);
 
