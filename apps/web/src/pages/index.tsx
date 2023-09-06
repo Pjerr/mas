@@ -14,6 +14,7 @@ import { createPartForm } from '@/store/editors/part/thunks';
 import { useCreateDraftPartMutation } from '@/store/api/endpoints';
 import Toolbar from '@/components/Toolbar';
 import { Row } from '@tanstack/react-table';
+import { ContextMenuType } from '@/components/ContextMenu/types';
 
 const Parts: NextPageWithLayout = () => {
     const router = useRouter();
@@ -78,6 +79,7 @@ const Parts: NextPageWithLayout = () => {
                     refetch={refetch}
                     showPagination={true}
                     onRowDoubleClick={onRowDoubleClick}
+                    contextMenuType={ContextMenuType.Part}
                 ></Table>
             </TableProvider>
         </>

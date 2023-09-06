@@ -29,6 +29,7 @@ import { fuzzyFilter } from './types/filters';
 import { TableHeader } from './TableHeader';
 import TableBody from './TableBody';
 import { Pagination } from './Pagination';
+import { ContextMenuType } from '../ContextMenu/types';
 
 interface TableProps {
     view: ColumnDef<any, any>[];
@@ -37,6 +38,7 @@ interface TableProps {
     showPagination?: boolean;
     placeholder: string;
     onRowDoubleClick?: (row: Row<any>) => void;
+    contextMenuType?: ContextMenuType;
 }
 
 function Table({
@@ -46,6 +48,7 @@ function Table({
     showPagination: paginate,
     placeholder,
     onRowDoubleClick,
+    contextMenuType,
 }: TableProps) {
     const { refreshRefs, getInstance, addInstance } = useContext(TableContext);
     const dispatch = useDispatch<AppDispatch>();
@@ -151,6 +154,7 @@ function Table({
                 <TableBody
                     instanceId={instanceId}
                     onRowDoubleClick={onRowDoubleClick}
+                    contextMenuType={contextMenuType}
                 />
             </table>
             {paginate && <Pagination instanceId={instanceId} />}

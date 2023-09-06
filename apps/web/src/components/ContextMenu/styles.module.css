@@ -1,0 +1,21 @@
+.context-menu {
+    background-color: var(--layer-2-color);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: var(--size-1);
+    border-radius: var(--rounded-md);
+    display: flex;
+    flex-direction: column;
+    width: var(--size-48);
+}
+
+.menu__item {
+    flex: 1;
+    display: flex;
+    gap: var(--size-4);
+    background-color: var(--layer-2-color);
+}
+
+.menu__item:hover {
+    background-color: var(--layer-1-color);
+}

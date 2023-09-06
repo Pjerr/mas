@@ -11,13 +11,17 @@ import Button from '@/components/Button';
 import { selectSelectedRows, updateEntity } from '@/store/table';
 import { useToggleVariantsPartMutation } from '@/store/api/endpoints';
 import { toast } from 'react-toastify';
+import { useEffect } from 'react';
 
 export interface VariantHeaderProps {
     instanceId: string;
 }
 export const VariantHeader = ({ instanceId }: VariantHeaderProps) => {
     const router = useRouter();
-    const [value] = useLocalStorage(LS_PREVIOUS_PAGE, router.query.value);
+    const [value, setValue] = useLocalStorage(
+        LS_PREVIOUS_PAGE,
+        router.query.value
+    );
 
     const dispatch = useAppDispatch();
 
@@ -28,6 +32,10 @@ export const VariantHeader = ({ instanceId }: VariantHeaderProps) => {
     const selected = useSelector(
         (state: RootState) => selectSelectedRows(state, instanceId) as string[]
     );
+
+    useEffect(() => {
+        setValue(router.query.value);
+    }, [router.query.value]);
 
     if (!table) {
         return <></>;

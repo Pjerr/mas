@@ -5,11 +5,7 @@ import { useSelector } from 'react-redux';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { createValidationSchema } from './utils/validation-schema';
 import { selectPartForm, setDraftForm } from '@/store/editors/part';
-import {
-    Attribute,
-    Part,
-    useCreateVariantsPartMutation,
-} from '@/store/api/endpoints';
+import { Part } from '@/store/api/endpoints';
 import CommonProperties from './StaticForms/CommonProperties';
 import FormButtons from './FormButtons';
 import { usePartApi } from '@/hooks/usePartApi';

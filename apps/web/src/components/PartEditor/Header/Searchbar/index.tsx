@@ -49,20 +49,15 @@ const Searchbar = React.forwardRef<
                             styles['label'],
                             styles['toggle__button']
                         )}
-                        data-cy="product-editor__search-button"
                     >
                         Add attributes to config
                     </Button>
                 )}
                 {displaySearch && (
-                    <div
-                        className={classNames(styles['search-input'])}
-                        data-cy="product-header__search-bar"
-                    >
+                    <div className={classNames(styles['search-input'])}>
                         <SearchInput
                             onChange={setSearchParam}
                             placeholder="Enter attribute name"
-                            data-cy="product-editor__search-input"
                         />
                         <Button
                             onClick={() => setDisplaySearch(false)}

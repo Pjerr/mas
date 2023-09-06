@@ -27,18 +27,12 @@ export function GroupChip({
             isExpandable={true}
             rightChip={
                 <ConfirmModal
-                    control={
-                        <Button
-                            icon={<FaTimes />}
-                            data-cy="chip__delete-button"
-                        />
-                    }
+                    control={<Button icon={<FaTimes />} />}
                     modalTitle="Remove attributes?"
                     text="This action will remove all attributes in this group."
                     onConfirm={() => removeAttributes(attributes, id)}
                 />
             }
-            data-cy="subheader__chip"
         >
             <div className={styles['chip__content']}>
                 {attributes.map((attribute, index) => (

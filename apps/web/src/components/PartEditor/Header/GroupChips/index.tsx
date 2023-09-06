@@ -56,7 +56,6 @@ export function GroupChips({ activeForm }: HeaderChipsProps) {
                 key={`Chip-CommonProperties`}
                 title="Common properties"
                 variant={'filled'}
-                data-cy="chip__common"
             />
             {Object.entries(groups).map(([id, attributes], index) => (
                 <GroupChip
@@ -69,12 +68,7 @@ export function GroupChips({ activeForm }: HeaderChipsProps) {
                 />
             ))}
             {renderOptionChip && (
-                <Chip
-                    key={`Chip-Options`}
-                    title="Options"
-                    variant={'filled'}
-                    data-cy="chip__options"
-                />
+                <Chip key={`Chip-Options`} title="Options" variant={'filled'} />
             )}
         </Chips>
     );

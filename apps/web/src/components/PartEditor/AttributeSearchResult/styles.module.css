@@ -1,5 +1,6 @@
 .attribute-renderer__container {
     display: flex;
+    flex: 1;
     gap: var(--size-4);
     padding: var(--size-2) var(--size-4);
     height: var(--size-64);
