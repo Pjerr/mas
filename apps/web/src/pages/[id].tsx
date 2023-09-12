@@ -20,8 +20,6 @@ export default function EditPart() {
 
     const partId = query.id as string;
 
-    console.log(partId);
-
     const {
         data: response,
         isError,
@@ -41,8 +39,6 @@ export default function EditPart() {
         },
         { skip: !partId }
     );
-
-    console.log(response?.data[0]);
 
     useEffect(() => {
         if (!response) return;

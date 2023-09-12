@@ -17,14 +17,14 @@ export default function CommonProperties() {
         newMetadata.push({
             displayName: 'Manufacturer',
             propertyKey: 'manufacturer',
-            propertyType: EditorType.Select,
+            propertyType: EditorType.CreatableSelect,
             isArray: true,
-            propertyValidation: EditorValidation.Array,
+            propertyValidation: EditorValidation.Select,
             additionalMetadata: {
                 selectOptions: manufacturers
-                    ? manufacturers.data.map((manu) => ({
-                          value: manu.id,
-                          label: manu.name,
+                    ? manufacturers.data.map((manufacturer) => ({
+                          value: manufacturer.id,
+                          label: manufacturer.name,
                       }))
                     : [],
             },

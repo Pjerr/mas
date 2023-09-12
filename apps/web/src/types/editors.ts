@@ -14,6 +14,7 @@ import CheckboxEditor from '@/components/Editors/CheckboxEditor';
 import SelectEditor from '@/components/Editors/SelectEditor';
 import MultipleSelectEditor from '@/components/Editors/MultipleSelectEditor';
 import SelectOptionsEditor from '@/components/Editors/SelectOptionsEditor';
+import CreatableSelectEditor from '@/components/Editors/CreatableSelectEditor';
 
 export type EditorProps = {
     field: ControllerRenderProps<FieldValues, FieldPath<FieldValues>>;
@@ -35,6 +36,7 @@ export const EditorMap: Record<
     [EditorType.Image]: TextEditor,
     [EditorType.Datetime]: TextEditor,
     [EditorType.Button]: SelectOptionsEditor,
+    [EditorType.CreatableSelect]: CreatableSelectEditor,
 };
 
 export type EditorComponents = keyof typeof EditorMap;

@@ -8,6 +8,7 @@ export enum EditorType {
     Image = 'image',
     Options = 'options',
     Button = 'button',
+    CreatableSelect = 'creatable-select',
 }
 
 export enum EditorValidation {

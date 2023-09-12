@@ -12,6 +12,7 @@ var EditorType;
     EditorType["Image"] = "image";
     EditorType["Options"] = "options";
     EditorType["Button"] = "button";
+    EditorType["CreatableSelect"] = "creatable-select";
 })(EditorType = exports.EditorType || (exports.EditorType = {}));
 var EditorValidation;
 (function (EditorValidation) {

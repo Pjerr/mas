@@ -33,7 +33,7 @@ export default function FormButtons({
                 variant={'primary'}
                 disabled={generateDisabled}
             >
-                Generate
+                Save
             </Button>
         </div>
     );

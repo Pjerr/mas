@@ -3,7 +3,6 @@ import { ContextMenuItem } from '@/components/ContextMenu/ContextMenuItem';
 import { Row } from '@tanstack/react-table';
 import { useRouter } from 'next/router';
 import { FaList, FaPen, FaTrash } from 'react-icons/fa';
-import qs from 'qs';
 import { useTable } from '@/hooks/useTable';
 import { Part } from '@/store/api/endpoints';
 import { instanceIds } from '@/types/entity';

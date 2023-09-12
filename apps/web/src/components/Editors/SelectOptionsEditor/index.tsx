@@ -4,7 +4,7 @@ import Button from '@/components/Button';
 import { EditorProps } from '@/types/editors';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { FaPlusCircle, FaTimes } from 'react-icons/fa';
-import styles from './styles.module.css';
+import styles from '../styles.module.css';
 import { EditorType, EditorValidation } from 'shared';
 import { PropertyMetadata } from '@/lib/metadata';
 import useDisclosure from '@/hooks/useDisclosure';
