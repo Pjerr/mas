@@ -64,10 +64,7 @@ export default function PartForm() {
                         (attribute) => attribute.editorType === 'options'
                     )}
                 />
-                <FormButtons
-                    handleCancel={handleCancel}
-                    generateDisabled={!formState.isValid}
-                />
+                <FormButtons handleCancel={handleCancel} />
             </form>
         </FormProvider>
     );

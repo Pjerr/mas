@@ -7,6 +7,6 @@ export const manufacturerMetadata: PropertyMetadata[] = [
         isArray: false,
         propertyKey: 'name',
         propertyType: EditorType.Text,
-        propertyValidation: EditorValidation.AY09,
+        propertyValidation: EditorValidation.Text,
     },
 ];

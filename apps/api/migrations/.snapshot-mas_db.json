@@ -24,15 +24,6 @@
           "nullable": false,
           "mappedType": "string"
         },
-        "search_index": {
-          "name": "search_index",
-          "type": "tsvector",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "unknown"
-        },
         "parent_id_id": {
           "name": "parent_id_id",
           "type": "uuid",
@@ -66,16 +57,6 @@
       "name": "category",
       "schema": "public",
       "indexes": [
-        {
-          "keyName": "category_search_index_index",
-          "columnNames": [
-            "search_index"
-          ],
-          "composite": false,
-          "primary": false,
-          "unique": false,
-          "type": "fulltext"
-        },
         {
           "keyName": "category_pkey",
           "columnNames": [
@@ -123,15 +104,6 @@
           "nullable": false,
           "mappedType": "string"
         },
-        "search_index": {
-          "name": "search_index",
-          "type": "tsvector",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": true,
-          "mappedType": "unknown"
-        },
         "created_at": {
           "name": "created_at",
           "type": "timestamptz(0)",
@@ -156,16 +128,6 @@
       "name": "group",
       "schema": "public",
       "indexes": [
-        {
-          "keyName": "group_search_index_index",
-          "columnNames": [
-            "search_index"
-          ],
-          "composite": false,
-          "primary": false,
-          "unique": false,
-          "type": "fulltext"
-        },
         {
           "keyName": "group_pkey",
           "columnNames": [
@@ -208,15 +170,6 @@
           "nullable": false,
           "mappedType": "string"
         },
-        "search_index": {
-          "name": "search_index",
-          "type": "tsvector",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "unknown"
-        },
         "editor_type": {
           "name": "editor_type",
           "type": "text",
@@ -234,7 +187,8 @@
             "multiple-select",
             "image",
             "options",
-            "button"
+            "button",
+            "creatable-select"
           ],
           "mappedType": "enum"
         },
@@ -248,12 +202,10 @@
           "default": "'none'",
           "enumItems": [
             "none",
-            "decimal-number",
-            "integer-number",
+            "text",
+            "number",
             "email",
             "url",
-            "letters",
-            "a-z_0-9",
             "array",
             "select"
           ],
@@ -309,16 +261,6 @@
           "keyName": "attribute_property_key_unique",
           "primary": false,
           "unique": true
-        },
-        {
-          "keyName": "attribute_search_index_index",
-          "columnNames": [
-            "search_index"
-          ],
-          "composite": false,
-          "primary": false,
-          "unique": false,
-          "type": "fulltext"
         },
         {
           "keyName": "attribute_pkey",
@@ -464,15 +406,6 @@
           "nullable": false,
           "mappedType": "string"
         },
-        "search_index": {
-          "name": "search_index",
-          "type": "tsvector",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "unknown"
-        },
         "created_at": {
           "name": "created_at",
           "type": "timestamptz(0)",
@@ -497,16 +430,6 @@
       "name": "manufacturer",
       "schema": "public",
       "indexes": [
-        {
-          "keyName": "manufacturer_search_index_index",
-          "columnNames": [
-            "search_index"
-          ],
-          "composite": false,
-          "primary": false,
-          "unique": false,
-          "type": "fulltext"
-        },
         {
           "keyName": "manufacturer_pkey",
           "columnNames": [
@@ -553,15 +476,6 @@
             "out-of-stock"
           ],
           "mappedType": "enum"
-        },
-        "search_index": {
-          "name": "search_index",
-          "type": "tsvector",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "mappedType": "unknown"
         },
         "properties": {
           "name": "properties",
@@ -634,16 +548,6 @@
       "name": "part",
       "schema": "public",
       "indexes": [
-        {
-          "keyName": "part_search_index_index",
-          "columnNames": [
-            "search_index"
-          ],
-          "composite": false,
-          "primary": false,
-          "unique": false,
-          "type": "fulltext"
-        },
         {
           "keyName": "part_pkey",
           "columnNames": [

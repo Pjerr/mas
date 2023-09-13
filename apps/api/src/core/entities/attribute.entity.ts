@@ -4,7 +4,6 @@ import {
   Collection,
   Entity,
   Enum,
-  Index,
   ManyToMany,
   ManyToOne,
   OneToMany,
@@ -12,7 +11,6 @@ import {
   Property,
   Unique,
 } from '@mikro-orm/core';
-import { FullTextType } from '@mikro-orm/postgresql';
 import uuid4 from 'uuid4';
 import { EditorType, EditorValidation } from 'shared';
 import { Group } from './group.entity';

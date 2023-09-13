@@ -769,15 +769,14 @@ export type Attribute = {
         | 'multiple-select'
         | 'image'
         | 'options'
-        | 'button';
+        | 'button'
+        | 'creatable-select';
     editorValidation:
         | 'none'
-        | 'decimal-number'
-        | 'integer-number'
+        | 'text'
+        | 'number'
         | 'email'
         | 'url'
-        | 'letters'
-        | 'a-z_0-9'
         | 'array'
         | 'select';
     group: Group;
@@ -801,15 +800,14 @@ export type CreateAttribute = {
         | 'multiple-select'
         | 'image'
         | 'options'
-        | 'button';
+        | 'button'
+        | 'creatable-select';
     editorValidation:
         | 'none'
-        | 'decimal-number'
-        | 'integer-number'
+        | 'text'
+        | 'number'
         | 'email'
         | 'url'
-        | 'letters'
-        | 'a-z_0-9'
         | 'array'
         | 'select';
     additionalMetadata?: AdditionalMetadata;
@@ -856,15 +854,14 @@ export type UpdateAttribute = {
         | 'multiple-select'
         | 'image'
         | 'options'
-        | 'button';
+        | 'button'
+        | 'creatable-select';
     editorValidation?:
         | 'none'
-        | 'decimal-number'
-        | 'integer-number'
+        | 'text'
+        | 'number'
         | 'email'
         | 'url'
-        | 'letters'
-        | 'a-z_0-9'
         | 'array'
         | 'select';
     additionalMetadata?: AdditionalMetadata;

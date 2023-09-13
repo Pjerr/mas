@@ -1,5 +1,5 @@
 import { Attribute } from '@/store/api/endpoints';
-import { EditorValidationMap } from '@/types/editors';
+import { EditorValidationMap, FieldValidationMap } from '@/types/editors';
 import Joi, { AnySchema } from 'joi';
 import { EditorValidation } from 'shared';
 
@@ -10,7 +10,7 @@ export const createValidationSchema = (attributes: Attribute[]) => {
         const validationType =
             attribute.editorValidation ?? EditorValidation.None;
 
-        const validationRule = EditorValidationMap[validationType];
+        const validationRule = FieldValidationMap[validationType];
 
         properties[attribute.propertyKey] = validationRule;
     });

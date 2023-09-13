@@ -7,7 +7,7 @@ export const attributeMetadata: PropertyMetadata[] = [
         isArray: false,
         propertyKey: 'displayName',
         propertyType: EditorType.Text,
-        propertyValidation: EditorValidation.AY09,
+        propertyValidation: EditorValidation.Text,
     },
     {
         displayName: 'Editor type',
@@ -19,19 +19,6 @@ export const attributeMetadata: PropertyMetadata[] = [
                 .filter((type) => type != EditorType.Button)
                 .map((value) => ({ label: value, value })),
         },
-    },
-    {
-        displayName: 'Editor validation',
-        isArray: false,
-        propertyKey: 'editorValidation',
-        propertyType: EditorType.Select,
-        additionalMetadata: {
-            selectOptions: Object.values(EditorValidation).map((value) => ({
-                label: value,
-                value,
-            })),
-        },
-        propertyValidation: EditorValidation.None,
     },
 ];
 
@@ -48,13 +35,13 @@ export const optionsFormMetadata: PropertyMetadata[] = [
         isArray: false,
         propertyKey: 'value',
         propertyType: EditorType.Text,
-        propertyValidation: EditorValidation.AY09,
+        propertyValidation: EditorValidation.Text,
     },
     {
         displayName: 'Display Name',
         isArray: false,
         propertyKey: 'displayName',
         propertyType: EditorType.Text,
-        propertyValidation: EditorValidation.AY09,
+        propertyValidation: EditorValidation.Text,
     },
 ];

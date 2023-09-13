@@ -39,11 +39,24 @@ export const EditorMap: Record<
     [EditorType.CreatableSelect]: CreatableSelectEditor,
 };
 
+export const EditorValidationMap: Record<EditorType, EditorValidation> = {
+    [EditorType.Text]: EditorValidation.Text,
+    [EditorType.Number]: EditorValidation.Number,
+    [EditorType.Select]: EditorValidation.Select,
+    [EditorType.MultipleSelect]: EditorValidation.Array,
+    [EditorType.CreatableSelect]: EditorValidation.Select,
+    [EditorType.Image]: EditorValidation.None,
+    [EditorType.Button]: EditorValidation.None,
+    [EditorType.Options]: EditorValidation.None,
+    [EditorType.Datetime]: EditorValidation.None,
+    [EditorType.Checkbox]: EditorValidation.None,
+};
+
 export type EditorComponents = keyof typeof EditorMap;
 
-export const EditorValidationMap: Record<EditorValidation, Joi.AnySchema> = {
+export const FieldValidationMap: Record<EditorValidation, Joi.AnySchema> = {
     [EditorValidation.None]: Joi.any(),
-    [EditorValidation.DecimalNumber]: Joi.number()
+    [EditorValidation.Number]: Joi.number()
         .positive()
         .empty()
         .required()
@@ -52,17 +65,6 @@ export const EditorValidationMap: Record<EditorValidation, Joi.AnySchema> = {
             'number.base': 'must be a number',
             'number.empty': 'cant be empty',
             'number.positive': 'must be a positive number',
-        }),
-    [EditorValidation.IntegerNumber]: Joi.number()
-        .integer()
-        .positive()
-        .empty()
-        .required()
-        .messages({
-            'any.required': 'is required',
-            'number.base': 'must be a number',
-            'number.positive': 'must be a positive number',
-            'number.empty': 'cant be empty',
         }),
     [EditorValidation.Email]: Joi.string().empty().required().messages({
         'any.required': 'is required',
@@ -75,16 +77,7 @@ export const EditorValidationMap: Record<EditorValidation, Joi.AnySchema> = {
         'any.required': 'is required',
         'base.string': 'must be a string',
     }),
-    [EditorValidation.Letters]: Joi.string()
-        .regex(/^[^!@#$%^&*()_+=[{\]};:'",<.>/?\\| ]\S*/)
-        .message('cant start with special character')
-        .required()
-        .messages({
-            'string.empty': 'cant be empty',
-            'any.required': 'is required',
-            'base.string': 'must be a string',
-        }),
-    [EditorValidation.AY09]: Joi.string()
+    [EditorValidation.Text]: Joi.string()
         .empty()
         .regex(/^[^!@#$%^&*()_+=[{\]};:'",<.>/?\\| ]\S*/)
         .message('cant start with special character')

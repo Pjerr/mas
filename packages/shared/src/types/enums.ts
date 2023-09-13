@@ -13,12 +13,10 @@ export enum EditorType {
 
 export enum EditorValidation {
     None = 'none',
-    DecimalNumber = 'decimal-number',
-    IntegerNumber = 'integer-number',
+    Text = 'text',
+    Number = 'number',
     Email = 'email',
     Url = 'url',
-    Letters = 'letters',
-    AY09 = 'a-z_0-9',
     Array = 'array',
     Select = 'select',
 }

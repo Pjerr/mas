@@ -5,13 +5,9 @@ import Button from '@/components/Button';
 
 interface FormButtonsProps {
     handleCancel: () => void;
-    generateDisabled: boolean;
 }
 
-export default function FormButtons({
-    handleCancel,
-    generateDisabled,
-}: FormButtonsProps) {
+export default function FormButtons({ handleCancel }: FormButtonsProps) {
     return (
         <div className={styles['form__buttons']}>
             <ConfirmModal
@@ -27,12 +23,7 @@ export default function FormButtons({
                     </Button>
                 }
             />
-            <Button
-                type={'submit'}
-                icon={<FaCheck />}
-                variant={'primary'}
-                disabled={generateDisabled}
-            >
+            <Button type={'submit'} icon={<FaCheck />} variant={'primary'}>
                 Save
             </Button>
         </div>

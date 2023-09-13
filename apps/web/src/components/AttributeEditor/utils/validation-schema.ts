@@ -10,12 +10,6 @@ export const createAttributeValidationSchema = () => {
             'string.empty': 'is required',
             'any.required': 'is required',
         }),
-        editorType: Joi.required().messages({
-            'any.required': 'is required',
-        }),
-        editorValidation: Joi.required().messages({
-            'any.required': 'is required',
-        }),
         options,
     });
 };

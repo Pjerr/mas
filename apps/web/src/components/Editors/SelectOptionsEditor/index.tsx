@@ -27,7 +27,7 @@ export default function SelectOptionsEditor({ metadata }: EditorProps) {
             isArray: false,
             propertyType: EditorType.Text,
             propertyKey: `additionalMetadata.selectOptions[${index}]`,
-            propertyValidation: EditorValidation.AY09,
+            propertyValidation: EditorValidation.Text,
         };
         return metadata;
     };

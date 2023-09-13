@@ -7,7 +7,7 @@ export const metadata: PropertyMetadata[] = [
         isArray: false,
         propertyKey: 'name',
         propertyType: EditorType.Text,
-        propertyValidation: EditorValidation.AY09,
+        propertyValidation: EditorValidation.Text,
     },
     {
         displayName: 'Status',
@@ -27,6 +27,6 @@ export const metadata: PropertyMetadata[] = [
         isArray: false,
         propertyKey: 'basePrice',
         propertyType: EditorType.Number,
-        propertyValidation: EditorValidation.DecimalNumber,
+        propertyValidation: EditorValidation.Number,
     },
 ];

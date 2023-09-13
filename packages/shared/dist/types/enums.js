@@ -17,12 +17,10 @@ var EditorType;
 var EditorValidation;
 (function (EditorValidation) {
     EditorValidation["None"] = "none";
-    EditorValidation["DecimalNumber"] = "decimal-number";
-    EditorValidation["IntegerNumber"] = "integer-number";
+    EditorValidation["Text"] = "text";
+    EditorValidation["Number"] = "number";
     EditorValidation["Email"] = "email";
     EditorValidation["Url"] = "url";
-    EditorValidation["Letters"] = "letters";
-    EditorValidation["AY09"] = "a-z_0-9";
     EditorValidation["Array"] = "array";
     EditorValidation["Select"] = "select";
 })(EditorValidation = exports.EditorValidation || (exports.EditorValidation = {}));

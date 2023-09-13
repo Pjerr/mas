@@ -1,6 +1,6 @@
 import { Attribute } from '@/store/api/endpoints';
 import classNames from 'classnames';
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import FormButtons from './FormButtons';
 import {
@@ -8,7 +8,7 @@ import {
     selectOptions,
 } from '@/components/AttributeEditor/metadata';
 import styles from './styles.module.css';
-import { EditorType } from 'shared';
+import { EditorType, EditorValidation } from 'shared';
 import { useSelector } from 'react-redux';
 import FormField from '@/components/FormField';
 import { selectAttributeEditor } from '@/store/editors/attribute';
@@ -16,6 +16,8 @@ import { createAttributeValidationSchema } from './utils/validation-schema';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { EditorMode } from '@/store/editors/enums';
 import AttributeOptionsEditor from './AttributeOptionsEditor';
+import { Switch } from '../Switch';
+import { EditorValidationMap } from '@/types/editors';
 
 interface AttributeEditorProps {
     onUpdate: (data: Attribute, attributeId: string) => void;
@@ -27,6 +29,8 @@ export default function AttributeEditor({
     onCreate,
 }: AttributeEditorProps) {
     const state = useSelector(selectAttributeEditor);
+
+    const [hasOptions, setHasOptions] = useState<boolean>(false);
 
     const validationSchema = useMemo(() => {
         return createAttributeValidationSchema();
@@ -43,10 +47,28 @@ export default function AttributeEditor({
 
     useEffect(() => {
         reset(state.attribute);
+        if (state.attribute?.editorType === EditorType.Options) {
+            setHasOptions(true);
+            return;
+        }
+        setHasOptions(false);
     }, [state.attribute]);
 
     const onSubmit = (data: any) => {
-        state.attribute ? onUpdate(data, state.attribute.id) : onCreate(data);
+        const editorValidation =
+            EditorValidationMap[data.editorType as EditorType];
+
+        const payload: Attribute = {
+            ...data,
+            editorValidation: hasOptions
+                ? EditorValidation.None
+                : editorValidation,
+            editorType: hasOptions ? EditorType.Options : data.editorType,
+        };
+
+        state.attribute
+            ? onUpdate(payload, state.attribute.id)
+            : onCreate(payload);
     };
 
     const selectEditor = watch('editorType');
@@ -78,11 +100,23 @@ export default function AttributeEditor({
                     onSubmit={handleSubmit(onSubmit)}
                 >
                     <div className={classNames(styles['form__inputs'])}>
+                        <Switch
+                            label="Options"
+                            checked={hasOptions}
+                            onChange={() => setHasOptions(!hasOptions)}
+                            data-cy="form__options-switch"
+                        />
                         {Object.values(attributeMetadata).map((metadata) => (
                             <FormField
                                 key={metadata.propertyKey}
                                 metadata={metadata}
                                 control={control}
+                                hidden={
+                                    hasOptions &&
+                                    metadata.propertyKey === 'editorType'
+                                        ? true
+                                        : false
+                                }
                             />
                         ))}
                         {showButtonEditor(selectEditor) && (
@@ -93,9 +127,7 @@ export default function AttributeEditor({
                             />
                         )}
                     </div>
-                    {showAttributeOptions(selectEditor) && (
-                        <AttributeOptionsEditor />
-                    )}
+                    {hasOptions && <AttributeOptionsEditor />}
 
                     <FormButtons />
                 </form>
