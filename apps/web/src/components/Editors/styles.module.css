@@ -17,7 +17,7 @@
 .error-message {
     color: var(--color-danger);
     position: absolute;
-    top: calc(var(--size-16) * 1.04);
+    top: calc(var(--size-16) * 1.1);
 }
 
 .editor__container--hidden {

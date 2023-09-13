@@ -45,10 +45,6 @@ export default function GroupListbox({ setActiveGroup }: GroupListProps) {
         resetActiveGroup(activeIndex);
     }, [response]);
 
-    const handleSearch = (value: string) => {
-        // console.log(value);
-    };
-
     const resetActiveGroup = (index: number) => {
         if (!response || !response.data.length) return;
         if (!response.data[index]) return;
@@ -141,12 +137,6 @@ export default function GroupListbox({ setActiveGroup }: GroupListProps) {
 
     return (
         <div className={styles['group-listbox__container']}>
-            <div className={styles['group-search__container']}>
-                <SearchInput
-                    onChange={handleSearch}
-                    className={'group-search'}
-                />
-            </div>
             <Listbox
                 onChange={handleGroupChange}
                 activeListItemIndex={activeIndex}

@@ -56,10 +56,6 @@ export default function Toolbar({
         table.resetRowSelection();
     };
 
-    const onSearch = () => {
-        //TODO: search
-    };
-
     return (
         <div className={styles['toolbar']}>
             <div className={styles['action-icons']}>
@@ -94,12 +90,6 @@ export default function Toolbar({
                     onConfirm={onRemove}
                 />
             </div>
-            <SearchInput
-                placeholder="Search"
-                value={searchParam}
-                onChange={setSearchParam}
-                onClick={onSearch}
-            />
         </div>
     );
 }

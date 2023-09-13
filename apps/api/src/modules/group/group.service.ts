@@ -42,7 +42,7 @@ export class GroupService {
   async update(id: string, payload: UpdateGroup) {
     const group = await this.findOne(id);
 
-    group.assign(group);
+    group.assign(payload);
 
     await this.em.persistAndFlush(group);
 

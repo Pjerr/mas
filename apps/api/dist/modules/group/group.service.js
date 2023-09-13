@@ -46,7 +46,7 @@ let GroupService = class GroupService {
     }
     async update(id, payload) {
         const group = await this.findOne(id);
-        group.assign(group);
+        group.assign(payload);
         await this.em.persistAndFlush(group);
         return group;
     }
