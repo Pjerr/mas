@@ -14,6 +14,7 @@ import { CloudinaryModule } from 'nestjs-cloudinary';
 import { MeiliSearchModule } from './providers/meilisearch/meilisearch.module';
 import { GroupSubscriber } from './providers/eventSubscribers/group.subscriber';
 import { AttributeSubscriber } from './providers/eventSubscribers/attribute.subscriber';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -35,6 +36,17 @@ import { AttributeSubscriber } from './providers/eventSubscribers/attribute.subs
         host: process.env.MS_HOST,
         apiKey: process.env.MS_API_KEY,
       }),
+    }),
+    AuthModule.forRoot({
+      connectionURI: 'http://localhost:3567',
+      apiKey: 'VMS_API_KEY',
+      appInfo: {
+        appName: 'VMS',
+        apiDomain: 'http://localhost:4000',
+        websiteDomain: 'http://localhost:3000',
+        apiBasePath: '/api',
+        websiteBasePath: '/auth',
+      },
     }),
     AttributeModule,
     PartModule,

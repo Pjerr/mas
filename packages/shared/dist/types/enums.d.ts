@@ -23,6 +23,11 @@ export declare enum PartStatus {
     InStock = "in-stock",
     OutOfStock = "out-of-stock"
 }
+export declare enum Role {
+    ADMIN = "admin",
+    EDITOR = "editor",
+    VIEWER = "viewer"
+}
 export declare enum ConditionalOperator {
     Equals = "$eq",
     NotEquals = "$ne",

@@ -8,6 +8,8 @@ import '@/styles/index.css';
 import { store } from '@/store';
 import { Provider } from 'react-redux';
 import { Cloudinary } from '@cloudinary/url-gen';
+import SuperTokensReact, { SuperTokensWrapper } from 'supertokens-auth-react';
+import { config } from '@/configs/supertokens/config';
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
     getLayout?: (page: ReactElement) => ReactNode;
@@ -16,6 +18,10 @@ export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
 type AppPropsWithLayout = AppProps & {
     Component: NextPageWithLayout;
 };
+
+if (typeof window !== 'undefined') {
+    SuperTokensReact.init(config());
+}
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
     const {} = useTheme();
@@ -30,10 +36,14 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
     });
 
     return (
-        <Provider store={store}>
-            <link rel="shortcut icon" href="#"></link>
-            <MainLayout>{getLayot(<Component {...pageProps} />)}</MainLayout>
-            <Toastify />
-        </Provider>
+        <SuperTokensWrapper>
+            <Provider store={store}>
+                <link rel="shortcut icon" href="#"></link>
+                <MainLayout>
+                    {getLayot(<Component {...pageProps} />)}
+                </MainLayout>
+                <Toastify />
+            </Provider>
+        </SuperTokensWrapper>
     );
 }

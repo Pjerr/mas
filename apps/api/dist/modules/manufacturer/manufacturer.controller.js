@@ -24,6 +24,7 @@ const types_1 = require("../../core/types");
 const entities_1 = require("../../core/entities");
 const query_pipe_1 = require("../../core/pipes/query.pipe");
 const parse_query_1 = require("../../core/utils/parse-query");
+const guards_1 = require("../auth/guards");
 let ManufacturerController = class ManufacturerController {
     constructor(manufacturerService) {
         this.manufacturerService = manufacturerService;
@@ -105,6 +106,7 @@ __decorate([
 ManufacturerController = __decorate([
     (0, swagger_1.ApiTags)('Manufacturers'),
     (0, common_1.Controller)('manufacturers'),
+    (0, common_1.UseGuards)(new guards_1.AuthGuard(), guards_1.RolesGuard),
     __metadata("design:paramtypes", [manufacturer_service_1.ManufacturerService])
 ], ManufacturerController);
 exports.ManufacturerController = ManufacturerController;

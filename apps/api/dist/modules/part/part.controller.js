@@ -32,6 +32,7 @@ const variant_entity_1 = require("../../core/entities/variant.entity");
 const toggle_variant_request_1 = require("./dto/requests/toggle-variant.request");
 const nestjs_cloudinary_1 = require("nestjs-cloudinary");
 const cloudinary_1 = __importDefault(require("cloudinary"));
+const guards_1 = require("../auth/guards");
 let PartController = class PartController {
     constructor(partService, variantService, cloudinaryService) {
         this.partService = partService;
@@ -280,6 +281,7 @@ __decorate([
 PartController = __decorate([
     (0, swagger_1.ApiTags)('Parts'),
     (0, common_1.Controller)('parts'),
+    (0, common_1.UseGuards)(new guards_1.AuthGuard(), guards_1.RolesGuard),
     __metadata("design:paramtypes", [part_service_1.PartService,
         variant_service_1.VariantService,
         nestjs_cloudinary_1.CloudinaryService])

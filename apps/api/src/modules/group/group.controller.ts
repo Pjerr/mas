@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { GroupService } from './group.service';
 import { CreateGroup } from './dto/requests/create-group.request';
@@ -23,9 +24,11 @@ import { FilterQuery } from '@/core/types';
 import { QueryPipe } from '@/core/pipes/query.pipe';
 import { Group } from '@/core/entities';
 import { filterEntity } from '@/core/utils/parse-query';
+import { AuthGuard, RolesGuard } from '../auth/guards';
 
 @ApiTags('Groups')
 @Controller('groups')
+@UseGuards(new AuthGuard(), RolesGuard)
 export class GroupController {
   constructor(private readonly groupService: GroupService) {}
 

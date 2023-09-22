@@ -4,6 +4,7 @@ import tableReducer from './table/index';
 import attributeEditorReducer from './editors/attribute/index';
 import partEditorReducer from './editors/part/index';
 import manufacturerEditorReducer from './editors/manufacturer/index';
+import userReducer from '@/store/user';
 import { api } from './api';
 import { MasApi } from './api/endpoints';
 
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
     attributeEditor: attributeEditorReducer,
     partEditor: partEditorReducer,
     manufacturerEditor: manufacturerEditorReducer,
+    userSlice: userReducer,
 });
 
 export const store = configureStore({

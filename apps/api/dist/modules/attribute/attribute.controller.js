@@ -22,6 +22,7 @@ const attribute_service_1 = require("./attribute.service");
 const attribute_1 = require("./dto/attribute");
 const common_1 = require("@nestjs/common");
 const swagger_1 = require("@nestjs/swagger");
+const guards_1 = require("../auth/guards");
 let AttributeController = class AttributeController {
     constructor(attributeService) {
         this.attributeService = attributeService;
@@ -104,6 +105,7 @@ __decorate([
 AttributeController = __decorate([
     (0, swagger_1.ApiTags)('Attributes'),
     (0, common_1.Controller)('attributes'),
+    (0, common_1.UseGuards)(new guards_1.AuthGuard(), guards_1.RolesGuard),
     __metadata("design:paramtypes", [attribute_service_1.AttributeService])
 ], AttributeController);
 exports.AttributeController = AttributeController;

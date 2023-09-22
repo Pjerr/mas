@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { CategoryService } from './category.service';
 import { CreateCategory } from './dto/requests/create-category.request';
@@ -23,9 +24,11 @@ import { FilterQuery } from '@/core/types';
 import { QueryPipe } from '@/core/pipes/query.pipe';
 import { Category } from '@/core/entities';
 import { filterEntity } from '@/core/utils/parse-query';
+import { AuthGuard, RolesGuard } from '../auth/guards';
 
 @ApiTags('Categories')
 @Controller('categories')
+@UseGuards(new AuthGuard(), RolesGuard)
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 

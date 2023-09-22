@@ -24,6 +24,7 @@ const types_1 = require("../../core/types");
 const query_pipe_1 = require("../../core/pipes/query.pipe");
 const entities_1 = require("../../core/entities");
 const parse_query_1 = require("../../core/utils/parse-query");
+const guards_1 = require("../auth/guards");
 let CategoryController = class CategoryController {
     constructor(categoryService) {
         this.categoryService = categoryService;
@@ -107,6 +108,7 @@ __decorate([
 CategoryController = __decorate([
     (0, swagger_1.ApiTags)('Categories'),
     (0, common_1.Controller)('categories'),
+    (0, common_1.UseGuards)(new guards_1.AuthGuard(), guards_1.RolesGuard),
     __metadata("design:paramtypes", [category_service_1.CategoryService])
 ], CategoryController);
 exports.CategoryController = CategoryController;

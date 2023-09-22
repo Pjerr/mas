@@ -23,11 +23,14 @@ import {
   Param,
   Delete,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { AuthGuard, RolesGuard } from '../auth/guards';
 
 @ApiTags('Attributes')
 @Controller('attributes')
+@UseGuards(new AuthGuard(), RolesGuard)
 export class AttributeController {
   constructor(private readonly attributeService: AttributeService) {}
 

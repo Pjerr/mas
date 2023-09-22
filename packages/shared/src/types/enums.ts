@@ -26,6 +26,12 @@ export enum PartStatus {
     OutOfStock = 'out-of-stock',
 }
 
+export enum Role {
+    ADMIN = 'admin',
+    EDITOR = 'editor',
+    VIEWER = 'viewer',
+}
+
 export enum ConditionalOperator {
     Equals = '$eq',
     NotEquals = '$ne',

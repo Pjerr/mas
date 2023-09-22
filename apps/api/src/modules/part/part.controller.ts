@@ -9,6 +9,7 @@ import {
   ValidationPipe,
   Query,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { PartService } from './part.service';
 import { UpdatePart } from './dto/requests/update-part.request';
@@ -43,9 +44,11 @@ import { Variant } from '@/core/entities/variant.entity';
 import { ToggleVariant as ToggleVariants } from './dto/requests/toggle-variant.request';
 import { CloudinaryService } from 'nestjs-cloudinary';
 import cloudinary from 'cloudinary';
+import { AuthGuard, RolesGuard } from '../auth/guards';
 
 @ApiTags('Parts')
 @Controller('parts')
+@UseGuards(new AuthGuard(), RolesGuard)
 export class PartController {
   constructor(
     private readonly partService: PartService,

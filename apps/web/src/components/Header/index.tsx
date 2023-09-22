@@ -5,6 +5,7 @@ import styles from './styles.module.css';
 import Button from '../Button';
 import useTheme, { Theme } from '@/hooks/useTheme';
 import { BiSun, BiMoon } from 'react-icons/bi';
+import { signOut } from 'supertokens-auth-react/recipe/emailpassword';
 interface NavLink {
     label: string;
     href: string;
@@ -26,6 +27,11 @@ export function Header() {
     const activeRoute = router.pathname;
 
     const { theme, setTheme } = useTheme();
+
+    const onLogout = async () => {
+        await signOut();
+        window.location.href = '/auth';
+    };
 
     return (
         <header className={classNames(styles['header-container'])}>
@@ -65,6 +71,13 @@ export function Header() {
                             )
                         }
                     />
+                    <Button
+                        onClick={onLogout}
+                        variant="borderless"
+                        className={styles['links__link']}
+                    >
+                        Logout
+                    </Button>
                 </ul>
             </nav>
         </header>

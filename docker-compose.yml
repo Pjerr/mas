@@ -1,6 +1,22 @@
 version: '3'
 
 services:
+    db_init:
+        image: postgres
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: Albis123
+        command:
+            [
+                'bash',
+                '-c',
+                "until pg_isready -h db -p 5432; do sleep 1; done && psql -U postgres -c 'CREATE DATABASE IF NOT EXISTS supertokens;'",
+            ]
+        networks:
+            - app_network
+        depends_on:
+            - db
+
     db:
         image: postgres
         environment:
@@ -22,6 +38,16 @@ services:
             - '7700:7700'
         volumes:
             - meilisearch_data:/data.ms
+        networks:
+            - app_network
+    supertokens:
+        image: registry.supertokens.io/supertokens/supertokens-postgresql
+        depends_on:
+            - db_init
+        ports:
+            - 3567:3567
+        environment:
+            POSTGRESQL_CONNECTION_URI: 'postgresql://postgres:Albis123@db:5432/supertokens'
         networks:
             - app_network
 

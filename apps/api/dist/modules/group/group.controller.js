@@ -24,6 +24,7 @@ const types_1 = require("../../core/types");
 const query_pipe_1 = require("../../core/pipes/query.pipe");
 const entities_1 = require("../../core/entities");
 const parse_query_1 = require("../../core/utils/parse-query");
+const guards_1 = require("../auth/guards");
 let GroupController = class GroupController {
     constructor(groupService) {
         this.groupService = groupService;
@@ -106,6 +107,7 @@ __decorate([
 GroupController = __decorate([
     (0, swagger_1.ApiTags)('Groups'),
     (0, common_1.Controller)('groups'),
+    (0, common_1.UseGuards)(new guards_1.AuthGuard(), guards_1.RolesGuard),
     __metadata("design:paramtypes", [group_service_1.GroupService])
 ], GroupController);
 exports.GroupController = GroupController;

@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { ManufacturerService } from './manufacturer.service';
 import { CreateManufacturer } from './dto/requests/create-manufacturer.request';
@@ -22,9 +23,11 @@ import { FilterQuery } from '@/core/types';
 import { Manufacturer } from '@/core/entities';
 import { QueryPipe } from '@/core/pipes/query.pipe';
 import { filterEntity } from '@/core/utils/parse-query';
+import { AuthGuard, RolesGuard } from '../auth/guards';
 
 @ApiTags('Manufacturers')
 @Controller('manufacturers')
+@UseGuards(new AuthGuard(), RolesGuard)
 export class ManufacturerController {
   constructor(private readonly manufacturerService: ManufacturerService) {}
 

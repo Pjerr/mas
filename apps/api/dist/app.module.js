@@ -29,6 +29,7 @@ const nestjs_cloudinary_1 = require("nestjs-cloudinary");
 const meilisearch_module_1 = require("./providers/meilisearch/meilisearch.module");
 const group_subscriber_1 = require("./providers/eventSubscribers/group.subscriber");
 const attribute_subscriber_1 = require("./providers/eventSubscribers/attribute.subscriber");
+const auth_module_1 = require("./modules/auth/auth.module");
 let AppModule = class AppModule {
     constructor(groupSubscriber) {
         this.groupSubscriber = groupSubscriber;
@@ -58,6 +59,17 @@ AppModule = __decorate([
                     host: process.env.MS_HOST,
                     apiKey: process.env.MS_API_KEY,
                 }),
+            }),
+            auth_module_1.AuthModule.forRoot({
+                connectionURI: 'http://localhost:3567',
+                apiKey: 'VMS_API_KEY',
+                appInfo: {
+                    appName: 'VMS',
+                    apiDomain: 'http://localhost:4000',
+                    websiteDomain: 'http://localhost:3000',
+                    apiBasePath: '/api',
+                    websiteBasePath: '/auth',
+                },
             }),
             attribute_module_1.AttributeModule,
             part_module_1.PartModule,

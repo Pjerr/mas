@@ -7,6 +7,9 @@ import {
   SwaggerModule,
 } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import supertokens from 'supertokens-node';
+import { AuthExceptionFilter } from './modules/auth/auth-exception.filter';
+import { errorHandler, middleware } from 'supertokens-node/framework/express';
 
 declare const module: any;
 
@@ -15,7 +18,7 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
   const config = new DocumentBuilder()
-    .setTitle('MAS Api')
+    .setTitle('VMS Api')
     .setVersion('1.0')
     .build();
 
@@ -44,8 +47,16 @@ async function bootstrap() {
       'DELETE',
       'OPTIONS',
       'content-type',
+      ...supertokens.getAllCORSHeaders(),
     ],
+    credentials: true,
   });
+
+  app.use(middleware());
+
+  app.use(errorHandler());
+
+  app.useGlobalFilters(new AuthExceptionFilter());
 
   app.enableShutdownHooks();
 

@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-exports.PublishStatus = exports.ConditionalOperator = exports.PartStatus = exports.EditorValidation = exports.EditorType = void 0;
+exports.PublishStatus = exports.ConditionalOperator = exports.Role = exports.PartStatus = exports.EditorValidation = exports.EditorType = void 0;
 var EditorType;
 (function (EditorType) {
     EditorType["Checkbox"] = "checkbox";
@@ -29,6 +29,12 @@ var PartStatus;
     PartStatus["InStock"] = "in-stock";
     PartStatus["OutOfStock"] = "out-of-stock";
 })(PartStatus = exports.PartStatus || (exports.PartStatus = {}));
+var Role;
+(function (Role) {
+    Role["ADMIN"] = "admin";
+    Role["EDITOR"] = "editor";
+    Role["VIEWER"] = "viewer";
+})(Role = exports.Role || (exports.Role = {}));
 var ConditionalOperator;
 (function (ConditionalOperator) {
     ConditionalOperator["Equals"] = "$eq";
