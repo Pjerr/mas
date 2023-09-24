@@ -102,7 +102,6 @@ export const partColumnDef: ColumnDef<Part, any>[] = [
         enableColumnFilter: false,
         enableGlobalFilter: false,
         enableResizing: true,
-        minSize: 2,
         maxSize: 5,
     },
     {
@@ -112,8 +111,7 @@ export const partColumnDef: ColumnDef<Part, any>[] = [
         enableColumnFilter: true,
         enableGlobalFilter: true,
         enableResizing: true,
-        minSize: 50,
-        maxSize: 70,
+        maxSize: 30,
     },
     {
         accessorKey: 'basePrice',
@@ -121,8 +119,7 @@ export const partColumnDef: ColumnDef<Part, any>[] = [
         enableColumnFilter: false,
         enableGlobalFilter: false,
         enableResizing: true,
-        minSize: 20,
-        maxSize: 40,
+        maxSize: 20,
     },
     {
         id: 'status',
@@ -131,8 +128,7 @@ export const partColumnDef: ColumnDef<Part, any>[] = [
         enableColumnFilter: false,
         enableGlobalFilter: false,
         enableResizing: true,
-        minSize: 20,
-        maxSize: 40,
+        maxSize: 10,
     },
 ];
 

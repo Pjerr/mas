@@ -42,7 +42,7 @@ export default function Header() {
             {activeForm && (
                 <>
                     <h1 className={styles['edit__header']}>
-                        Part Configuration
+                        Product Configuration
                     </h1>
                     <div className={styles['edit__subheader']}>
                         {hasVariants && (
