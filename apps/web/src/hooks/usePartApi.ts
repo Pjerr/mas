@@ -12,7 +12,6 @@ import { updateDefaultFormValue } from '@/store/editors/part';
 import { appendEntity, selectTable, updateEntity } from '@/store/table';
 import { EntityType } from '@/store/table/types';
 import { instanceIds } from '@/types/entity';
-import { produce } from 'immer';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
@@ -97,7 +96,7 @@ export function usePartApi() {
             : await handleCreate(data, attributeConfigs);
 
         if ('error' in response) {
-            toast('Error while update/create part', { type: 'error' });
+            toast('Error while update/create config', { type: 'error' });
             return;
         }
 
@@ -113,7 +112,7 @@ export function usePartApi() {
                     instanceId: instanceIds[EntityType.Part],
                 })
             );
-            toast('Updated part', { type: 'success' });
+            toast('Updated configuration', { type: 'success' });
         } else {
             createVariants({ createVariant: { partId: data.id } });
             dispatch(
@@ -122,7 +121,7 @@ export function usePartApi() {
                     instanceId: instanceIds[EntityType.Part],
                 })
             );
-            toast('Created part and variants', { type: 'success' });
+            toast('Created configuration', { type: 'success' });
         }
     };
 

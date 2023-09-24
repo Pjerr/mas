@@ -83,7 +83,7 @@ export const VariantHeader = ({ instanceId }: VariantHeaderProps) => {
                         variant={'borderless'}
                         onClick={onDisable}
                         disabled={!selected?.length}
-                        tooltipText={`Disable variants`}
+                        tooltipText={`Toggle variant status`}
                     />
                 </div>
             </div>

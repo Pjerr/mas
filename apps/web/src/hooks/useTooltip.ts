@@ -29,8 +29,6 @@ export function useTooltip({
 }: TooltipOptions = {}) {
     const [uncontrolledOpen, setUncontrolledOpen] = React.useState(initalOpen);
 
-    const arrowRef = useRef(null);
-
     const open = controlledOpen ?? uncontrolledOpen;
     const setOpen = setContolledOpen ?? setUncontrolledOpen;
 
@@ -43,9 +41,6 @@ export function useTooltip({
             offset(5),
             flip({ fallbackAxisSideDirection: 'start' }),
             shift({ padding: 5 }),
-            arrow({
-                element: arrowRef,
-            }),
         ],
     });
 
@@ -68,11 +63,10 @@ export function useTooltip({
         () => ({
             open,
             setOpen,
-            arrowRef,
             ...interactions,
             ...data,
         }),
-        [open, setOpen, interactions, data, arrowRef]
+        [open, setOpen, interactions, data]
     );
 }
 

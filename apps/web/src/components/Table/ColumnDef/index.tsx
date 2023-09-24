@@ -215,8 +215,7 @@ export const variantColumnDef: ColumnDef<Variant, any>[] = [
         enableColumnFilter: false,
         enableGlobalFilter: false,
         enableResizing: false,
-        minSize: 10,
-        maxSize: 30,
+        maxSize: 40,
     },
 ];
 
@@ -255,7 +254,6 @@ export const addVariantColumns = (variants: Variant[]) => {
                 accessorFn: (variant: Variant) => {
                     return (variant.properties as [])[index][header];
                 },
-                minSize: 20,
                 maxSize: 30,
             };
         })
@@ -268,19 +266,18 @@ export const addVariantColumns = (variants: Variant[]) => {
         enableColumnFilter: false,
         enableGlobalFilter: false,
         enableResizing: true,
-        minSize: 20,
-        maxSize: 30,
+        maxSize: 10,
     });
 
     variantColumnDef.push({
-        header: 'Disabled',
+        header: 'Status',
         accessorKey: 'disabled',
-        enableSorting: true,
+        cell: ({ row }) => <>{row.original.disabled ? 'Disabled' : 'Active'}</>,
+        enableSorting: false,
         enableColumnFilter: false,
         enableGlobalFilter: false,
-        enableResizing: true,
-        minSize: 20,
-        maxSize: 30,
+        enableResizing: false,
+        maxSize: 10,
     });
 };
 

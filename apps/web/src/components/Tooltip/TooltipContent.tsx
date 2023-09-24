@@ -34,14 +34,6 @@ const TooltipContent = React.forwardRef<
                         {...context.getFloatingProps(props)}
                     >
                         {props.children}
-                        <div
-                            ref={context.arrowRef}
-                            className={styles['tooltip-arrow']}
-                            style={{
-                                left: context.middlewareData.arrow?.x ?? '',
-                                top: context.middlewareData.arrow?.y ?? '',
-                            }}
-                        ></div>
                     </div>
                 </React.Fragment>
             )}
