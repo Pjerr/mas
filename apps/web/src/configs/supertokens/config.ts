@@ -9,7 +9,7 @@ export const config = () => {
         recipeList: [
             EmailPasswordReact.init({
                 style: `[data-supertokens~=container] {
-                    background-color: var(--layer-1-color);
+                    background-color: var(--background-color);
                     color: var(--text-primary);
                 }
                 [data-supertokens~=headerTitle]{
@@ -34,7 +34,7 @@ export const config = () => {
                     background-color: transparent;
                     border: 1px solid transparent;
                     border-radius: 0;
-                    border-bottom: 1px solid var(--text-primary);
+                    border-bottom: 1px solid var(--text-secondary);
                     color: var(--text-primary);
                 }
                 [data-supertokens~=input] {
@@ -45,7 +45,7 @@ export const config = () => {
                     background-color: transparent;
                     border: 1px solid transparent;
                     border-bottom: 1px solid var(--color-primary);
-                    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);;
+                    box-shadow: none;
                 }
                 [data-supertokens~=inputError]{
                     border: 1px solid var(--color-danger);

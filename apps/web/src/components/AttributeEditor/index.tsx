@@ -80,10 +80,6 @@ export default function AttributeEditor({
         );
     };
 
-    const showAttributeOptions = (editorType: EditorType) => {
-        return editorType === EditorType.Options;
-    };
-
     return (
         <div className={styles['form__container']}>
             <span className={styles['form__title']}>

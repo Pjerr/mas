@@ -20,7 +20,6 @@ export declare class PartService {
     bulkUpdatePrice(ids: string[], payloads: number[]): Promise<Part[]>;
     remove(id: string): Promise<void>;
     removeMany(ids: string[]): Promise<void>;
-    addCategory(id: string, categoryId: string): Promise<import("@mikro-orm/core").Loaded<Part, "attributes" | "attributes.options" | "attributes.group">>;
     removeAttribute(id: string, attributeId: string): Promise<import("@mikro-orm/core").Loaded<Part, "attributes">>;
     removeAttributes(id: string, attributeIds: string[]): Promise<import("@mikro-orm/core").Loaded<Part, "attributes">>;
     addAttribute(id: string, attributeId: string): Promise<import("@mikro-orm/core").Loaded<Part, "attributes">>;

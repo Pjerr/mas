@@ -6,6 +6,7 @@
     gap: var(--size-6);
     flex: 1;
     overflow: scroll;
+    background-color: var(--layer-1-color);
 }
 
 .form__inputs {

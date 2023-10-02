@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import PartVariants from '@/components/PartVariants';
 import { SidebarLayout } from '@/layouts/SidebarLayout';
 import { LS_PART_VARIANT_ID } from '@/utils/constants';
+import styles from '../styles.module.css';
 
 const Variants: NextPageWithLayout = () => {
     const router = useRouter();
@@ -23,7 +24,11 @@ const Variants: NextPageWithLayout = () => {
         loadVariantData(partId!);
     }, [partId]);
 
-    return <PartVariants partId={partId} />;
+    return (
+        <div className={styles['products__container']}>
+            <PartVariants partId={partId} />
+        </div>
+    );
 };
 
 Variants.getLayout = SidebarLayout;

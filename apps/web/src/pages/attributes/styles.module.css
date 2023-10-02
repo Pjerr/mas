@@ -3,11 +3,12 @@
     flex-direction: column;
     justify-content: space-between;
     flex: 1;
+    background-color: var(--layer-1-color);
+    padding: var(--size-2);
 }
 
 .attribute-grid {
     height: var(--size-120);
-    border-bottom: 1px solid var(--border-color);
 }
 
 .grid__toolbar {

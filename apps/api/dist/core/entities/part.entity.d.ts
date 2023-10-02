@@ -8,7 +8,6 @@ export declare class Part extends BaseEntity<Part, 'id'> {
     status: PartStatus;
     properties: Record<string, PropertyType>;
     manufacturer: string;
-    category: string;
     attributes: Collection<Attribute, object>;
     basePrice: number;
     createdAt: Date;

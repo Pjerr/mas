@@ -1,6 +1,6 @@
 import { PartService } from './part.service';
 import { UpdatePart } from './dto/requests/update-part.request';
-import { BulkUpdatePrice, CreateDraft, CreatePart, CreateVariant, PartResponse, PartsResponse, QueryPart, UpdateAttributeRelation, UpdateAttributeRelations, UpdateCategoryRelation, UpdateVariant, UpdateVariantImage, VariantResponse, VariantsResponse } from './dto';
+import { BulkUpdatePrice, CreateDraft, CreatePart, CreateVariant, PartResponse, PartsResponse, QueryPart, UpdateAttributeRelation, UpdateAttributeRelations, UpdateVariant, UpdateVariantImage, VariantResponse, VariantsResponse } from './dto';
 import { VariantService } from './variant.service';
 import { QueryVariant } from './dto/requests/filter-variants.request';
 import { ToggleVariant as ToggleVariants } from './dto/requests/toggle-variant.request';
@@ -18,7 +18,6 @@ export declare class PartController {
     bulkUpdatePrice(ids: string[], request: BulkUpdatePrice): Promise<PartsResponse>;
     deleteVariantImage(publicId: string): Promise<VariantResponse>;
     update(id: string, payload: UpdatePart): Promise<PartResponse>;
-    addCategory(id: string, payload: UpdateCategoryRelation): Promise<PartResponse>;
     addAttribute(id: string, payload: UpdateAttributeRelation): Promise<PartResponse>;
     removeAttribute(id: string, payload: UpdateAttributeRelation): Promise<PartResponse>;
     removeAttributes(id: string, payload: UpdateAttributeRelations): Promise<PartResponse>;

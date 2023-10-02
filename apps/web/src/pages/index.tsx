@@ -15,6 +15,7 @@ import { useCreateDraftPartMutation } from '@/store/api/endpoints';
 import Toolbar from '@/components/Toolbar';
 import { Row } from '@tanstack/react-table';
 import { ContextMenuType } from '@/components/ContextMenu/types';
+import styles from './styles.module.css';
 
 const Parts: NextPageWithLayout = () => {
     const router = useRouter();
@@ -64,7 +65,7 @@ const Parts: NextPageWithLayout = () => {
     };
 
     return (
-        <>
+        <div className={styles['products__container']}>
             <TableProvider>
                 <Toolbar
                     type={EntityType.Part}
@@ -82,7 +83,7 @@ const Parts: NextPageWithLayout = () => {
                     contextMenuType={ContextMenuType.Part}
                 ></Table>
             </TableProvider>
-        </>
+        </div>
     );
 };
 

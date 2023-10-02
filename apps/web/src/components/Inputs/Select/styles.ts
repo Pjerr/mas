@@ -8,7 +8,7 @@ export const selectStyles: StylesConfig<OptionProps, false, any> = {
     }),
     control: (styles, { isFocused }) => ({
         ...styles,
-        backgroundColor: 'var(--background-color)',
+        backgroundColor: 'var(--layer-1-color)',
         borderColor: isFocused ? 'var(--color-primary)' : 'var(--border-color)',
     }),
     option: (styles, { isDisabled, isSelected }) => {

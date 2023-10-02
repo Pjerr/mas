@@ -31,7 +31,6 @@ export class PartService {
     const part = this.partRepository.create({
       ...payload,
       createdAt: new Date(),
-      category: payload.categoryId,
       attributes: payload.attributeIds,
     });
 
@@ -141,20 +140,6 @@ export class PartService {
     if (!parts) throw new NotFoundException('Parts not found');
 
     await this.em.removeAndFlush(parts);
-  }
-
-  async addCategory(id: string, categoryId: string) {
-    const part = await this.findOne(id);
-
-    const category = await this.em.findOne(Category, categoryId);
-
-    if (!category) throw new NotFoundException('Category does not exist');
-
-    part.category = category.id;
-
-    await this.em.persistAndFlush(part);
-
-    return part;
   }
 
   async removeAttribute(id: string, attributeId: string) {

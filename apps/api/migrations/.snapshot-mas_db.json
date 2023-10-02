@@ -495,15 +495,6 @@
           "nullable": true,
           "mappedType": "uuid"
         },
-        "category_id": {
-          "name": "category_id",
-          "type": "uuid",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": true,
-          "mappedType": "uuid"
-        },
         "base_price": {
           "name": "base_price",
           "type": "int",
@@ -570,19 +561,6 @@
             "id"
           ],
           "referencedTableName": "public.manufacturer",
-          "deleteRule": "set null",
-          "updateRule": "cascade"
-        },
-        "part_category_id_foreign": {
-          "constraintName": "part_category_id_foreign",
-          "columnNames": [
-            "category_id"
-          ],
-          "localTableName": "public.part",
-          "referencedColumnNames": [
-            "id"
-          ],
-          "referencedTableName": "public.category",
           "deleteRule": "set null",
           "updateRule": "cascade"
         }

@@ -41,10 +41,6 @@ export class Part extends BaseEntity<Part, 'id'> {
   @Filterable()
   manufacturer: string;
 
-  @ManyToOne(() => Category, { nullable: true, mapToPk: true })
-  @Filterable()
-  category: string;
-
   @ApiResponseProperty({
     type: (type) => [Attribute],
   })

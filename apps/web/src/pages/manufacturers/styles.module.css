@@ -3,6 +3,8 @@
     flex-direction: column;
     justify-content: space-between;
     flex: 1;
+    background-color: var(--layer-1-color);
+    padding: var(--size-2);
 }
 
 .manufacturer-grid {

@@ -15,9 +15,6 @@ export class CreatePart {
   manufacturerId?: string;
 
   @ApiProperty()
-  categoryId?: string;
-
-  @ApiProperty()
   attributeIds?: string[];
 
   @ApiProperty()

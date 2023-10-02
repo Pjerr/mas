@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--layer-2-color);
+    background-color: var(--layer-1-color);
     padding: 0 var(--size-1) 0 var(--size-1);
     border-radius: var(--size-1) var(--size-1) 0 0;
     width: var(--size-full);
@@ -10,6 +10,7 @@
 
 .toolbar {
     display: flex;
+    border: 1px solid var(--border-color);
     justify-content: space-between;
     align-items: center;
     padding: 0 var(--size-4) 0 var(--size-4);

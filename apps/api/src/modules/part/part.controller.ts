@@ -24,7 +24,6 @@ import {
   QueryPart,
   UpdateAttributeRelation,
   UpdateAttributeRelations,
-  UpdateCategoryRelation,
   UpdateVariant,
   UpdateVariantImage,
   VariantResponse,
@@ -139,15 +138,6 @@ export class PartController {
   ): Promise<PartResponse> {
     const part = await this.partService.update(id, payload);
     return { data: part };
-  }
-
-  @Patch(':id/relationships/category')
-  async addCategory(
-    @Param('id') id: string,
-    @Body(ValidationPipe) payload: UpdateCategoryRelation,
-  ): Promise<PartResponse> {
-    const response = await this.partService.addCategory(id, payload.categoryId);
-    return { data: response };
   }
 
   @Patch(':id/relationships/attribute')

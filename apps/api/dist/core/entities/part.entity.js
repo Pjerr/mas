@@ -16,7 +16,6 @@ exports.Part = void 0;
 const openapi = require("@nestjs/swagger");
 const core_1 = require("@mikro-orm/core");
 const manufacturer_entity_1 = require("./manufacturer.entity");
-const category_entity_1 = require("./category.entity");
 const attribute_entity_1 = require("./attribute.entity");
 const swagger_1 = require("@nestjs/swagger");
 const shared_1 = require("shared");
@@ -35,7 +34,7 @@ let Part = class Part extends core_1.BaseEntity {
         this.publishStatus = shared_1.PublishStatus.Draft;
     }
     static _OPENAPI_METADATA_FACTORY() {
-        return { id: { required: true, type: () => String, default: (0, uuid4_1.default)() }, name: { required: true, type: () => String }, status: { required: true, default: shared_1.PartStatus.InStock, enum: require("../../../../../packages/shared/dist/types/enums").PartStatus }, properties: { required: true, type: () => Object }, manufacturer: { required: true, type: () => String }, category: { required: true, type: () => String }, attributes: { required: true, type: () => Object, default: new core_1.Collection(this) }, basePrice: { required: true, type: () => Number, default: 0 }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date }, configs: { required: true, type: () => Object, default: new core_1.Collection(this) }, publishStatus: { required: true, default: shared_1.PublishStatus.Draft, enum: require("../../../../../packages/shared/dist/types/enums").PublishStatus }, configsCount: { required: true, type: () => Number } };
+        return { id: { required: true, type: () => String, default: (0, uuid4_1.default)() }, name: { required: true, type: () => String }, status: { required: true, default: shared_1.PartStatus.InStock, enum: require("../../../../../packages/shared/dist/types/enums").PartStatus }, properties: { required: true, type: () => Object }, manufacturer: { required: true, type: () => String }, attributes: { required: true, type: () => Object, default: new core_1.Collection(this) }, basePrice: { required: true, type: () => Number, default: 0 }, createdAt: { required: true, type: () => Date, default: new Date() }, updatedAt: { required: true, type: () => Date }, configs: { required: true, type: () => Object, default: new core_1.Collection(this) }, publishStatus: { required: true, default: shared_1.PublishStatus.Draft, enum: require("../../../../../packages/shared/dist/types/enums").PublishStatus }, configsCount: { required: true, type: () => Number } };
     }
 };
 __decorate([
@@ -60,11 +59,6 @@ __decorate([
     (0, filter_decorator_1.Filterable)(),
     __metadata("design:type", String)
 ], Part.prototype, "manufacturer", void 0);
-__decorate([
-    (0, core_1.ManyToOne)(() => category_entity_1.Category, { nullable: true, mapToPk: true }),
-    (0, filter_decorator_1.Filterable)(),
-    __metadata("design:type", String)
-], Part.prototype, "category", void 0);
 __decorate([
     (0, swagger_1.ApiResponseProperty)({
         type: (type) => [attribute_entity_1.Attribute],

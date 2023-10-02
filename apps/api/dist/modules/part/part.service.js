@@ -31,7 +31,7 @@ let PartService = class PartService {
         return attributeConfigs;
     }
     async create(payload) {
-        const part = this.partRepository.create(Object.assign(Object.assign({}, payload), { createdAt: new Date(), category: payload.categoryId, attributes: payload.attributeIds }));
+        const part = this.partRepository.create(Object.assign(Object.assign({}, payload), { createdAt: new Date(), attributes: payload.attributeIds }));
         this.em.persist(part);
         const attributeConfigs = this.existOptions(payload.attributeConfigs);
         if (attributeConfigs.length > 0) {
@@ -105,15 +105,6 @@ let PartService = class PartService {
         if (!parts)
             throw new common_1.NotFoundException('Parts not found');
         await this.em.removeAndFlush(parts);
-    }
-    async addCategory(id, categoryId) {
-        const part = await this.findOne(id);
-        const category = await this.em.findOne(entities_1.Category, categoryId);
-        if (!category)
-            throw new common_1.NotFoundException('Category does not exist');
-        part.category = category.id;
-        await this.em.persistAndFlush(part);
-        return part;
     }
     async removeAttribute(id, attributeId) {
         const part = await this.partRepository.findOne(id, {

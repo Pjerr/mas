@@ -37,13 +37,12 @@
 }
 
 [data-theme='light'] {
-    --background-color: #f4f4f4;
-    --layer-1-color: #d9d9d9;
-    --layer-2-color: #bebebe;
-    --layer-3-color: #a3a3a3;
+    --background-color: #ddd;
+    --layer-1-color: #f5f5f5;
+    --layer-2-color: #ddd;
+    --layer-3-color: #ccc;
 
     --text-primary: var(--color-dark-gray-800);
-    --text-secondary: #2e2d2d;
 
     --title-weight: var(--font-weight-bold);
     --title-size: var(--font-2xl);
@@ -51,23 +50,28 @@
     --subtitle-weight: var(--font-weight-semibold);
     --subtitle-size: var(--font-xl);
 
-    --color-danger: #ff4136;
-    --color-danger--hover: #e60000;
+    --color-danger: #e74c3c;
+    --color-danger--hover: #c0392b;
 
-    --color-primary: #1ed760;
+    --color-primary: #1db954;
     --color-primary--hover: rgba(28, 185, 84, 80%);
 
-    --color-secondary: #999999;
+    --color-secondary: #666666;
     --color-secondary--hover: rgba(102, 102, 102, 80%);
+
+    --color-tertiary: #dddddd;
+    --color-tertiary--hover: rgba(221, 221, 221, 75%);
 
     --layer-modal-color: rgba(25, 25, 25, 0.5);
 
-    --color-warning: #ffa700;
-    --color-warning--hover: #e66500;
+    --color-warning: #f39c12;
+    --color-warning--hover: #d68910;
 
     --header-color: var(--layer-1-color);
 
-    --border-color: #6c757d;
+    --border-color: #d9d9d9;
+
+    --color-disabled: #a0a0a0;
 
     --select-color: #999999;
 }

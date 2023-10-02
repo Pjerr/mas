@@ -20,7 +20,7 @@ class CreatePart {
         this.basePrice = 0;
     }
     static _OPENAPI_METADATA_FACTORY() {
-        return { status: { required: false, default: shared_1.PartStatus.OutOfStock, enum: require("../../../../../../../packages/shared/dist/types/enums").PartStatus }, name: { required: true, type: () => String }, manufacturerId: { required: false, type: () => String }, categoryId: { required: false, type: () => String }, attributeIds: { required: false, type: () => [String] }, properties: { required: false, type: () => Object }, basePrice: { required: true, type: () => Number, default: 0 }, attributeConfigs: { required: true, type: () => [[require("../../../attribute/dto/option/requests/create-config.request").CreateConfig]] } };
+        return { status: { required: false, default: shared_1.PartStatus.OutOfStock, enum: require("../../../../../../../packages/shared/dist/types/enums").PartStatus }, name: { required: true, type: () => String }, manufacturerId: { required: false, type: () => String }, attributeIds: { required: false, type: () => [String] }, properties: { required: false, type: () => Object }, basePrice: { required: true, type: () => Number, default: 0 }, attributeConfigs: { required: true, type: () => [[require("../../../attribute/dto/option/requests/create-config.request").CreateConfig]] } };
     }
 }
 __decorate([
@@ -36,10 +36,6 @@ __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", String)
 ], CreatePart.prototype, "manufacturerId", void 0);
-__decorate([
-    (0, swagger_1.ApiProperty)(),
-    __metadata("design:type", String)
-], CreatePart.prototype, "categoryId", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     __metadata("design:type", Array)

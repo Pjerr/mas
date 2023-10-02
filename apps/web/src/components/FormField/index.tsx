@@ -14,7 +14,6 @@ export default function FormField({
     control,
     metadata,
     hidden,
-    disabled,
 }: FormFieldProps) {
     return (
         <Controller

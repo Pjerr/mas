@@ -87,10 +87,6 @@ let PartController = class PartController {
         const part = await this.partService.update(id, payload);
         return { data: part };
     }
-    async addCategory(id, payload) {
-        const response = await this.partService.addCategory(id, payload.categoryId);
-        return { data: response };
-    }
     async addAttribute(id, payload) {
         const response = await this.partService.addAttribute(id, payload.attributeId);
         return { data: response };
@@ -194,15 +190,6 @@ __decorate([
     __metadata("design:paramtypes", [String, update_part_request_1.UpdatePart]),
     __metadata("design:returntype", Promise)
 ], PartController.prototype, "update", null);
-__decorate([
-    (0, common_1.Patch)(':id/relationships/category'),
-    openapi.ApiResponse({ status: 200, type: require("./dto/part.response").PartResponse }),
-    __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)(common_1.ValidationPipe)),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, dto_1.UpdateCategoryRelation]),
-    __metadata("design:returntype", Promise)
-], PartController.prototype, "addCategory", null);
 __decorate([
     (0, common_1.Patch)(':id/relationships/attribute'),
     openapi.ApiResponse({ status: 200, type: require("./dto/part.response").PartResponse }),
